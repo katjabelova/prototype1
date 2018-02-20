@@ -1,0 +1,3 @@
+class ModelsVisibleController < ApplicationController
+
+end
