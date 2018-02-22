@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
-  get 'user/new'
+  get 'sessions/new'
+  get 'users/new'
+  get '/signup', to: 'users#new'
+  get '/signup', to: 'users#create'
 
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
+  delete '/logout', to: 'sessions#destroy'
+
   root 'models_visible#index', as: 'home'
-
-  resources :user
+  resources :users
 end
