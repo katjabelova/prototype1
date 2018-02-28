@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  root 'models_visible#index', as: 'home'
+
   get 'sessions/new'
   get 'users/new'
   get '/signup', to: 'users#new'
@@ -8,6 +11,13 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
-  root 'models_visible#index', as: 'home'
+  get '/about', to: 'models_visible#about'
+  get '/modelslist', to: 'modelslist#show'
+  get '/model', to: 'model#show'
+
+  post '/output', to: 'model#output'
+  post '/post_request', to: 'model#post_request'
+  get '/button', to: 'model#post_request', as: 'button'
+
   resources :users
 end
