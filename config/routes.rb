@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   get '/modelslist', to: 'modelslist#show'
   get '/model', to: 'model#show'
 
-  post '/output', to: 'model#output'
+  get '/output', to: 'model#output'
   post '/post_request', to: 'model#post_request'
   get '/button', to: 'model#post_request', as: 'button'
 

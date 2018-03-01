@@ -3,6 +3,7 @@ require 'net/http'
 class ModelController < ApplicationController
   protect_from_forgery with: :null_session
   @title = "Post requested"
+  @output1 = nil
 
   def new
 
@@ -29,6 +30,7 @@ class ModelController < ApplicationController
        puts "content value: " + @content
         puts " post request received"
         puts "output_to_s: " + params[:user1].to_s
+       $output1 = params[:user1].to_s
      else
        puts " post request to be sent"
        data = { user: {
@@ -47,19 +49,25 @@ class ModelController < ApplicationController
    res = http.start() do |http|
      http.request(request)
    end
-   @output = nil
 
    case res
      when Net::HTTPSuccess, Net::HTTPRedirection
        # OK
-       puts "SUCCESS"
+       puts "SUCCESS LA"
+
+     if !$output1.nil?
+       puts "found not empty output"
+       puts "endoutput: " + $output1
+       @content = $output1
+     #  redirect_to output_path
+     end
        # popup waiting screen
      else
        # popup error screen
        puts res.body.to_s
    end
 
-     return res
+   #  return res
    end
    end
 
