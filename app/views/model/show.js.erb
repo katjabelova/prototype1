@@ -1,6 +1,39 @@
 $('.delete_pony').bind('ajax:success', function() {
+    $('.sk-cube-grid').hide();
     $('div#submitdiv').toggle();
     var content = '<%= @content %>';
-    var contentElement = document.getElementById("content")
+    var contentElement = document.getElementById("content");
     contentElement.innerHTML = content;
+});
+
+$(function() {
+    document.write("It works ....");
+    $('.sk-cube-grid').hide();
+});
+
+/*$('.delete_pony').bind('ajax:before', function() {
+    $('.sk-cube-grid').hide();
+});*/
+
+/*
+$('.delete_pony').bind('ajax:send', function(){
+    $('.sk-cube-grid').hide();
+}); */
+
+$(document).on('page:fetch', function() {
+//$(document).ready( function() {
+    document.write("It works ....");
+    // hide spinner
+    $(".sk-cube-grid").hide();
+
+    // show spinner on AJAX start
+    $(document).ajaxStart(function(){
+       // $(".sk-cube-grid").show();
+    });
+
+    // hide spinner on AJAX stop
+    $(document).ajaxStop(function(){
+        $(".sk-cube-grid").hide();
+    });
+
 });

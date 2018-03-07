@@ -34,13 +34,12 @@ gem 'jbuilder', '~> 2.5'
  gem 'bcrypt', '~> 3.1.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-#
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 5.0.5'
+gem 'jquery-turbolinks'
 
 gem 'faraday', '~> 0.14.0'
-
 
 group :test do
   gem 'shoulda'
