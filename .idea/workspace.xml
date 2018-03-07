@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="656b1d4a-a38d-4a00-92b9-8f3f96f9a695" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/views/model/new.js.erb" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/views/model/show.js.erb" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/model_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/model_controller.rb" />
-      <change beforePath="$PROJECT_DIR$/app/views/model/post_request.html.erb" afterPath="$PROJECT_DIR$/app/views/model/post_request.html.erb" />
       <change beforePath="$PROJECT_DIR$/app/views/model/show.html.erb" afterPath="$PROJECT_DIR$/app/views/model/show.html.erb" />
-      <change beforePath="$PROJECT_DIR$/app/views/modelslist/show.html.erb" afterPath="$PROJECT_DIR$/app/views/modelslist/show.html.erb" />
-      <change beforePath="$PROJECT_DIR$/config/routes.rb" afterPath="$PROJECT_DIR$/config/routes.rb" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
@@ -72,8 +65,8 @@
       <file leaf-file-name="show.html.erb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/model/show.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="14" column="6" lean-forward="true" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
+            <state relative-caret-position="231">
+              <caret line="11" column="10" lean-forward="true" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -415,12 +408,12 @@
       <workItem from="1519312696055" duration="40237000" />
       <workItem from="1519722735583" duration="39277000" />
       <workItem from="1519980696814" duration="15879000" />
-      <workItem from="1520240042915" duration="31060000" />
+      <workItem from="1520240042915" duration="31919000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="205168000" />
+    <option name="totallyTimeSpent" value="206027000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -833,8 +826,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/model/show.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="14" column="6" lean-forward="true" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
+        <state relative-caret-position="231">
+          <caret line="11" column="10" lean-forward="true" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
           <folding />
         </state>
       </provider>
