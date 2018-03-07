@@ -1,12 +1,11 @@
 <h1>Model</h1>
-
-<div><%= @content %></div>
-<div>
+<div id="content"><%= @content %></div>
+<div id="submitdiv">
   <% if !@result_showing %>
   <tbody>
   <tr>
     <td>
-      <%= link_to 'Submit', '#', method: :put, data: { confirm: 'Sure?'}, :remote => false, :class => 'delete_pony' %>
+      <%= link_to 'Submit', '#', method: :put, data: { confirm: 'Sure?'}, :remote => true, :class => 'delete_pony' %>
     </td>
      </tr>
   </tbody>

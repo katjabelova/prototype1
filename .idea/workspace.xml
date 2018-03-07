@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="656b1d4a-a38d-4a00-92b9-8f3f96f9a695" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/app/views/model/show.html.erb" afterPath="$PROJECT_DIR$/app/views/model/show.html.erb" />
+      <change beforePath="$PROJECT_DIR$/app/views/model/show.js.erb" afterPath="$PROJECT_DIR$/app/views/model/show.js.erb" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
@@ -26,7 +27,7 @@
         <entry file="file://$PROJECT_DIR$/app/controllers/model_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="441">
-              <caret line="43" column="37" lean-forward="true" selection-start-line="43" selection-start-column="37" selection-end-line="43" selection-end-column="37" />
+              <caret line="43" column="37" lean-forward="false" selection-start-line="43" selection-start-column="37" selection-end-line="43" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -62,21 +63,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="show.html.erb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="show.html.erb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/model/show.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="11" column="10" lean-forward="true" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
+            <state relative-caret-position="273">
+              <caret line="13" column="6" lean-forward="true" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="show.js.erb" pinned="false" current-in-tab="false">
+      <file leaf-file-name="show.js.erb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/model/show.js.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="11" column="2" lean-forward="false" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
+            <state relative-caret-position="105">
+              <caret line="5" column="3" lean-forward="true" selection-start-line="5" selection-start-column="3" selection-end-line="5" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -140,11 +141,11 @@
         <option value="$PROJECT_DIR$/app/views/model/prepost_request.html.erb" />
         <option value="$PROJECT_DIR$/app/views/model/post_request.html.erb" />
         <option value="$PROJECT_DIR$/app/views/model/new.js.erb" />
-        <option value="$PROJECT_DIR$/app/views/model/show.js.erb" />
         <option value="$PROJECT_DIR$/app/views/modelslist/show.html.erb" />
         <option value="$PROJECT_DIR$/config/routes.rb" />
         <option value="$PROJECT_DIR$/app/controllers/model_controller.rb" />
         <option value="$PROJECT_DIR$/app/views/model/show.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/model/show.js.erb" />
       </list>
     </option>
   </component>
@@ -408,12 +409,12 @@
       <workItem from="1519312696055" duration="40237000" />
       <workItem from="1519722735583" duration="39277000" />
       <workItem from="1519980696814" duration="15879000" />
-      <workItem from="1520240042915" duration="31919000" />
+      <workItem from="1520240042915" duration="33665000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="206027000" />
+    <option name="totallyTimeSpent" value="207773000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -808,26 +809,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/model/show.js.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="11" column="2" lean-forward="false" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/model_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="441">
-          <caret line="43" column="37" lean-forward="true" selection-start-line="43" selection-start-column="37" selection-end-line="43" selection-end-column="37" />
+          <caret line="43" column="37" lean-forward="false" selection-start-line="43" selection-start-column="37" selection-end-line="43" selection-end-column="37" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/model/show.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="11" column="10" lean-forward="true" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
+        <state relative-caret-position="273">
+          <caret line="13" column="6" lean-forward="true" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/model/show.js.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="5" column="3" lean-forward="true" selection-start-line="5" selection-start-column="3" selection-end-line="5" selection-end-column="3" />
           <folding />
         </state>
       </provider>
