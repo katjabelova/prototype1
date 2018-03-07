@@ -1,12 +1,15 @@
 <h1>Model</h1>
 
+<div><%= @content %></div>
 <div>
-  {user: {
-  model: 'model1',
-  input: 'input1'
-  }
-  }
-</div>
-<div>
- <%= button_to 'Submit', button_path, method: :get %>
+  <% if !@result_showing %>
+  <tbody>
+  <tr>
+    <td>
+      <%= link_to 'Submit', '#', method: :put, data: { confirm: 'Sure?'}, :remote => false, :class => 'delete_pony' %>
+    </td>
+     </tr>
+  </tbody>
+    <% end %>
+   <!-- <# %= button_to 'Submit', button_path, method: :get %> -->
 </div>

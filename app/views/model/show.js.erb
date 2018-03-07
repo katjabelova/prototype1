@@ -1,0 +1,15 @@
+/*$(document).ready(function() {
+    $('.submit1').on('click', function () {
+        $(this).fadeOut();        // $(this).closest('tr').fadeOut();
+        $.ajax({
+            type: 'post_request',
+            success: function(r){
+                $(this).fadeOut();
+            }
+        });
+    });
+});
+*/
+$('.delete_pony').bind('ajax:success', function() {
+    $(this).closest('tr').fadeOut();
+});
