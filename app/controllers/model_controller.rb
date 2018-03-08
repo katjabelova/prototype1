@@ -12,10 +12,15 @@ class ModelController < ApplicationController
   end
 
   def show
-
     if request.post?
       puts "computed output: " + params[:user1].to_s
       $output = params[:user1].to_s
+
+      respond_to do |format|
+        format.html { redirect_to model_path }
+        format.json { head :no_content }
+        format.js   { render :layout => false }
+      end
 
      # @content = $output
     else if request.put?
@@ -48,6 +53,11 @@ class ModelController < ApplicationController
              end
            else
              flash.now[:danger] = 'Model computation is not available'
+           end
+           respond_to do |format|
+             format.html { redirect_to model_path }
+             format.json { head :no_content }
+             format.js   { render :layout => false }
            end
     else if request.get?
            @result_showing = false

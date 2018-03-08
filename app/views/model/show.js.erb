@@ -1,39 +1,72 @@
+/*$( document ).on('ajax:before', function() {
+    document.write("It works ....");
+});*/
+/*
+$( document ).on('ajaxStart', function() {
+    $('.sk-cube-grid').show();
+    $('div#content').hide();
+    $('div#submitdiv').hide();
+}); */
+
+$('.delete_pony').bind('ajax:before', function() {
+    $('.sk-cube-grid').show();
+    $('div#content').hide();
+    $('div#submitdiv').hide();
+});
+
+/*
+$('#delete_pony1').on('click', function() {
+    document.write("It works ....");
+}); */
+
+/*
+$('#delete_pony1').bind("beforeSend", function(){
+    document.write("It works ....");
+}).bind("ajaxComplete", function(){
+
+});
+
+*/
+/*$(document).bind("ajax:ajaxSend", function(){
+    document.write("It works ....");
+}).bind("ajaxComplete", function(){
+
+});*/
+
+// $('#delete_pony1').bind('ajaxComplete', function() {
+//     document.write("It works ....");
+//     $('.sk-cube-grid').show();
+// });
+
 $('.delete_pony').bind('ajax:success', function() {
     $('.sk-cube-grid').hide();
-    $('div#submitdiv').toggle();
+  //  $('div#submitdiv').toggle();
+
+    var contentSubmit = document.getElementById("submitdiv");
+    var visibleSubmit = $(contentSubmit).is(":visible")
+    if (!visibleSubmit) {
+        $('div#submitdiv').toggle();
+    }
+
+    console.log('in success case');
     var content = '<%= @content %>';
     var contentElement = document.getElementById("content");
+    var visibleContent = $(contentElement).is(":visible")
+    if (!visibleContent) {
+        $('div#content').toggle();
+    }
     contentElement.innerHTML = content;
 });
 
-$(function() {
+/*$(document).bind('ajax:before', function() {
     document.write("It works ....");
-    $('.sk-cube-grid').hide();
-});
-
-/*$('.delete_pony').bind('ajax:before', function() {
-    $('.sk-cube-grid').hide();
+    $('.sk-cube-grid').show();
 });*/
 
-/*
-$('.delete_pony').bind('ajax:send', function(){
-    $('.sk-cube-grid').hide();
-}); */
-
-$(document).on('page:fetch', function() {
-//$(document).ready( function() {
-    document.write("It works ....");
-    // hide spinner
-    $(".sk-cube-grid").hide();
-
-    // show spinner on AJAX start
-    $(document).ajaxStart(function(){
-       // $(".sk-cube-grid").show();
-    });
-
-    // hide spinner on AJAX stop
-    $(document).ajaxStop(function(){
-        $(".sk-cube-grid").hide();
-    });
-
+/*$('.delete_pony').bind('click', function(){
+    $('.sk-cube-grid').show();
 });
+
+function submitClicked() {
+    $('.sk-cube-grid').show();
+}*/
