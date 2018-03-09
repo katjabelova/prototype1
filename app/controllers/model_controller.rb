@@ -13,17 +13,33 @@ class ModelController < ApplicationController
 
   def show
     if request.post?
+
+      if request.xhr?
+        puts "Ajax started in post"
+      else
+        puts "Ajax did not start in post"
+      end
+
       puts "computed output: " + params[:user1].to_s
       $output = params[:user1].to_s
 
+=begin
       respond_to do |format|
         format.html { redirect_to model_path }
         format.json { head :no_content }
         format.js   { render :layout => false }
       end
+=end
 
      # @content = $output
     else if request.put?
+
+           if request.xhr?
+             puts "Ajax started in put"
+           else
+             puts "Ajax did not start in put"
+           end
+
            puts "post request to be sent"
            data = { user: {
                model: 'model1',
@@ -54,11 +70,7 @@ class ModelController < ApplicationController
            else
              flash.now[:danger] = 'Model computation is not available'
            end
-           respond_to do |format|
-             format.html { redirect_to model_path }
-             format.json { head :no_content }
-             format.js   { render :layout => false }
-           end
+
     else if request.get?
            @result_showing = false
 
@@ -67,6 +79,12 @@ class ModelController < ApplicationController
   input: 'input1'
   }
   }"
+
+           if request.xhr?
+             puts "Ajax started in get"
+           else
+             puts "Ajax did not start in get"
+           end
            end
          end
     end

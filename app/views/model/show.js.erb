@@ -1,21 +1,24 @@
 /*$( document ).on('ajax:before', function() {
     document.write("It works ....");
 });*/
-/*
+
+
 $( document ).on('ajaxStart', function() {
     $('.sk-cube-grid').show();
     $('div#content').hide();
     $('div#submitdiv').hide();
-}); */
-
+});
+/*
 $('.delete_pony').bind('ajax:before', function() {
     $('.sk-cube-grid').show();
     $('div#content').hide();
     $('div#submitdiv').hide();
 });
+*/
 
 /*
-$('#delete_pony1').on('click', function() {
+$('.delete_pony').click(function(e){
+    e.preventDefault();
     document.write("It works ....");
 }); */
 
@@ -37,6 +40,11 @@ $('#delete_pony1').bind("beforeSend", function(){
 //     document.write("It works ....");
 //     $('.sk-cube-grid').show();
 // });
+
+function show_loading_symbol() {
+    document.write("It works ....");
+    $('.sk-cube-grid').show();
+}
 
 $('.delete_pony').bind('ajax:success', function() {
     $('.sk-cube-grid').hide();
