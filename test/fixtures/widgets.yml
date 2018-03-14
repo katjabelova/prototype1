@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type: 
+  value: MyString
+  widget_name: MyString
+  path: MyString
+
+two:
+  type: 
+  value: MyString
+  widget_name: MyString
+  path: MyString

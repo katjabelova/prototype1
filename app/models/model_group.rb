@@ -1,0 +1,3 @@
+class ModelGroup < ApplicationRecord
+
+end

@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   get '/about', to: 'models_visible#about'
+  get '/usecase', to: 'models_visible#use_case'
   get '/modelslist', to: 'modelslist#show'
   get '/model', to: 'model#show'
   post '/model', to: 'model#show'
