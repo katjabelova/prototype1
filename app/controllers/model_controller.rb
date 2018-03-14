@@ -23,15 +23,12 @@ class ModelController < ApplicationController
       puts "computed output: " + params[:user1].to_s
       $output = params[:user1].to_s
 
-=begin
       respond_to do |format|
         format.html { redirect_to model_path }
         format.json { head :no_content }
         format.js   { render :layout => false }
       end
-=end
 
-     # @content = $output
     else if request.put?
 
            if request.xhr?
@@ -48,12 +45,12 @@ class ModelController < ApplicationController
            }
 
            connection = Faraday.new
+
            result = connection.post do |req|
              req.url 'http://localhost:3001/input'
              req.headers['Content-Type'] = 'application/json'
              req.body = data.to_json
            end
-
 
            if result.success?
              puts "SUCCESS"
@@ -75,10 +72,10 @@ class ModelController < ApplicationController
            @result_showing = false
 
            @content = "  {user: {
-  model: 'model1',
-  input: 'input1'
-  }
-  }"
+                      model: 'model1',
+                      input: 'input1'
+                      }
+                      }"
 
            if request.xhr?
              puts "Ajax started in get"
@@ -163,7 +160,6 @@ class ModelController < ApplicationController
          format.json { head :no_content }
          format.js   { render :layout => false }
        end
-
      end
 
 
