@@ -82,6 +82,7 @@ class ModelController < ApplicationController
            else
              puts "Ajax did not start in get"
            end
+
            end
          end
     end

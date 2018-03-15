@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<% require "pathname" %>
 <html>
   <head>
     <meta charset="utf-8">
@@ -46,27 +47,37 @@
             <li>
               <%= link_to "", '#', class: "fa fa-user-circle big" %>
             </li>
-            <li>
-              <%= link_to " Home", home_path %>
-            </li>
-            <li>
-              <%= link_to " Use case", usecase_path %>
-            </li>
-            <li>
-              <%= link_to "About", about_path %>
-            </li>
-            <li>
-              <%= link_to "Logout", logout_path, method: :delete %>
-            </li>
+          <% end %>
+          <% found_role_id = user_role
+            puts "role id: " + found_role_id.to_s
+            RoleHasWidget.where(role_id: @role_id).find_each do |widget_id_foreign| %>
+          <%
+            widget_id = widget_id_foreign.widget_id
+            widget = Widget.find_by(id: widget_id)
+            widget_value = widget.value
+            widget_path = widget.path
+            puts "widget value: " + widget_value
+            puts "widget path: " + widget_path
+          %>
+          <% if logged_in? %>
+              <% if widget_value != 'Login' %>
+                <% if widget_value == 'Logout' %>
+                  <li>
+                  <%= link_to widget_value.to_s, '/' + widget_path, method: :delete %>
+                  </li>
+                <% else %>
+                <li>
+                  <%= link_to widget_value.to_s, '/' + widget_path %>
+                </li>
+                <% end %>
+              <% end%>
           <% else %>
-            <li> <%= link_to "Home", home_path %> </li>
-            <li>
-              <%= link_to " Use case", usecase_path %>
-            </li>
-            <li>
-              <%= link_to "About", about_path %>
-            </li>
-            <li> <%= link_to "Login", login_path %> </li>
+              <% if widget_value != 'Logout' %>
+                <li>
+                <%= link_to widget_value.to_s, widget_path %>
+                </li>
+              <% end%>
+          <% end %>
           <% end %>
         </ul>
       </div>
@@ -91,7 +102,7 @@
     </div>
     <footer class="container">
       <p class="float-right"><a href="#">Back to top</a></p>
-      <p>© 2017-2018 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+      <p>© University of Kiel. Information systems · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
     </footer>
   </main>
 
