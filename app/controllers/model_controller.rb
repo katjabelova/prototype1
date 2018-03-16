@@ -2,6 +2,7 @@ require 'rubygems'
 require 'faraday'
 require 'open-uri'
 
+
 class ModelController < ApplicationController
   protect_from_forgery with: :null_session
   @title = "Post requested"
@@ -14,28 +15,34 @@ class ModelController < ApplicationController
   def show
     if request.post?
 
+=begin
       if request.xhr?
         puts "Ajax started in post"
       else
         puts "Ajax did not start in post"
       end
+=end
 
       puts "computed output: " + params[:user1].to_s
       $output = params[:user1].to_s
 
+=begin
       respond_to do |format|
         format.html { redirect_to model_path }
         format.json { head :no_content }
         format.js   { render :layout => false }
       end
+=end
 
     else if request.put?
 
+=begin
            if request.xhr?
              puts "Ajax started in put"
            else
              puts "Ajax did not start in put"
            end
+=end
 
            puts "post request to be sent"
            data = { user: {
@@ -43,6 +50,19 @@ class ModelController < ApplicationController
                input: 'input1'
            }
            }
+
+=begin           http = Net::HTTP.new('localhost', '3001')
+
+           request1 = Net::HTTP::Post.new("/input", {'Content-Type' => 'application/json'})
+           request1.body = data.to_json
+
+           res = http.start() do |http|
+             http.request(request1)
+           end
+
+           case res
+             when Net::HTTPSuccess, Net::HTTPRedirection
+=end
 
            connection = Faraday.new
 
@@ -53,6 +73,7 @@ class ModelController < ApplicationController
            end
 
            if result.success?
+
              puts "SUCCESS"
 
              if !$output.nil? && !$output.blank?
@@ -77,11 +98,13 @@ class ModelController < ApplicationController
                       }
                       }"
 
+=begin
            if request.xhr?
              puts "Ajax started in get"
            else
              puts "Ajax did not start in get"
            end
+=end
 
            end
          end

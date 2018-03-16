@@ -56,8 +56,6 @@
             widget = Widget.find_by(id: widget_id)
             widget_value = widget.value
             widget_path = widget.path
-            puts "widget value: " + widget_value
-            puts "widget path: " + widget_path
           %>
           <% if logged_in? %>
               <% if widget_value != 'Login' %>

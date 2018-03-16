@@ -16,9 +16,6 @@
 
        group_name = ModelGroup.find_by(id: model_group_id).group_name
        image_path = ModelGroup.find_by(id: model_group_id).image_path
-
-       puts "group name: " + group_name
-       puts "image path: " + image_path
     %>
       <% if count == 1 %>
       <div class="carousel-item active">
