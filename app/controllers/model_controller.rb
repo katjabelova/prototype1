@@ -51,7 +51,7 @@ class ModelController < ApplicationController
            }
            }
 
-=begin           http = Net::HTTP.new('localhost', '3001')
+           http = Net::HTTP.new('localhost', '3001')
 
            request1 = Net::HTTP::Post.new("/input", {'Content-Type' => 'application/json'})
            request1.body = data.to_json
@@ -61,9 +61,8 @@ class ModelController < ApplicationController
            end
 
            case res
-             when Net::HTTPSuccess, Net::HTTPRedirection
-=end
-
+            when Net::HTTPSuccess, Net::HTTPRedirection
+=begin
            connection = Faraday.new
 
            result = connection.post do |req|
@@ -75,7 +74,7 @@ class ModelController < ApplicationController
            if result.success?
 
              puts "SUCCESS"
-
+=end
              if !$output.nil? && !$output.blank?
                #end popup
                puts "content value is set to: " + $output
