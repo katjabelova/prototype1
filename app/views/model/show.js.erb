@@ -2,12 +2,6 @@
     document.write("It works ....");
 });*/
 
-
-$( document ).on('ajaxStart', function() {
-    $('.sk-cube-grid').show();
-    $('div#content').hide();
-    $('div#submitdiv').hide();
-});
 /*
 $('.delete_pony').bind('ajax:before', function() {
     $('.sk-cube-grid').show();
@@ -41,14 +35,20 @@ $('#delete_pony1').bind("beforeSend", function(){
 //     $('.sk-cube-grid').show();
 // });
 
+/////difference
+/*$( document ).on('ajaxStart', function() {
+    $('.sk-cube-grid').show();
+    $('div#content').hide();
+    $('div#submitdiv').hide();
+});
+
 function show_loading_symbol() {
     document.write("It works ....");
     $('.sk-cube-grid').show();
-}
-
+} */
+//////
 $('.delete_pony').bind('ajax:success', function() {
     $('.sk-cube-grid').hide();
-  //  $('div#submitdiv').toggle();
 
     var contentSubmit = document.getElementById("submitdiv");
     var visibleSubmit = $(contentSubmit).is(":visible")

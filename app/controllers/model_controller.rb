@@ -14,7 +14,7 @@ class ModelController < ApplicationController
 
   def show
     if request.post?
-
+      puts "in post case"
 =begin
       if request.xhr?
         puts "Ajax started in post"
@@ -35,7 +35,7 @@ class ModelController < ApplicationController
 =end
 
     else if request.put?
-
+           puts "in put case"
 =begin
            if request.xhr?
              puts "Ajax started in put"
@@ -50,21 +50,20 @@ class ModelController < ApplicationController
                input: 'input1'
            }
            }
-
+=begin
            http = Net::HTTP.new('localhost', '3001')
 
-           request1 = Net::HTTP::Post.new("/input", {'Content-Type' => 'application/json'})
-           request1.body = data.to_json
+           request = Net::HTTP::Post.new("/input", {'Content-Type' => 'application/json'})
+           request.body = data.to_json
 
            res = http.start() do |http|
-             http.request(request1)
+             http.request(request)
            end
-
            case res
             when Net::HTTPSuccess, Net::HTTPRedirection
-=begin
-           connection = Faraday.new
+=end
 
+           connection = Faraday.new
            result = connection.post do |req|
              req.url 'http://localhost:3001/input'
              req.headers['Content-Type'] = 'application/json'
@@ -74,7 +73,7 @@ class ModelController < ApplicationController
            if result.success?
 
              puts "SUCCESS"
-=end
+
              if !$output.nil? && !$output.blank?
                #end popup
                puts "content value is set to: " + $output
@@ -88,7 +87,8 @@ class ModelController < ApplicationController
              flash.now[:danger] = 'Model computation is not available'
            end
 
-    else if request.get?
+         else if request.get?
+           puts "in get case"
            @result_showing = false
 
            @content = "  {user: {
