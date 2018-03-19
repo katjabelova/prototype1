@@ -120,6 +120,7 @@ class ModelController < ApplicationController
 
   end
 
+=begin
    def post_request
      if request.post?
        puts "computed output: " + params[:user1].to_s
@@ -156,12 +157,12 @@ class ModelController < ApplicationController
        result = conn.post('/input', payload)
 =end
 
+=begin
        result = connection.post do |req|
          req.url 'http://localhost:3001/input'
          req.headers['Content-Type'] = 'application/json'
          req.body = data.to_json
        end
-
 
        if result.success?
          puts "SUCCESS"
@@ -185,8 +186,9 @@ class ModelController < ApplicationController
        end
      end
 
-
    end
+
+=end
 
   helper_method :post_request
 end
