@@ -37,7 +37,6 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 5.0.5'
-gem 'jquery-turbolinks'
 
 gem 'faraday', '~> 0.14.0'
 

@@ -183,5 +183,5 @@ class ModelController < ApplicationController
 
 =end
 
-  helper_method :post_request
+#  helper_method :post_request
 end
