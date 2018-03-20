@@ -2,7 +2,7 @@ require 'rubygems'
 require 'faraday'
 require 'open-uri'
 
-class ModelController < ApplicationController
+class ModelViewController < ApplicationController
   protect_from_forgery with: :null_session
   @title = "Post requested"
   @output = nil
@@ -21,7 +21,7 @@ class ModelController < ApplicationController
     else if request.put?
            puts "post request to be sent"
            data = { user: {
-               model: 'model1',
+               model_view: 'model1',
                input: 'input1'
            }
            }
@@ -53,7 +53,7 @@ class ModelController < ApplicationController
            @result_showing = false
 
            @content = "  {user: {
-  model: 'model1',
+  model_view: 'model1',
   input: 'input1'
   }
   }"
@@ -89,8 +89,8 @@ class ModelController < ApplicationController
 
        puts "post request to be sent"
        data = { user: {
-            model: 'model1',
-            input: 'input1'
+           model_view: 'model1',
+           input: 'input1'
             }
        }
 

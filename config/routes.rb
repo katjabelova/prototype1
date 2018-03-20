@@ -13,13 +13,13 @@ Rails.application.routes.draw do
 
   get '/about', to: 'models_visible#about'
   get '/modelslist', to: 'modelslist#show'
-  get '/model', to: 'model#show'
-  post '/model', to: 'model#show'
-  put '/model', to: 'model#show'
+  get '/view', to: 'model_view#show'
+  post '/view', to: 'model_view#show'
+  put '/view', to: 'model_view#show'
 
-  post '/post_request', to: 'model#post_request'
-  get '/button', to: 'model#post_request', as: 'button'
-  get '/button1', to: 'model#prepost_request', as: 'button1'
+  post '/post_request', to: 'model_view#post_request'
+  get '/button', to: 'model_view#post_request', as: 'button'
+  get '/button1', to: 'model_view#prepost_request', as: 'button1'
 
   resources :users
 end
