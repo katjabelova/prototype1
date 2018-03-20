@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   root 'models_visible#index', as: 'home'
 
   get 'sessions/new'
@@ -18,7 +17,7 @@ Rails.application.routes.draw do
   post '/model', to: 'model#show'
   put '/model', to: 'model#show'
 
-  post '/post_request', to: 'model#post_request'
+ # post '/post_request', to: 'model#post_request'
   get '/button', to: 'model#post_request', as: 'button'
   get '/button1', to: 'model#prepost_request', as: 'button1'
 

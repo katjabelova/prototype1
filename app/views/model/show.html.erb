@@ -22,17 +22,16 @@
 </div>
 <div id="content"><%= @content %></div>
 <div id="submitdiv">
-  <%# if !@result_showing %>
+  <% if !@result_showing %>
   <tbody>
-  <tr>
-    <td>
+    <tr>
+      <td>
      <!-- <#%= link_to 'Submit', '#', method: :put, data: { :disable_with => 'loading...' }, :remote => true, :class => 'delete_pony', :id => 'delete_pony1' %> -->
       <%= link_to 'Submit', '#', method: :put, data: { :disable_with => 'loading...' }, :remote => true, :class => 'delete_pony' %>
-
       <%#= link_to 'Submit', '#', method: :put, data: { :disable_with => 'loading...' } %>
-    </td>
-     </tr>
+      </td>
+    </tr>
   </tbody>
-  <%# end %>
+  <% end %>
    <!-- <# %= button_to 'Submit', button_path, method: :get %> -->
 </div>

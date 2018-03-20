@@ -26,13 +26,6 @@ class ModelController < ApplicationController
       puts "computed output: " + params[:user1].to_s
       $output = params[:user1].to_s
 
-=begin
-      respond_to do |format|
-        format.html { redirect_to model_path }
-        format.json { head :no_content }
-        format.js   { render :layout => false }
-      end
-=end
 
     else if request.put?
            puts "in put case"
