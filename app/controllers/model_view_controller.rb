@@ -3,7 +3,7 @@ require 'faraday'
 require 'open-uri'
 
 
-class ModelController < ApplicationController
+class ModelViewController < ApplicationController
   protect_from_forgery with: :null_session
   @title = "Post requested"
   @output = nil
@@ -14,47 +14,19 @@ class ModelController < ApplicationController
 
   def show
     if request.post?
-      puts "in post case"
-=begin
-      if request.xhr?
-        puts "Ajax started in post"
-      else
-        puts "Ajax did not start in post"
-      end
-=end
 
       puts "computed output: " + params[:user1].to_s
       $output = params[:user1].to_s
 
 
     else if request.put?
-           puts "in put case"
-=begin
-           if request.xhr?
-             puts "Ajax started in put"
-           else
-             puts "Ajax did not start in put"
-           end
-=end
 
            puts "post request to be sent"
            data = { user: {
-               model: 'model1',
+               model_view: 'model1',
                input: 'input1'
            }
            }
-=begin
-           http = Net::HTTP.new('localhost', '3001')
-
-           request = Net::HTTP::Post.new("/input", {'Content-Type' => 'application/json'})
-           request.body = data.to_json
-
-           res = http.start() do |http|
-             http.request(request)
-           end
-           case res
-            when Net::HTTPSuccess, Net::HTTPRedirection
-=end
 
            connection = Faraday.new
            result = connection.post do |req|
@@ -81,22 +53,13 @@ class ModelController < ApplicationController
            end
 
          else if request.get?
-           puts "in get case"
            @result_showing = false
 
            @content = "  {user: {
-                      model: 'model1',
+                      model_view: 'model1',
                       input: 'input1'
                       }
                       }"
-
-=begin
-           if request.xhr?
-             puts "Ajax started in get"
-           else
-             puts "Ajax did not start in get"
-           end
-=end
 
            end
          end
@@ -131,7 +94,7 @@ class ModelController < ApplicationController
 
        puts "post request to be sent"
        data = { user: {
-            model: 'model1',
+            model_view: 'model1',
             input: 'input1'
             }
        }
