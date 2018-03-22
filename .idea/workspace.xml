@@ -4,23 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/app/controllers/users_controller.rb" line="1" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="656b1d4a-a38d-4a00-92b9-8f3f96f9a695" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/assets/javascripts/model.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/model_view.coffee" />
-      <change beforePath="$PROJECT_DIR$/app/assets/stylesheets/model.scss" afterPath="$PROJECT_DIR$/app/assets/stylesheets/model_view.scss" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/model_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/model_view_controller.rb" />
-      <change beforePath="$PROJECT_DIR$/app/helpers/model_helper.rb" afterPath="$PROJECT_DIR$/app/helpers/model_view_helper.rb" />
-      <change beforePath="$PROJECT_DIR$/app/views/model/new.html.erb" afterPath="$PROJECT_DIR$/app/views/model_view/new.html.erb" />
-      <change beforePath="$PROJECT_DIR$/app/views/model/new.js.erb" afterPath="$PROJECT_DIR$/app/views/model_view/new.js.erb" />
-      <change beforePath="$PROJECT_DIR$/app/views/model/post_request.html.erb" afterPath="$PROJECT_DIR$/app/views/model_view/post_request.html.erb" />
-      <change beforePath="$PROJECT_DIR$/app/views/model/show.html.erb" afterPath="$PROJECT_DIR$/app/views/model_view/show.html.erb" />
-      <change beforePath="$PROJECT_DIR$/app/views/model/show.js.erb" afterPath="$PROJECT_DIR$/app/views/model_view/show.js.erb" />
-      <change beforePath="$PROJECT_DIR$/app/views/models_visible/index.html.erb" afterPath="$PROJECT_DIR$/app/views/models_visible/index.html.erb" />
-      <change beforePath="$PROJECT_DIR$/app/views/modelslist/show.html.erb" afterPath="$PROJECT_DIR$/app/views/modelslist/show.html.erb" />
-      <change beforePath="$PROJECT_DIR$/config/routes.rb" afterPath="$PROJECT_DIR$/config/routes.rb" />
-      <change beforePath="$PROJECT_DIR$/db/migrate/20180313090330_create_models_visibles.rb" afterPath="$PROJECT_DIR$/db/migrate/20180313090330_create_models_visibles.rb" />
-      <change beforePath="$PROJECT_DIR$/db/migrate/20180314095623_create_model_group_consists_of_models.rb" afterPath="$PROJECT_DIR$/db/migrate/20180314095623_create_model_group_consists_of_models.rb" />
-    </list>
+    <list default="true" id="656b1d4a-a38d-4a00-92b9-8f3f96f9a695" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
     <ignored path="$PROJECT_DIR$/public/system/" />
@@ -56,11 +40,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="model_view_controller.rb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="model_view_controller.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/model_view_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="882">
-              <caret line="66" column="5" lean-forward="true" selection-start-line="66" selection-start-column="5" selection-end-line="66" selection-end-column="5" />
+            <state relative-caret-position="84">
+              <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -70,10 +54,20 @@
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/application.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="441">
-              <caret line="21" column="32" lean-forward="true" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
+              <caret line="21" column="32" lean-forward="false" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="routes.rb" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/config/routes.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="17" column="36" lean-forward="false" selection-start-line="17" selection-start-column="36" selection-end-line="17" selection-end-column="36" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -102,7 +96,7 @@
         <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/model_view.scss">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="693">
-              <caret line="33" column="26" lean-forward="true" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
+              <caret line="33" column="26" lean-forward="false" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -206,10 +200,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="3005" />
-    <option name="y" value="98" />
-    <option name="width" value="1400" />
-    <option name="height" value="1030" />
+    <option name="x" value="2391" />
+    <option name="y" value="-9" />
+    <option name="width" value="2418" />
+    <option name="height" value="1318" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -493,7 +487,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="345223000" />
+    <option name="totallyTimeSpent" value="347718000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -506,7 +500,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="2391" y="-9" width="2418" height="1318" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24081981" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -802,14 +795,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/routes.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="17" column="36" lean-forward="false" selection-start-line="17" selection-start-column="36" selection-end-line="17" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/db/migrate/20180220101051_create_roles.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -837,7 +822,7 @@
     <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/model_view.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="693">
-          <caret line="33" column="26" lean-forward="true" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
+          <caret line="33" column="26" lean-forward="false" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
           <folding />
         </state>
       </provider>
@@ -893,7 +878,7 @@
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/application.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="441">
-          <caret line="21" column="32" lean-forward="true" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
+          <caret line="21" column="32" lean-forward="false" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
@@ -926,8 +911,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/model_view_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="882">
-          <caret line="66" column="5" lean-forward="true" selection-start-line="66" selection-start-column="5" selection-end-line="66" selection-end-column="5" />
+        <state relative-caret-position="84">
+          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/routes.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="17" column="36" lean-forward="false" selection-start-line="17" selection-start-column="36" selection-end-line="17" selection-end-column="36" />
           <folding />
         </state>
       </provider>

@@ -1,73 +1,20 @@
-/*$( document ).on('ajax:before', function() {
-    document.write("It works ....");
-});*/
-
-/*
-$('.delete_pony').bind('ajax:before', function() {
-    $('.sk-cube-grid').show();
-    $('div#content').hide();
-    $('div#submitdiv').hide();
-});
-*/
-
-/*
-$('.delete_pony').click(function(e){
-    e.preventDefault();
-    document.write("It works ....");
-}); */
-
-/*
-$('#delete_pony1').bind("beforeSend", function(){
-    document.write("It works ....");
-}).bind("ajaxComplete", function(){
-
-});
-
-*/
-/*$(document).bind("ajax:ajaxSend", function(){
-    document.write("It works ....");
-}).bind("ajaxComplete", function(){
-
-});*/
-
-// $('#delete_pony1').bind('ajaxComplete', function() {
-//     document.write("It works ....");
-//     $('.sk-cube-grid').show();
-// });
-
-/////difference
-//
-
 $( document ).on('ajaxStart', function() {
-    $('.sk-cube-grid').show();
-    $('div#content').hide();
-    $('div#submitdiv').hide();
+//    $('.sk-cube-grid').show();
+//    $('div#content').hide();
+//    $('div#submitdiv').hide();
 });
-/*
-function show_loading_symbol() {
-    document.write("It works ....");
-    $('.sk-cube-grid').show();
-} */
-//////
-
-/*
-$('.delete_pony').bind('ajax:success', function() {
-    $('div#submitdiv').toggle();
-    var content = '';
-    var contentElement = document.getElementById("content")
-    contentElement.innerHTML = content;
-}); */
 
 $('.delete_pony').bind('ajax:success', function() {
     $('.sk-cube-grid').hide();
 
+  /*
     var contentSubmit = document.getElementById("submitdiv");
     var visibleSubmit = $(contentSubmit).is(":visible")
     if (!visibleSubmit) {
         $('div#submitdiv').toggle();
     }
-
     console.log('in success case');
+ */
     var content = '<%= @content %>';
     var contentElement = document.getElementById("content");
     var visibleContent = $(contentElement).is(":visible")
@@ -76,16 +23,3 @@ $('.delete_pony').bind('ajax:success', function() {
     }
     contentElement.innerHTML = content;
 });
-
-/*$(document).bind('ajax:before', function() {
-    document.write("It works ....");
-    $('.sk-cube-grid').show();
-});*/
-
-/*$('.delete_pony').bind('click', function(){
-    $('.sk-cube-grid').show();
-});
-
-function submitClicked() {
-    $('.sk-cube-grid').show();
-}*/
