@@ -76,6 +76,10 @@ class ModelViewController < ApplicationController
 
   end
 
+  def show_graph
+
+  end
+
 =begin
    def post_request
      if request.post?

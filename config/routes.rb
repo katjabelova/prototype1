@@ -21,5 +21,7 @@ Rails.application.routes.draw do
   get '/button', to: 'model_view#post_request', as: 'button'
   get '/button1', to: 'model_view#prepost_request', as: 'button1'
 
+  get '/graph', to: 'model_view#show_graph'
+
   resources :users
 end
