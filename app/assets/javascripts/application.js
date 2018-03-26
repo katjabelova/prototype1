@@ -15,6 +15,7 @@
 //= require bootstrap
 //= require turbolinks
 //= require chartkick
+//= require highcharts
 //= require_tree .
 
 $(document).ready(function(){

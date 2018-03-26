@@ -42,6 +42,7 @@ gem 'jquery-ui-rails', '~> 5.0.5'
 gem 'faraday', '~> 0.14.0'
 
 gem 'chartkick'
+gem 'highcharts-rails'
 
 gem 'groupdate'
 

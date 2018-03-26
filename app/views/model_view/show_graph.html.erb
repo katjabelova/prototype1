@@ -1,3 +1,39 @@
 <h1>Graph</h1>
-<%= javascript_include_tag "http://code.highcharts.com/highcharts.js", "chartkick" %>
-<%= yield :charts_js %>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<!-- <%= javascript_include_tag "http://code.highcharts.com/highcharts.js", "chartkick" %> -->
+<%=
+#column_chart [["type1", 22], ["type2", 34]],
+#title: "Only user",
+#colors: ['brown'],
+#library: {
+  #tooltip: {
+  #  pointFormat: 'Times Bought: <b>{point.y}</b>'
+#  }
+#}
+%>
+<script>
+$(function(){
+    $('#container').highcharts({
+     chart: {
+       renderTo: "pie_chart"
+       //type: "column"
+       },
+       title: { text: "Gender" },
+       xAxis: { type: "percent correct"},
+       yAxis: {
+       title: { text: "Gender" }
+    },
+    series: [{
+            type: 'pie',
+            name: 'Gender Split',
+            data: [
+                ['Female', 40],
+                ['Male', 60]
+            ]
+        }]
+      });
+   });
+</script>
