@@ -1,8 +1,112 @@
-<h1>Graph</h1>
-<script src="http://code.highcharts.com/highcharts.js"></script>
-<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+  <body>
+    <div>
+      <h1>Graph</h1>
+      <script src="http://code.highcharts.com/highcharts.js"></script>
+      <script src="http://code.highcharts.com/modules/exporting.js"></script>
 
-<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<!-- Trigger the modal with a button -->
+      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Settings</button>
+
+<!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Modal Header</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-hover">
+                     <thead>
+                         <tr>
+                             <th>#</th>
+                             <th>Product name</th>
+                             <th>Price</th>
+                             <th>Remove</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         <tr>
+                             <th scope="row">1</th>
+                             <td>Product 1</td>
+                             <td>100$</td>
+                             <td><a><i class="fa fa-remove"></i></a></td>
+                         </tr>
+                         <tr>
+                             <th scope="row">2</th>
+                             <td>Product 2</td>
+                             <td>100$</td>
+                             <td><a><i class="fa fa-remove"></i></a></td>
+                         </tr>
+                         <tr>
+                             <th scope="row">3</th>
+                             <td>Product 3</td>
+                             <td>100$</td>
+                             <td><a><i class="fa fa-remove"></i></a></td>
+                         </tr>
+                         <tr>
+                             <th scope="row">4</th>
+                             <td>Product 4</td>
+                             <td>100$</td>
+                             <td><a><i class="fa fa-remove"></i></a></td>
+                         </tr>
+                         <tr class="total">
+                             <th scope="row">5</th>
+                             <td>Total</td>
+                             <td>400$</td>
+                             <td></td>
+                         </tr>
+                     </tbody>
+                 </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default">Confirm</button>
+        </div>
+
+        <nav aria-label="pagination example">
+    <ul class="pagination pagination-circle pg-blue mb-0">
+
+        <!--Arrow left-->
+  <!--      <li class="page-item disabled">
+            <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+            </a>
+        </li> -->
+
+        <li class="page-item active">
+            <a class="page-link" href="#" onclick="updatePage(1);">
+              1
+              <span class="sr-only">(current)</span>
+            </a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#" onclick="updatePage(2);">2</a></li>
+        <li class="page-item"><a class="page-link" href="#" onclick="updatePage(3);">Confirmation</a></li>
+
+<!--        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+            </a>
+        </li> -->
+    </ul>
+</nav>
+      </div>
+    </div>
+  </div>
+
+  <div id="container1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 <!-- <%= javascript_include_tag "http://code.highcharts.com/highcharts.js", "chartkick" %> -->
 <%=
 #column_chart [["type1", 22], ["type2", 34]],
@@ -15,25 +119,45 @@
 #}
 %>
 <script>
+var currentPage = 1;
+
+/*
+function updatePage(pageNumber) {
+    if currentPage == pageNumber {
+      return;
+    } else {
+      currentPage = pageNumber;
+      <& puts "current page: " + currentPage &>
+    }
+}; */
+
 $(function(){
-    $('#container').highcharts({
+    $('#container1').highcharts({
      chart: {
-       renderTo: "pie_chart"
-       //type: "column"
+      // renderTo: "pie_chart"
+       type: "<%= @graph.type %>"
        },
-       title: { text: "Gender" },
-       xAxis: { type: "percent correct"},
+       title: { text: "<%= @graph.title %>" },
+       xAxis: { type: "<%= @graph.x_opts[:type] %>"},
        yAxis: {
-       title: { text: "Gender" }
+       title: { text: "<%= @graph.y_opts[:title] %>" }
     },
-    series: [{
-            type: 'pie',
-            name: 'Gender Split',
+    series: [
+      <% @graph.series.each { |serie| %>
+        {
+        name: '<%= serie[:name] %>',
+        data: <%= raw serie[:data_array] %>
+        }
+    <%  } %>
+          /*  name: 'Gender Split',
             data: [
                 ['Female', 40],
                 ['Male', 60]
-            ]
-        }]
+            ] */
+        ]
       });
    });
-</script>
+  </script>
+    </div>
+  </body>
+</html>

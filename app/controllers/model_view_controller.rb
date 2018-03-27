@@ -77,7 +77,34 @@ class ModelViewController < ApplicationController
   end
 
   def show_graph
-
+    @graph = GraphHelper.new("pie", "Testtitle", "Testsubtitle", "pie", false, {
+      title: "x-Axis",
+      categories: "",
+      labels: "",
+      type: "percent correct",
+      min: "",
+      max: ""
+      }, {
+        title: "y-Axis",
+        categories: "",
+        labels: "",
+        type: "",
+        min: "",
+        max: ""
+        }, {
+          layout: "",
+          align: "",
+          vertical_align: "",
+          x: "",
+          y: "",
+          floating: ""
+          },  [ {
+            name: 'Gender Split',
+            data_array: [
+                ['Female', 40],
+                ['Male', 60]
+            ] }
+          ])
   end
 
 =begin
