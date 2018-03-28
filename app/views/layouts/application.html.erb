@@ -61,11 +61,11 @@
               <% if widget_value != 'Login' %>
                 <% if widget_value == 'Logout' %>
                   <li>
-                  <%= link_to widget_value.to_s, '/' + widget_path, method: :delete %>
+                  <%= link_to widget_value.to_s, widget_path, method: :delete %>
                   </li>
                 <% else %>
                 <li>
-                  <%= link_to widget_value.to_s, '/' + widget_path %>
+                  <%= link_to widget_value.to_s, widget_path %>
                 </li>
                 <% end %>
               <% end%>

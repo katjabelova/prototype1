@@ -27,7 +27,63 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
-          <table class="table table-hover">
+          <form role="form">
+            <div class="form-group">
+          <div class="dropdown">
+ <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+ <span class="caret"></span>
+</button>
+ <ul class="dropdown-menu">
+   <li><a href="#">HTML</a></li>
+   <li><a href="#">CSS</a></li>
+   <li><a href="#">JavaScript</a></li>
+ </ul>
+</div>
+<div class="dropdown">
+ <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+ <span class="caret"></span>
+</button>
+ <ul class="dropdown-menu">
+   <li><a href="#">HTML</a></li>
+   <li><a href="#">CSS</a></li>
+   <li><a href="#">JavaScript</a></li>
+ </ul>
+</div>
+<div class="dropdown">
+ <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+ <span class="caret"></span></button>
+ <ul class="dropdown-menu">
+   <li><a href="#">HTML</a></li>
+   <li><a href="#">CSS</a></li>
+   <li><a href="#">JavaScript</a></li>
+ </ul>
+</div>
+</div>
+
+
+<div class="form-group">
+
+<label class="checkbox-inline"><input type="checkbox" value="">Option 1</label>
+<label class="checkbox-inline"><input type="checkbox" value="">Option 2</label>
+<label class="checkbox-inline"><input type="checkbox" value="">Option 3</label>
+
+</div>
+<div class="form-group">
+<div class="checkbox">
+ <label><input type="checkbox" value="">Option 1</label>
+</div>
+<div class="checkbox">
+ <label><input type="checkbox" value="">Option 2</label>
+</div>
+</div>
+<form class="form-inline" action="/action_page.php">
+ <div class="form-group">
+   <label for="email">Text input:</label>
+   <input type="email" class="form-control" id="text_input">
+ </div>
+</form>
+</form>
+      <!--    <table class="table table-hover">
                      <thead>
                          <tr>
                              <th>#</th>
@@ -40,41 +96,41 @@
                          <tr>
                              <th scope="row">1</th>
                              <td>Product 1</td>
-                             <td>100$</td>
+                             <td>100</td>
                              <td><a><i class="fa fa-remove"></i></a></td>
                          </tr>
                          <tr>
                              <th scope="row">2</th>
                              <td>Product 2</td>
-                             <td>100$</td>
+                             <td>100</td>
                              <td><a><i class="fa fa-remove"></i></a></td>
                          </tr>
                          <tr>
                              <th scope="row">3</th>
                              <td>Product 3</td>
-                             <td>100$</td>
+                             <td>100</td>
                              <td><a><i class="fa fa-remove"></i></a></td>
                          </tr>
                          <tr>
                              <th scope="row">4</th>
                              <td>Product 4</td>
-                             <td>100$</td>
+                             <td>100</td>
                              <td><a><i class="fa fa-remove"></i></a></td>
                          </tr>
                          <tr class="total">
                              <th scope="row">5</th>
                              <td>Total</td>
-                             <td>400$</td>
+                             <td>400</td>
                              <td></td>
                          </tr>
                      </tbody>
-                 </table>
+                 </table> -->
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default">Confirm</button>
         </div>
 
-        <nav aria-label="pagination example">
+    <nav aria-label="pagination example" class="transparent-style">
     <ul class="pagination pagination-circle pg-blue mb-0">
 
         <!--Arrow left-->
@@ -86,13 +142,13 @@
         </li> -->
 
         <li class="page-item active">
-            <a class="page-link" href="#" onclick="updatePage(1);">
+            <a class="page-link" href="#" >
               1
               <span class="sr-only">(current)</span>
             </a>
         </li>
-        <li class="page-item"><a class="page-link" href="#" onclick="updatePage(2);">2</a></li>
-        <li class="page-item"><a class="page-link" href="#" onclick="updatePage(3);">Confirmation</a></li>
+        <li class="page-item"><a class="page-link" href="#" >2</a></li>
+        <li class="page-item"><a class="page-link" href="#" >Confirmation</a></li>
 
 <!--        <li class="page-item">
             <a class="page-link" href="#" aria-label="Next">
@@ -149,13 +205,12 @@ $(function(){
         data: <%= raw serie[:data_array] %>
         }
     <%  } %>
-          /*  name: 'Gender Split',
-            data: [
-                ['Female', 40],
-                ['Male', 60]
-            ] */
         ]
       });
+   });
+   $(".page-item").on("click", function() {
+     <% puts "click found" %>
+
    });
   </script>
     </div>

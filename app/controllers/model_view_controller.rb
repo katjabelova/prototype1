@@ -99,10 +99,10 @@ class ModelViewController < ApplicationController
           y: "",
           floating: ""
           },  [ {
-            name: 'Gender Split',
+            name: 'Agro Split',
             data_array: [
-                ['Female', 40],
-                ['Male', 60]
+                ['Crops', 40],
+                ['Legumes', 60]
             ] }
           ])
   end

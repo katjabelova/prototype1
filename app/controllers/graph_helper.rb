@@ -5,6 +5,7 @@ class GraphHelper
   YAxis = Struct.new(:title, :categories, :labels, :type, :min, :max)
   Legend = Struct.new(:layout, :align, :vertical_align, :x, :y, :floating)
   Series = Struct.new(:name, :data_array)
+  
   # TODO: may be used later
   #PlotOptions = Struct.new()
   #Responsive = Struct.new()
