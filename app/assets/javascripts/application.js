@@ -17,8 +17,3 @@
 //= require chartkick
 //= require highcharts
 //= require_tree .
-
-$(document).ready(function(){
-    $('.dropdown-toggle').dropdown();
-});
-$('.dropdown-toggle').dropdown()

@@ -27,8 +27,69 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
-          <form role="form">
-            <div class="form-group">
+          <div class="page1">
+          <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Dropdown button
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+  </div>
+</div>
+</br>
+<div class="dropdown">
+<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+Dropdown button
+</button>
+<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+<a class="dropdown-item" href="#">Action</a>
+<a class="dropdown-item" href="#">Another action</a>
+<a class="dropdown-item" href="#">Something else here</a>
+</div>
+</div>
+</br>
+<div class="dropdown">
+<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+Dropdown button
+</button>
+<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+<a class="dropdown-item" href="#">Action</a>
+<a class="dropdown-item" href="#">Another action</a>
+<a class="dropdown-item" href="#">Something else here</a>
+</div>
+</div>
+
+          <div class="form-group">
+            <div class="checkbox">
+   <label><input type="checkbox" value="" >Option 1</label>
+ </div>
+ <div class="checkbox">
+   <label><input type="checkbox" value="" >Option 2</label>
+ </div>
+ <div class="checkbox disabled">
+   <label><input type="checkbox" value="" >Option 3</label>
+ </div>
+
+
+
+ <form>
+  <div class="form-group">
+    <label for="email">Title:</label>
+    <input type="email" class="form-control" id="text_input_1">
+  </div>
+  <div class="form-group">
+    <label for="email">Subtitle:</label>
+    <input type="email" class="form-control" id="text_input_2">
+  </div>
+ </form>
+         </div>
+       </div>
+
+      <!--     <form role="form">
+           <div class="form-group">
+
           <div class="dropdown">
  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
  <span class="caret"></span>
@@ -58,9 +119,9 @@
    <li><a href="#">JavaScript</a></li>
  </ul>
 </div>
-</div>
+</div> -->
 
-
+<!--
 <div class="form-group">
 
 <label class="checkbox-inline"><input type="checkbox" value="">Option 1</label>
@@ -68,6 +129,7 @@
 <label class="checkbox-inline"><input type="checkbox" value="">Option 3</label>
 
 </div>
+
 <div class="form-group">
 <div class="checkbox">
  <label><input type="checkbox" value="">Option 1</label>
@@ -75,14 +137,9 @@
 <div class="checkbox">
  <label><input type="checkbox" value="">Option 2</label>
 </div>
-</div>
-<form class="form-inline" action="/action_page.php">
- <div class="form-group">
-   <label for="email">Text input:</label>
-   <input type="email" class="form-control" id="text_input">
- </div>
-</form>
-</form>
+</div> -->
+
+<!-- </form> -->
       <!--    <table class="table table-hover">
                      <thead>
                          <tr>
@@ -131,33 +188,19 @@
         </div>
 
     <nav aria-label="pagination example" class="transparent-style">
-    <ul class="pagination pagination-circle pg-blue mb-0">
-
-        <!--Arrow left-->
-  <!--      <li class="page-item disabled">
-            <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-                <span class="sr-only">Previous</span>
-            </a>
-        </li> -->
+      <ul class="pagination pagination-circle pg-blue mb-0">
 
         <li class="page-item active">
-            <a class="page-link" href="#" >
+            <a class="page-link" href="#" id="page-link-1">
               1
               <span class="sr-only">(current)</span>
             </a>
         </li>
-        <li class="page-item"><a class="page-link" href="#" >2</a></li>
-        <li class="page-item"><a class="page-link" href="#" >Confirmation</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">Confirmation</a></li>
 
-<!--        <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-                <span class="sr-only">Next</span>
-            </a>
-        </li> -->
-    </ul>
-</nav>
+      </ul>
+    </nav>
       </div>
     </div>
   </div>
@@ -174,19 +217,8 @@
 #  }
 #}
 %>
+
 <script>
-var currentPage = 1;
-
-/*
-function updatePage(pageNumber) {
-    if currentPage == pageNumber {
-      return;
-    } else {
-      currentPage = pageNumber;
-      <& puts "current page: " + currentPage &>
-    }
-}; */
-
 $(function(){
     $('#container1').highcharts({
      chart: {
@@ -208,11 +240,7 @@ $(function(){
         ]
       });
    });
-   $(".page-item").on("click", function() {
-     <% puts "click found" %>
-
-   });
-  </script>
+ </script>
     </div>
   </body>
 </html>
