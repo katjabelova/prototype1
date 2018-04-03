@@ -14,7 +14,7 @@
       <script src="http://code.highcharts.com/modules/exporting.js"></script>
 
 <!-- Trigger the modal with a button -->
-      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Settings</button>
+      <button type="button" class="btn btn-info btn-lg" id="showModal" >Settings</button>
 
 <!-- Modal -->
     <div id="myModal" class="modal fade" role="dialog">
@@ -27,7 +27,7 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
-          <div class="page1">
+          <div class="page" id="1">
           <div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Dropdown button
@@ -60,7 +60,6 @@ Dropdown button
 <a class="dropdown-item" href="#">Something else here</a>
 </div>
 </div>
-
           <div class="form-group">
             <div class="checkbox">
    <label><input type="checkbox" value="" >Option 1</label>
@@ -71,8 +70,6 @@ Dropdown button
  <div class="checkbox disabled">
    <label><input type="checkbox" value="" >Option 3</label>
  </div>
-
-
 
  <form>
   <div class="form-group">
@@ -86,140 +83,203 @@ Dropdown button
  </form>
          </div>
        </div>
-
-      <!--     <form role="form">
-           <div class="form-group">
-
-          <div class="dropdown">
- <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
- <span class="caret"></span>
+       <div class="page" id="2"  style="display:none;">
+       <div class="dropdown">
+<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+ Dropdown 2.1
 </button>
- <ul class="dropdown-menu">
-   <li><a href="#">HTML</a></li>
-   <li><a href="#">CSS</a></li>
-   <li><a href="#">JavaScript</a></li>
- </ul>
+<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+ <a class="dropdown-item" href="#">Action</a>
+ <a class="dropdown-item" href="#">Another action</a>
+ <a class="dropdown-item" href="#">Something else here</a>
 </div>
+</div>
+</br>
 <div class="dropdown">
- <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
- <span class="caret"></span>
+<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+Dropdown 2.2
 </button>
- <ul class="dropdown-menu">
-   <li><a href="#">HTML</a></li>
-   <li><a href="#">CSS</a></li>
-   <li><a href="#">JavaScript</a></li>
- </ul>
+<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+<a class="dropdown-item" href="#">Action</a>
+<a class="dropdown-item" href="#">Another action</a>
+<a class="dropdown-item" href="#">Something else here</a>
 </div>
+</div>
+</br>
 <div class="dropdown">
- <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
- <span class="caret"></span></button>
- <ul class="dropdown-menu">
-   <li><a href="#">HTML</a></li>
-   <li><a href="#">CSS</a></li>
-   <li><a href="#">JavaScript</a></li>
- </ul>
+<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+Dropdown 2.3
+</button>
+<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+<a class="dropdown-item" href="#">Action</a>
+<a class="dropdown-item" href="#">Another action</a>
+<a class="dropdown-item" href="#">Something else here</a>
 </div>
-</div> -->
-
-<!--
-<div class="form-group">
-
-<label class="checkbox-inline"><input type="checkbox" value="">Option 1</label>
-<label class="checkbox-inline"><input type="checkbox" value="">Option 2</label>
-<label class="checkbox-inline"><input type="checkbox" value="">Option 3</label>
-
 </div>
-
-<div class="form-group">
-<div class="checkbox">
- <label><input type="checkbox" value="">Option 1</label>
+       <div class="form-group">
+         <div class="checkbox">
+<label><input type="checkbox" value="" >2Option 1</label>
 </div>
 <div class="checkbox">
- <label><input type="checkbox" value="">Option 2</label>
+<label><input type="checkbox" value="" >2Option 2</label>
 </div>
-</div> -->
+<div class="checkbox disabled">
+<label><input type="checkbox" value="" >2Option 3</label>
+</div>
 
-<!-- </form> -->
-      <!--    <table class="table table-hover">
-                     <thead>
-                         <tr>
-                             <th>#</th>
-                             <th>Product name</th>
-                             <th>Price</th>
-                             <th>Remove</th>
-                         </tr>
-                     </thead>
-                     <tbody>
-                         <tr>
-                             <th scope="row">1</th>
-                             <td>Product 1</td>
-                             <td>100</td>
-                             <td><a><i class="fa fa-remove"></i></a></td>
-                         </tr>
-                         <tr>
-                             <th scope="row">2</th>
-                             <td>Product 2</td>
-                             <td>100</td>
-                             <td><a><i class="fa fa-remove"></i></a></td>
-                         </tr>
-                         <tr>
-                             <th scope="row">3</th>
-                             <td>Product 3</td>
-                             <td>100</td>
-                             <td><a><i class="fa fa-remove"></i></a></td>
-                         </tr>
-                         <tr>
-                             <th scope="row">4</th>
-                             <td>Product 4</td>
-                             <td>100</td>
-                             <td><a><i class="fa fa-remove"></i></a></td>
-                         </tr>
-                         <tr class="total">
-                             <th scope="row">5</th>
-                             <td>Total</td>
-                             <td>400</td>
-                             <td></td>
-                         </tr>
-                     </tbody>
-                 </table> -->
+<form>
+<div class="form-group">
+ <label for="email">Title:</label>
+ <input type="email" class="form-control" id="text_input_1">
+</div>
+<div class="form-group">
+ <label for="email">Subtitle:</label>
+ <input type="email" class="form-control" id="text_input_2">
+</div>
+</form>
+      </div>
+    </div>
+    <div class="page" id="3" style="display:none;">
+    <div class="dropdown">
+<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+Dropdown 3.1
+</button>
+<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+<a class="dropdown-item" href="#">Action</a>
+<a class="dropdown-item" href="#">Another action</a>
+<a class="dropdown-item" href="#">Something else here</a>
+</div>
+</div>
+</br>
+<div class="dropdown">
+<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+Dropdown 3.2
+</button>
+<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+<a class="dropdown-item" href="#">Action</a>
+<a class="dropdown-item" href="#">Another action</a>
+<a class="dropdown-item" href="#">Something else here</a>
+</div>
+</div>
+</br>
+<div class="dropdown">
+<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+Dropdown 3.3
+</button>
+<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+<a class="dropdown-item" href="#">Action</a>
+<a class="dropdown-item" href="#">Another action</a>
+<a class="dropdown-item" href="#">Something else here</a>
+</div>
+</div>
+    <div class="form-group">
+      <div class="checkbox">
+<label><input type="checkbox" value="" >3Option 1</label>
+</div>
+<div class="checkbox">
+<label><input type="checkbox" value="" >3Option 2</label>
+</div>
+<div class="checkbox disabled">
+<label><input type="checkbox" value="" >3Option 3</label>
+</div>
+
+<form>
+<div class="form-group">
+<label for="email">Title:</label>
+<input type="email" class="form-control" id="text_input_1">
+</div>
+<div class="form-group">
+<label for="email">Subtitle:</label>
+<input type="email" class="form-control" id="text_input_2">
+</div>
+</form>
+   </div>
+ </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default">Confirm</button>
+          <button type="button" class="btn btn-default" id="confirm">Confirm</button>
         </div>
 
     <nav aria-label="pagination example" class="transparent-style">
       <ul class="pagination pagination-circle pg-blue mb-0">
 
-        <li class="page-item active">
-            <a class="page-link" href="#" id="page-link-1">
+        <li class="page-item active"  id="1">
+            <a class="page-link" href="#">
               1
               <span class="sr-only">(current)</span>
             </a>
         </li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">Confirmation</a></li>
+        <li class="page-item"  id="2"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"  id="3"><a class="page-link" href="#">3</a></li>
 
       </ul>
     </nav>
       </div>
     </div>
   </div>
-
-  <div id="container1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-<!-- <%= javascript_include_tag "http://code.highcharts.com/highcharts.js", "chartkick" %> -->
-<%=
-#column_chart [["type1", 22], ["type2", 34]],
-#title: "Only user",
-#colors: ['brown'],
-#library: {
-  #tooltip: {
-  #  pointFormat: 'Times Bought: <b>{point.y}</b>'
-#  }
-#}
-%>
+  <div id="container1" remote="true" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
 <script>
-$(function(){
+$(function() {
+  var graphData = <%= raw @graph.series[0][:data_array] %>;
+
+  var currentPage = 1;
+  var pageNumbers = [];
+
+  $('#showModal').on("click", function(event) {
+      $('.modal').modal('show');
+      modalIsShowing = true;
+    $('.page-item').each(function(event) {
+      var itemId = $(this).attr('id');
+      if (itemId == '1') {
+        $('#' + itemId + '.page-item').addClass('active');
+        $("div[id='" + itemId + "']").show();
+      } else {
+        $('#' + itemId + '.page-item').removeClass('active');
+        $("div[id='" + itemId + "']").hide();
+      }
+      pageNumbers.push(itemId);
+    });
+  });
+
+  $('#confirm').on("click", function(event) {
+    var id = $(this).attr('id');
+    if (pageNumbers.length > 0) {
+      var intValueOfPage = parseInt(currentPage);
+      if (intValueOfPage > 0 && intValueOfPage == pageNumbers.length) {
+        //exit, save, change graph
+        graphData = [
+            ['Crops', 70],
+            ['Legumes', 30]
+        ];
+        $('.modal.in').modal('toggle');
+        currentPage = 1;
+        pageNumbers = [];
+      //  $('#container1').append("<%#= j render @graph %>");
+      } else if (intValueOfPage > 0 && intValueOfPage < pageNumbers.length) {
+        var previousPage = currentPage;
+        var elementToHide = $("div[id='" + previousPage + "']");
+        currentPage = (intValueOfPage + 1).toString();
+        var elementToShow = $("div[id='" + currentPage + "']");
+        $('#' + previousPage + '.page-item').removeClass('active');
+        $('#' + currentPage + '.page-item').addClass('active');
+        elementToHide.hide();
+        elementToShow.show();
+      }
+    }
+  });
+
+  $('.page-item').on("click", function(event) {
+     var previousPage = currentPage;
+     var elementToHide = $("div[id='" + previousPage + "']");
+     currentPage = $(this).attr('id');
+     var elementToShow = $("div[id='" + currentPage + "']")
+     $('#' + previousPage + '.page-item').removeClass('active');
+     $('#' + currentPage + '.page-item').addClass('active');
+     elementToHide.hide();
+     elementToShow.show();
+  });
+
     $('#container1').highcharts({
      chart: {
       // renderTo: "pie_chart"
@@ -234,7 +294,8 @@ $(function(){
       <% @graph.series.each { |serie| %>
         {
         name: '<%= serie[:name] %>',
-        data: <%= raw serie[:data_array] %>
+        data: graphData
+        //data: '<%#= raw dataValue %>'
         }
     <%  } %>
         ]
