@@ -203,7 +203,7 @@ Dropdown 3.3
     <nav aria-label="pagination example" class="transparent-style">
       <ul class="pagination pagination-circle pg-blue mb-0">
 
-        <li class="page-item active"  id="1">
+        <li class="page-item active" id="1">
             <a class="page-link" href="#">
               1
               <span class="sr-only">(current)</span>
@@ -221,8 +221,6 @@ Dropdown 3.3
 
 <script>
 $(function() {
-  var graphData = <%= raw @graph.series[0][:data_array] %>;
-
   var currentPage = 1;
   var pageNumbers = [];
 
@@ -242,33 +240,6 @@ $(function() {
     });
   });
 
-  $('#confirm').on("click", function(event) {
-    var id = $(this).attr('id');
-    if (pageNumbers.length > 0) {
-      var intValueOfPage = parseInt(currentPage);
-      if (intValueOfPage > 0 && intValueOfPage == pageNumbers.length) {
-        //exit, save, change graph
-        graphData = [
-            ['Crops', 70],
-            ['Legumes', 30]
-        ];
-        $('.modal.in').modal('toggle');
-        currentPage = 1;
-        pageNumbers = [];
-      //  $('#container1').append("<%#= j render @graph %>");
-      } else if (intValueOfPage > 0 && intValueOfPage < pageNumbers.length) {
-        var previousPage = currentPage;
-        var elementToHide = $("div[id='" + previousPage + "']");
-        currentPage = (intValueOfPage + 1).toString();
-        var elementToShow = $("div[id='" + currentPage + "']");
-        $('#' + previousPage + '.page-item').removeClass('active');
-        $('#' + currentPage + '.page-item').addClass('active');
-        elementToHide.hide();
-        elementToShow.show();
-      }
-    }
-  });
-
   $('.page-item').on("click", function(event) {
      var previousPage = currentPage;
      var elementToHide = $("div[id='" + previousPage + "']");
@@ -280,7 +251,34 @@ $(function() {
      elementToShow.show();
   });
 
-    $('#container1').highcharts({
+  var series = [
+    <% @graph.series.each { |serie| %>
+      {
+      name: '<%= serie[:name] %>',
+      data: <%= raw @graph.series[0][:data_array] %>
+      //data: '<%#= raw dataValue %>'
+      }
+  <%  } %>
+  ];
+
+  var chartOptions = {
+    chart: { // renderTo: "pie_chart"
+    type: "<%= @graph.type %>" },
+    title: { text: "<%= @graph.title %>" },
+    xAxis: { type: "<%= @graph.x_opts[:type] %>" },
+    yAxis: { title: { text: "<%= @graph.y_opts[:title] %>" } }
+ };
+
+ window.updateChart = function(series) {
+  <% puts "update function called" %>
+	chartOptions.series = series;
+  Highcharts.chart('container1', chartOptions);
+};
+
+updateChart(series);
+
+/*
+  var chart = $('#container1').highcharts({
      chart: {
       // renderTo: "pie_chart"
        type: "<%= @graph.type %>"
@@ -291,16 +289,52 @@ $(function() {
        title: { text: "<%= @graph.y_opts[:title] %>" }
     },
     series: [
-      <% @graph.series.each { |serie| %>
+      <%# @graph.series.each { |serie| %>
         {
-        name: '<%= serie[:name] %>',
+        name: '<%#= serie[:name] %>',
         data: graphData
         //data: '<%#= raw dataValue %>'
         }
-    <%  } %>
+    <%#  } %>
         ]
+      }); */
+
+      $('#confirm').on("click", function(event) {
+        var id = $(this).attr('id');
+        if (pageNumbers.length > 0) {
+          var intValueOfPage = parseInt(currentPage);
+          if (intValueOfPage > 0 && intValueOfPage == pageNumbers.length) {
+            //exit, save, change graph
+
+            series = [  <% @graph.series.each { |serie| %>
+                {
+                name: '<%= serie[:name] %>',
+                data: [
+                      ['Crops', 70],
+                      ['Legumes', 30]
+                  ]
+                }
+            <%  } %>
+            ];
+            updateChart(series);
+            $('.modal.in').modal('toggle');
+            currentPage = 1;
+            pageNumbers = [];
+          } else if (intValueOfPage > 0 && intValueOfPage < pageNumbers.length) {
+            var previousPage = currentPage;
+            var elementToHide = $("div[id='" + previousPage + "']");
+            currentPage = (intValueOfPage + 1).toString();
+            var elementToShow = $("div[id='" + currentPage + "']");
+            $('#' + previousPage + '.page-item').removeClass('active');
+            $('#' + currentPage + '.page-item').addClass('active');
+            elementToHide.hide();
+            elementToShow.show();
+          }
+        }
       });
+
    });
+
  </script>
     </div>
   </body>
