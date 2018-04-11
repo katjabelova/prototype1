@@ -81,11 +81,11 @@ Dropdown button
  <form>
   <div class="form-group">
     <label for="email">Agriculture budget (integer):</label>
-    <input type="email" class="form-control" id="text_input_1">
+    <input type="email" class="form-control" id="input_agro">
   </div>
   <div class="form-group">
     <label for="email">Non Agriculture budget (integer):</label>
-    <input type="email" class="form-control" id="text_input_2">
+    <input type="email" class="form-control" id="input_non">
   </div>
  </form>
          </div>
@@ -234,6 +234,26 @@ var state = false;
 $(function() {
   var currentPage = 1;
   var pageNumbers = [];
+
+  var agro_from_input = (function() {
+    var agro = document.getElementById('input_agro');
+    if (Number.isInteger(agro)) {
+      return agro;
+    } else {
+      return 0;
+    }
+  })();
+
+var non_from_input = (function() {
+  var non = document.getElementById('input_non');
+  if (Number.isInteger(non)) {
+    return non;
+  } else {
+    return 0;
+  }
+})();
+
+  var non_from_input = document.getElementById('non');
 
   $('#showModal').on("click", function(event) {
       $('.modal').modal('show');
@@ -511,9 +531,9 @@ updateChart(series);
             <%  } %>
             ];
             updateChart(series); */
-            window.alert("before update");
-            in_budget_agriculture = 0;
-            in_budget_non_agriculture = 0;
+            window.alert("before update agro: " + agro_from_input + "; non: " + non_from_input);
+            in_budget_agriculture = agro_from_input;
+            in_budget_non_agriculture = non_from_input;
             updateChartWithValues(in_budget_agriculture, in_budget_non_agriculture);
 
             $('.modal.in').modal('toggle');
