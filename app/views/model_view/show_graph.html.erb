@@ -16,7 +16,7 @@
 <!-- Trigger the modal with a button -->
       <button type="button" class="btn btn-info btn-lg" id="showModal" >Settings</button>
 
-      <button id="budget" class="autocompare">Budget</button>
+      <button id="budget" type="button" class="autocompare">Budget</button>
       <button id="tp" class="autocompare">TP</button>
       <button id="poverty" class="autocompare">Poverty</button>
 
@@ -80,11 +80,11 @@ Dropdown button
 
  <form>
   <div class="form-group">
-    <label for="email">Title:</label>
+    <label for="email">Agriculture budget (integer):</label>
     <input type="email" class="form-control" id="text_input_1">
   </div>
   <div class="form-group">
-    <label for="email">Subtitle:</label>
+    <label for="email">Non Agriculture budget (integer):</label>
     <input type="email" class="form-control" id="text_input_2">
   </div>
  </form>
@@ -227,6 +227,10 @@ Dropdown 3.3
   <div id="container1" remote="true" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
 <script>
+var tabsChosen = 1;
+
+var state = false;
+
 $(function() {
   var currentPage = 1;
   var pageNumbers = [];
@@ -278,35 +282,79 @@ $(function() {
 
  window.updateChart = function(series) {
   <% puts "update function called" %>
-	chartOptions.series = series;
+	/* chartOptions.series = series;
   Highcharts.chart('container1', chartOptions);
+  state = true; */
+  tabsChosen = 1;
+  chartType = "column";
+  var title = "effective budget";
+  chartOptions.chart.type = chartType;
+  chartOptions.title = title;
+  updateChartWithValues(in_budget_agriculture, in_budget_non_agriculture);
 };
 
-$('budget').click(function () {
+var chartType = "pie";
+
+$('#budget').click(function () {
   //balken
-  Highcharts.chart('container1', chartOptions);
+    window.alert("state: " + state);
+    <% puts "budget clicked" %>
+    tabsChosen = 1;
+    chartType = "column";
+    var title = "effective budget";
+    chartOptions.chart.type = chartType;
+    chartOptions.title = title;
+    updateChartWithValues(in_budget_agriculture, in_budget_non_agriculture);
 });
 
-$('tp').click(function () {
+$('#tp').click(function () {
   //balken
-  Highcharts.chart('container1', chartOptions);
+    window.alert("state2: " + state);
+    tabsChosen = 2;
+    chartType = "column";
+    var title = "technical progress";
+    chartOptions.chart.type = chartType;
+    chartOptions.title = title;
+    updateChartWithValues(in_budget_agriculture, in_budget_non_agriculture);
 });
 
-$('goods2011').click(function () {
+$('#goods2011').click(function () {
   //balken
-  Highcharts.chart('container1', chartOptions);
+    window.alert("state3: " + state);
+    tabsChosen = 3;
+    chartType = "column";
+    var title = "Goods of 2001";
+    chartOptions.chart.type = chartType;
+    chartOptions.title = title;
+    updateChartWithValues(in_budget_agriculture, in_budget_non_agriculture);
 });
 
-$('goods').click(function () {
+$('#goods').click(function () {
   //linie
-  Highcharts.chart('container1', chartOptions);
+    window.alert("state4: " + state);
+    tabsChosen = 4;
+    chartType = "line";
+    var title = "Public goods over years";
+    var yTitle = "years";
+    chartOptions.chart.type = chartType;
+    chartOptions.title = title;
+    updateChartWithValues(in_budget_agriculture, in_budget_non_agriculture);
 });
 
-$('poverty').click(function () {
+$('#poverty').click(function () {
   //linie
-  Highcharts.chart('container1', chartOptions);
+    window.alert("state5: " + state);
+    tabsChosen = 5;
+    chartType = "line";
+    var title = "Goal achievement poverty";
+    var yTitle = "years";
+    chartOptions.chart.type = chartType;
+    chartOptions.title = title;
+    updateChartWithValues(in_budget_agriculture, in_budget_non_agriculture);
+
 });
 
+var tabChosen = 1;
 var in_budget_agriculture = 25;
 var in_budget_non_agriculture = 15;
 
@@ -328,46 +376,100 @@ var years = (function() {
   return years_array;
 })();
 
-var output_effective_budget = (function() {
+function output_effective_budget() {
   var firstSum = p_mu1 * Math.pow(in_budget_agriculture, -p_rho);
-  var secondSum = p_mu2 * Math.pow(in_budget_non_agriculture, -p_rho);
-  return Math.pow((firstSum + secondSum), (-1 / p_rho));
-})();
+  var secondSum = p_mu2 * Math.pow(in_budget_non_agriculture,-p_rho);
+  var result = Math.pow((firstSum + secondSum), (-1 / p_rho));
+  return result;
+};
 
-var output_tp = (function() {
+function output_tp() {
   var firstExp = p_a * output_effective_budget + p_b;
   var secondExp = p_a * output_effective_budget + p_b;
   return p_emax * (Math.exp(firstExp)) / (1 + Math.exp(secondExp));
-})();
+};
 
-var output_goal_achievement_poverty = (function() {
+function output_goal_achievement_poverty() {
   var output_array = [];
-  for (i = 0; i < years.length; i++) {
+  for(i = 0; i < years.length; i++) {
     var valueToPush = 100 - output_tp * 0.1 * (years[i] - 1);
     output_array.push(valueToPush);
   }
   return output_array;
-})();
+};
 
-var output_goal_achivement_public_goods = (function() {
+function output_goal_achivement_public_goods() {
+  window.alert("argf: " + in_budget_agriculture + "; nonf: " + in_budget_non_agriculture);
   return 100 - (in_budget_agriculture + in_budget_non_agriculture);
-})();
+};
 
-var output_goal_achivement_public_goods_years = (function() {
+function output_goal_achivement_public_goods_years() {
   var output_array = [];
   for(i = 1; i < years.length; i++) {
     output_array.push(100 - (in_budget_agriculture + in_budget_non_agriculture) + output_tp * 0.8 * (years[i] - 1));
   }
   return output_array;
-})();
+};
 
 window.updateChartWithValues = function(in_budget_agriculture, in_budget_non_agriculture) {
     //set series
+    switch(tabsChosen) {
+    case 1:
+      var seriesData = [output_effective_budget()];
+      window.alert("series data1: " + seriesData);
+      <% puts "in case 1" %>
+      chartOptions.series = [{
+          name: "Budget distribution over years",
+          data: seriesData
+      }];
+      break;
+    case 2:
+      <% puts "in case 2" %>
+      var seriesData = [output_tp()];
+      window.alert("series data2: " + seriesData);
+      chartOptions.series = [{
+          name: "TP",
+          data: seriesData
+        }];
+          break;
+    case 3:
+      <% puts "in case 3" %>
+      window.alert("agri: "+ in_budget_agriculture +"; non: " + in_budget_non_agriculture);
+      var seriesData = [output_goal_achivement_public_goods()];
+      window.alert("series data3: " + seriesData);
+      chartOptions.series = [{
+          name: "Goods of year 2001",
+          data: seriesData
+      }];
+        break;
+    case 4:
+      <% puts "in case 4" %>
+      var seriesData = output_goal_achivement_public_goods_years();
+      window.alert("series data4: " + seriesData);
+      chartOptions.series = [{
+          name: "Public goods over years",
+          data: seriesData
+      }];
+        break;
+    case 5:
+      <% puts "in case 5" %>
+      var seriesData = output_goal_achievement_poverty();
+      window.alert("series data5: " + seriesData);
+      chartOptions.series = [{
+          name: "Goal achievement poverty",
+          data: seriesData
+      }];
+        break;
+    default:
+      <% puts "in case default" %>
+      var x = "";
+    //  puts "else case";
+  }
 
+    Highcharts.chart('container1', chartOptions);
 };
 
 updateChart(series);
-
 
 /*
   var chart = $('#container1').highcharts({
@@ -398,7 +500,7 @@ updateChart(series);
           if (intValueOfPage > 0 && intValueOfPage == pageNumbers.length) {
             //exit, save, change graph
 
-            series = [  <% @graph.series.each { |serie| %>
+        /*    series = [  <% @graph.series.each { |serie| %>
                 {
                 name: '<%= serie[:name] %>',
                 data: [
@@ -408,7 +510,12 @@ updateChart(series);
                 }
             <%  } %>
             ];
-            updateChart(series);
+            updateChart(series); */
+            window.alert("before update");
+            in_budget_agriculture = 0;
+            in_budget_non_agriculture = 0;
+            updateChartWithValues(in_budget_agriculture, in_budget_non_agriculture);
+
             $('.modal.in').modal('toggle');
             currentPage = 1;
             pageNumbers = [];
