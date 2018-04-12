@@ -70,14 +70,15 @@
    $(function() {
      window.alert("javascript found");
 
-     var chartOptions = <%= @defaultGraph %>;
-/*
-     {
+     <% graphValue = raw @defaultGraph %>
+     <% puts "default graph: " + graphValue %>
+     var chartOptions = {
        chart: { type: "column" },
        title: { text: "default chart" },
        xAxis: { type: "column", categories: "" },
-       yAxis: { title: { text: "default yAxis" } }
-     }; */
+       yAxis: { title: { text: "default yAxis" } },
+       series: [{name: "Default data", data: [1, 2, 3, 4]}]
+     };
 
      window.updateChart = function() {
       var chartType = "column";
@@ -88,6 +89,38 @@
      };
 
      updateChart();
+
+     $('.delete_pony').click(function ()  {
+      var agro = document.getElementById('input_agro_gam').value;
+      var non = document.getElementById('input_non_gam').value;
+      if(agro == "" || non == "") {
+      window.alert("budget fields should be filled out");
+      return;
+    } else if (!parseInt(agro) || !parseInt(non)) {
+      window.alert("budget fields should be integer");
+      return;
+    } else {
+        agro = parseInt(agro);
+        non = parseInt(non);
+    //    <%# @input1 %> = agro;
+    //    <%# @input2 = %> = non;
+    /*    var data = {
+          agro_split: {
+          input1: agro.to_s,
+          input2: non.to_s
+        }
+      };
+        $.ajax({
+        type: 'PUT',
+        url:  '/view',
+        data: data,
+        dataType: "JSON",
+        success: function(data) {
+            console.log(data);
+        }
+    }); */
+      }
+     });
    });
 /*
 Highcharts.chart('content1', {

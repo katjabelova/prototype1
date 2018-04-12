@@ -6,6 +6,7 @@ $( document ).on('ajaxStart', function() {
 
 $('.delete_pony').bind('ajax:success', function() {
     $('.sk-cube-grid').hide();
+    window.alert("delete pony on submit");
 
   /*
     var contentSubmit = document.getElementById("submitdiv");

@@ -7,6 +7,8 @@ class ModelViewController < ApplicationController
   protect_from_forgery with: :null_session
   @title = "Post requested"
   @output = nil
+  @input1 = ""
+  @input2 = ""
 
   def new
 
@@ -18,9 +20,8 @@ class ModelViewController < ApplicationController
       puts "computed output: " + params[:user1].to_s
       $output = params[:output].to_s
 
-
     else if request.put?
-
+          if @inpu1 != "" && @input2 != ""
            puts "post request to be sent"
            data = @content
 
@@ -34,7 +35,6 @@ class ModelViewController < ApplicationController
            if result.success?
 
              puts "SUCCESS"
-
              if !$output.nil? && !$output.blank?
                #end popup
                puts "content value is set to: " + $output
@@ -47,6 +47,7 @@ class ModelViewController < ApplicationController
            else
              flash.now[:danger] = 'Model computation is not available'
            end
+          end
 
          else if request.get?
            @result_showing = false
@@ -57,7 +58,6 @@ class ModelViewController < ApplicationController
                       input2: '15'
                       }
                       }"
-        #   @defaultGraph = ParseJson.method(:generate_default_graph)
            end
          end
     end
