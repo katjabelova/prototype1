@@ -218,7 +218,6 @@ Dropdown 3.3
         </li>
         <li class="page-item"  id="2"><a class="page-link" href="#">2</a></li>
         <li class="page-item"  id="3"><a class="page-link" href="#">3</a></li>
-
       </ul>
     </nav>
       </div>
@@ -229,31 +228,10 @@ Dropdown 3.3
 <script>
 var tabsChosen = 1;
 
-var state = false;
-
 $(function() {
   var currentPage = 1;
   var pageNumbers = [];
-
-  var agro_from_input = (function() {
-    var agro = document.getElementById('input_agro');
-    if (Number.isInteger(agro)) {
-      return agro;
-    } else {
-      return 0;
-    }
-  })();
-
-var non_from_input = (function() {
-  var non = document.getElementById('input_non');
-  if (Number.isInteger(non)) {
-    return non;
-  } else {
-    return 0;
-  }
-})();
-
-  var non_from_input = document.getElementById('non');
+  var chartType = "pie";
 
   $('#showModal').on("click", function(event) {
       $('.modal').modal('show');
@@ -296,15 +274,12 @@ var non_from_input = (function() {
     chart: { // renderTo: "pie_chart"
     type: "<%= @graph.type %>" },
     title: { text: "<%= @graph.title %>" },
-    xAxis: { type: "<%= @graph.x_opts[:type] %>" },
+    xAxis: { type: "<%= @graph.x_opts[:type] %>", categories: "<%= @graph.x_opts[:categories] %>" },
     yAxis: { title: { text: "<%= @graph.y_opts[:title] %>" } }
  };
 
  window.updateChart = function(series) {
   <% puts "update function called" %>
-	/* chartOptions.series = series;
-  Highcharts.chart('container1', chartOptions);
-  state = true; */
   tabsChosen = 1;
   chartType = "column";
   var title = "effective budget";
@@ -313,11 +288,8 @@ var non_from_input = (function() {
   updateChartWithValues(in_budget_agriculture, in_budget_non_agriculture);
 };
 
-var chartType = "pie";
-
 $('#budget').click(function () {
   //balken
-    window.alert("state: " + state);
     <% puts "budget clicked" %>
     tabsChosen = 1;
     chartType = "column";
@@ -329,7 +301,6 @@ $('#budget').click(function () {
 
 $('#tp').click(function () {
   //balken
-    window.alert("state2: " + state);
     tabsChosen = 2;
     chartType = "column";
     var title = "technical progress";
@@ -340,7 +311,6 @@ $('#tp').click(function () {
 
 $('#goods2011').click(function () {
   //balken
-    window.alert("state3: " + state);
     tabsChosen = 3;
     chartType = "column";
     var title = "Goods of 2001";
@@ -351,27 +321,26 @@ $('#goods2011').click(function () {
 
 $('#goods').click(function () {
   //linie
-    window.alert("state4: " + state);
     tabsChosen = 4;
     chartType = "line";
     var title = "Public goods over years";
     var yTitle = "years";
     chartOptions.chart.type = chartType;
     chartOptions.title = title;
+    chartOptions.xAxis.categories = years;
     updateChartWithValues(in_budget_agriculture, in_budget_non_agriculture);
 });
 
 $('#poverty').click(function () {
   //linie
-    window.alert("state5: " + state);
     tabsChosen = 5;
     chartType = "line";
     var title = "Goal achievement poverty";
     var yTitle = "years";
     chartOptions.chart.type = chartType;
     chartOptions.title = title;
+    chartOptions.xAxis.categories = years;
     updateChartWithValues(in_budget_agriculture, in_budget_non_agriculture);
-
 });
 
 var tabChosen = 1;
@@ -404,15 +373,15 @@ function output_effective_budget() {
 };
 
 function output_tp() {
-  var firstExp = p_a * output_effective_budget + p_b;
-  var secondExp = p_a * output_effective_budget + p_b;
+  var firstExp = p_a * output_effective_budget() + p_b;
+  var secondExp = p_a * output_effective_budget() + p_b;
   return p_emax * (Math.exp(firstExp)) / (1 + Math.exp(secondExp));
 };
 
 function output_goal_achievement_poverty() {
   var output_array = [];
   for(i = 0; i < years.length; i++) {
-    var valueToPush = 100 - output_tp * 0.1 * (years[i] - 1);
+    var valueToPush = 100 - output_tp() * 0.1 * (years[i] - 1);
     output_array.push(valueToPush);
   }
   return output_array;
@@ -420,13 +389,15 @@ function output_goal_achievement_poverty() {
 
 function output_goal_achivement_public_goods() {
   window.alert("argf: " + in_budget_agriculture + "; nonf: " + in_budget_non_agriculture);
+  var result = 100 - (in_budget_agriculture + in_budget_non_agriculture);
+  window.alert("result: " + result);
   return 100 - (in_budget_agriculture + in_budget_non_agriculture);
 };
 
 function output_goal_achivement_public_goods_years() {
   var output_array = [];
   for(i = 1; i < years.length; i++) {
-    output_array.push(100 - (in_budget_agriculture + in_budget_non_agriculture) + output_tp * 0.8 * (years[i] - 1));
+    output_array.push(100 - (in_budget_agriculture + in_budget_non_agriculture) + output_tp() * 0.8 * (years[i] - 1));
   }
   return output_array;
 };
@@ -482,8 +453,6 @@ window.updateChartWithValues = function(in_budget_agriculture, in_budget_non_agr
         break;
     default:
       <% puts "in case default" %>
-      var x = "";
-    //  puts "else case";
   }
 
     Highcharts.chart('container1', chartOptions);
@@ -516,24 +485,33 @@ updateChart(series);
       $('#confirm').on("click", function(event) {
         var id = $(this).attr('id');
         if (pageNumbers.length > 0) {
+
           var intValueOfPage = parseInt(currentPage);
           if (intValueOfPage > 0 && intValueOfPage == pageNumbers.length) {
             //exit, save, change graph
+            var agro = document.getElementById('input_agro').value;
+              window.alert("agro found: " + agro);
+            if (parseInt(agro)) {
+              window.alert("agro was set: " + agro);
+              agro = parseInt(agro);
+            } else {
+              window.alert("agro was set to 0" );
+              agro = 0;
+            }
 
-        /*    series = [  <% @graph.series.each { |serie| %>
-                {
-                name: '<%= serie[:name] %>',
-                data: [
-                      ['Crops', 70],
-                      ['Legumes', 30]
-                  ]
-                }
-            <%  } %>
-            ];
-            updateChart(series); */
-            window.alert("before update agro: " + agro_from_input + "; non: " + non_from_input);
-            in_budget_agriculture = agro_from_input;
-            in_budget_non_agriculture = non_from_input;
+            var non = document.getElementById('input_non').value;
+            window.alert("non found: " + non);
+            if (parseInt(non)) {
+              window.alert("agro was set: " + non);
+              non = parseInt(non);
+            } else {
+              window.alert("agro was set to 0" );
+              non = 0;
+            }
+
+            window.alert("before update agro: " + agro + "; non: " + non);
+            in_budget_agriculture = agro;
+            in_budget_non_agriculture = non;
             updateChartWithValues(in_budget_agriculture, in_budget_non_agriculture);
 
             $('.modal.in').modal('toggle');
@@ -551,7 +529,6 @@ updateChart(series);
           }
         }
       });
-
    });
 
  </script>

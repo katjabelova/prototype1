@@ -1,11 +1,17 @@
+<html lang="en">
+<head>
+  <title>From Bootstrap</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div>
 <h1>Model</h1>
-<style type="text/css" media="screen">
-  /*  #spinner {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-    }*/
-</style>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+
 <!-- <div id="spinner" style="display: none">
   <img id="img-spinner" src="/assets/.gif" alt="Loading">
 </div> -->
@@ -20,8 +26,19 @@
   <div class="sk-cube sk-cube8"></div>
   <div class="sk-cube sk-cube9"></div>
 </div>
-<div id="content"><%= @content %></div>
-<div id="submitdiv">
+<div id="content1" remote="true" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<div id="input">
+  <div class="form-group" style="font-size:160%;" id="input_id"><strong>Input:</strong></div>
+  <div class="form-group">
+    <label for="email">Agriculture budget (integer):</label>
+    <input type="email" class="form-control" id="input_agro_gam">
+  </div>
+  <div class="form-group">
+    <label for="email">Non Agriculture budget (integer):</label>
+    <input type="email" class="form-control" id="input_non_gam">
+  </div>
+</div>
+<div id="submitdiv" class="form-group">
   <% if !@result_showing %>
   <tbody>
     <tr>
@@ -31,10 +48,74 @@
       <%#= link_to 'Submit', '#', method: :put, data: { :disable_with => 'loading...' } %>
       </td>
       <td>
-        <%= link_to 'Graph view', graph_path %>
+
       </td>
     </tr>
   </tbody>
   <% end %>
+  </div>
+  <div class="form-group">
+    <button id="budget" type="button" class="autocompare">Budget</button>
+    <button id="tp" class="autocompare">TP</button>
+    <button id="poverty" class="autocompare">Poverty</button>
+    <button id="goods2011" class="autocompare">Public_goods_2011</button>
+    <button id="goods" class="autocompare">Public_goods</button>
+  </div>
+  <div class="form-group">
+    <%= link_to 'Graph view', graph_path %>
+  </div>
    <!-- <# %= button_to 'Submit', button_path, method: :get %> -->
+
+<script>
+   $(function() {
+     window.alert("javascript found");
+
+     var chartOptions = <%= @defaultGraph %>;
+/*
+     {
+       chart: { type: "column" },
+       title: { text: "default chart" },
+       xAxis: { type: "column", categories: "" },
+       yAxis: { title: { text: "default yAxis" } }
+     }; */
+
+     window.updateChart = function() {
+      var chartType = "column";
+      var title = "default chart";
+     // chartOptions.chart.type = chartType;
+     // chartOptions.title = title;
+      Highcharts.chart('content1', chartOptions);
+     };
+
+     updateChart();
+   });
+/*
+Highcharts.chart('content1', {
+  chart: { type: "column" },
+  title: { text: "default chart" },
+  xAxis: { type: "column", categories: "" },
+  yAxis: { title: { text: "default yAxis" } }
+});
+*/
+
+/*
+var chartOptions = {
+  chart: { type: "column" },
+  title: { text: "default chart" },
+  xAxis: { type: "column", categories: "" },
+  yAxis: { title: { text: "default yAxis" } }
+};
+
+window.updateChart = function() {
+ var chartType = "column";
+ var title = "default chart";
+// chartOptions.chart.type = chartType;
+// chartOptions.title = title;
+ Highcharts.chart('content1', chartOptions);
+};
+
+updateChart(); */
+</script>
 </div>
+</body>
+</html>

@@ -16,17 +16,13 @@ class ModelViewController < ApplicationController
     if request.post?
 
       puts "computed output: " + params[:user1].to_s
-      $output = params[:user1].to_s
+      $output = params[:output].to_s
 
 
     else if request.put?
 
            puts "post request to be sent"
-           data = { user: {
-               model_view: 'model1',
-               input: 'input1'
-           }
-           }
+           data = @content
 
            connection = Faraday.new
            result = connection.post do |req|
@@ -55,12 +51,13 @@ class ModelViewController < ApplicationController
          else if request.get?
            @result_showing = false
 
-           @content = "  {user: {
-                      model_view: 'model1',
-                      input: 'input1'
+           @content = "{ agro_split: {
+                      model_name: 'first',
+                      input1: '25',
+                      input2: '15'
                       }
                       }"
-
+        #   @defaultGraph = ParseJson.method(:generate_default_graph)
            end
          end
     end
