@@ -29,31 +29,42 @@
 <div id="content1" remote="true" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 <div id="input">
   <div class="form-group" style="font-size:160%;" id="input_id"><strong>Input:</strong></div>
-  <div class="form-group">
     <label for="email">Agriculture budget (integer):</label>
-    <input type="email" class="form-control" id="input_agro_gam">
+    <%= form_for 'show', method: :put, :remote => true do |f| %>
+    <%= f.text_field :title1, placeholder: "Agro" %>
+  <%#= form_tag :action => 'enter_non_agro' do %>
+    <label for="email">Non Agriculture budget (integer):</label>
+    <%= f.text_field :title2, placeholder: "Non agro" %>
+    <div id="submitdiv" class="form-group">
+      <% if !@result_showing %>
+      <tbody>
+        <tr>
+          <td>
+            <%= f.submit "Submit" %>
+            <%#= link_to 'Submit', '#', method: :put, data: { :disable_with => 'loading...' }, :remote => true, :class => 'delete_pony' %>
+          <%#= link_to 'Submit', '#', method: :put, data: { confirm: 'Sure?'}, :remote => true, :class => 'delete_pony' %>
+          <%#= link_to 'Submit', '#', method: :put, data: { :disable_with => 'loading...' } %>
+          </td>
+          <td>
+
+          </td>
+        </tr>
+      </tbody>
+      <% end %>
+      </div>
+  <% end %>
+<!--  <div class="form-group">
+    <label for="email">Agriculture budget (integer):</label>
+    <input type="email" class="text" id="input_agro_gam" value="">
+    </input>
   </div>
   <div class="form-group">
     <label for="email">Non Agriculture budget (integer):</label>
-    <input type="email" class="form-control" id="input_non_gam">
-  </div>
+    <input type="email" class="text" id="input_non_gam" value="">
+    </input>
+  </div> -->
 </div>
-<div id="submitdiv" class="form-group">
-  <% if !@result_showing %>
-  <tbody>
-    <tr>
-      <td>
-        <%= link_to 'Submit', '#', method: :put, data: { :disable_with => 'loading...' }, :remote => true, :class => 'delete_pony' %>
-      <%#= link_to 'Submit', '#', method: :put, data: { confirm: 'Sure?'}, :remote => true, :class => 'delete_pony' %>
-      <%#= link_to 'Submit', '#', method: :put, data: { :disable_with => 'loading...' } %>
-      </td>
-      <td>
 
-      </td>
-    </tr>
-  </tbody>
-  <% end %>
-  </div>
   <div class="form-group">
     <button id="budget" type="button" class="autocompare">Budget</button>
     <button id="tp" class="autocompare">TP</button>

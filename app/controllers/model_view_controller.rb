@@ -7,8 +7,6 @@ class ModelViewController < ApplicationController
   protect_from_forgery with: :null_session
   @title = "Post requested"
   @output = nil
-  @input1 = ""
-  @input2 = ""
 
   def new
 
@@ -16,13 +14,23 @@ class ModelViewController < ApplicationController
 
   def show
     if request.post?
-
-      puts "computed output: " + params[:user1].to_s
-      $output = params[:output].to_s
+      puts "computed output: " + params[:output].to_s
+      $output = params[:output]
+      @parsedChart = ParseJson.new($output)
 
     else if request.put?
-          if @inpu1 != "" && @input2 != ""
+        @input1 = params[:show][:title1]
+        @input2 = params[:show][:title2]
+
+        puts "1: " + @input1.to_s + "; 2: " + @input2.to_s
+
+          if @input1.to_s != "" && @input2.to_s != ""
            puts "post request to be sent"
+           @content = "{ agro_split: {
+                      model_name: 'first',
+                      input1: '"+ @input1 +"',
+                      input2: '"+ @input2 +"' } }"
+
            data = @content
 
            connection = Faraday.new
@@ -40,7 +48,6 @@ class ModelViewController < ApplicationController
                puts "content value is set to: " + $output
                @content = $output
                @result_showing = true
-
              else
                flash.now[:danger] = 'Model\'s parameter could not be parsed'
              end
@@ -55,11 +62,9 @@ class ModelViewController < ApplicationController
            @content = "{ agro_split: {
                       model_name: 'first',
                       input1: '25',
-                      input2: '15'
-                      }
-                      }"
-           end
+                      input2: '15' } }"
          end
+      end
     end
   end
 
