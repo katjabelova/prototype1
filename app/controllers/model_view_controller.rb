@@ -17,6 +17,7 @@ class ModelViewController < ApplicationController
       puts "computed output: " + params[:output].to_s
       $output = params[:output]
       @parsedChart = ParseJson.new($output)
+      puts "chart parsed: " + @parsedChart.to_s
 
     else if request.put?
         @input1 = params[:show][:title1]
