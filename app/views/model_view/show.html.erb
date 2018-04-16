@@ -84,11 +84,19 @@
      <% graphValue = raw @defaultGraph %>
      <% puts "default graph: " + graphValue %>
      var chartOptions = {
+       <% if @outputArray == nil || @outputArray == [] %>
        chart: { type: "column" },
        title: { text: "default chart" },
        xAxis: { type: "column", categories: "" },
        yAxis: { title: { text: "default yAxis" } },
-       series: [{name: "Default data", data: [1, 2, 3, 4]}]
+       series: [{ name: "Default data", data: [1, 2, 3, 4] }]
+       <% else %>
+       chart: { type: <%= @outputArray[0][:chart] %> },
+       title: { text: <%= @outputArray[0][:title] %> },
+       xAxis: { type: <%= @outputArray[0][:xAxis][:type] %>, categories: <%= raw @outputArray[0][:xAxis][:categories] %> },
+       xAxis: { title: { text: <%= @outputArray[0][:xAxis][:type] %> } },
+       series: [{ name: <%= @outputArray[0][:series][0][0] %>, data: <%= raw @outputArray[0][:series][0][1] %>  }]
+       <% end %>
      };
 
      window.updateChart = function() {
