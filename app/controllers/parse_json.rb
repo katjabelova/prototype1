@@ -1,68 +1,107 @@
-class ParseJson
-  attr_accessor :type, :title, :subtitle, :chart, :credits, :x_opts, :y_opts, :legend_opts, :series, :serie
+require 'json'
 
-  xAxis = Struct.new(:title, :categories, :labels, :type, :min, :max)
-  yAxis = Struct.new(:title, :categories, :labels, :type, :min, :max)
-  legend = Struct.new(:layout, :align, :vertical_align, :x, :y, :floating)
-  #series = []
-  serie = Struct.new(:name, :data_array)
+class ParseJson
+  attr_accessor :type, :title, :subtitle, :chart, :credits, :xAxis, :yAxis, :legend, :series
+
+#  @yAxis = Hash.new
+#  @legend = Hash.new
+#  @serie = Hash.new
+
+#  xAxis = Struct.new(:title, :categories, :labels, :type, :min, :max)
+#  yAxis = Struct.new(:title, :categories, :labels, :type, :min, :max)
+#  legend = Struct.new(:layout, :align, :vertical_align, :x, :y, :floating)
+
+#  serie = Struct.new(:name, :data_array)
 
   def initialize(output)
-    # @default_graph = generate_default_graph()
+    if output.nil?
+      puts "output is nil"
+      return
+    end
+
+  #  output = JSON.parse(output)
+
     puts "pasring started"
-    @model_name = output[:model_name]
-    @type = output[:type]
-    @title = output[:title]
-    @subtitle = output[:subtitle]
-    @chart = output[:chart]
-    @credits = output[:credits]
+
+    @model_name = output["model_name"]
+    @type = output["type"]
+    @title = output["title"]
+    @subtitle = output["subtitle"]
+    @chart = output["chart"]
+    @credits = output["credits"]
+
     puts "generated type: " + @type.to_s + " ; generated model_name: " + @model_name.to_s
-=begin
-    @xAxis[:title] = output[:xAxis][:title]
-    @xAxis[:type] = output[:xAxis][:type]
-    @xAxis[:min] = output[:xAxis][:min]
-    @xAxis[:max] = output[:xAxis][:max]
-    @xAxis[:labels] = output[:xAxis][:labels] #not ready
+
+    @xAxis = {:title => "", :type => "", :min => "", :max => "", :labels => "", :categories => ""}
+    @yAxis = {:title => "", :type => "", :min => "", :max => "", :labels => "", :categories => ""}
+    @legend = {:layout => "", :align => "", :vertical_align => "", :x => "", :y => "", :floating => ""}
+    @series = []
+
+    axisX = output["xAxis"]
+    puts "xAxis value: " + axisX.to_s
+
+    if !axisX.nil?
+    @xAxis[:title] = output["xAxis"]["title"]
+    @xAxis[:type] = output["xAxis"]["type"]
+    @xAxis[:min] = output["xAxis"]["min"]
+    @xAxis[:max] = output["xAxis"]["max"]
+    @xAxis[:labels] = output["xAxis"]["labels"] #not ready
     @xAxis[:categories] = []
 
-    output[:xAxis][:categories].each_with_index { |value, index|
-      @xAxis[:categories][index] = value
-    }
+    puts "xAxis output: " + output["xAxis"]["categories"].to_s
+
+    if output["xAxis"]["categories"] != ""
+      categoriesX = output["xAxis"]["categories"].to_json
+      categoriesX = JSON.parse(categoriesX)
+
+      categoriesX.each_with_index { |(key, value), index|
+        @xAxis[:categories][index] = value
+      }
+    end
 
     puts "generated type xAxix: " + @xAxis.to_s
+    end
 
-    @yAxis[:title] = output[:yAxis][:title]
-    @yAxis[:type] = output[:yAxis][:type]
-    @yAxis[:min] = output[:yAxis][:min]
-    @yAxis[:max] = output[:yAxis][:max]
-    @yAxis[:labels] = output[:yAxis][:labels] #not ready
+    axisY = output["yAxis"]
+    if !axisY.nil?
+    @yAxis[:title] = output["xAxis"]["title"]
+    @yAxis[:type] = output["xAxis"]["type"]
+    @yAxis[:min] = output["xAxis"]["min"]
+    @yAxis[:max] = output["xAxis"]["max"]
+    @yAxis[:labels] = output["xAxis"]["labels"] #not ready
     @yAxis[:categories] = []
 
-    output[:yAxis][:categories].each_with_index { |value, index|
-      @yAxis[:categories][index] = value
-    }
+    puts "yAxis output: " + output["yAxis"]["categories"].to_s
 
-    output[:series].each_with_index { |value, index|
-    #  @series[index] = Series.new(value[:name], value[:data_array])
-    data = []
-      value[:data].each_with_index { |data_value, data_index|
-          data[data_index] = data_value
+  if output["yAxis"]["categories"] != ""
+    categoriesY = output["yAxis"]["categories"].to_json
+    categoriesY = JSON.parse(categoriesY)
+    categoriesY.each_with_index { |(key1, value1), index1|
+      @yAxis[:categories][index1] = value1
+    }
+  end
+
+    puts "generated type yAxix: " + @yAxis.to_s
+    end
+
+    if output["series"] != ""
+    dataArray = []
+    puts "series: " + output["series"].to_s
+    seriesToJson =  output["series"].to_json
+    seriesFromJson = JSON.parse(seriesToJson)
+    seriesFromJson.each_with_index { |value, index|
+      puts "key_value: " + value[1].to_s
+      dataArray[0] = value[1]["name"]
+      inner_array = []
+      value[1]["data"].each_with_index { |data_value, data_index|
+          inner_array[data_index] = data_value
       }
-     @series[index] = serie.new(value[:name], data)
+      puts "inner_array: " + inner_array.to_s
+     dataArray[1] = inner_array
+     series[index] = dataArray
     }
-
-    puts "generated type series: " + @series.to_s
-=end
-=begin
-    @x_opts = XAxis.new(x_opts[:title], x_opts[:categories], x_opts[:labels], x_opts[:type], x_opts[:min], x_opts[:max])
-    @y_opts = YAxis.new(y_opts[:title], y_opts[:categories], y_opts[:labels], y_opts[:type], y_opts[:min], y_opts[:max])
-    @legend_opts = Legend.new(legend_opts[:layout], legend_opts[:align], legend_opts[:vertical_align], legend_opts[:x], legend_opts[:y], legend_opts[:floating])
-
-    @series = []
-    series.each_with_index { |value, index|
-      @series[index] = Series.new(value[:name], value[:data_array])
-    }
-=end
+    puts "generated type series: " + series.to_s
+  end
   end
 
   def generate_default_graph()

@@ -5,19 +5,41 @@ require 'open-uri'
 
 class ModelViewController < ApplicationController
   protect_from_forgery with: :null_session
+  after_action :parse_json
+
   @title = "Post requested"
   @output = nil
+  @outputArray = nil
 
   def new
 
   end
 
+  def parse_json
+    if !@output.nil?
+      puts "output shown: " + @output.to_s
+      @outputArray = []
+
+      outputToJSON = @output.to_json
+      @output = JSON.parse(outputToJSON)
+
+      @output.each_with_index { |value, index|
+      #  puts "print print: " + value[1].to_s
+        @parsedChart = ParseJson.new(value[1])
+        @outputArray[index] = @parsedChart
+      }
+    #  @parsedChart = ParseJson.new(@output)
+    #  puts "output before parsing: " + @output.to_s
+    #  puts "chart parsed: " + @parsedChart.to_s
+    end
+  end
+
   def show
     if request.post?
       puts "computed output: " + params[:output].to_s
-      $output = params[:output]
-      @parsedChart = ParseJson.new($output)
-      puts "chart parsed: " + @parsedChart.to_s
+    #  puts "computed params" + params.to_s
+      @output = params[:output]
+      puts "end of post request"
 
     else if request.put?
         @input1 = params[:show][:title1]
@@ -64,6 +86,60 @@ class ModelViewController < ApplicationController
                       model_name: 'first',
                       input1: '25',
                       input2: '15' } }"
+
+=begin
+          @defaultOutput = {
+                output: {
+                  model_name: 'model_default',
+                  type: 'column',
+                  title: 'default output',
+                  subtitle: '',
+                  chart: 'column',
+                  credits: '',
+                  xAxis: {
+                    title: 'x-output',
+                    type: '',
+                    min: '',
+                    max: '',
+                    categories: {
+                      '1': 'a',
+                      '2': 'b',
+                      '3': 'c',
+                      '4': 'd'
+                    },
+                    labels: {
+                      '1': 'label'
+                    }
+                  },
+                  yAxis: {
+                    title: 'y-output',
+                    type: '',
+                    min: '',
+                    max: '',
+                    categories: '',
+                    labels: ''
+                  },
+                  legend: '',
+                  series: {
+                    '1': {
+                      name: 'default split',
+                      data: {
+                        '1': '1',
+                        '2': '4',
+                        '3': '9',
+                        '4': '16'
+                      }
+                    }
+                  }
+                }
+              }
+
+          jsonGraph = @defaultOutput[:output].to_json
+          puts "json graph: " + jsonGraph.to_s
+
+          graph = ParseJson.new(@defaultOutput[:output].to_json)
+          puts "test parsing: " + graph.to_s
+=end
          end
       end
     end
