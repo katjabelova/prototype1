@@ -1,7 +1,7 @@
 require 'json'
 
 class ParseJson
-  attr_accessor :type, :title, :subtitle, :chart, :credits, :xAxis, :yAxis, :legend, :series
+  attr_accessor :type, :title, :subtitle, :chart, :credits, :xAxis, :yAxis, :legend, :series, :series_data, :series_name
 
 #  @yAxis = Hash.new
 #  @legend = Hash.new
@@ -93,12 +93,16 @@ class ParseJson
       puts "key_value: " + value[1].to_s
       dataArray[0] = value[1]["name"]
       inner_array = []
+
       value[1]["data"].each_with_index { |data_value, data_index|
-          inner_array[data_index] = data_value
+          inner_array.insert(data_index, Integer(data_value[1]))
       }
+
       puts "inner_array: " + inner_array.to_s
+
      dataArray[1] = inner_array
      series[index] = dataArray
+
     }
     puts "generated type series: " + series.to_s
   end

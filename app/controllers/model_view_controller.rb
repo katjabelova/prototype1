@@ -5,7 +5,7 @@ require 'open-uri'
 
 class ModelViewController < ApplicationController
   protect_from_forgery with: :null_session
-  after_action :parse_json
+#  after_action :parse_json
 
   @title = "Post requested"
   @output = nil
@@ -21,16 +21,29 @@ class ModelViewController < ApplicationController
       @outputArray = []
 
       outputToJSON = @output.to_json
+      puts "before parse: " + outputToJSON
       @output = JSON.parse(outputToJSON)
 
       @output.each_with_index { |value, index|
-      #  puts "print print: " + value[1].to_s
-        @parsedChart = ParseJson.new(value[1])
-        @outputArray[index] = @parsedChart
+        puts "print print: " + value[1].to_s
+        hash = value[1]
+      #  @parsedChart = ParseJson.new(hash)
+      #  @outputArray[index] = @parsedChart
+        @outputArray[index] = ParseJson.new(hash)
       }
+      render :js => "updateChart1();"
+=begin
+      respond_to do |format|
+        format.html { render :js => "updateChart();"}
+        format.js { render :js => "updateChart();"}
+      end
+=end
+    #  redirect_to (:show), :notice => "redirection" and return
     #  @parsedChart = ParseJson.new(@output)
     #  puts "output before parsing: " + @output.to_s
     #  puts "chart parsed: " + @parsedChart.to_s
+    else
+      return
     end
   end
 
@@ -39,6 +52,7 @@ class ModelViewController < ApplicationController
       puts "computed output: " + params[:output].to_s
     #  puts "computed params" + params.to_s
       @output = params[:output]
+      parse_json
       puts "end of post request"
 
     else if request.put?
@@ -86,10 +100,10 @@ class ModelViewController < ApplicationController
                       model_name: 'first',
                       input1: '25',
                       input2: '15' } }"
-
 =begin
           @defaultOutput = {
                 output: {
+                model1: {
                   model_name: 'model_default',
                   type: 'column',
                   title: 'default output',
@@ -133,12 +147,27 @@ class ModelViewController < ApplicationController
                   }
                 }
               }
+            }
 
           jsonGraph = @defaultOutput[:output].to_json
-          puts "json graph: " + jsonGraph.to_s
+        #  puts "json graph: " + jsonGraph.to_s
 
-          graph = ParseJson.new(@defaultOutput[:output].to_json)
-          puts "test parsing: " + graph.to_s
+        #  graph = ParseJson.new(@defaultOutput[:output].to_json)
+        #  puts "test parsing: " + graph.to_s
+
+          @outputArray = []
+
+        #  outputToJSON = @output.to_json
+        #  puts "before prse: " + outputToJSON
+          @output = JSON.parse(jsonGraph)
+
+          @output.each_with_index { |value, index|
+            puts "print print: " + value[1].to_s
+            hash = value[1]
+          #  @parsedChart = ParseJson.new(hash)
+          #  @outputArray[index] = @parsedChart
+            @outputArray[index] = ParseJson.new(hash)
+          }
 =end
          end
       end

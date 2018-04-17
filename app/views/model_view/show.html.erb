@@ -40,7 +40,7 @@
       <tbody>
         <tr>
           <td>
-            <%= f.submit "Submit" %>
+            <%= f.submit "Submit", :id => "submit" %>
             <%#= link_to 'Submit', '#', method: :put, data: { :disable_with => 'loading...' }, :remote => true, :class => 'delete_pony' %>
           <%#= link_to 'Submit', '#', method: :put, data: { confirm: 'Sure?'}, :remote => true, :class => 'delete_pony' %>
           <%#= link_to 'Submit', '#', method: :put, data: { :disable_with => 'loading...' } %>
@@ -80,22 +80,52 @@
 <script>
    $(function() {
      window.alert("javascript found");
+/*     $( document ).on('ajaxEnd', function() {
+     //    $('.sk-cube-grid').show();
+     //    $('div#content').hide();
+     //    $('div#submitdiv').hide();
+  });   */
+  /*   <% if @outputArray == nil || @outputArray == [] %>
+        updateChart();
+        <% else
+        puts "array is empty"
+         %>
+     <% end %> */
+
+
+     $('#submit').on("click", function(event) {
+       <% if @outputArray != nil && @outputArray != [] %>
+          updateChart();
+       <% end %>
+     });
 
      <% graphValue = raw @defaultGraph %>
      <% puts "default graph: " + graphValue %>
      var chartOptions = {
        <% if @outputArray == nil || @outputArray == [] %>
+       <% puts "in default case" %>
+    //   window.alert("in deafault case");
        chart: { type: "column" },
        title: { text: "default chart" },
        xAxis: { type: "column", categories: "" },
        yAxis: { title: { text: "default yAxis" } },
        series: [{ name: "Default data", data: [1, 2, 3, 4] }]
        <% else %>
-       chart: { type: <%= @outputArray[0][:chart] %> },
-       title: { text: <%= @outputArray[0][:title] %> },
-       xAxis: { type: <%= @outputArray[0][:xAxis][:type] %>, categories: <%= raw @outputArray[0][:xAxis][:categories] %> },
-       xAxis: { title: { text: <%= @outputArray[0][:xAxis][:type] %> } },
-       series: [{ name: <%= @outputArray[0][:series][0][0] %>, data: <%= raw @outputArray[0][:series][0][1] %>  }]
+       <% puts "in parsed case" %>
+        <% puts "chart: "+ @outputArray[0].chart %>
+         <% puts "title: " + @outputArray[0].title  %>
+          <% puts "x type:" + @outputArray[0].xAxis[:type] %>
+           <% puts "x categories" + @outputArray[0].xAxis[:categories].to_s %>
+            <% puts "y title" + @outputArray[0].yAxis[:title] %>
+             <% puts "serie name" +  @outputArray[0].series[0][0] %>
+             <% rawValue = raw @outputArray[0].series[0][1] %>
+              <% puts "serie data" +  rawValue %>
+    //   window.alert("in parsed case");
+       chart: { type: "<%= @outputArray[0].chart.to_s %>" },
+       title: { text: "<%= @outputArray[0].title.to_s %>" },
+       xAxis: { type: "<%= @outputArray[0].xAxis[:type] %>", categories: <%= raw @outputArray[0].xAxis[:categories] %> },
+       yAxis: { title: { text: "<%= @outputArray[0].xAxis[:type] %>" } },
+       series: [{ name: "<%= @outputArray[0].series[0][0] %>", data: <%= raw @outputArray[0].series[0][1] %> }]
        <% end %>
      };
 
@@ -104,6 +134,8 @@
       var title = "default chart";
      // chartOptions.chart.type = chartType;
      // chartOptions.title = title;
+     window.alert("chart option: " + chartOptions.title.text);
+     <% puts "in update chart" %>
       Highcharts.chart('content1', chartOptions);
      };
 
