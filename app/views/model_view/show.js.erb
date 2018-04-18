@@ -3,3 +3,25 @@ $( document ).on('ajaxStart', function() {
 //    $('div#content').hide();
 //    $('div#submitdiv').hide();
 });
+
+$('.updateTitle').bind('ajax:success', function() {
+  //  $('.sk-cube-grid').hide();
+
+  /*
+    var contentSubmit = document.getElementById("submitdiv");
+    var visibleSubmit = $(contentSubmit).is(":visible")
+    if (!visibleSubmit) {
+        $('div#submitdiv').toggle();
+    }
+    console.log('in success case');
+ */
+ <% puts "updateTitle called + name: " + @name %>
+    var content = '<%= @name %>';
+    var contentElement = document.getElementById("title");
+    window.alert("updateTitle called: " + @contentElement.toString());
+  /*  var visibleContent = $(contentElement).is(":visible")
+    if (!visibleContent) {
+        $('h1#title').toggle();
+    } */
+    contentElement.innerHTML = content;
+});

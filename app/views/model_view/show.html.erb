@@ -8,7 +8,7 @@
 </head>
 <body>
 <div>
-<h1><%= @name %></h1>
+<h1 id="title"><%= @name %></h1>
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
 
@@ -30,7 +30,7 @@
 <div id="input">
   <div class="form-group" style="font-size:160%;" id="input_id"><strong>Input:</strong></div>
     <label for="email">Agriculture budget (integer):</label>
-    <%= form_for 'show', method: :put, :remote => true do |f| %>
+    <%= form_for 'show', method: :put do |f| %>
     <%= f.text_field :title1, placeholder: "Agro" %>
   <%#= form_tag :action => 'enter_non_agro' do %>
     <label for="email">Non Agriculture budget (integer):</label>
@@ -40,7 +40,7 @@
       <tbody>
         <tr>
           <td>
-            <%= f.submit "Submit", :id => "submit" %>
+            <%= f.submit "Submit", :id => "submit", :remote => true, :class => 'updateTitle' %>
             <%#= link_to 'Submit', '#', method: :put, data: { :disable_with => 'loading...' }, :remote => true, :class => 'delete_pony' %>
           <%#= link_to 'Submit', '#', method: :put, data: { confirm: 'Sure?'}, :remote => true, :class => 'delete_pony' %>
           <%#= link_to 'Submit', '#', method: :put, data: { :disable_with => 'loading...' } %>
@@ -85,7 +85,7 @@
      //    $('div#content').hide();
      //    $('div#submitdiv').hide();
   });   */
-     <% if @ready
+/*     <% if @ready
        puts "ready!!!" %>
         window.updateChart();
      <% end %>
@@ -94,10 +94,8 @@
         <% if @ready %>
           updateChart();
        <% end %>
-     });
+     }); */
 
-     <% graphValue = raw @defaultGraph %>
-     <% puts "default graph: " + graphValue %>
      var chartOptions = {
        <% if @outputArray == nil || @outputArray == [] %>
        <% puts "in default case" %>

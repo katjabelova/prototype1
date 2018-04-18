@@ -17,15 +17,15 @@ class ModelViewController < ApplicationController
   end
 
   def parse_json
-    if !@output.nil?
-      puts "output shown: " + @output.to_s
+    if !$output.nil?
+      puts "output shown: " + $output.to_s
       @outputArray = []
 
-      outputToJSON = @output.to_json
+      outputToJSON = $output.to_json
       puts "before parse: " + outputToJSON
-      @output = JSON.parse(outputToJSON)
+      $output = JSON.parse(outputToJSON)
 
-      @output.each_with_index { |value, index|
+      $output.each_with_index { |value, index|
         puts "print1 print1: " + value[1].to_s
         hash = value[1]
       #  @parsedChart = ParseJson.new(hash)
@@ -55,7 +55,8 @@ class ModelViewController < ApplicationController
       puts "computed output: " + params[:output].to_s
     #  puts "computed params" + params.to_s
       @output = params[:output]
-      parse_json
+      $output  = @output
+    #  parse_json
 
       #render :js => "window.updateChart();"
       puts "end of post request"
@@ -87,13 +88,15 @@ class ModelViewController < ApplicationController
 
              puts "SUCCESS"
              puts "ooooouuuuuttttt: " + @output.to_s
-             @name = "Sent"
-             if !@output.nil? && !@output.blank?
+          #   @name = "Sent"
+             if !$output.nil? && !$output.blank?
                #end popup
-               puts "content value is set to: " + @output
-               @content = @output
-               @result_showing = true
+               puts "content value is set to: " + $output.to_s
+               #@content = @output
+              # @result_showing = true
                @name = "Sent"
+               parse_json
+
              else
                flash.now[:danger] = 'Model\'s parameter could not be parsed'
              end
