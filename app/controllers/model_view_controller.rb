@@ -15,8 +15,8 @@ class ModelViewController < ApplicationController
   def show
     if request.post?
 
-      puts "computed output: " + params[:user1].to_s
-      $output = params[:user1].to_s
+      puts "computed output: " + params[:output].to_s
+      $output = params[:output].to_s
 
 
     else if request.put?
