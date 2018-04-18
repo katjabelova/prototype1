@@ -10,6 +10,7 @@ class ModelViewController < ApplicationController
   @title = "Post requested"
   @output = nil
   @outputArray = nil
+  @ready = false
 
   def new
 
@@ -25,13 +26,15 @@ class ModelViewController < ApplicationController
       @output = JSON.parse(outputToJSON)
 
       @output.each_with_index { |value, index|
-        puts "print print: " + value[1].to_s
+        puts "print1 print1: " + value[1].to_s
         hash = value[1]
       #  @parsedChart = ParseJson.new(hash)
       #  @outputArray[index] = @parsedChart
         @outputArray[index] = ParseJson.new(hash)
       }
-      render :js => "updateChart1();"
+
+      @ready = true
+    #  render :js => "updateChart1();"
 =begin
       respond_to do |format|
         format.html { render :js => "updateChart();"}
@@ -53,9 +56,12 @@ class ModelViewController < ApplicationController
     #  puts "computed params" + params.to_s
       @output = params[:output]
       parse_json
+
+      #render :js => "window.updateChart();"
       puts "end of post request"
 
     else if request.put?
+        ready = false
         @input1 = params[:show][:title1]
         @input2 = params[:show][:title2]
 
@@ -80,11 +86,14 @@ class ModelViewController < ApplicationController
            if result.success?
 
              puts "SUCCESS"
-             if !$output.nil? && !$output.blank?
+             puts "ooooouuuuuttttt: " + @output.to_s
+             @name = "Sent"
+             if !@output.nil? && !@output.blank?
                #end popup
-               puts "content value is set to: " + $output
-               @content = $output
+               puts "content value is set to: " + @output
+               @content = @output
                @result_showing = true
+               @name = "Sent"
              else
                flash.now[:danger] = 'Model\'s parameter could not be parsed'
              end
@@ -94,6 +103,7 @@ class ModelViewController < ApplicationController
           end
 
          else if request.get?
+             @name = "Model"
            @result_showing = false
 
            @content = "{ agro_split: {

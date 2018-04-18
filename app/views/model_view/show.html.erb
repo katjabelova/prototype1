@@ -8,7 +8,7 @@
 </head>
 <body>
 <div>
-<h1>Model</h1>
+<h1><%= @name %></h1>
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
 
@@ -26,7 +26,7 @@
   <div class="sk-cube sk-cube8"></div>
   <div class="sk-cube sk-cube9"></div>
 </div>
-<div id="content1" remote="true" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<div id="content1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 <div id="input">
   <div class="form-group" style="font-size:160%;" id="input_id"><strong>Input:</strong></div>
     <label for="email">Agriculture budget (integer):</label>
@@ -85,16 +85,13 @@
      //    $('div#content').hide();
      //    $('div#submitdiv').hide();
   });   */
-  /*   <% if @outputArray == nil || @outputArray == [] %>
-        updateChart();
-        <% else
-        puts "array is empty"
-         %>
-     <% end %> */
-
+     <% if @ready
+       puts "ready!!!" %>
+        window.updateChart();
+     <% end %>
 
      $('#submit').on("click", function(event) {
-       <% if @outputArray != nil && @outputArray != [] %>
+        <% if @ready %>
           updateChart();
        <% end %>
      });
@@ -135,7 +132,7 @@
      // chartOptions.chart.type = chartType;
      // chartOptions.title = title;
      window.alert("chart option: " + chartOptions.title.text);
-     <% puts "in update chart" %>
+     <% puts "in update chart <script>" %>
       Highcharts.chart('content1', chartOptions);
      };
 
