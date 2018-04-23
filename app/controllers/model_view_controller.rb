@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'faraday'
 require 'open-uri'
+require 'json'
 
 
 class ModelViewController < ApplicationController
@@ -70,10 +71,10 @@ class ModelViewController < ApplicationController
 
           if @input1.to_s != "" && @input2.to_s != ""
            puts "post request to be sent"
-           @content = "{ agro_split: {
+           @content = { agro_split: {
                       model_name: 'first',
-                      input1: '"+ @input1 +"',
-                      input2: '"+ @input2 +"' } }"
+                      input1: @input1,
+                      input2: @input2  } }
 
            data = @content
 
@@ -81,7 +82,7 @@ class ModelViewController < ApplicationController
            result = connection.post do |req|
              req.url 'http://localhost:3001/input'
              req.headers['Content-Type'] = 'application/json'
-             req.body = data.to_json
+             req.body = @content.to_json
            end
 
            if result.success?
@@ -94,8 +95,8 @@ class ModelViewController < ApplicationController
                puts "content value is set to: " + $output.to_s
                #@content = @output
               # @result_showing = true
-               @name = "Sent"
-               parse_json
+              parse_json
+              @name = "Sent"
 
              else
                flash.now[:danger] = 'Model\'s parameter could not be parsed'
@@ -106,13 +107,13 @@ class ModelViewController < ApplicationController
           end
 
          else if request.get?
-             @name = "Model"
+           @name = "Model"
            @result_showing = false
 
-           @content = "{ agro_split: {
-                      model_name: 'first',
-                      input1: '25',
-                      input2: '15' } }"
+           @content = '{ "agro_split" : {
+                      "model_name" : "first",
+                      "input1" : 25,
+                      "input2" : 15 } }'
 =begin
           @defaultOutput = {
                 output: {
