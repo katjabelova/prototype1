@@ -17,6 +17,11 @@ class ModelViewController < ApplicationController
 
   end
 
+  def subchoice
+    @tabChosen = params[:tabChosen]
+    puts "tab chosen: " + @tabChosen.to_s
+  end
+
   def parse_json
     if !$output.nil?
       puts "output shown: " + $output.to_s

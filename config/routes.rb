@@ -23,5 +23,7 @@ Rails.application.routes.draw do
 
   get '/graph', to: 'model_view#show_graph'
 
+  post '/subchoice', to: 'model_view#subchoice', as: 'subchoice'
+
   resources :users
 end

@@ -40,7 +40,7 @@
       <tbody>
         <tr>
           <td>
-            <%= f.submit "Submit", :id => "submit", :remote => true, :class => 'updateTitle' %>
+            <%= f.submit "Submit", :id => "submit", data: { :disable_with => 'loading...'}, :remote => true, :class => 'updateTitle' %>
             <%#= link_to 'Submit', '#', method: :put, data: { :disable_with => 'loading...' }, :remote => true, :class => 'delete_pony' %>
           <%#= link_to 'Submit', '#', method: :put, data: { confirm: 'Sure?'}, :remote => true, :class => 'delete_pony' %>
           <%#= link_to 'Submit', '#', method: :put, data: { :disable_with => 'loading...' } %>
@@ -66,11 +66,22 @@
 </div>
 
   <div class="form-group">
-    <button id="budget" type="button" class="autocompare">Budget</button>
+    <% if  @outputArray == nil || @outputArray == [] %>
+    <!-- <button id="budget" type="button" class="autocompare">Budget</button>
     <button id="tp" class="autocompare">TP</button>
     <button id="poverty" class="autocompare">Poverty</button>
     <button id="goods2011" class="autocompare">Public_goods_2011</button>
-    <button id="goods" class="autocompare">Public_goods</button>
+    <button id="goods" class="autocompare">Public_goods</button> -->
+    <% else
+      @outputArray.each_with_index do |graph, index|
+    %>
+  <!--  <button id='<%= index %>' type="button" class="autocompare" ><%= @outputArray[index].title %></button> -->
+    <%= button_to @outputArray[index].title, {:controller => "model_view", :action => "subchoice", :tabChosen => index}, {class: 'autocompare', type: "button"} %>
+    <%
+      end
+     %>
+
+    <% end %>
   </div>
   <div class="form-group">
     <%= link_to 'Graph view', graph_path %>
@@ -107,20 +118,24 @@
        series: [{ name: "Default data", data: [1, 2, 3, 4] }]
        <% else %>
        <% puts "in parsed case" %>
-        <% puts "chart: "+ @outputArray[0].chart %>
-         <% puts "title: " + @outputArray[0].title  %>
-          <% puts "x type:" + @outputArray[0].xAxis[:type] %>
-           <% puts "x categories" + @outputArray[0].xAxis[:categories].to_s %>
-            <% puts "y title" + @outputArray[0].yAxis[:title] %>
-             <% puts "serie name" +  @outputArray[0].series[0][0] %>
-             <% rawValue = raw @outputArray[0].series[0][1] %>
+       <% if @tabChosen == nil
+            @tabChosen = 0
+          end
+       %>
+        <% puts "chart: "+ @outputArray[@tabChosen].chart %>
+         <% puts "title: " + @outputArray[@tabChosen].title  %>
+          <% puts "x type:" + @outputArray[@tabChosen].xAxis[:type] %>
+           <% puts "x categories" + @outputArray[@tabChosen].xAxis[:categories].to_s %>
+            <% puts "y title" + @outputArray[@tabChosen].yAxis[:title] %>
+             <% puts "serie name" +  @outputArray[@tabChosen].series[0][0] %>
+             <% rawValue = raw @outputArray[@tabChosen].series[0][1] %>
               <% puts "serie data" +  rawValue %>
     //   window.alert("in parsed case");
-       chart: { type: "<%= @outputArray[0].chart.to_s %>" },
-       title: { text: "<%= @outputArray[0].title.to_s %>" },
-       xAxis: { type: "<%= @outputArray[0].xAxis[:type] %>", categories: <%= raw @outputArray[0].xAxis[:categories] %> },
-       yAxis: { title: { text: "<%= @outputArray[0].xAxis[:type] %>" } },
-       series: [{ name: "<%= @outputArray[0].series[0][0] %>", data: <%= raw @outputArray[0].series[0][1] %> }]
+       chart: { type: "<%= @outputArray[@tabChosen].chart.to_s %>" },
+       title: { text: "<%= @outputArray[@tabChosen].title.to_s %>" },
+       xAxis: { type: "<%= @outputArray[@tabChosen].xAxis[:type] %>", categories: <%= raw @outputArray[@tabChosen].xAxis[:categories] %> },
+       yAxis: { title: { text: "<%= @outputArray[@tabChosen].xAxis[:type] %>" } },
+       series: [{ name: "<%= @outputArray[@tabChosen].series[0][0] %>", data: <%= raw @outputArray[@tabChosen].series[0][1] %> }]
        <% end %>
      };
 
@@ -139,7 +154,7 @@
      $('.delete_pony').click(function ()  {
       var agro = document.getElementById('input_agro_gam').value;
       var non = document.getElementById('input_non_gam').value;
-      if(agro == "" || non == "") {
+      if (agro == "" || non == "") {
       window.alert("budget fields should be filled out");
       return;
     } else if (!parseInt(agro) || !parseInt(non)) {
@@ -167,6 +182,15 @@
     }); */
       }
      });
+   });
+
+   var chosenTab = 0;
+
+   $('.autocompare').click(function(event) {
+    //  chosenTab = 'parseInt(event.target.id)';
+      chosenTab = '<%= @tabChosen %>';
+      window.alert("Tab: " + chosenTab.toString());
+      updateChart();
    });
 /*
 Highcharts.chart('content1', {

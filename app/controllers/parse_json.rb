@@ -95,7 +95,7 @@ class ParseJson
       inner_array = []
 
       value[1]["data"].each_with_index { |data_value, data_index|
-          inner_array.insert(data_index, Integer(data_value[1]))
+          inner_array.insert(data_index, data_value[1].to_f)
       }
 
       puts "inner_array: " + inner_array.to_s
