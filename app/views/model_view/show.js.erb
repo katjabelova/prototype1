@@ -4,6 +4,10 @@ $( document ).on('ajaxStart', function() {
 //    $('div#submitdiv').hide();
 });
 
+$('.autocompare1').bind('ajax:success', function() {
+  document.write("autocompare called");
+});
+
 $('.updateTitle').bind('ajax:success', function() {
   //  $('.sk-cube-grid').hide();
 

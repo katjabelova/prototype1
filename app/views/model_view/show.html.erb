@@ -40,13 +40,10 @@
       <tbody>
         <tr>
           <td>
-            <%= f.submit "Submit", :id => "submit", data: { :disable_with => 'loading...'}, :remote => true, :class => 'updateTitle' %>
+            <%= f.submit "Submit", :id => "submit", data: { :disable_with => 'loading...'}, :class => 'updateTitle' %>
             <%#= link_to 'Submit', '#', method: :put, data: { :disable_with => 'loading...' }, :remote => true, :class => 'delete_pony' %>
           <%#= link_to 'Submit', '#', method: :put, data: { confirm: 'Sure?'}, :remote => true, :class => 'delete_pony' %>
           <%#= link_to 'Submit', '#', method: :put, data: { :disable_with => 'loading...' } %>
-          </td>
-          <td>
-
           </td>
         </tr>
       </tbody>
@@ -76,7 +73,7 @@
       @outputArray.each_with_index do |graph, index|
     %>
   <!--  <button id='<%= index %>' type="button" class="autocompare" ><%= @outputArray[index].title %></button> -->
-    <%= button_to @outputArray[index].title, {:controller => "model_view", :action => "subchoice", :tabChosen => index}, {class: 'autocompare', type: "button"} %>
+    <%= button_to @outputArray[index].title, {:controller => "model_view", :action => "subchoice", :tabChosen => index}, {class: 'autocompare1'} %>
     <%
       end
      %>
@@ -186,9 +183,11 @@
 
    var chosenTab = 0;
 
-   $('.autocompare').click(function(event) {
+   $('.autocompare1').click(function(event) {
     //  chosenTab = 'parseInt(event.target.id)';
       chosenTab = '<%= @tabChosen %>';
+      <% @tabChosen = 1 %>
+      chosenTab = 1;
       window.alert("Tab: " + chosenTab.toString());
       updateChart();
    });

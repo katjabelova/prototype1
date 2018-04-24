@@ -20,6 +20,7 @@ class ModelViewController < ApplicationController
   def subchoice
     @tabChosen = params[:tabChosen]
     puts "tab chosen: " + @tabChosen.to_s
+    head :no_content
   end
 
   def parse_json
@@ -65,6 +66,7 @@ class ModelViewController < ApplicationController
     #  parse_json
 
       #render :js => "window.updateChart();"
+
       puts "end of post request"
 
     else if request.put?
