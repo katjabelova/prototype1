@@ -35,7 +35,7 @@
       <tbody>
         <tr>
           <td>
-            <%= f.submit "Submit", :id => "submit", data: { :disable_with => 'loading...'} %>
+            <%= f.submit "Submit", :id => "submit", data: { :disable_with => 'loading...'}, remote: true %>
             <%#= link_to 'Submit', '#', method: :put, data: { :disable_with => 'loading...' }, :remote => true, :class => 'delete_pony' %>
           </td>
         </tr>
@@ -153,8 +153,8 @@
         agro = parseInt(agro);
         non = parseInt(non);
       }
-     });
-   }); */
+    }); */
+   });
 
    var chosenTab = 0;
 
