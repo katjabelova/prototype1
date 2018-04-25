@@ -11,9 +11,6 @@
 <h1 id="title"><%= @name %></h1>
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
-<!-- <div id="spinner" style="display: none">
-  <img id="img-spinner" src="/assets/.gif" alt="Loading">
-</div> -->
 <div class="sk-cube-grid" style="display: none">
   <div class="sk-cube sk-cube1"></div>
   <div class="sk-cube sk-cube2"></div>
@@ -31,7 +28,6 @@
     <label for="email">Agriculture budget (integer):</label>
     <%= form_for 'show', method: :put, :class => 'updateTitle' do |f| %>
     <%= f.text_field :title1, placeholder: "Agro" %>
-  <%#= form_tag :action => 'enter_non_agro' do %>
     <label for="email">Non Agriculture budget (integer):</label>
     <%= f.text_field :title2, placeholder: "Non agro" %>
     <div id="submitdiv" class="form-group">
@@ -41,54 +37,47 @@
           <td>
             <%= f.submit "Submit", :id => "submit", data: { :disable_with => 'loading...'} %>
             <%#= link_to 'Submit', '#', method: :put, data: { :disable_with => 'loading...' }, :remote => true, :class => 'delete_pony' %>
-          <%#= link_to 'Submit', '#', method: :put, data: { confirm: 'Sure?'}, :remote => true, :class => 'delete_pony' %>
-          <%#= link_to 'Submit', '#', method: :put, data: { :disable_with => 'loading...' } %>
           </td>
         </tr>
       </tbody>
       <% end %>
       </div>
   <% end %>
-<!--  <div class="form-group">
-    <label for="email">Agriculture budget (integer):</label>
-    <input type="email" class="text" id="input_agro_gam" value="">
-    </input>
-  </div>
-  <div class="form-group">
-    <label for="email">Non Agriculture budget (integer):</label>
-    <input type="email" class="text" id="input_non_gam" value="">
-    </input>
-  </div> -->
 </div>
 
   <div class="form-group">
     <% if  @outputArray == nil || @outputArray == [] %>
-    <!-- <button id="budget" type="button" class="autocompare">Budget</button>
-    <button id="tp" class="autocompare">TP</button>
-    <button id="poverty" class="autocompare">Poverty</button>
-    <button id="goods2011" class="autocompare">Public_goods_2011</button>
-    <button id="goods" class="autocompare">Public_goods</button> -->
     <% else
       @outputArray.each_with_index do |graph, index|
     %>
-  <!--  <button id='<%= index %>' type="button" class="autocompare" ><%= @outputArray[index].title %></button> -->
-    <%= button_to @outputArray[index].title, {:controller => "model_view", :action => "subchoice", :tabChosen => index}, {class: 'autocompare1'} %>
-    <%
-      end
-     %>
-
+      <button id='<%= index %>' type="button" class="autocompare1" ><%= @outputArray[index].title %></button>
+      <% end %>
     <% end %>
   </div>
   <div class="form-group">
     <%= link_to 'Graph view', graph_path %>
   </div>
-   <!-- <# %= button_to 'Submit', button_path, method: :get %> -->
 
 <script>
    $(function() {
      window.alert("javascript found");
 
+     window.updateChart = function() {
+      var chartType = "column";
+      var title = "default chart";
+      rubyArrayToJavascript();
+      window.alert("before before: " + finalArray.toString());
+      var chartTab = '<%= @tabChosen %>';
+      window.alert(" tab before: " + chartTab.toString());
+      var foundChartOptions = chartOptions();
+      window.alert("chart option: " + foundChartOptions.title.text);
+     <% puts "in update chart <script>" %>
+      Highcharts.chart('content1', foundChartOptions);
+     };
+
       function chartOptions() {
+        var tc = '<%= @tabChosen %>';
+        window.alert(" in function: " + tc.toString());
         var chartOptions = {
        <% if @outputArray == nil || @outputArray == [] %>
        <% puts "in default case" %>
@@ -113,38 +102,53 @@
              <% rawValue = raw @outputArray[@tabChosen].series[0][1] %>
               <% puts "serie data" +  rawValue %>
 
-       chart: { type: "<%= @outputArray[@tabChosen].chart.to_s %>" },
-       title: { text: "<%= @outputArray[@tabChosen].title.to_s %>" },
-       xAxis: { type: "<%= @outputArray[@tabChosen].xAxis[:type] %>", categories: <%= raw @outputArray[@tabChosen].xAxis[:categories] %> },
-       yAxis: { title: { text: "<%= @outputArray[@tabChosen].xAxis[:type] %>" } },
-       series: [{ name: "<%= @outputArray[@tabChosen].series[0][0] %>", data: <%= raw @outputArray[@tabChosen].series[0][1] %> }]
+  /*     chart: { type: "<%#= @outputArray[@tabChosen].chart.to_s %>" },
+       title: { text: "<%#= @outputArray[@tabChosen].title.to_s %>" },
+       xAxis: { type: "<%#= @outputArray[@tabChosen].xAxis[:type] %>", categories: <%#= raw @outputArray[@tabChosen].xAxis[:categories] %> },
+       yAxis: { title: { text: "<%#= @outputArray[@tabChosen].yAxis[:title] %>" } },
+       series: [{ name: "<%#= @outputArray[@tabChosen].series[0][0] %>", data: <%#= raw @outputArray[@tabChosen].series[0][1] %> }] */
+
+       chart: { type: finalArray[chosenTab]["chart"]},
+       title: { text: finalArray[chosenTab]['title']},
+       xAxis: { type: finalArray[chosenTab]['x-type'], categories: finalArray[chosenTab]['x-categories']},
+       yAxis: { title: { text: finalArray[chosenTab]['y-title']}},
+       series: [{ name: finalArray[chosenTab]['series-name'], data: finalArray[chosenTab]['series']}]
        <% end %>
      };
      return chartOptions;
    };
 
-     window.updateChart = function() {
-      var chartType = "column";
-      var title = "default chart";
-      var chartTab = '<%= @tabChosen %>';
-      window.alert(" tab before: " + chartTab.toString());
-     var foundChartOptions = chartOptions();
-     window.alert("chart option: " + foundChartOptions.title.text);
-     <% puts "in update chart <script>" %>
-      Highcharts.chart('content1', foundChartOptions);
-     };
+   var finalArray = [];
+
+   function rubyArrayToJavascript() {
+     <% if  @outputArray != nil && @outputArray != []
+          @outputArray.each_with_index do |element, index| %>
+
+            var hashedValue = {};
+            hashedValue['chart'] = '<%= @outputArray[index].chart.to_s %>';
+            hashedValue['title'] = '<%= @outputArray[index].title.to_s %>';
+            hashedValue['x-type'] = '<%= @outputArray[index].xAxis[:type] %>';
+            hashedValue['x-categories'] = <%= raw @outputArray[index].xAxis[:categories] %>;
+            hashedValue['y-title'] = '<%= @outputArray[index].yAxis[:title] %>';
+            hashedValue['series-name'] = '<%= @outputArray[index].series[0][0] %>';
+            hashedValue['series'] = <%= raw @outputArray[index].series[0][1] %>;
+
+            finalArray.push(hashedValue);
+          <% end %>
+     <% end %>
+   };
 
      updateChart();
 
      $('.delete_pony').click(function ()  {
-      var agro = document.getElementById('input_agro_gam').value;
-      var non = document.getElementById('input_non_gam').value;
+        var agro = document.getElementById('input_agro_gam').value;
+        var non = document.getElementById('input_non_gam').value;
       if (agro == "" || non == "") {
-      window.alert("budget fields should be filled out");
-      return;
+        window.alert("budget fields should be filled out");
+        return;
     } else if (!parseInt(agro) || !parseInt(non)) {
-      window.alert("budget fields should be integer");
-      return;
+        window.alert("budget fields should be integer");
+        return;
     } else {
         agro = parseInt(agro);
         non = parseInt(non);
@@ -152,12 +156,14 @@
      });
    });
 
+   var chosenTab = 0;
+
    $('.autocompare1').click(function(event) {
-    //  chosenTab = 'parseInt(event.target.id)';
-      <% @tabChosen = 1 %>
-      chosenTab = '<%= @tabChosen %>';
+      chosenTab = parseInt(event.target.id);
       window.alert("Tab: " + chosenTab.toString());
       updateChart();
+      $('html, body').animate({scrollTop : 0}, 500);
+      return false;
    });
 
 </script>
