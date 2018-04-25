@@ -27,9 +27,9 @@
   <div class="form-group" style="font-size:160%;" id="input_id"><strong>Input:</strong></div>
     <label for="email">Agriculture budget (integer):</label>
     <%= form_for 'show', method: :put, :class => 'updateTitle' do |f| %>
-    <%= f.text_field :title1, placeholder: "Agro" %>
+    <%= f.text_field :title1, placeholder: "Agro", :required => true %>
     <label for="email">Non Agriculture budget (integer):</label>
-    <%= f.text_field :title2, placeholder: "Non agro" %>
+    <%= f.text_field :title2, placeholder: "Non agro", :required => true %>
     <div id="submitdiv" class="form-group">
       <% if !@result_showing %>
       <tbody>
@@ -60,24 +60,24 @@
 
 <script>
    $(function() {
-     window.alert("javascript found");
+    // window.alert("javascript found");
 
      window.updateChart = function() {
       var chartType = "column";
       var title = "default chart";
       rubyArrayToJavascript();
-      window.alert("before before: " + finalArray.toString());
+    //  window.alert("before before: " + finalArray.toString());
       var chartTab = '<%= @tabChosen %>';
-      window.alert(" tab before: " + chartTab.toString());
+  //    window.alert(" tab before: " + chartTab.toString());
       var foundChartOptions = chartOptions();
-      window.alert("chart option: " + foundChartOptions.title.text);
+    //  window.alert("chart option: " + foundChartOptions.title.text);
      <% puts "in update chart <script>" %>
       Highcharts.chart('content1', foundChartOptions);
      };
 
       function chartOptions() {
         var tc = '<%= @tabChosen %>';
-        window.alert(" in function: " + tc.toString());
+    //    window.alert(" in function: " + tc.toString());
         var chartOptions = {
        <% if @outputArray == nil || @outputArray == [] %>
        <% puts "in default case" %>
@@ -140,7 +140,7 @@
 
      updateChart();
 
-     $('.delete_pony').click(function ()  {
+  /*   $('.delete_pony').click(function ()  {
         var agro = document.getElementById('input_agro_gam').value;
         var non = document.getElementById('input_non_gam').value;
       if (agro == "" || non == "") {
@@ -154,13 +154,13 @@
         non = parseInt(non);
       }
      });
-   });
+   }); */
 
    var chosenTab = 0;
 
    $('.autocompare1').click(function(event) {
       chosenTab = parseInt(event.target.id);
-      window.alert("Tab: " + chosenTab.toString());
+    //  window.alert("Tab: " + chosenTab.toString());
       updateChart();
       $('html, body').animate({scrollTop : 0}, 500);
       return false;
