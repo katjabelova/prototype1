@@ -11,7 +11,6 @@
 <h1 id="title"><%= @name %></h1>
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
-
 <!-- <div id="spinner" style="display: none">
   <img id="img-spinner" src="/assets/.gif" alt="Loading">
 </div> -->
@@ -30,7 +29,7 @@
 <div id="input">
   <div class="form-group" style="font-size:160%;" id="input_id"><strong>Input:</strong></div>
     <label for="email">Agriculture budget (integer):</label>
-    <%= form_for 'show', method: :put do |f| %>
+    <%= form_for 'show', method: :put, :class => 'updateTitle' do |f| %>
     <%= f.text_field :title1, placeholder: "Agro" %>
   <%#= form_tag :action => 'enter_non_agro' do %>
     <label for="email">Non Agriculture budget (integer):</label>
@@ -40,7 +39,7 @@
       <tbody>
         <tr>
           <td>
-            <%= f.submit "Submit", :id => "submit", data: { :disable_with => 'loading...'}, :class => 'updateTitle' %>
+            <%= f.submit "Submit", :id => "submit", data: { :disable_with => 'loading...'} %>
             <%#= link_to 'Submit', '#', method: :put, data: { :disable_with => 'loading...' }, :remote => true, :class => 'delete_pony' %>
           <%#= link_to 'Submit', '#', method: :put, data: { confirm: 'Sure?'}, :remote => true, :class => 'delete_pony' %>
           <%#= link_to 'Submit', '#', method: :put, data: { :disable_with => 'loading...' } %>
@@ -88,26 +87,12 @@
 <script>
    $(function() {
      window.alert("javascript found");
-/*     $( document ).on('ajaxEnd', function() {
-     //    $('.sk-cube-grid').show();
-     //    $('div#content').hide();
-     //    $('div#submitdiv').hide();
-  });   */
-/*     <% if @ready
-       puts "ready!!!" %>
-        window.updateChart();
-     <% end %>
 
-     $('#submit').on("click", function(event) {
-        <% if @ready %>
-          updateChart();
-       <% end %>
-     }); */
-
-     var chartOptions = {
+      function chartOptions() {
+        var chartOptions = {
        <% if @outputArray == nil || @outputArray == [] %>
        <% puts "in default case" %>
-    //   window.alert("in deafault case");
+
        chart: { type: "column" },
        title: { text: "default chart" },
        xAxis: { type: "column", categories: "" },
@@ -127,7 +112,7 @@
              <% puts "serie name" +  @outputArray[@tabChosen].series[0][0] %>
              <% rawValue = raw @outputArray[@tabChosen].series[0][1] %>
               <% puts "serie data" +  rawValue %>
-    //   window.alert("in parsed case");
+
        chart: { type: "<%= @outputArray[@tabChosen].chart.to_s %>" },
        title: { text: "<%= @outputArray[@tabChosen].title.to_s %>" },
        xAxis: { type: "<%= @outputArray[@tabChosen].xAxis[:type] %>", categories: <%= raw @outputArray[@tabChosen].xAxis[:categories] %> },
@@ -135,15 +120,18 @@
        series: [{ name: "<%= @outputArray[@tabChosen].series[0][0] %>", data: <%= raw @outputArray[@tabChosen].series[0][1] %> }]
        <% end %>
      };
+     return chartOptions;
+   };
 
      window.updateChart = function() {
       var chartType = "column";
       var title = "default chart";
-     // chartOptions.chart.type = chartType;
-     // chartOptions.title = title;
-     window.alert("chart option: " + chartOptions.title.text);
+      var chartTab = '<%= @tabChosen %>';
+      window.alert(" tab before: " + chartTab.toString());
+     var foundChartOptions = chartOptions();
+     window.alert("chart option: " + foundChartOptions.title.text);
      <% puts "in update chart <script>" %>
-      Highcharts.chart('content1', chartOptions);
+      Highcharts.chart('content1', foundChartOptions);
      };
 
      updateChart();
@@ -160,63 +148,18 @@
     } else {
         agro = parseInt(agro);
         non = parseInt(non);
-    //    <%# @input1 %> = agro;
-    //    <%# @input2 = %> = non;
-    /*    var data = {
-          agro_split: {
-          input1: agro.to_s,
-          input2: non.to_s
-        }
-      };
-        $.ajax({
-        type: 'PUT',
-        url:  '/view',
-        data: data,
-        dataType: "JSON",
-        success: function(data) {
-            console.log(data);
-        }
-    }); */
       }
      });
    });
 
-   var chosenTab = 0;
-
    $('.autocompare1').click(function(event) {
     //  chosenTab = 'parseInt(event.target.id)';
-      chosenTab = '<%= @tabChosen %>';
       <% @tabChosen = 1 %>
-      chosenTab = 1;
+      chosenTab = '<%= @tabChosen %>';
       window.alert("Tab: " + chosenTab.toString());
       updateChart();
    });
-/*
-Highcharts.chart('content1', {
-  chart: { type: "column" },
-  title: { text: "default chart" },
-  xAxis: { type: "column", categories: "" },
-  yAxis: { title: { text: "default yAxis" } }
-});
-*/
 
-/*
-var chartOptions = {
-  chart: { type: "column" },
-  title: { text: "default chart" },
-  xAxis: { type: "column", categories: "" },
-  yAxis: { title: { text: "default yAxis" } }
-};
-
-window.updateChart = function() {
- var chartType = "column";
- var title = "default chart";
-// chartOptions.chart.type = chartType;
-// chartOptions.title = title;
- Highcharts.chart('content1', chartOptions);
-};
-
-updateChart(); */
 </script>
 </div>
 </body>

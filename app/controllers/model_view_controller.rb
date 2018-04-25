@@ -104,7 +104,10 @@ class ModelViewController < ApplicationController
               # @result_showing = true
               parse_json
               @name = "Sent"
-
+            #  respond_to do |format|
+              #  format.html
+              #  format.js { render action: :show, format: :js }
+            #  end
              else
                flash.now[:danger] = 'Model\'s parameter could not be parsed'
              end
