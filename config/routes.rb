@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get '/button1', to: 'model_view#prepost_request', as: 'button1'
 
   get '/graph', to: 'model_view#show_graph'
+  get '/questionnaire', to: 'model_view#show_questionnaire'
 
   post '/subchoice', to: 'model_view#subchoice', as: 'subchoice'
 
