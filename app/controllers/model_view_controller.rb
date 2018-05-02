@@ -23,6 +23,10 @@ class ModelViewController < ApplicationController
     head :no_content
   end
 
+  def finish_questionnaire
+    puts "params: " + params.to_s
+  end
+
   def parse_json
     if !$output.nil?
       puts "output shown: " + $output.to_s
@@ -64,7 +68,6 @@ class ModelViewController < ApplicationController
       @output = params[:output]
       $output  = @output
     #  parse_json
-
       #render :js => "window.updateChart();"
 
       puts "end of post request"

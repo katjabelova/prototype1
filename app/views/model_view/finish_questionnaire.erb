@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+<body>
+<h1>Go back</h1>
+<div style="overflow:auto;">
+  <div style="float:right;">
+    <%= button_to "Repeate", questionnaire_path , method: :get, class: 'btn btn-primary' %>
+  </div>
+  <div style="float:left;">
+    <%= button_to "Close", home_path , method: :get, class: 'btn btn-primary' %>
+  </div>
+</div>
+</body>
+</html>

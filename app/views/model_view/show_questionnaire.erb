@@ -32,12 +32,10 @@ input {
   border: 1px solid #aaaaaa;
 }
 
-/* Mark input boxes that gets an error on validation: */
 input.invalid {
   background-color: #ffdddd;
 }
 
-/* Hide all steps by default: */
 .tab {
   display: none;
 }
@@ -60,7 +58,6 @@ button:hover {
   background-color: #bbbbbb;
 }
 
-/* Make circles that indicate the steps of the form: */
 .step {
   height: 15px;
   width: 15px;
@@ -76,15 +73,14 @@ button:hover {
   opacity: 1;
 }
 
-/* Mark the steps that are finished and valid: */
 .step.finish {
   background-color: #92a8d1;
 }
 </style>
 <body>
 <% @stepCount = 2; %>
-<form id="regForm">
-  <h1>Questionnaire</h1>
+<form id="regForm" action="/finish_questionnaire">
+  <h1 id="questionnaire_name">Questionnaire</h1>
   <!-- One "tab" for each step in the form: -->
   <div class="tab"><strong>Enter first values:</strong>
   <br>
@@ -110,9 +106,7 @@ button:hover {
     </div>
     </div>
   </div>
-  <div class="tab">
-      <a class="again" href="#">Fill the questionnaire again</a>
-      <a class="back" href="#">Go back</a>
+  <div class="last_tab" style="display: none"><strong>Last</strong>
   </div>
   <div style="overflow:auto;">
     <div style="float:right;">
@@ -121,7 +115,7 @@ button:hover {
     </div>
   </div>
   <!-- Circles which indicates the steps of the form: -->
-  <div style="text-align:center;margin-top:40px;">
+  <div style="text-align:center;margin-top:40px;" id="indicators">
     <% for i in 0..@stepCount - 1 %>
       <span class="step"></span>
     <% end %>
@@ -129,86 +123,65 @@ button:hover {
 </form>
 
 <script>
-var currentTab = 0; // Current tab is set to be the first tab (0)
-showTab(currentTab); // Display the crurrent tab
+var currentTab = 0;
+showTab(currentTab);
 
 function showTab(n) {
+  document.getElementById("questionnaire_name").innerHTML = "Questionnaire"
+  var tabs = document.getElementsByClassName("tab");
+  tabs[n].style.display = "block";
 
-  if (n == @stepCount) {
-    var x = document.getElementsByClassName("tab");
-    x[n].style.display = "block";
-    return false;
-  }
-
-  // This function will display the specified tab of the form...
-  var x = document.getElementsByClassName("tab");
-  x[n].style.display = "block";
-  //... and fix the Previous/Next buttons:
   if (n == 0) {
     document.getElementById("prevBtn").style.display = "none";
   } else {
     document.getElementById("prevBtn").style.display = "inline";
   }
-  if (n == (x.length - 1)) {
+  if (n == (tabs.length - 1)) {
     document.getElementById("nextBtn").innerHTML = "Submit";
   } else {
     document.getElementById("nextBtn").innerHTML = "Next";
   }
-  //... and run a function that will display the correct step indicator:
-  fixStepIndicator(n)
+
+  calculateSteps(n)
 }
 
-function nextPrev(n) {
-  // This function will figure out which tab to display
+function nextPrev(withStep) {
   var x = document.getElementsByClassName("tab");
-  // Exit the function if any field in the current tab is invalid:
-  if (n == 1 && !validateForm()) return false;
-  // Hide the current tab:
+  if (withStep == 1 && !validate()) return false;
+
   x[currentTab].style.display = "none";
-  // Increase or decrease the current tab by 1:
-  currentTab = currentTab + n;
-  //window.alert("currentTab: " + currentTab.toString() + "; x-length: " + x.length.toString());
-  // if you have reached the end of the form...
+  currentTab = currentTab + withStep;
   if (currentTab >= x.length) {
-    // ... the form gets submitted:
-  //  window.alert("close tabs");
-  //  document.getElementById("regForm").submit();
-    currentTab == @stepCount
+    document.getElementById("regForm").submit();
     return false;
+  } else {
+    showTab(currentTab);
   }
-  // Otherwise, display the correct tab:
-  showTab(currentTab);
 }
 
-function validateForm() {
-  // This function deals with validation of the form fields
+function validate() {
   var x, y, i, valid = true;
   x = document.getElementsByClassName("tab");
   y = x[currentTab].getElementsByTagName("input");
-  // A loop that checks every input field in the current tab:
+
   for (i = 0; i < y.length; i++) {
-    // If a field is empty...
     if (y[i].value == "") {
-      // add an "invalid" class to the field:
       y[i].className += " invalid";
-      // and set the current valid status to false
       valid = false;
     }
   }
-  // If the valid status is true, mark the step as finished and valid:
+
   if (valid) {
     document.getElementsByClassName("step")[currentTab].className += " finish";
   }
-  return valid; // return the valid status
+  return valid;
 }
 
-function fixStepIndicator(n) {
-  // This function removes the "active" class of all steps...
+function calculateSteps(n) {
   var i, x = document.getElementsByClassName("step");
   for (i = 0; i < x.length; i++) {
     x[i].className = x[i].className.replace(" active", "");
   }
-  //... and adds the "active" class on the current step:
   x[n].className += " active";
 }
 </script>
