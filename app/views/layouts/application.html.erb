@@ -25,6 +25,7 @@
   </head>
   <body>
   <header>
+    <% if params[:action] != "use_case" %>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: bisque">
       <a class="navbar-brand" href="#" style="color:black">Prototype</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,6 +80,7 @@
         </ul>
       </div>
     </nav>
+    <% end %>
     <script>
       $('.dropdown-toggle').dropdown()
     </script>
@@ -97,10 +99,12 @@
       <% end %>
       <%= yield %>
     </div>
+    <% if params[:action] != "use_case" %>
     <footer class="container">
       <p class="float-right"><a href="#">Back to top</a></p>
       <p>© University of Kiel. Information systems · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
     </footer>
+    <% end %>
   </main>
 
   <!-- Bootstrap core JavaScript
