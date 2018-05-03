@@ -27,5 +27,7 @@ Rails.application.routes.draw do
 
   post '/subchoice', to: 'model_view#subchoice', as: 'subchoice'
 
+  get '/vitamins', to: 'model_view#vitamins'
+
   resources :users
 end

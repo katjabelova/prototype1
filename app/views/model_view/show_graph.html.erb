@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>From Bootstrap</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -19,7 +19,6 @@
       <button id="budget" type="button" class="autocompare">Budget</button>
       <button id="tp" class="autocompare">TP</button>
       <button id="poverty" class="autocompare">Poverty</button>
-
       <button id="goods2011" class="autocompare">Public_goods_2011</button>
       <button id="goods" class="autocompare">Public_goods</button>
 
@@ -261,7 +260,9 @@ $(function() {
   });
 
   var series = [
-    <% @graph.series.each { |serie| %>
+    <%
+
+    @graph.series.each { |serie| %>
       {
       name: '<%= serie[:name] %>',
       data: <%= raw @graph.series[0][:data_array] %>

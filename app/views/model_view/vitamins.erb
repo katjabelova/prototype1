@@ -1,0 +1,59 @@
+<html>
+<head>
+  <style>
+    nav { position: fixed; z-index: 1030; top: 80px; }
+    section { width: 3600px; top: 100px; position: relative; bottom: 0px; overflow: auto;}
+    .item { float: left; position: relative; width: 900px; height: 500px; font-size: 200px; }
+
+    body {
+      position: absolute;
+      background-color: rgba(255,228,196, 0.3);
+    }
+
+    main {
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;
+    }
+
+    .navbar {
+      position: fixed;
+    }
+
+  </style>
+  <script>
+  $(document).ready(function (){
+    $('.nav-item1').click(function (event) {
+        horizontalNavigation(0, event);
+    });
+    $('.nav-item2').click(function (event) {
+        horizontalNavigation(900, event);
+    });
+    $('.nav-item3').click(function (event) {
+        horizontalNavigation(1800, event);
+    });
+});
+
+function horizontalNavigation(position, event) {
+    $('html').animate({scrollLeft: position}, 800);
+    event.preventDefault();
+}
+  </script>
+</head>
+<body>
+  <header>
+    <nav>
+        <ul>
+            <li><a class="nav-item1" href="#">Step 1</a></li>
+            <li><a class="nav-item2" href="#">Step 2</a></li>
+            <li><a class="nav-item3" href="#">Step 3</a></li>
+        </ul>
+    </nav>
+</header>
+<section>
+   <div class="item item1", align="middle"><img style="width:500px;height:500px;" src="/assets/modelProcess.png" data-holder-rendered="true"  align="middle"></div>
+   <div class="item item2" align="middle"><img style="width:500px;height:500px;" src="/assets/smallSchema1.png" data-holder-rendered="true"  align="middle"></div>
+   <div class="item item3" align="middle"><img style="width:500px;height:500px;" src="/assets/bigSchema.png" data-holder-rendered="true"  align="middle"></div>
+</section>
+
+</body>
+</html>
