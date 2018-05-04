@@ -25,5 +25,7 @@ Rails.application.routes.draw do
 
   post '/subchoice', to: 'model_view#subchoice', as: 'subchoice'
 
+  get '/admin_path', to: 'admin#admin_view'
+
   resources :users
 end

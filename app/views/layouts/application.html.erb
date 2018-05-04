@@ -17,6 +17,9 @@
     <script src="/assets/jquery.js" type="text/javascript"></script>
     <script src="/assets/jquery_ujs.js" type="text/javascript"></script>
 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js" integrity="sha384-feJI7QwhOS+hwpX2zkaeJQjeiwlhOP+SdQDqhgvvo1DsjtiSQByFdThsxO669S2D" crossorigin="anonymous"></script>
     <%= stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' %>
@@ -49,12 +52,11 @@
           <% end %>
           <% found_role_id = user_role
             puts "role id: " + found_role_id.to_s
-            RoleHasWidget.where(role_id: @role_id).find_each do |widget_id_foreign| %>
-          <%
-            widget_id = widget_id_foreign.widget_id
-            widget = Widget.find_by(id: widget_id)
-            widget_value = widget.value
-            widget_path = widget.path
+            RoleHasWidget.where(role_id: @role_id).find_each do |widget_id_foreign|
+              widget_id = widget_id_foreign.widget_id
+              widget = Widget.find_by(id: widget_id)
+              widget_value = widget.value
+              widget_path = widget.path
           %>
           <% if logged_in? %>
               <% if widget_value != 'Login' %>
@@ -63,9 +65,16 @@
                   <%= link_to widget_value.to_s, widget_path, method: :delete %>
                   </li>
                 <% else %>
-                <li>
-                  <%= link_to widget_value.to_s, widget_path %>
-                </li>
+                  <% if widget_value == 'Admin' %>
+                    <li>
+                      <%#= link_to "", widget_path, class: "fas fa-user-cog" %>
+                      <%= link_to "", widget_path, class: "fa fa-cog fa-2x fa-fws" %>
+                    </li>
+                  <% else %>
+                    <li>
+                      <%= link_to widget_value.to_s, widget_path %>
+                    </li>
+                  <% end %>
                 <% end %>
               <% end%>
           <% else %>
