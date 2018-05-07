@@ -215,47 +215,136 @@ body {
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Email</th>
+                <th>Role</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
-          <% @usercount = 1
-
+          <%
+          @pageNumber = 0
+          @pagesArray = {}
+          @pagesCount = 0
+          @usercount = 1
           @useramount = User.all.count
 
           User.find_each do |user|
+              idUser = user.id
+              puts "user id: " + idUser.to_s
               row = @usercount
               firstname = user.first_name
               lastname = user.last_name
               email = user.email
               @usercount += 1
+
+              role = UserRole.where(["user_id = ?", idUser]).first
+              role_id = role.role_id
+              role_name = Role.find(role_id).role_name
+              if @pagesArray.size() == 0 || @pagesArray == nil
+                @pagesArray[0] = [[row, firstname, lastname, email, role_name]]
+              elsif @pagesCount % 5 == 0
+                 actualElement = @pagesCount / 5
+                 @pagesArray[actualElement] = [[row, firstname, lastname, email, role_name]]
+              else
+                actualElement = Integer(@pagesCount / 5)
+                actualPage = @pagesArray[actualElement]
+                actualPage.push([row, firstname, lastname, email, role_name])
+                @pagesArray[actualElement] = actualPage
+              end
+              @pagesCount += 1
+            end
              %>
-            <tr>
-                <td><%= row %></td>
-                <td><%= firstname %></td>
-                <td><%= lastname %></td>
-                <td><%= email %></td>
+             <% if @pagesArray != nil && @pagesArray.size() != 0 && @pagesArray[@pageNumber] != nil
+                @pagesArray[@pageNumber].each do |element|
+              %>
+              <div class="page" id="<%= @pageNumber %>">
+               <tr>
+                <td><%= element[0] %></td>
+                <td><%= element[1] %></td>
+                <td><%= element[2] %></td>
+                <td><%= element[3] %></td>
+                <td><%= element[4] %></td>
                 <td>
-							       <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
-							       <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
+							      <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
+							      <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
 						    </td>
-            </tr>
+                </tr>
+              </div>
+              <% end %>
             <% end %>
         </tbody>
     </table>
     <div class="clearfix">
           <div class="hint-text">Showing <b>5</b> out of <b><%= @useramount %></b> entries</div>
           <ul class="pagination">
-              <li class="page-item disabled"><a href="#">Previous</a></li>
-              <li class="page-item active"><a href="#" class="page-link">1</a></li>
-              <li class="page-item"><a href="#" class="page-link">2</a></li>
-              <li class="page-item"><a href="#" class="page-link">3</a></li>
-              <li class="page-item"><a href="#" class="page-link">4</a></li>
-              <li class="page-item"><a href="#" class="page-link">5</a></li>
-              <li class="page-item"><a href="#" class="page-link">Next</a></li>
+              <% if @useramount >= 5
+                  moduloAmountOnPage = @useramount % 5
+                  amountOnPage = @useramount / 5
+                  @pageAmount = moduloAmountOnPage == 0 ? amountOnPage : amountOnPage + 1
+                else
+                  @pageAmount = 1
+                end
+                puts "page amount: " + @pageAmount.to_s
+              %>
+              <li class="page-item" id="<%= -1 %>"><a href="#">Previous</a></li>
+              <% for i in 0..@pageAmount - 1 %>
+                <% if i == 0 %>
+                  <li class="page-item active" id="<%= i %>"><a href="#" class="page-link"><%= i + 1 %></a></li>
+                <% else %>
+                  <li class="page-item" id="<%= i %>"><a href="#" class="page-link"><%= i + 1 %></a></li>
+                <% end %>
+              <% end %>
+                  <li class="page-item" id="<%= i + 1 %>"><a href="#" class="page-link">Next</a></li>
           </ul>
       </div>
   </div>
 </div>
+<script>
+$(function() {
+   window.alert("JS found");
+   $('.page-item').on("click", function(event) {
+      var activeElement = parseInt(document.getElementsByClassName("page-item active")[0].getAttribute('id'));
+      var currentPage = 0;
+      window.alert("active element: " + activeElement);
+      window.alert("this valuet: " + $(this).children().first().val().toString());
+
+     if ($(this).children().first().val() == "Previous") {
+        window.alert("in previous");
+       if (activeElement == 0) {
+           window.alert("in current page");
+         currentPage = 0;
+       } else {
+           window.alert("active element: " + activeElement);
+         currentPage = activeElement - 1;
+       };
+      window.alert("clicked, active before: " + activeElement);
+    } else if ($(this).val() == "Next") {
+      if (activeElement == 1) {
+        currentPage = <%= @pagesArray.size() %>;
+      } else {
+        currentPage = parseInt(activeElement) + 1;
+      };
+      window.alert("clicked, active before: " + activeElement);
+    } else {
+    // var idOfActiveElement = activeElement.value;
+      currentPage = $(this).attr('id');
+    };
+     //$(this).attr('id');
+     window.alert("currentPage: " + currentPage);
+  // var elementToHide = $("div[id='" + previousPage + "']");
+  // var elementToShow = $("div[id='" + currentPage + "']")
+    <% for i in 0..@pageAmount - 1 %>
+      if(currentPage != <%= i %>) {
+           window.alert("case1");
+        $('#' + '<%= i %>' + '.page-item').removeClass('active');
+      } else {
+           window.alert("case2");
+        $('#' + currentPage + '.page-item').addClass('active');
+      };
+    <% end %>
+  // elementToHide.hide();
+  // elementToShow.show();
+    });
+  });
+</script>
 </body>
 </html>
