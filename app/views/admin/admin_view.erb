@@ -259,13 +259,15 @@ body {
               <div class="page" id="<%= @pageNumber %>">
                <tr>
                 <td><%= element[0] %></td>
-                <td><%= element[1] %></td>
-                <td><%= element[2] %></td>
-                <td><%= element[3] %></td>
+                <td id="firstname"><%= element[1] %></td>
+                <td id="lastname"><%= element[2] %></td>
+                <td id="email"><%= element[3] %></td>
                 <td><%= element[4] %></td>
                 <td>
 							      <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
-							      <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
+                    <% if element[4] != 'Admin' %>
+							         <a href="#modal-dialog" class="delete" title="Delete"><i class="material-icons">&#xE5C9;</i></a>
+                    <% end %>
 						    </td>
                 </tr>
               </div>
@@ -297,17 +299,48 @@ body {
           </ul>
       </div>
   </div>
+  <div id="modal-dialog" class="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color:#299be4">
+             <h4 style="color:black">Deletion process</h4>
+             <a href="#" data-dismiss="modal" aria-hidden="true" class="close">×</a>
+        </div>
+        <div class="modal-body" id="modal-body-id">
+             <p id="text">Do you want to delete user from the database?</p>
+        </div>
+        <div class="modal-footer">
+          <a href="#" data-dismiss="modal" id="btnConfirm" class="btn confirm" style="color:black; background-color:#FF0000">Delete</a>
+          <a href="#" data-dismiss="modal" aria-hidden="true" class="btn secondary" style="color:black; background-color:#00FF00">Cancel</a>
+        </div>
+      </div>
+    </div>
+</div>
 </div>
 <script>
 $(function() {
    window.alert("JS found");
+
+   $('.delete').on("click", function(event) {
+     var parentName = $(this).parent().siblings('#firstname').html();
+     var parentSurname = $(this).parent().siblings('#lastname').html();
+     var parentEmail = $(this).parent().siblings('#email').html();
+     var text = "Do you want to delete user " + parentName + " " + parentSurname + " from the database? ";
+
+     $('.modal-body').children('#text').html(function() {
+       return text;
+     });
+
+      $('#modal-dialog').modal('toggle');
+   });
+
    $('.page-item').on("click", function(event) {
       var activeElement = parseInt(document.getElementsByClassName("page-item active")[0].getAttribute('id'));
       var currentPage = 0;
       window.alert("active element: " + activeElement);
-      window.alert("this valuet: " + $(this).children().first().val().toString());
+      window.alert("this value: " + $(this).find('a').html());
 
-     if ($(this).children().first().val() == "Previous") {
+     if ($(this).find('a').html() == "Previous") {
         window.alert("in previous");
        if (activeElement == 0) {
            window.alert("in current page");
@@ -317,9 +350,9 @@ $(function() {
          currentPage = activeElement - 1;
        };
       window.alert("clicked, active before: " + activeElement);
-    } else if ($(this).val() == "Next") {
+    } else if ($(this).find('a').html() == "Next") {
       if (activeElement == 1) {
-        currentPage = <%= @pagesArray.size() %>;
+        currentPage = <%= @pagesArray.size() - 1 %>;
       } else {
         currentPage = parseInt(activeElement) + 1;
       };
