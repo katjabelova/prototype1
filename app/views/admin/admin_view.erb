@@ -240,14 +240,14 @@ body {
               role_id = role.role_id
               role_name = Role.find(role_id).role_name
               if @pagesArray.size() == 0 || @pagesArray == nil
-                @pagesArray[0] = [[row, firstname, lastname, email, role_name]]
+                @pagesArray[0] = [[row, firstname, lastname, email, role_name, user.id]]
               elsif @pagesCount % 5 == 0
                  actualElement = @pagesCount / 5
-                 @pagesArray[actualElement] = [[row, firstname, lastname, email, role_name]]
+                 @pagesArray[actualElement] = [[row, firstname, lastname, email, role_name, user.id]]
               else
                 actualElement = Integer(@pagesCount / 5)
                 actualPage = @pagesArray[actualElement]
-                actualPage.push([row, firstname, lastname, email, role_name])
+                actualPage.push([row, firstname, lastname, email, role_name, user.id])
                 @pagesArray[actualElement] = actualPage
               end
               @pagesCount += 1
@@ -264,10 +264,18 @@ body {
                 <td id="email"><%= element[3] %></td>
                 <td><%= element[4] %></td>
                 <td>
+                  <% user_id = element[5] %>
 							      <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
+
                     <% if element[4] != 'Admin' %>
-							         <a href="#modal-dialog" class="delete" title="Delete"><i class="material-icons">&#xE5C9;</i></a>
-                    <% end %>
+                    <% user = User.find(user_id) %>
+                    <%= link_to "delete", user, method: :delete, data: { confirm: "You sure?" }, :style => 'color:red' %>
+							  <!--    <a href="#modal-dialog" class="delete" title="Delete"><i class="material-icons">&#xE5C9;</i></a> -->
+                      <%#= link_to '#', {:controller => 'admin_controller', :action => 'testdelete', :class => "delete", :title => "Delete"} do %>
+                <!--      <i class="material-icons">&#xE5C9;</i> -->
+                      <%# end %>
+                  <% end %>
+
 						    </td>
                 </tr>
               </div>
@@ -339,6 +347,7 @@ $(function() {
       var currentPage = 0;
       window.alert("active element: " + activeElement);
       window.alert("this value: " + $(this).find('a').html());
+      var previousPage = currentPage;
 
      if ($(this).find('a').html() == "Previous") {
         window.alert("in previous");
@@ -374,6 +383,10 @@ $(function() {
         $('#' + currentPage + '.page-item').addClass('active');
       };
     <% end %>
+/*
+    if (previousPage != currentPage) {
+      @pageNumber = currentPage;
+    }; */
   // elementToHide.hide();
   // elementToShow.show();
     });

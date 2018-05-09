@@ -7,6 +7,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def destroy
+    UserRole.where(user_id: params[:id]).destroy_all
+    User.find(params[:id]).destroy
+    flash[:success] = "User deleted"
+    redirect_to admin_path_url
+  end
+
   def create
     @user = User.new(user_params)
     if @user.save
