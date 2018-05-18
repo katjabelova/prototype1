@@ -27,5 +27,7 @@ Rails.application.routes.draw do
 
   get '/admin_path', to: 'admin#admin_view'
 
+  get '/users/index', to: 'users#update'
+
   resources :users
 end

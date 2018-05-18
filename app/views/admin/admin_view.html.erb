@@ -221,13 +221,12 @@ body {
         </thead>
         <tbody>
           <%
-          @count = 1
           @users.each do |user|
           %>
 
-              <div class="page" id="<%= @pageNumber %>">
+              <div class="page">
                <tr>
-                <td><%= @count %></td>
+                <td><%= User.all.index(user) + 1 %></td>
                 <td id="firstname"><%= user.first_name %></td>
                 <td id="lastname"><%= user.last_name %></td>
                 <td id="email"><%= user.email %></td>
@@ -239,20 +238,24 @@ body {
                 <td><%= role_name %></td>
                 <td>
                   <% user_id = user.id %>
-							      <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
+							    <!--  <a href="#" class="settings" title="Settings" data-toggle="tooltip"> -->
+                    <%= link_to edit_user_path(user) do %>
+                      <i class="material-icons" style='color:#1E90FF'>&#xE8B8;</i>
+                    <% end %>
 
                     <% if role_name != 'Admin' %>
                     <% user = User.find(user_id) %>
-                    <%= link_to "delete", user, method: :delete, data: { confirm: "You sure?" }, :style => 'color:red' %>
+                <!--    <%= link_to "delete", user, method: :delete, data: { confirm: "You sure?" }, :style => 'color:red' %> -->
 							  <!--    <a href="#modal-dialog" class="delete" title="Delete"><i class="material-icons">&#xE5C9;</i></a> -->
-                      <%#= link_to '#', {:controller => 'admin_controller', :action => 'testdelete', :class => "delete", :title => "Delete"} do %>
-                <!--      <i class="material-icons">&#xE5C9;</i> -->
-                      <%# end %>
+                      <%#= link_to 'admin_path_url', {:controller => 'user_controller', :method => 'delete', :class => "delete", :title => "Delete"} do %>
+                      <%= link_to user,  method: :delete, data: { confirm: 'Deleting: ' + user.first_name.to_s + ' ' + user.last_name.to_s + '. Are you sure?' }, remote: true do %>
+                      <i class="material-icons" style='color:red' >&#xE5C9;</i>
+                      <% end %>
                   <% end %>
 
 						    </td>
                 </tr>
-                  <% @count = @count + 1 %>
+
               </div>
           <% end %>
         </tbody>
@@ -285,7 +288,7 @@ body {
 $(function() {
    window.alert("JS found");
 
-   $('.delete').on("click", function(event) {
+   $('.delete1').on("click", function(event) {
      var parentName = $(this).parent().siblings('#firstname').html();
      var parentSurname = $(this).parent().siblings('#lastname').html();
      var parentEmail = $(this).parent().siblings('#email').html();
