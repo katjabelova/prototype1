@@ -388,9 +388,9 @@ function output_goal_achievement_poverty() {
 };
 
 function output_goal_achivement_public_goods() {
-  window.alert("argf: " + in_budget_agriculture + "; nonf: " + in_budget_non_agriculture);
+//  window.alert("argf: " + in_budget_agriculture + "; nonf: " + in_budget_non_agriculture);
   var result = 100 - (in_budget_agriculture + in_budget_non_agriculture);
-  window.alert("result: " + result);
+//  window.alert("result: " + result);
   return 100 - (in_budget_agriculture + in_budget_non_agriculture);
 };
 
@@ -407,7 +407,7 @@ window.updateChartWithValues = function(in_budget_agriculture, in_budget_non_agr
     switch(tabsChosen) {
     case 1:
       var seriesData = [output_effective_budget()];
-      window.alert("series data1: " + seriesData);
+    //  window.alert("series data1: " + seriesData);
       <% puts "in case 1" %>
       chartOptions.series = [{
           name: "Budget distribution over years",
@@ -417,7 +417,7 @@ window.updateChartWithValues = function(in_budget_agriculture, in_budget_non_agr
     case 2:
       <% puts "in case 2" %>
       var seriesData = [output_tp()];
-      window.alert("series data2: " + seriesData);
+  //    window.alert("series data2: " + seriesData);
       chartOptions.series = [{
           name: "TP",
           data: seriesData
@@ -425,9 +425,9 @@ window.updateChartWithValues = function(in_budget_agriculture, in_budget_non_agr
           break;
     case 3:
       <% puts "in case 3" %>
-      window.alert("agri: "+ in_budget_agriculture +"; non: " + in_budget_non_agriculture);
+  //    window.alert("agri: "+ in_budget_agriculture +"; non: " + in_budget_non_agriculture);
       var seriesData = [output_goal_achivement_public_goods()];
-      window.alert("series data3: " + seriesData);
+  //    window.alert("series data3: " + seriesData);
       chartOptions.series = [{
           name: "Goods of year 2001",
           data: seriesData
@@ -436,7 +436,7 @@ window.updateChartWithValues = function(in_budget_agriculture, in_budget_non_agr
     case 4:
       <% puts "in case 4" %>
       var seriesData = output_goal_achivement_public_goods_years();
-      window.alert("series data4: " + seriesData);
+  //    window.alert("series data4: " + seriesData);
       chartOptions.series = [{
           name: "Public goods over years",
           data: seriesData
@@ -445,7 +445,7 @@ window.updateChartWithValues = function(in_budget_agriculture, in_budget_non_agr
     case 5:
       <% puts "in case 5" %>
       var seriesData = output_goal_achievement_poverty();
-      window.alert("series data5: " + seriesData);
+  //    window.alert("series data5: " + seriesData);
       chartOptions.series = [{
           name: "Goal achievement poverty",
           data: seriesData
@@ -490,26 +490,26 @@ updateChart(series);
           if (intValueOfPage > 0 && intValueOfPage == pageNumbers.length) {
             //exit, save, change graph
             var agro = document.getElementById('input_agro').value;
-              window.alert("agro found: " + agro);
+            //  window.alert("agro found: " + agro);
             if (parseInt(agro)) {
-              window.alert("agro was set: " + agro);
+          //    window.alert("agro was set: " + agro);
               agro = parseInt(agro);
             } else {
-              window.alert("agro was set to 0" );
+          //    window.alert("agro was set to 0" );
               agro = 0;
             }
 
             var non = document.getElementById('input_non').value;
-            window.alert("non found: " + non);
+          //  window.alert("non found: " + non);
             if (parseInt(non)) {
-              window.alert("agro was set: " + non);
+        //      window.alert("agro was set: " + non);
               non = parseInt(non);
             } else {
-              window.alert("agro was set to 0" );
+        //      window.alert("agro was set to 0" );
               non = 0;
             }
 
-            window.alert("before update agro: " + agro + "; non: " + non);
+        //    window.alert("before update agro: " + agro + "; non: " + non);
             in_budget_agriculture = agro;
             in_budget_non_agriculture = non;
             updateChartWithValues(in_budget_agriculture, in_budget_non_agriculture);
