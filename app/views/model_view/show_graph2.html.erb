@@ -314,24 +314,28 @@ $(function() {
   output1.innerHTML = slider1.value; // Display the default slider value
   output2.innerHTML = slider2.value;
 
+  var oldx = output1.innerHTML;
+  var oldy = output2.innerHTML;
+
   // Update the current slider value (each time you drag the slider handle)
   slider1.oninput = function() {
       old_in_budget_agriculture = in_budget_agriculture;
       output1.innerHTML = this.value;
       in_budget_agriculture = parseInt(output1.innerHTML);
-      chartOptions.title = "previous value";
+      chartOptions.title = "previous values: " + old_in_budget_agriculture.toString() + ", " + in_budget_non_agriculture.toString();
       hiddenElem.value = chartOptions;
       old_chart_options = {
+        colors: ['#A8A8A8'],
         chart: { // renderTo: "pie_chart"
         type: chartOptions.chart.type },
         title: { text: chartOptions.title },
-        xAxis: { type: chartOptions.xAxis.title, categories: chartOptions.xAxis.categories},
-        yAxis: { title: { text:  chartOptions.yAxis.title } },
+        xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories},
+        yAxis: { title: { text:  chartOptions.yAxis.title.text } },
         series: chartOptions.series
      };
 
     //  old_chart_options = chartOptions;
-      old_chart_options.title = "ppp";
+  //    old_chart_options.title.text = old_chart_options.title.text + " Old";
       updateChartWithValues(in_budget_agriculture, in_budget_non_agriculture);
   };
 
@@ -339,17 +343,18 @@ $(function() {
       old_in_budget_non_agriculture = in_budget_non_agriculture;
       output2.innerHTML = this.value;
       in_budget_non_agriculture = parseInt(output2.innerHTML);
-      chartOptions.title = "previous value";
+      chartOptions.title = "previous values: " + in_budget_agriculture.toString() + ", " + old_in_budget_non_agriculture.toString();
       hiddenElem.value = chartOptions;
       old_chart_options = {
+        colors: ['#A8A8A8'],
         chart: { // renderTo: "pie_chart"
         type: chartOptions.chart.type },
         title: { text: chartOptions.title },
-        xAxis: { type: chartOptions.xAxis.title, categories: chartOptions.xAxis.categories},
-        yAxis: { title: { text:  chartOptions.yAxis.title } },
+        xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories},
+        yAxis: { title: { text:  chartOptions.yAxis.title.text } },
         series: chartOptions.series
      };
-     old_chart_options.title = "ppp";
+    //  old_chart_options.title.text = old_chart_options.title.text;
 
       updateChartWithValues(in_budget_agriculture, in_budget_non_agriculture);
   };
