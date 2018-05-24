@@ -22,12 +22,13 @@ Rails.application.routes.draw do
   get '/button1', to: 'model_view#prepost_request', as: 'button1'
 
   get '/graph', to: 'model_view#show_graph'
+  get '/graph2', to: 'model_view#show_graph2'
 
   post '/subchoice', to: 'model_view#subchoice', as: 'subchoice'
 
   get '/admin_path', to: 'admin#admin_view'
 
-  get '/users/index', to: 'users#update'
+  get '/edit', to: 'users#edit'
 
   resources :users
 end
