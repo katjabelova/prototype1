@@ -7,6 +7,24 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+  <style>
+  main {
+    position: absolute;
+    background-color: transparent;
+  }
+  body {
+    position: relative;
+    background-color: rgba(255,228,196, 0.3);
+  }
+
+  .wrapper {
+    background-color: transparent;
+  }
+
+  #contentinner {
+    background-color: transparent;
+  }
+  </style>
 </head>
   <body>
     <div class="wrapper">
@@ -23,6 +41,7 @@
          <input type="range" min="0" max="100" value="15" id="myRange2">
            <p>Value: <span id="demo_2"></span></p>
        </div>
+       <p id="hidden" style="display:none;"></p>
 
        <!-- Sidebar Links -->
   <!--     <ul class="list-unstyled components">
@@ -264,34 +283,74 @@ Dropdown 3.3
       </div>
     </div>
   </div>
-  <div id="container1" remote="true" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+  <div class="wrapperinner">
+    <div id="container1" remote="true" style="min-width: 800px; height: 400px; margin: 0 auto"></div>
 </div>
 
+</div>
+  <div id="container2" remote="true" style="min-width: 500px; height: 300px;" style="display:none"></div>
+</div>
 <script>
 var tabsChosen = 1;
 
 $(function() {
   var tabChosen = 1;
+
   var in_budget_agriculture = 25;
   var in_budget_non_agriculture = 15;
+
+  var old_in_budget_agriculture = null;
+  var old_in_budget_non_agriculture = null;
+
+  var old_chart_options = null;
 
   var slider1 = document.getElementById("myRange1");
   var output1 = document.getElementById("demo_1");
   var slider2 = document.getElementById("myRange2");
   var output2 = document.getElementById("demo_2");
+
+  var hiddenElem = document.getElementById("hidden");
+
   output1.innerHTML = slider1.value; // Display the default slider value
   output2.innerHTML = slider2.value;
 
   // Update the current slider value (each time you drag the slider handle)
   slider1.oninput = function() {
+      old_in_budget_agriculture = in_budget_agriculture;
       output1.innerHTML = this.value;
       in_budget_agriculture = parseInt(output1.innerHTML);
+      chartOptions.title = "previous value";
+      hiddenElem.value = chartOptions;
+      old_chart_options = {
+        chart: { // renderTo: "pie_chart"
+        type: chartOptions.chart.type },
+        title: { text: chartOptions.title },
+        xAxis: { type: chartOptions.xAxis.title, categories: chartOptions.xAxis.categories},
+        yAxis: { title: { text:  chartOptions.yAxis.title } },
+        series: chartOptions.series
+     };
+
+    //  old_chart_options = chartOptions;
+      old_chart_options.title = "ppp";
       updateChartWithValues(in_budget_agriculture, in_budget_non_agriculture);
   };
 
   slider2.oninput = function() {
+      old_in_budget_non_agriculture = in_budget_non_agriculture;
       output2.innerHTML = this.value;
       in_budget_non_agriculture = parseInt(output2.innerHTML);
+      chartOptions.title = "previous value";
+      hiddenElem.value = chartOptions;
+      old_chart_options = {
+        chart: { // renderTo: "pie_chart"
+        type: chartOptions.chart.type },
+        title: { text: chartOptions.title },
+        xAxis: { type: chartOptions.xAxis.title, categories: chartOptions.xAxis.categories},
+        yAxis: { title: { text:  chartOptions.yAxis.title } },
+        series: chartOptions.series
+     };
+     old_chart_options.title = "ppp";
+
       updateChartWithValues(in_budget_agriculture, in_budget_non_agriculture);
   };
 
@@ -355,6 +414,7 @@ $(function() {
 };
 
 $('#budget').click(function () {
+    old_chart_options = null;
   //balken
     <% puts "budget clicked" %>
     tabsChosen = 1;
@@ -366,6 +426,7 @@ $('#budget').click(function () {
 });
 
 $('#tp').click(function () {
+   old_chart_options = null;
   //balken
     tabsChosen = 2;
     chartType = "column";
@@ -376,6 +437,7 @@ $('#tp').click(function () {
 });
 
 $('#goods2011').click(function () {
+   old_chart_options = null;
   //balken
     tabsChosen = 3;
     chartType = "column";
@@ -386,6 +448,7 @@ $('#goods2011').click(function () {
 });
 
 $('#goods').click(function () {
+   old_chart_options = null;
   //linie
     tabsChosen = 4;
     chartType = "line";
@@ -398,6 +461,7 @@ $('#goods').click(function () {
 });
 
 $('#poverty').click(function () {
+   old_chart_options = null;
   //linie
     tabsChosen = 5;
     chartType = "line";
@@ -521,6 +585,15 @@ window.updateChartWithValues = function(in_budget_agriculture, in_budget_non_agr
   }
 
     Highcharts.chart('container1', chartOptions);
+    var elementToHide = document.getElementById("container2");
+
+    if (old_chart_options != null) {
+      elementToHide.style.display = "block";
+      Highcharts.chart('container2', old_chart_options);
+    } else {
+      var elementToHide = document.getElementById("container2");
+      elementToHide.style.display = "none";
+    };
 };
 
 updateChart(series);
@@ -603,6 +676,6 @@ updateChart(series);
        <!-- Custom Scroller Js CDN -->
        <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
-    </div>
+
   </body>
 </html>

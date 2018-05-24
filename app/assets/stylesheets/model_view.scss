@@ -13,16 +13,36 @@
     background-color: #4CAF50;
     color: white;
 } */
+
+.wrapperinner {
+//  display: flex;
+}
+
 #contentinner {
-    width: 800px;
+  width: 800px;
+}
+
+#container1 {
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+#container2 {
+  min-width: 500px;
+  margin-left: 0px;
+  margin-right: 0px;
+
+  margin-bottom: 0px;
 }
 
 .wrapper {
-        display: flex;
+  display: flex;
 }
 
 #sidebar {
-        background: #F0F8FF;
+        background: #F8F8F8;
         min-width: 200px;
         max-width: 200px;
         height: 100vh;
