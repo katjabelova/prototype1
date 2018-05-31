@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
   get '/graph', to: 'model_view#show_graph'
   get '/graph2', to: 'model_view#show_graph2'
+  get '/graph3', to: 'model_view#show_graph3'
 
   post '/subchoice', to: 'model_view#subchoice', as: 'subchoice'
 

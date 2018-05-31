@@ -270,6 +270,36 @@ class ModelViewController < ApplicationController
           ])
   end
 
+  def show_graph3
+    @graph = GraphHelper.new("pie", "Testtitle", "Testsubtitle", "pie", false, {
+      title: "x-Axis",
+      categories: "",
+      labels: "",
+      type: "percent correct",
+      min: "",
+      max: ""
+      }, {
+        title: "y-Axis",
+        categories: "",
+        labels: "",
+        type: "",
+        min: "",
+        max: ""
+        }, {
+          layout: "",
+          align: "",
+          vertical_align: "",
+          x: "",
+          y: "",
+          floating: ""
+          },  [ {
+            name: 'Agro Split',
+            data_array: [
+                ['Crops', 40],
+                ['Legumes', 60]
+            ] }
+          ])
+  end
 =begin
    def post_request
      if request.post?

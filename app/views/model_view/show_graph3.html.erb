@@ -7,6 +7,14 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+  <link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'>
+
+  <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+        rel = "stylesheet">
+
+     <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+     <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
   <style>
   main {
     position: absolute;
@@ -33,14 +41,36 @@
        <div class="sidebar-header">
            <h3>Settings</h3>
        </div>
-       <div class="slidecontainer">
-         <input type="range" min="0" max="100" value="25" id="myRange1">
-           <p>Value: <span id="demo_1"></span></p>
+       <div id="sliderrr">
        </div>
        <div class="slidecontainer">
-         <input type="range" min="0" max="100" value="15" id="myRange2">
-           <p>Value: <span id="demo_2"></span></p>
+         <label for="slider-fill">Input slider:</label>
+         <input type="range" name="slider-fill" min="0.0" max="1.0" value="0.25" id="myRange1" data-slider-id ="myRange1" step="0.01" data-highlight="true">
+           <p>Value investment: <span id="demo_1"></span></p>
        </div>
+      <div class="slidecontainer">
+         <input type="range" min="0.0" max="1.0" value="0.33" id="myRange2" step="0.01">
+           <p>Value agrar_share: <span id="demo_2"></span></p>
+       </div>
+
+       <div class="slidecontainer">
+         <input type="range" min="0" max="10" value="2" id="myRange3">
+           <p>Value nr: <span id="demo_3"></span></p>
+       </div>
+       <div class="slidecontainer">
+         <input type="range" min="0" max="10" value="3" id="myRange4">
+           <p>Value fm: <span id="demo_4"></span></p>
+       </div>
+
+       <div class="slidecontainer">
+         <input type="range" min="0" max="10" value="6" id="myRange5">
+           <p>Value ma: <span id="demo_5"></span></p>
+       </div>
+       <div class="slidecontainer">
+         <input type="range" min="0" max="10" value="1" id="myRange6">
+           <p>Value hr: <span id="demo_6"></span></p>
+       </div>
+
        <p id="hidden" style="display:none;"></p>
 
        <!-- Sidebar Links -->
@@ -68,12 +98,15 @@
       <button type="button" class="btn btn-info btn-lg" id="showModal" style="display:none">Settings</button>
 
 
-      <button id="budget" type="button" class="autocompare">Budget</button>
-      <button id="tp" class="autocompare">TP</button>
-      <button id="poverty" class="autocompare">Poverty</button>
+      <button id="wzs" type="button" class="autocompare">WZS</button>
+      <button id="z1" class="autocompare">Z1</button>
+      <button id="z2" class="autocompare">Z2</button>
+      <button id="z3" class="autocompare">Z3</button>
+      <button id="z4" class="autocompare">Z4</button>
+      <button id="z5" class="autocompare">Z5</button>
+      <button id="z6" class="autocompare">Z6</button>
+      <button id="z7" class="autocompare">Z7</button>
 
-      <button id="goods2011" class="autocompare">Public_goods_2011</button>
-      <button id="goods" class="autocompare">Public_goods</button>
 
 <!-- Modal -->
     <div id="myModal" class="modal fade" role="dialog">
@@ -293,12 +326,64 @@ Dropdown 3.3
 <script>
 var tabsChosen = 1;
 
+
+
 $(function() {
+
+/*$('#sliderrr').slider({
+  min: 0,
+  max: 1,
+  step: 0.01,
+  values: [0.25]
+})
+.slider("pips", {
+    rest: "label",
+    step: 2
+}); */
+
+$(document).on('ready', function() {
+  $('#sliderrr').slider({
+    min: 0,
+    max: 1,
+    step: 0.01,
+    values: [0.25]
+  })
+  .slider("pips", {
+      rest: "label"
+  })
+  .slider("float");
+});
+
+/*  $('#sliderrr').on("slidestart", function(event) {
+    window.alert("sliderrr");
+  }); */
+
   var tabChosen = 1;
 
+  /*old*/
   var in_budget_agriculture = 25;
   var in_budget_non_agriculture = 15;
+  /*old*/
 
+  /* range: [0.05, 0.4]*/
+  var investment_share = 0.25;
+  /* range: [0.05, 0.8]*/
+  var agrar_share = 0.33;
+  var relative_nr = 2;
+  var relative_fm = 3;
+  var relative_ma = 6;
+  var relative_hr = 1;
+
+  var old_investment_share = null;
+  var old_agrar_share = null;
+  var old_relative_nr = null;
+  var old_relative_fm = null;
+  var old_relative_ma = null;
+  var old_relative_hr = null;
+
+  var years = [1,2,3,4,5,6,7,8,9,10]
+
+  /*old*/
   var old_in_budget_agriculture = null;
   var old_in_budget_non_agriculture = null;
 
@@ -309,20 +394,30 @@ $(function() {
   var slider2 = document.getElementById("myRange2");
   var output2 = document.getElementById("demo_2");
 
+  var slider3 = document.getElementById("myRange3");
+  var output3 = document.getElementById("demo_3");
+  var slider4 = document.getElementById("myRange4");
+  var output4 = document.getElementById("demo_4");
+  var slider5 = document.getElementById("myRange5");
+  var output5 = document.getElementById("demo_5");
+  var slider6 = document.getElementById("myRange6");
+  var output6 = document.getElementById("demo_6");
+
   var hiddenElem = document.getElementById("hidden");
 
   output1.innerHTML = slider1.value; // Display the default slider value
   output2.innerHTML = slider2.value;
-
-  var oldx = output1.innerHTML;
-  var oldy = output2.innerHTML;
+  output3.innerHTML = slider3.value;
+  output4.innerHTML = slider4.value;
+  output5.innerHTML = slider5.value;
+  output6.innerHTML = slider6.value;
 
   // Update the current slider value (each time you drag the slider handle)
   slider1.oninput = function() {
-      old_in_budget_agriculture = in_budget_agriculture;
+      old_investment_share = investment_share;
       output1.innerHTML = this.value;
-      in_budget_agriculture = parseInt(output1.innerHTML);
-      chartOptions.title = "previous input values: " + old_in_budget_agriculture.toString() + ", " + in_budget_non_agriculture.toString();
+      investment_share = parseFloat(output1.innerHTML);
+      chartOptions.title = "previous input values: ";
       hiddenElem.value = chartOptions;
       old_chart_options = {
         colors: ['#A8A8A8'],
@@ -333,17 +428,14 @@ $(function() {
         yAxis: { title: { text:  chartOptions.yAxis.title.text } },
         series: chartOptions.series
      };
-
-    //  old_chart_options = chartOptions;
-  //    old_chart_options.title.text = old_chart_options.title.text + " Old";
-      updateChartWithValues(in_budget_agriculture, in_budget_non_agriculture);
+      updateChartWithValues();
   };
 
   slider2.oninput = function() {
-      old_in_budget_non_agriculture = in_budget_non_agriculture;
+      old_agrar_share = agrar_share;
       output2.innerHTML = this.value;
-      in_budget_non_agriculture = parseInt(output2.innerHTML);
-      chartOptions.title = "previous values: " + in_budget_agriculture.toString() + ", " + old_in_budget_non_agriculture.toString();
+      agrar_share = parseFloat(output2.innerHTML);
+      chartOptions.title = "previous values: ";
       hiddenElem.value = chartOptions;
       old_chart_options = {
         colors: ['#A8A8A8'],
@@ -354,15 +446,95 @@ $(function() {
         yAxis: { title: { text:  chartOptions.yAxis.title.text } },
         series: chartOptions.series
      };
-    //  old_chart_options.title.text = old_chart_options.title.text;
-
-      updateChartWithValues(in_budget_agriculture, in_budget_non_agriculture);
+      updateChartWithValues();
   };
+
+  slider3.oninput = function() {
+      old_relative_nr = relative_nr;
+      output3.innerHTML = this.value;
+      relative_nr = parseFloat(output3.innerHTML);
+      chartOptions.title = "previous input values: ";
+      hiddenElem.value = chartOptions;
+      old_chart_options = {
+        colors: ['#A8A8A8'],
+        chart: { // renderTo: "pie_chart"
+        type: chartOptions.chart.type },
+        title: { text: chartOptions.title },
+        xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories},
+        yAxis: { title: { text:  chartOptions.yAxis.title.text } },
+        series: chartOptions.series
+     };
+      updateChartWithValues();
+  };
+
+  slider4.oninput = function() {
+      old_relative_fm = relative_fm;
+      output4.innerHTML = this.value;
+      relative_fm = parseFloat(output4.innerHTML);
+      chartOptions.title = "previous values: ";
+      hiddenElem.value = chartOptions;
+      old_chart_options = {
+        colors: ['#A8A8A8'],
+        chart: { // renderTo: "pie_chart"
+        type: chartOptions.chart.type },
+        title: { text: chartOptions.title },
+        xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories},
+        yAxis: { title: { text:  chartOptions.yAxis.title.text } },
+        series: chartOptions.series
+     };
+      updateChartWithValues();
+  };
+
+  slider5.oninput = function() {
+      old_relative_ma = relative_ma;
+      output5.innerHTML = this.value;
+      relative_ma = parseFloat(output5.innerHTML);
+      chartOptions.title = "previous input values: ";
+      hiddenElem.value = chartOptions;
+      old_chart_options = {
+        colors: ['#A8A8A8'],
+        chart: { // renderTo: "pie_chart"
+        type: chartOptions.chart.type },
+        title: { text: chartOptions.title },
+        xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories},
+        yAxis: { title: { text:  chartOptions.yAxis.title.text } },
+        series: chartOptions.series
+     };
+      updateChartWithValues();
+  };
+
+  slider6.oninput = function() {
+      old_relative_hr = relative_hr;
+      output6.innerHTML = this.value;
+      relative_hr = parseFloat(output6.innerHTML);
+      chartOptions.title = "previous values: ";
+      hiddenElem.value = chartOptions;
+      old_chart_options = {
+        colors: ['#A8A8A8'],
+        chart: { // renderTo: "pie_chart"
+        type: chartOptions.chart.type },
+        title: { text: chartOptions.title },
+        xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories},
+        yAxis: { title: { text:  chartOptions.yAxis.title.text } },
+        series: chartOptions.series
+     };
+      updateChartWithValues();
+  };
+
+//$("#myRange1").slider();
+//  var slider_1 = new Slider("#myRange1");
+  $("#myRange1").on("slide", function(slideEvt) {
+     window.alert("sliding");
+	   $("#demo_1").text(slideEvt.value);
+  });
+
+  /*old*/
 
   var currentPage = 1;
   var pageNumbers = [];
   var chartType = "pie";
 
+  /*old*/
   $('#showModal').on("click", function(event) {
       $('.modal').modal('show');
       modalIsShowing = true;
@@ -389,6 +561,7 @@ $(function() {
      elementToHide.hide();
      elementToShow.show();
   });
+  /*old*/
 
   var series = [
     <% @graph.series.each { |serie| %>
@@ -411,74 +584,113 @@ $(function() {
  window.updateChart = function(series) {
   <% puts "update function called" %>
   tabsChosen = 1;
-  chartType = "column";
-  var title = "effective budget";
+  chartType = "line";
+  var title = "wzs";
   chartOptions.chart.type = chartType;
   chartOptions.title = title;
-  updateChartWithValues(in_budget_agriculture, in_budget_non_agriculture);
+  chartOptions.xAxis.categories = years;
+  updateChartWithValues();
 };
 
-$('#budget').click(function () {
+$('#wzs').click(function () {
     old_chart_options = null;
-  //balken
-    <% puts "budget clicked" %>
     tabsChosen = 1;
-    chartType = "column";
-    var title = "effective budget";
+    chartType = "line";
+    var title = "WZS";
     chartOptions.chart.type = chartType;
     chartOptions.title = title;
-    updateChartWithValues(in_budget_agriculture, in_budget_non_agriculture);
+    chartOptions.xAxis.categories = years;
+    updateChartWithValues();
 });
 
-$('#tp').click(function () {
+$('#z1').click(function () {
    old_chart_options = null;
-  //balken
+   window.alert("z1 clicked");
     tabsChosen = 2;
-    chartType = "column";
-    var title = "technical progress";
+    chartType = "line";
+    var title = "z1";
     chartOptions.chart.type = chartType;
     chartOptions.title = title;
-    updateChartWithValues(in_budget_agriculture, in_budget_non_agriculture);
+    chartOptions.xAxis.categories = years;
+    updateChartWithValues();
 });
 
-$('#goods2011').click(function () {
+$('#z2').click(function () {
    old_chart_options = null;
-  //balken
+
     tabsChosen = 3;
-    chartType = "column";
-    var title = "Goods of 2001";
+    chartType = "line";
+    var title = "z2";
     chartOptions.chart.type = chartType;
     chartOptions.title = title;
-    updateChartWithValues(in_budget_agriculture, in_budget_non_agriculture);
+    chartOptions.xAxis.categories = years;
+    updateChartWithValues();
 });
 
-$('#goods').click(function () {
+$('#z3').click(function () {
    old_chart_options = null;
-  //linie
+
     tabsChosen = 4;
     chartType = "line";
-    var title = "Public goods over years";
+    var title = "z3";
     var yTitle = "years";
     chartOptions.chart.type = chartType;
     chartOptions.title = title;
     chartOptions.xAxis.categories = years;
-    updateChartWithValues(in_budget_agriculture, in_budget_non_agriculture);
+    updateChartWithValues();
 });
 
-$('#poverty').click(function () {
+$('#z4').click(function () {
    old_chart_options = null;
-  //linie
+
     tabsChosen = 5;
     chartType = "line";
-    var title = "Goal achievement poverty";
+    var title = "z4";
     var yTitle = "years";
     chartOptions.chart.type = chartType;
     chartOptions.title = title;
     chartOptions.xAxis.categories = years;
-    updateChartWithValues(in_budget_agriculture, in_budget_non_agriculture);
+    updateChartWithValues();
 });
 
+$('#z5').click(function () {
+   old_chart_options = null;
 
+    tabsChosen = 6;
+    chartType = "line";
+    var title = "z5";
+    var yTitle = "years";
+    chartOptions.chart.type = chartType;
+    chartOptions.title = title;
+    chartOptions.xAxis.categories = years;
+    updateChartWithValues();
+});
+
+$('#z6').click(function () {
+   old_chart_options = null;
+
+    tabsChosen = 7;
+    chartType = "line";
+    var title = "z6";
+    var yTitle = "years";
+    chartOptions.chart.type = chartType;
+    chartOptions.title = title;
+    chartOptions.xAxis.categories = years;
+    updateChartWithValues();
+});
+
+$('#z7').click(function () {
+    old_chart_options = null;
+
+    tabsChosen = 8;
+    chartType = "line";
+    var title = "z7";
+    var yTitle = "years";
+    chartOptions.chart.type = chartType;
+    chartOptions.title = title;
+    chartOptions.xAxis.categories = years;
+    updateChartWithValues();
+});
 
 var p_rho = 0.5;
 var p_mu1 = 0.7;
@@ -490,13 +702,14 @@ var p_b = -15;
 var yearStart = 2009;
 var yearEnd = 2021;
 
+/*
 var years = (function() {
   var years_array = [];
   while(yearStart < yearEnd + 1) {
     years_array.push(yearStart++);
   }
   return years_array;
-})();
+})(); */
 
 function output_effective_budget() {
   var firstSum = p_mu1 * Math.pow(in_budget_agriculture, -p_rho);
@@ -535,56 +748,213 @@ function output_goal_achivement_public_goods_years() {
   return output_array;
 };
 
-window.updateChartWithValues = function(in_budget_agriculture, in_budget_non_agriculture) {
-    //set series
+function output_wzs() {
+  var output_array = [];
+
+  NONAG = investment_share * (1 - agrar_share);
+  NR = investment_share * agrar_share * relative_nr / (relative_nr + relative_fm + relative_ma + relative_hr);
+  FM = investment_share * agrar_share * relative_fm / (relative_nr + relative_fm + relative_ma + relative_hr);
+  MA = investment_share * agrar_share * relative_ma / (relative_nr + relative_fm + relative_ma + relative_hr);
+  HR = investment_share * agrar_share * relative_hr / (relative_nr + relative_fm + relative_ma + relative_hr);
+
+  wZ1 = 0.03815609 + 0.009317891 * NR + -0.09422917 * NR * NR + 0.01042949 * FM + -0.1066363 * FM * FM + 0.04761692 * MA + -0.2115398 * MA * MA + 0.008736629 * HR + -0.08689586 * HR * HR + 0.2355192 * NONAG + -0.3277703 * NONAG * NONAG;
+  wZ2 = 0.002992926 + 0.01636231 * NR + -0.06932432 * NR * NR + 0.03757891 * FM + -0.1557839 * FM * FM + 0.02726628 * MA + -0.1040575 * MA * MA + 0.02314826 * HR + -0.09319288 * HR * HR + 0.05986973 * NONAG + -0.07809279 * NONAG * NONAG;
+  wZ3 = 0.08384501 + -0.7482027 * NR + -0.4816802 * NR * NR + -0.573682 * FM + -1.117864 * FM * FM + -0.6393244 * MA + -0.8277594 * MA * MA + -0.6944213 * HR + -0.6600634 * HR * HR + -0.3013967 * NONAG + -0.7381306 * NONAG * NONAG;
+  wZ4 = 0.05460506 + 0.1725816 * NR + -0.7801275 * NR * NR + 0.300523 * FM + -1.274792 * FM * FM + 0.1717909 * MA + -0.7029481 * MA * MA + 0.1937015 * HR + -0.8254542 * HR * HR + 0.1793275 * NONAG + -0.2468094 * NONAG * NONAG;
+  wZ5 = 0.03781077 + 0.04533998 * NR + -0.2022937 * NR * NR + 0.1167748 * FM + -0.4649394 * FM * FM + 0.09289019 * MA + -0.3516543 * MA * MA + 0.0672851 * HR + -0.2737941 * HR * HR + 0.2295746 * NONAG + -0.2929575 * NONAG * NONAG;
+  wZ6 = 0.0434538 + 0.01437698 * NR + -0.07777468 * NR * NR + 0.03920955 * FM + -0.1656638 * FM * FM + 0.04896659 * MA + -0.2155554 * MA * MA + 0.02191561 * HR + -0.1060559 * HR * HR + 0.1342406 * NONAG + 0.07673141 * NONAG * NONAG;
+  wZ7 = -0.000006415758 + 0.000001345764 * NR + 0.000006775817 * NR * NR + -0.000003279563 * FM + 0.00001479488 * FM * FM + -0.000008525427 * MA + 0.00004173186 * MA * MA + 0.000002755462 * HR + 0.000004497611 * HR * HR + -0.00005203285 * NONAG + 0.00006610333 * NONAG * NONAG;
+
+  output_array.push(wZ1);
+  output_array.push(wZ2);
+  output_array.push(wZ3);
+  output_array.push(wZ4);
+  output_array.push(wZ5);
+  output_array.push(wZ6);
+  output_array.push(wZ7);
+
+  return output_array;
+};
+
+function output_z1() {
+  var output_array = [];
+
+  NONAG = investment_share * (1 - agrar_share);
+  NR = investment_share * agrar_share * relative_nr / (relative_nr + relative_fm + relative_ma + relative_hr);
+  FM = investment_share * agrar_share * relative_fm / (relative_nr + relative_fm + relative_ma + relative_hr);
+  MA = investment_share * agrar_share * relative_ma / (relative_nr + relative_fm + relative_ma + relative_hr);
+  HR = investment_share * agrar_share * relative_hr / (relative_nr + relative_fm + relative_ma + relative_hr);
+
+  wZ1 = 0.03815609 + 0.009317891 * NR + -0.09422917 * NR * NR + 0.01042949 * FM + -0.1066363 * FM * FM + 0.04761692 * MA + -0.2115398 * MA * MA + 0.008736629 * HR + -0.08689586 * HR * HR + 0.2355192 * NONAG + -0.3277703 * NONAG * NONAG;
+
+  output_array = years.map(function(year) { return 858.6967 * (1 + (year - 1) * wZ1); });
+  return output_array;
+};
+
+function output_z2() {
+  var output_array = [];
+
+  NONAG = investment_share * (1 - agrar_share);
+  NR = investment_share * agrar_share * relative_nr / (relative_nr + relative_fm + relative_ma + relative_hr);
+  FM = investment_share * agrar_share * relative_fm / (relative_nr + relative_fm + relative_ma + relative_hr);
+  MA = investment_share * agrar_share * relative_ma / (relative_nr + relative_fm + relative_ma + relative_hr);
+  HR = investment_share * agrar_share * relative_hr / (relative_nr + relative_fm + relative_ma + relative_hr);
+
+  wZ2 = 0.002992926 + 0.01636231 * NR + -0.06932432 * NR * NR + 0.03757891 * FM + -0.1557839 * FM * FM + 0.02726628 * MA + -0.1040575 * MA * MA + 0.02314826 * HR + -0.09319288 * HR * HR + 0.05986973 * NONAG + -0.07809279 * NONAG * NONAG;
+
+  output_array = years.map(function(year) {return (100 - ( 85.46574 * (1 + (year - 1) * wZ2))) * 3; });
+
+  return output_array;
+};
+
+function output_z3() {
+  var output_array = [];
+
+  NONAG = investment_share * (1 - agrar_share);
+  NR = investment_share * agrar_share * relative_nr / (relative_nr + relative_fm + relative_ma + relative_hr);
+  FM = investment_share * agrar_share * relative_fm / (relative_nr + relative_fm + relative_ma + relative_hr);
+  MA = investment_share * agrar_share * relative_ma / (relative_nr + relative_fm + relative_ma + relative_hr);
+  HR = investment_share * agrar_share * relative_hr / (relative_nr + relative_fm + relative_ma + relative_hr);
+
+  wZ3 = 0.08384501 + -0.7482027 * NR + -0.4816802 * NR * NR + -0.573682 * FM + -1.117864 * FM * FM + -0.6393244 * MA + -0.8277594 * MA * MA + -0.6944213 * HR + -0.6600634 * HR * HR + -0.3013967 * NONAG + -0.7381306 * NONAG * NONAG;
+
+  output_array = years.map(function(year) { return 379.7354 * (1 + (year - 1) * wZ3); });
+
+  return output_array;
+};
+
+function output_z4() {
+  var output_array = [];
+
+  NONAG = investment_share * (1 - agrar_share);
+  NR = investment_share * agrar_share * relative_nr / (relative_nr + relative_fm + relative_ma + relative_hr);
+  FM = investment_share * agrar_share * relative_fm / (relative_nr + relative_fm + relative_ma + relative_hr);
+  MA = investment_share * agrar_share * relative_ma / (relative_nr + relative_fm + relative_ma + relative_hr);
+  HR = investment_share * agrar_share * relative_hr / (relative_nr + relative_fm + relative_ma + relative_hr);
+
+  wZ4 = 0.05460506 + 0.1725816 * NR + -0.7801275 * NR * NR + 0.300523 * FM + -1.274792 * FM * FM + 0.1717909 * MA + -0.7029481 * MA * MA + 0.1937015 * HR + -0.8254542 * HR * HR + 0.1793275 * NONAG + -0.2468094 * NONAG * NONAG;
+
+  output_array = years.map(function(year) { return 121.74 * (1 + (year - 1) * wZ4); });
+
+  return output_array;
+};
+
+function output_z5() {
+  var output_array = [];
+
+  NONAG = investment_share * (1 - agrar_share);
+  NR = investment_share * agrar_share * relative_nr / (relative_nr + relative_fm + relative_ma + relative_hr);
+  FM = investment_share * agrar_share * relative_fm / (relative_nr + relative_fm + relative_ma + relative_hr);
+  MA = investment_share * agrar_share * relative_ma / (relative_nr + relative_fm + relative_ma + relative_hr);
+  HR = investment_share * agrar_share * relative_hr / (relative_nr + relative_fm + relative_ma + relative_hr);
+
+  wZ5 = 0.03781077 + 0.04533998 * NR + -0.2022937 * NR * NR + 0.1167748 * FM + -0.4649394 * FM * FM + 0.09289019 * MA + -0.3516543 * MA * MA + 0.0672851 * HR + -0.2737941 * HR * HR + 0.2295746 * NONAG + -0.2929575 * NONAG * NONAG;
+
+  output_array = years.map(function(year) { return 3625.429 * (1 + (year - 1) * wZ5); });
+
+  return output_array;
+};
+
+function output_z6() {
+  var output_array = [];
+
+  NONAG = investment_share * (1 - agrar_share);
+  NR = investment_share * agrar_share * relative_nr / (relative_nr + relative_fm + relative_ma + relative_hr);
+  FM = investment_share * agrar_share * relative_fm / (relative_nr + relative_fm + relative_ma + relative_hr);
+  MA = investment_share * agrar_share * relative_ma / (relative_nr + relative_fm + relative_ma + relative_hr);
+  HR = investment_share * agrar_share * relative_hr / (relative_nr + relative_fm + relative_ma + relative_hr);
+
+  wZ6 = 0.0434538 + 0.01437698 * NR + -0.07777468 * NR * NR + 0.03920955 * FM + -0.1656638 * FM * FM + 0.04896659 * MA + -0.2155554 * MA * MA + 0.02191561 * HR + -0.1060559 * HR * HR + 0.1342406 * NONAG + 0.07673141 * NONAG * NONAG;
+
+  output_array = years.map(function(year) { return 1405.489 * (1 + (year - 1) * wZ6); });
+
+  return output_array;
+};
+
+function output_z7() {
+  var output_array = [];
+
+  NONAG = investment_share * (1 - agrar_share);
+  NR = investment_share * agrar_share * relative_nr / (relative_nr + relative_fm + relative_ma + relative_hr);
+  FM = investment_share * agrar_share * relative_fm / (relative_nr + relative_fm + relative_ma + relative_hr);
+  MA = investment_share * agrar_share * relative_ma / (relative_nr + relative_fm + relative_ma + relative_hr);
+  HR = investment_share * agrar_share * relative_hr / (relative_nr + relative_fm + relative_ma + relative_hr);
+
+  wZ7 = -0.000006415758 + 0.000001345764 * NR + 0.000006775817 * NR * NR + -0.000003279563 * FM + 0.00001479488 * FM * FM + -0.000008525427 * MA + 0.00004173186 * MA * MA + 0.000002755462 * HR + 0.000004497611 * HR * HR + -0.00005203285 * NONAG + 0.00006610333 * NONAG * NONAG;
+
+  output_array = years.map(function(year) { return 99.96191 * (1 + (year - 1) * wZ7); });
+
+  return output_array;
+};
+
+window.updateChartWithValues = function() {
     switch(tabsChosen) {
     case 1:
-      var seriesData = [output_effective_budget()];
+      var seriesData = output_wzs();
     //  window.alert("series data1: " + seriesData);
-      <% puts "in case 1" %>
       chartOptions.series = [{
-          name: "Budget distribution over years",
+          name: "WZS",
           data: seriesData
       }
     ];
       break;
     case 2:
-      <% puts "in case 2" %>
-      var seriesData = [output_tp()];
+      var seriesData = output_z1();
   //    window.alert("series data2: " + seriesData);
       chartOptions.series = [{
-          name: "TP",
+          name: "Z1",
           data: seriesData
         }];
           break;
     case 3:
-      <% puts "in case 3" %>
   //    window.alert("agri: "+ in_budget_agriculture +"; non: " + in_budget_non_agriculture);
-      var seriesData = [output_goal_achivement_public_goods()];
+      var seriesData = output_z2();
   //    window.alert("series data3: " + seriesData);
       chartOptions.series = [{
-          name: "Goods of year 2001",
+          name: "Z2",
           data: seriesData
       }];
         break;
     case 4:
-      <% puts "in case 4" %>
-      var seriesData = output_goal_achivement_public_goods_years();
+      var seriesData = output_z3();
   //    window.alert("series data4: " + seriesData);
       chartOptions.series = [{
-          name: "Public goods over years",
+          name: "Z3",
           data: seriesData
       }];
         break;
     case 5:
-      <% puts "in case 5" %>
-      var seriesData = output_goal_achievement_poverty();
+      var seriesData = output_z4();
   //    window.alert("series data5: " + seriesData);
       chartOptions.series = [{
-          name: "Goal achievement poverty",
+          name: "Z4",
           data: seriesData
       }];
         break;
+    case 6:
+      var seriesData = output_z5();
+      //    window.alert("series data5: " + seriesData);
+      chartOptions.series = [{
+          name: "Z5",
+          data: seriesData
+      }];
+    break;
+    case 7:
+      var seriesData = output_z6();
+      //    window.alert("series data5: " + seriesData);
+      chartOptions.series = [{
+            name: "Z6",
+            data: seriesData
+      }];
+      break;
+    case 8:
+      var seriesData = output_z7();
+      //    window.alert("series data5: " + seriesData);
+      chartOptions.series = [{
+            name: "Z7",
+            data: seriesData
+      }];
+      break;
     default:
       <% puts "in case default" %>
   }
@@ -675,11 +1045,11 @@ updateChart(series);
    });
 
  </script>
- <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+ <!-- <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script> -->
        <!-- Bootstrap Js CDN -->
-       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!--     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  -->
        <!-- Custom Scroller Js CDN -->
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+<!--       <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>  -->
 
 
   </body>
