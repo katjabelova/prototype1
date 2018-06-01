@@ -7,23 +7,21 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-  <link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'>
+<!--  <link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'>
+  <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet"> -->
+  <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 
-  <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
-        rel = "stylesheet">
-
-
-     <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
-<script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 
 <!-- plus a jQuery UI theme, here I use "flick" -->
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/flick/jquery-ui.css">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/flick/jquery-ui.css">
 
   <style>
   main {
     position: absolute;
     background-color: transparent;
   }
+
   body {
     position: relative;
     background-color: rgba(255,228,196, 0.3);
@@ -45,52 +43,50 @@
        <div class="sidebar-header">
            <h3>Settings</h3>
        </div>
-       <div id="sliderrr">
+  <!--     <div class="row">
+         <div class="small-10 medium-11 columns">
+           <div class="range-slider" data-slider data-options="display_selector: #sliderOutput3;">
+             <span class="range-slider-handle" role="slider" tabindex="0"></span>
+             <span class="range-slider-active-segment"></span>
+           </div>
+         </div>
+         <div class="small-2 medium-1 columns">
+           <span id="sliderOutput3"></span>
+         </div>
+       </div> -->
+
+       <div id="sliderrr" class="slider">
+         <div id="val"></div>
        </div>
        <div class="slidecontainer">
          <label for="slider-fill">Input slider:</label>
-         <input type="range" name="slider-fill" min="0.0" max="1.0" value="0.25" id="myRange1" data-slider-id ="myRange1" step="0.01" data-highlight="true">
+         <input type="range" name="slider-fill" class="slider" min="0.0" max="1.0" value="0.25" id="myRange1" data-slider-id ="myRange1" step="0.01" data-highlight="true">
            <p>Value investment: <span id="demo_1"></span></p>
        </div>
       <div class="slidecontainer">
-         <input type="range" min="0.0" max="1.0" value="0.33" id="myRange2" step="0.01">
+         <input type="range" class="slider" min="0.0" max="1.0" value="0.33" id="myRange2" step="0.01">
            <p>Value agrar_share: <span id="demo_2"></span></p>
        </div>
 
        <div class="slidecontainer">
-         <input type="range" min="0" max="10" value="2" id="myRange3">
+         <input type="range" class="slider" min="0" max="10" value="2" id="myRange3">
            <p>Value nr: <span id="demo_3"></span></p>
        </div>
        <div class="slidecontainer">
-         <input type="range" min="0" max="10" value="3" id="myRange4">
+         <input type="range" class="slider" min="0" max="10" value="3" id="myRange4">
            <p>Value fm: <span id="demo_4"></span></p>
        </div>
 
        <div class="slidecontainer">
-         <input type="range" min="0" max="10" value="6" id="myRange5">
+         <input type="range" class="slider" min="0" max="10" value="6" id="myRange5">
            <p>Value ma: <span id="demo_5"></span></p>
        </div>
        <div class="slidecontainer">
-         <input type="range" min="0" max="10" value="1" id="myRange6">
+         <input type="range" class="slider" min="0" max="10" value="1" id="myRange6">
            <p>Value hr: <span id="demo_6"></span></p>
        </div>
 
        <p id="hidden" style="display:none;"></p>
-
-       <!-- Sidebar Links -->
-  <!--     <ul class="list-unstyled components">
-           <li class="active"><a href="#">Home</a></li>
-           <li><a href="#">About</a></li>
-           <li><!-- Link with dropdown items -->
-        <!--       <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a> -->
-            <!--   <ul class="collapse list-unstyled" id="homeSubmenu">
-                   <li><a href="#">Page</a></li>
-                   <li><a href="#">Page</a></li>
-                   <li><a href="#">Page</a></li>
-               </ul> -->
-  <!--         <li><a href="#">Portfolio</a></li>
-           <li><a href="#">Contact</a></li>
-       </ul> -->
    </nav>
    <div id="contentinner">
       <h1>Graph</h1>
@@ -345,17 +341,16 @@ $(function() {
     step: 2
 }); */
 
+
 $(document).on('ready', function() {
+
   $('#sliderrr').slider({
     min: 0,
     max: 1,
     step: 0.01,
     values: [0.25]
   })
-  .slider("pips", {
-      rest: "label"
-  })
-  .slider("float");
+  .slider("pips");
 });
 
 /*  $('#sliderrr').on("slidestart", function(event) {
