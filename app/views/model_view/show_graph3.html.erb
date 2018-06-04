@@ -7,15 +7,18 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-<!--  <link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'>
-  <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet"> -->
+  <link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'>
+  <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
+
   <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
   <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
-
-
 <!-- plus a jQuery UI theme, here I use "flick" -->
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/flick/jquery-ui.css">
 
+  <script scr="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.css"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.min.css"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.min.js"></script>
   <style>
   main {
     position: absolute;
@@ -23,7 +26,6 @@
   }
 
   body {
-    position: relative;
     background-color: rgba(255,228,196, 0.3);
   }
 
@@ -32,7 +34,7 @@
   }
 
   #contentinner {
-    background-color: transparent;
+
   }
   </style>
 </head>
@@ -40,51 +42,58 @@
     <div class="wrapper">
       <nav id="sidebar">
        <!-- Sidebar Header -->
-       <div class="sidebar-header">
+       <div class="sidebar-header" align="center">
            <h3>Settings</h3>
        </div>
-  <!--     <div class="row">
-         <div class="small-10 medium-11 columns">
-           <div class="range-slider" data-slider data-options="display_selector: #sliderOutput3;">
-             <span class="range-slider-handle" role="slider" tabindex="0"></span>
-             <span class="range-slider-active-segment"></span>
-           </div>
-         </div>
-         <div class="small-2 medium-1 columns">
-           <span id="sliderOutput3"></span>
-         </div>
-       </div> -->
 
-       <div id="sliderrr" class="slider">
-         <div id="val"></div>
+       <div id="slider1" class="slider">
        </div>
-       <div class="slidecontainer">
+       <div id="slider2" class="slider">
+       </div>
+       <div id="slider3" class="slider">
+       </div>
+       <div id="slider4" class="slider">
+       </div>
+       <div id="slider5" class="slider">
+       </div>
+       <div id="slider6" class="slider">
+       </div>
+
+       <div class="input-group">
+         <input id="text_input" type="text" class="form-control" aria-label="Text input with dropdown button" readonly value="1">
+         <div class="input-group-append">
+           <button id="button_plus" type="button" class="btn btn-primary">+</button>
+           <button id="button_minus" type="button" class="btn btn-primary">-</button>
+         </div>
+       </div>
+
+<!--  <div class="slidecontainer" style="dispay:none;">
          <label for="slider-fill">Input slider:</label>
          <input type="range" name="slider-fill" class="slider" min="0.0" max="1.0" value="0.25" id="myRange1" data-slider-id ="myRange1" step="0.01" data-highlight="true">
            <p>Value investment: <span id="demo_1"></span></p>
        </div>
-      <div class="slidecontainer">
+      <div class="slidecontainer" style="dispay:none;">
          <input type="range" class="slider" min="0.0" max="1.0" value="0.33" id="myRange2" step="0.01">
            <p>Value agrar_share: <span id="demo_2"></span></p>
        </div>
 
-       <div class="slidecontainer">
+       <div class="slidecontainer" style="dispay:none;">
          <input type="range" class="slider" min="0" max="10" value="2" id="myRange3">
            <p>Value nr: <span id="demo_3"></span></p>
        </div>
-       <div class="slidecontainer">
+       <div class="slidecontainer" style="dispay:none;">
          <input type="range" class="slider" min="0" max="10" value="3" id="myRange4">
            <p>Value fm: <span id="demo_4"></span></p>
        </div>
 
-       <div class="slidecontainer">
+       <div class="slidecontainer" style="dispay:none;">
          <input type="range" class="slider" min="0" max="10" value="6" id="myRange5">
            <p>Value ma: <span id="demo_5"></span></p>
        </div>
-       <div class="slidecontainer">
+       <div class="slidecontainer" style="dispay:none;">
          <input type="range" class="slider" min="0" max="10" value="1" id="myRange6">
            <p>Value hr: <span id="demo_6"></span></p>
-       </div>
+       </div> -->
 
        <p id="hidden" style="display:none;"></p>
    </nav>
@@ -316,42 +325,184 @@ Dropdown 3.3
       </div>
     </div>
   </div>
-  <div class="wrapperinner">
+<div class="wrapperinner">
     <div id="container1" remote="true" style="min-width: 800px; height: 400px; margin: 0 auto"></div>
 </div>
 
 </div>
-  <div id="container2" remote="true" style="min-width: 500px; height: 300px;" style="display:none"></div>
+<div id="containerinner2">
+  <div id="container2" remote="true" style="min-width: 480px; height: 300px" style="display:none"></div>
+</div>
 </div>
 <script>
 var tabsChosen = 1;
 
-
-
 $(function() {
-
-/*$('#sliderrr').slider({
-  min: 0,
-  max: 1,
-  step: 0.01,
-  values: [0.25]
-})
-.slider("pips", {
-    rest: "label",
-    step: 2
-}); */
-
 
 $(document).on('ready', function() {
 
-  $('#sliderrr').slider({
-    min: 0,
-    max: 1,
+  $('#slider1').slider({
+    min: 0.05,
+    max: 0.4,
     step: 0.01,
     values: [0.25]
   })
-  .slider("pips");
+  .slider("pips", {
+        first: "label",
+        last: "label",
+        rest: "label",
+        step: 20,
+        labels: false,
+        prefix: "",
+        suffix: ""
+
+    })
+    .slider("float");
+
+$('#slider2').slider({
+  min: 0.05,
+  max: 0.8,
+  step: 0.01,
+  values: [0.33]
+})
+.slider("pips", {
+      first: "label",
+      last: "label",
+      rest: "label",
+      step: 50,
+      labels: false,
+      prefix: "",
+      suffix: ""
+
+  })
+  .slider("float");
+
+$('#slider3').slider({
+  min: 0,
+  max: 10,
+  step: 1,
+  values: [2]
+})
+.slider("pips", {
+      first: "label",
+      last: "label",
+      rest: "label",
+      step: 10,
+      labels: false,
+      prefix: "",
+      suffix: ""
+
+  })
+  .slider("float");
+
+$('#slider4').slider({
+  min: 0,
+  max: 10,
+  step: 1,
+  values: [3]
+})
+.slider("pips", {
+      first: "label",
+      last: "label",
+      rest: "label",
+      step: 10,
+      labels: false,
+      prefix: "",
+      suffix: ""
+  })
+  .slider("float");
+
+$('#slider5').slider({
+  min: 0,
+  max: 10,
+  step: 1,
+  values: [6]
+})
+.slider("pips", {
+      first: "label",
+      last: "label",
+      rest: "label",
+      step: 10,
+      labels: false,
+      prefix: "",
+      suffix: ""
+
+  })
+  .slider("float");
+
+$('#slider6').slider({
+  min: 0,
+  max: 10,
+  step: 1,
+  values: [1]
+})
+.slider("pips", {
+      first: "label",
+      last: "label",
+      rest: "label",
+      step: 10,
+      labels: false,
+      prefix: "",
+      suffix: ""
+
+  })
+  .slider("float");
 });
+
+var currentinput = document.getElementById("text_input");
+  $('#button_plus').on("click", function(event) {
+  //  currentinput.readonly = false;
+      var inputtest = parseFloat(currentinput.value);
+      if(inputtest != 10) {
+        inputtest = inputtest + 1;
+        currentinput.value = inputtest;
+        old_relative_hr = relative_hr;
+      //  output6.innerHTML = this.value;
+        relative_hr = inputtest;
+        chartOptions.title = "previous values: ";
+        hiddenElem.value = chartOptions;
+        old_chart_options = {
+
+          colors: ['#A8A8A8'],
+          chart: { // renderTo: "pie_chart"
+
+          type: chartOptions.chart.type },
+          title: { text: chartOptions.title },
+          xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories},
+          yAxis: { title: { text:  chartOptions.yAxis.title.text } },
+          series: chartOptions.series
+       };
+        updateChartWithValues();
+      };
+  //  currentinput.readonly = true;
+  });
+
+  $('#button_minus').on("click", function(event) {
+  //  currentinput.readonly = false;
+      var inputtest = parseFloat(currentinput.value);
+      if(inputtest != 0) {
+        inputtest = inputtest - 1;
+        currentinput.value = inputtest;
+        old_relative_hr = relative_hr;
+      //  output6.innerHTML = this.value;
+        relative_hr = inputtest;
+        chartOptions.title = "previous values: ";
+        hiddenElem.value = chartOptions;
+        old_chart_options = {
+
+          colors: ['#A8A8A8'],
+          chart: { // renderTo: "pie_chart"
+
+          type: chartOptions.chart.type },
+          title: { text: chartOptions.title },
+          xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories},
+          yAxis: { title: { text:  chartOptions.yAxis.title.text } },
+          series: chartOptions.series
+       };
+        updateChartWithValues();
+      };
+  //  currentinput.readonly = true;
+  });
 
 /*  $('#sliderrr').on("slidestart", function(event) {
     window.alert("sliderrr");
@@ -388,34 +539,35 @@ $(document).on('ready', function() {
 
   var old_chart_options = null;
 
-  var slider1 = document.getElementById("myRange1");
-  var output1 = document.getElementById("demo_1");
-  var slider2 = document.getElementById("myRange2");
-  var output2 = document.getElementById("demo_2");
+  var slider1 = document.getElementById("slider1");
+//  var output1 = document.getElementById("demo_1");
+  var slider2 = document.getElementById("slider2");
+//  var output2 = document.getElementById("demo_2");
 
-  var slider3 = document.getElementById("myRange3");
-  var output3 = document.getElementById("demo_3");
-  var slider4 = document.getElementById("myRange4");
-  var output4 = document.getElementById("demo_4");
-  var slider5 = document.getElementById("myRange5");
-  var output5 = document.getElementById("demo_5");
-  var slider6 = document.getElementById("myRange6");
-  var output6 = document.getElementById("demo_6");
+  var slider3 = document.getElementById("slider3");
+//  var output3 = document.getElementById("demo_3");
+  var slider4 = document.getElementById("slider4");
+//  var output4 = document.getElementById("demo_4");
+  var slider5 = document.getElementById("slider5");
+//  var output5 = document.getElementById("demo_5");
+  var slider6 = document.getElementById("slider6");
+//  var output6 = document.getElementById("demo_6");
 
   var hiddenElem = document.getElementById("hidden");
 
-  output1.innerHTML = slider1.value; // Display the default slider value
-  output2.innerHTML = slider2.value;
-  output3.innerHTML = slider3.value;
-  output4.innerHTML = slider4.value;
-  output5.innerHTML = slider5.value;
-  output6.innerHTML = slider6.value;
+//  output1.innerHTML = slider1.value; // Display the default slider value
+//  output2.innerHTML = slider2.value;
+//  output3.innerHTML = slider3.value;
+//  output4.innerHTML = slider4.value;
+//  output5.innerHTML = slider5.value;
+//  output6.innerHTML = slider6.value;
 
   // Update the current slider value (each time you drag the slider handle)
-  slider1.oninput = function() {
+  $('#slider1').on("slidechange", function(event, ui) {
+    //  window.alert("slider1: " + parseFloat(ui.value));
       old_investment_share = investment_share;
-      output1.innerHTML = this.value;
-      investment_share = parseFloat(output1.innerHTML);
+    //  output1.innerHTML = parseFloat(ui.value);
+      investment_share = parseFloat(ui.value);
       chartOptions.title = "previous input values: ";
       hiddenElem.value = chartOptions;
       old_chart_options = {
@@ -428,15 +580,16 @@ $(document).on('ready', function() {
         series: chartOptions.series
      };
       updateChartWithValues();
-  };
+  });
 
-  slider2.oninput = function() {
+  $('#slider2').on("slidechange", function(event, ui) {
       old_agrar_share = agrar_share;
-      output2.innerHTML = this.value;
-      agrar_share = parseFloat(output2.innerHTML);
+    //  output2.innerHTML = this.value;
+      agrar_share = parseFloat(ui.value);
       chartOptions.title = "previous values: ";
       hiddenElem.value = chartOptions;
       old_chart_options = {
+
         colors: ['#A8A8A8'],
         chart: { // renderTo: "pie_chart"
         type: chartOptions.chart.type },
@@ -446,15 +599,16 @@ $(document).on('ready', function() {
         series: chartOptions.series
      };
       updateChartWithValues();
-  };
+  });
 
-  slider3.oninput = function() {
+  $('#slider3').on("slidechange", function(event, ui) {
       old_relative_nr = relative_nr;
-      output3.innerHTML = this.value;
-      relative_nr = parseFloat(output3.innerHTML);
+    //  output3.innerHTML = this.value;
+      relative_nr =  parseFloat(ui.value);
       chartOptions.title = "previous input values: ";
       hiddenElem.value = chartOptions;
       old_chart_options = {
+
         colors: ['#A8A8A8'],
         chart: { // renderTo: "pie_chart"
         type: chartOptions.chart.type },
@@ -464,15 +618,16 @@ $(document).on('ready', function() {
         series: chartOptions.series
      };
       updateChartWithValues();
-  };
+  });
 
-  slider4.oninput = function() {
+  $('#slider4').on("slidechange", function(event, ui) {
       old_relative_fm = relative_fm;
-      output4.innerHTML = this.value;
-      relative_fm = parseFloat(output4.innerHTML);
+    //  output4.innerHTML = this.value;
+      relative_fm = parseFloat(ui.value);
       chartOptions.title = "previous values: ";
       hiddenElem.value = chartOptions;
       old_chart_options = {
+
         colors: ['#A8A8A8'],
         chart: { // renderTo: "pie_chart"
         type: chartOptions.chart.type },
@@ -482,15 +637,16 @@ $(document).on('ready', function() {
         series: chartOptions.series
      };
       updateChartWithValues();
-  };
+  });
 
-  slider5.oninput = function() {
+  $('#slider5').on("slidechange", function(event, ui) {
       old_relative_ma = relative_ma;
-      output5.innerHTML = this.value;
-      relative_ma = parseFloat(output5.innerHTML);
+    //  output5.innerHTML = this.value;
+      relative_ma = parseFloat(ui.value);
       chartOptions.title = "previous input values: ";
       hiddenElem.value = chartOptions;
       old_chart_options = {
+
         colors: ['#A8A8A8'],
         chart: { // renderTo: "pie_chart"
         type: chartOptions.chart.type },
@@ -500,17 +656,19 @@ $(document).on('ready', function() {
         series: chartOptions.series
      };
       updateChartWithValues();
-  };
+  });
 
-  slider6.oninput = function() {
+  $('#slider6').on("slidechange", function(event, ui) {
       old_relative_hr = relative_hr;
-      output6.innerHTML = this.value;
-      relative_hr = parseFloat(output6.innerHTML);
+    //  output6.innerHTML = this.value;
+      relative_hr = parseFloat(ui.value);
       chartOptions.title = "previous values: ";
       hiddenElem.value = chartOptions;
       old_chart_options = {
+
         colors: ['#A8A8A8'],
         chart: { // renderTo: "pie_chart"
+
         type: chartOptions.chart.type },
         title: { text: chartOptions.title },
         xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories},
@@ -518,7 +676,7 @@ $(document).on('ready', function() {
         series: chartOptions.series
      };
       updateChartWithValues();
-  };
+  });
 
 //$("#myRange1").slider();
 //  var slider_1 = new Slider("#myRange1");
@@ -604,7 +762,6 @@ $('#wzs').click(function () {
 
 $('#z1').click(function () {
    old_chart_options = null;
-   window.alert("z1 clicked");
     tabsChosen = 2;
     chartType = "line";
     var title = "z1";
@@ -960,13 +1117,16 @@ window.updateChartWithValues = function() {
 
     Highcharts.chart('container1', chartOptions);
     var elementToHide = document.getElementById("container2");
+    var containerToHide = document.getElementById("containerinner2");
 
     if (old_chart_options != null) {
+      containerToHide.style.display = "block";
       elementToHide.style.display = "block";
       Highcharts.chart('container2', old_chart_options);
     } else {
-      var elementToHide = document.getElementById("container2");
+    //  var elementToHide = document.getElementById("container2");
       elementToHide.style.display = "none";
+      containerToHide.style.display = "none";
     };
 };
 
