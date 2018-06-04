@@ -45,20 +45,33 @@
        <div class="sidebar-header" align="center">
            <h3>Settings</h3>
        </div>
-
-       <div id="slider1" class="slider">
-       </div>
+       <ul style="list-style-type:none">
+         <li id="invest" class="tooltip"> Invest
+           <span id="tooltiptext" style="display:none;">Tooltip Hint Text</span>​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+           <div id="slider1" class="slider">
+           </div>
+        </li>
+     <li id="agrar">Agrar
        <div id="slider2" class="slider">
        </div>
+      </li>
+       <li id="nr">NR
        <div id="slider3" class="slider">
        </div>
+       </li>
+       <li id="fm">FM
        <div id="slider4" class="slider">
        </div>
+       </li>
+       <li id="ma">MA
        <div id="slider5" class="slider">
        </div>
+       </li>
+       <li id="hr">HR
        <div id="slider6" class="slider">
        </div>
-
+       </li>
+     </ul>
        <div class="input-group">
          <input id="text_input" type="text" class="form-control" aria-label="Text input with dropdown button" readonly value="1">
          <div class="input-group-append">
@@ -339,6 +352,8 @@ var tabsChosen = 1;
 
 $(function() {
 
+
+
 $(document).on('ready', function() {
 
   $('#slider1').slider({
@@ -447,6 +462,20 @@ $('#slider6').slider({
 
   })
   .slider("float");
+});
+
+var linvest = document.getElementById("invest");
+var lagrar = document.getElementById("agrar");
+var lnr = document.getElementById("nr");
+var lfm = document.getElementById("fm");
+var lma = document.getElementById("ma");
+var lhr = document.getElementById("hr");
+
+$("#invest").hover(function(e) {
+  $("#tooltip").show();
+},
+  function(e) {
+    $("#tooltip").hide();
 });
 
 var currentinput = document.getElementById("text_input");
