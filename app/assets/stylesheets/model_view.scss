@@ -75,6 +75,20 @@
   color: #5bc0de;
 }
 
+#hiddenleft {
+  position: relative;
+  float: right;
+  margin-right: 5px;
+  color: #5bc0de;
+}
+
+#hiddenright {
+  position: relative;
+  float: left;
+  margin-left: 5px;
+  color: #5bc0de;
+}
+
 .wrapper {
   display: flex;
   justify-content: stretch;
@@ -90,6 +104,10 @@
 
 .wrapper > #containerinner2 {
   order: 3; min-width: 40%;
+}
+
+.wrapper > #hiddenleft {
+  order: 4; min-width: 40%;
 }
 
 #sidebar {

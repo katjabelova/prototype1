@@ -41,7 +41,7 @@
   <body id="body">
     <div class="wrapper" id="wrapper">
       <div style="display:none"  id="hiddenright">
-        <i id="left" class="fa fa-arrow-right" style="font-size:36px;" role="button">
+        <i id="hiddenright" class="fa fa-arrow-right" style="font-size:36px;" role="button">
         </i>
       </div>
       <nav id="sidebar">
@@ -475,7 +475,7 @@ $('#slider6').slider({
 
 $('#left').on("click", function(event) {
   window.alert("left clicked");
-  document.getElementById('#sidebar').style.display = none;
+  $('#sidebar').hide();
   $('#hiddenright').show();
 });
 
@@ -485,7 +485,7 @@ $('#right').on("click", function(event) {
 });
 
 $('#hiddenright').on("click", function(event) {
-  $('#hiddenright').close();
+  $('#hiddenright').hide();
   $('#sidebar').show();
 });
 
