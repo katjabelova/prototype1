@@ -38,36 +38,41 @@
   }
   </style>
 </head>
-  <body>
-    <div class="wrapper">
+  <body id="body">
+    <div class="wrapper" id="wrapper">
+      <div style="display:none"  id="hiddenright">
+        <i id="left" class="fa fa-arrow-right" style="font-size:36px;" role="button">
+        </i>
+      </div>
       <nav id="sidebar">
+          <i id="left" class="fa fa-arrow-left" style="font-size:36px;" role="button"></i>
        <!-- Sidebar Header -->
        <div class="sidebar-header" align="center">
+
            <h3>Settings</h3>
        </div>
-       <ul style="list-style-type:none">
-         <li id="invest" class="tooltip"> Invest
-           <span id="tooltiptext" style="display:none;">Tooltip Hint Text</span>​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+    <ul style="list-style-type:none">
+         <li id="invest" title="title info1"> Invest
            <div id="slider1" class="slider">
            </div>
         </li>
-     <li id="agrar">Agrar
+     <li id="agrar" title="title info2">Agrar
        <div id="slider2" class="slider">
        </div>
       </li>
-       <li id="nr">NR
+       <li id="nr" title="title info3">NR
        <div id="slider3" class="slider">
        </div>
        </li>
-       <li id="fm">FM
+       <li id="fm" title="title info4">FM
        <div id="slider4" class="slider">
        </div>
        </li>
-       <li id="ma">MA
+       <li id="ma" title="title info5">MA
        <div id="slider5" class="slider">
        </div>
        </li>
-       <li id="hr">HR
+       <li id="hr" title="title info6">HR
        <div id="slider6" class="slider">
        </div>
        </li>
@@ -339,12 +344,17 @@ Dropdown 3.3
     </div>
   </div>
 <div class="wrapperinner">
-    <div id="container1" remote="true" style="min-width: 800px; height: 400px; margin: 0 auto"></div>
+    <div id="container1" remote="true" style=" height: 400px; margin: 0 auto"></div>
 </div>
 
 </div>
+<div style="display:none" id="hiddenleft">
+  <i id="left" class="fa fa-arrow-left" style="font-size:36px;" role="button">
+  </i>
+</div>
 <div id="containerinner2">
-  <div id="container2" remote="true" style="min-width: 480px; height: 300px" style="display:none"></div>
+  <i id="right" class="fa fa-arrow-right" style="font-size:36px;" role="button"></i>
+  <div id="container2" remote="true" style="display:none;  height: 300px"></div>
 </div>
 </div>
 <script>
@@ -352,10 +362,9 @@ var tabsChosen = 1;
 
 $(function() {
 
-
+$(document).tooltip();
 
 $(document).on('ready', function() {
-
   $('#slider1').slider({
     min: 0.05,
     max: 0.4,
@@ -464,6 +473,27 @@ $('#slider6').slider({
   .slider("float");
 });
 
+$('#left').on("click", function(event) {
+  window.alert("left clicked");
+  document.getElementById('#sidebar').style.display = none;
+  $('#hiddenright').show();
+});
+
+$('#right').on("click", function(event) {
+  $('#containerinner2').hide();
+  $('#hiddenleft').show();
+});
+
+$('#hiddenright').on("click", function(event) {
+  $('#hiddenright').close();
+  $('#sidebar').show();
+});
+
+$('#hiddenleft').on("click", function(event) {
+  $('#hiddenleft').hide();
+  $('#containerinner2').show();
+});
+
 var linvest = document.getElementById("invest");
 var lagrar = document.getElementById("agrar");
 var lnr = document.getElementById("nr");
@@ -471,12 +501,9 @@ var lfm = document.getElementById("fm");
 var lma = document.getElementById("ma");
 var lhr = document.getElementById("hr");
 
-$("#invest").hover(function(e) {
-  $("#tooltip").show();
-},
-  function(e) {
-    $("#tooltip").hide();
-});
+var wrapperwidth = document.getElementById("body").getBoundingClientRect().width;
+//window.alert("wrapper width: " + wrapperwidth.toString());
+
 
 var currentinput = document.getElementById("text_input");
   $('#button_plus').on("click", function(event) {
@@ -1153,7 +1180,6 @@ window.updateChartWithValues = function() {
       elementToHide.style.display = "block";
       Highcharts.chart('container2', old_chart_options);
     } else {
-    //  var elementToHide = document.getElementById("container2");
       elementToHide.style.display = "none";
       containerToHide.style.display = "none";
     };
