@@ -3,7 +3,6 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 #contentinner {
-
   background: #f9f9f9;
 //  min-width: 40%;
 //  min-width: 800px;
@@ -12,10 +11,10 @@
   border-radius: 15px;
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
+  margin-left: 0px;
 }
 
 #containerinner2 {
-
   background: #f9f9f9;
 // min-width: 30%;
 // min-width: 500px;
@@ -25,8 +24,9 @@
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  margin-right: 0px;
+//  flex-direction: column;
+//  justify-content: center;
 }
 
 #container1 {
@@ -42,7 +42,7 @@
 }
 
 #container2 {
-  margin-top: 72%;
+  margin-top: 82%;
   transform: translateY(-50%);
   border-width: thin;
   border-style: solid;
@@ -54,12 +54,13 @@
   margin-bottom: auto;
 }
 
+/*
 .row {
     flex-direction: row;
     right: 5px;
     height: auto;
     transition: right 0.5s ease-in-out;
-}
+} */
 
 #left {
   position: relative;
@@ -74,6 +75,25 @@
   margin-left: 5px;
   color: #5bc0de;
 }
+
+/*
+#right {
+    position: relative;
+    float: left;
+    margin-left: 5px;
+    color: #5bc0de;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+
+#left {
+    position: relative;
+    float: right;
+    margin-right: 5px;
+    color: #5bc0de;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+} */
 
 #hiddenleft {
   position: relative;
@@ -91,11 +111,12 @@
 
 .wrapper {
   display: flex;
-  justify-content: stretch;
+  justify-content: center;
 }
 
 .wrapper > nav {
-  order: 1; min-width: 25%; max-width: 25%;
+  order: 1; min-width: 25%;
+  //max-width: 25%;
 }
 
 .wrapper > #contentinner {
@@ -103,7 +124,7 @@
 }
 
 .wrapper > #containerinner2 {
-  order: 3; min-width: 40%;
+  order: 3; min-width: 35%;
 }
 
 .wrapper > #hiddenleft {
