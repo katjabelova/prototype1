@@ -115,20 +115,23 @@
 }
 
 .wrapper > nav {
-  order: 1; min-width: 25%;
+  order: 1;
+  min-width: 25%;
   //max-width: 25%;
 }
 
 .wrapper > #contentinner {
-   order: 2; min-width: 70%;
+   order: 2;
+   min-width: 70%;
 }
 
 .wrapper > #containerinner2 {
-  order: 3; min-width: 35%;
+  order: 3;
+   min-width: 35%;
 }
 
 .wrapper > #hiddenleft {
-  order: 4; min-width: 40%;
+  order: 4;
 }
 
 #sidebar {

@@ -20,8 +20,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.min.css"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.min.js"></script>
   <style>
-  main {
 
+  main {
+    margin-right: 0px;
+    margin-left: 0px;
     background-color: transparent;
   }
 
@@ -33,9 +35,6 @@
     background-color: transparent;
   }
 
-  #contentinner {
-
-  }
   </style>
 </head>
   <body id="body">
@@ -85,34 +84,6 @@
          </div>
        </div>
 
-<!--  <div class="slidecontainer" style="dispay:none;">
-         <label for="slider-fill">Input slider:</label>
-         <input type="range" name="slider-fill" class="slider" min="0.0" max="1.0" value="0.25" id="myRange1" data-slider-id ="myRange1" step="0.01" data-highlight="true">
-           <p>Value investment: <span id="demo_1"></span></p>
-       </div>
-      <div class="slidecontainer" style="dispay:none;">
-         <input type="range" class="slider" min="0.0" max="1.0" value="0.33" id="myRange2" step="0.01">
-           <p>Value agrar_share: <span id="demo_2"></span></p>
-       </div>
-
-       <div class="slidecontainer" style="dispay:none;">
-         <input type="range" class="slider" min="0" max="10" value="2" id="myRange3">
-           <p>Value nr: <span id="demo_3"></span></p>
-       </div>
-       <div class="slidecontainer" style="dispay:none;">
-         <input type="range" class="slider" min="0" max="10" value="3" id="myRange4">
-           <p>Value fm: <span id="demo_4"></span></p>
-       </div>
-
-       <div class="slidecontainer" style="dispay:none;">
-         <input type="range" class="slider" min="0" max="10" value="6" id="myRange5">
-           <p>Value ma: <span id="demo_5"></span></p>
-       </div>
-       <div class="slidecontainer" style="dispay:none;">
-         <input type="range" class="slider" min="0" max="10" value="1" id="myRange6">
-           <p>Value hr: <span id="demo_6"></span></p>
-       </div> -->
-
        <p id="hidden" style="display:none;"></p>
    </nav>
    <div id="contentinner">
@@ -120,10 +91,8 @@
       <script src="http://code.highcharts.com/highcharts.js"></script>
       <script src="http://code.highcharts.com/modules/exporting.js"></script>
 
-
 <!-- Trigger the modal with a button -->
       <button type="button" class="btn btn-info btn-lg" id="showModal" style="display:none">Settings</button>
-
 
       <button id="wzs" type="button" class="autocompare">WZS</button>
       <button id="z1" class="autocompare">Z1</button>
@@ -134,215 +103,6 @@
       <button id="z6" class="autocompare">Z6</button>
       <button id="z7" class="autocompare">Z7</button>
 
-
-<!-- Modal -->
-    <div id="myModal" class="modal fade" role="dialog">
-      <div class="modal-dialog modal-lg">
-
-    <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Modal Header</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-          <div class="page" id="1">
-          <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown button
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
-  </div>
-</div>
-</br>
-<div class="dropdown">
-<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-Dropdown button
-</button>
-<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-<a class="dropdown-item" href="#">Action</a>
-<a class="dropdown-item" href="#">Another action</a>
-<a class="dropdown-item" href="#">Something else here</a>
-</div>
-</div>
-</br>
-<div class="dropdown">
-<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-Dropdown button
-</button>
-<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-<a class="dropdown-item" href="#">Action</a>
-<a class="dropdown-item" href="#">Another action</a>
-<a class="dropdown-item" href="#">Something else here</a>
-</div>
-</div>
-          <div class="form-group">
-            <div class="checkbox">
-   <label><input type="checkbox" value="" >Option 1</label>
- </div>
- <div class="checkbox">
-   <label><input type="checkbox" value="" >Option 2</label>
- </div>
- <div class="checkbox disabled">
-   <label><input type="checkbox" value="" >Option 3</label>
- </div>
-
- <form>
-  <div class="form-group">
-    <label for="email">Agriculture budget (integer):</label>
-    <input type="email" class="form-control" id="input_agro">
-  </div>
-  <div class="form-group">
-    <label for="email">Non Agriculture budget (integer):</label>
-    <input type="email" class="form-control" id="input_non">
-  </div>
-  <div class="slidecontainer">
-    <input type="range" min="0" max="100" value="25" id="myRange1">
-      <p>Value: <span id="demo_1"></span></p>
-  </div>
-  <div class="slidecontainer">
-    <input type="range" min="0" max="100" value="15" id="myRange2">
-      <p>Value: <span id="demo_2"></span></p>
-  </div>
- </form>
-         </div>
-       </div>
-       <div class="page" id="2"  style="display:none;">
-       <div class="dropdown">
-<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
- Dropdown 2.1
-</button>
-<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
- <a class="dropdown-item" href="#">Action</a>
- <a class="dropdown-item" href="#">Another action</a>
- <a class="dropdown-item" href="#">Something else here</a>
-</div>
-</div>
-</br>
-<div class="dropdown">
-<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-Dropdown 2.2
-</button>
-<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-<a class="dropdown-item" href="#">Action</a>
-<a class="dropdown-item" href="#">Another action</a>
-<a class="dropdown-item" href="#">Something else here</a>
-</div>
-</div>
-</br>
-<div class="dropdown">
-<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-Dropdown 2.3
-</button>
-<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-<a class="dropdown-item" href="#">Action</a>
-<a class="dropdown-item" href="#">Another action</a>
-<a class="dropdown-item" href="#">Something else here</a>
-</div>
-</div>
-       <div class="form-group">
-         <div class="checkbox">
-<label><input type="checkbox" value="" >2Option 1</label>
-</div>
-<div class="checkbox">
-<label><input type="checkbox" value="" >2Option 2</label>
-</div>
-<div class="checkbox disabled">
-<label><input type="checkbox" value="" >2Option 3</label>
-</div>
-
-<form>
-<div class="form-group">
- <label for="email">Title:</label>
- <input type="email" class="form-control" id="text_input_1">
-</div>
-<div class="form-group">
- <label for="email">Subtitle:</label>
- <input type="email" class="form-control" id="text_input_2">
-</div>
-</form>
-      </div>
-    </div>
-    <div class="page" id="3" style="display:none;">
-    <div class="dropdown">
-<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-Dropdown 3.1
-</button>
-<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-<a class="dropdown-item" href="#">Action</a>
-<a class="dropdown-item" href="#">Another action</a>
-<a class="dropdown-item" href="#">Something else here</a>
-</div>
-</div>
-</br>
-<div class="dropdown">
-<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-Dropdown 3.2
-</button>
-<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-<a class="dropdown-item" href="#">Action</a>
-<a class="dropdown-item" href="#">Another action</a>
-<a class="dropdown-item" href="#">Something else here</a>
-</div>
-</div>
-</br>
-<div class="dropdown">
-<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-Dropdown 3.3
-</button>
-<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-<a class="dropdown-item" href="#">Action</a>
-<a class="dropdown-item" href="#">Another action</a>
-<a class="dropdown-item" href="#">Something else here</a>
-</div>
-</div>
-    <div class="form-group">
-      <div class="checkbox">
-<label><input type="checkbox" value="" >3Option 1</label>
-</div>
-<div class="checkbox">
-<label><input type="checkbox" value="" >3Option 2</label>
-</div>
-<div class="checkbox disabled">
-<label><input type="checkbox" value="" >3Option 3</label>
-</div>
-
-<form>
-<div class="form-group">
-<label for="email">Title:</label>
-<input type="email" class="form-control" id="text_input_1">
-</div>
-<div class="form-group">
-<label for="email">Subtitle:</label>
-<input type="email" class="form-control" id="text_input_2">
-</div>
-</form>
-   </div>
- </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" id="confirm">Confirm</button>
-        </div>
-
-    <nav aria-label="pagination example" class="transparent-style">
-      <ul class="pagination pagination-circle pg-blue mb-0">
-
-        <li class="page-item active" id="1">
-            <a class="page-link" href="#">
-              1
-              <span class="sr-only">(current)</span>
-            </a>
-        </li>
-        <li class="page-item"  id="2"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"  id="3"><a class="page-link" href="#">3</a></li>
-      </ul>
-    </nav>
-      </div>
-    </div>
-  </div>
 <div class="wrapperinner">
     <div id="container1" remote="true" style=" height: 400px; margin: 0 auto"></div>
 </div>
@@ -530,17 +290,17 @@ var currentinput = document.getElementById("text_input");
        };
         updateChartWithValues();
       };
-  //  currentinput.readonly = true;
+
   });
 
   $('#button_minus').on("click", function(event) {
-  //  currentinput.readonly = false;
+
       var inputtest = parseFloat(currentinput.value);
       if(inputtest != 0) {
         inputtest = inputtest - 1;
         currentinput.value = inputtest;
         old_relative_hr = relative_hr;
-      //  output6.innerHTML = this.value;
+
         relative_hr = inputtest;
         chartOptions.title = "previous values: ";
         hiddenElem.value = chartOptions;
@@ -557,19 +317,11 @@ var currentinput = document.getElementById("text_input");
        };
         updateChartWithValues();
       };
-  //  currentinput.readonly = true;
+
   });
 
-/*  $('#sliderrr').on("slidestart", function(event) {
-    window.alert("sliderrr");
-  }); */
 
   var tabChosen = 1;
-
-  /*old*/
-  var in_budget_agriculture = 25;
-  var in_budget_non_agriculture = 15;
-  /*old*/
 
   /* range: [0.05, 0.4]*/
   var investment_share = 0.25;
@@ -589,34 +341,24 @@ var currentinput = document.getElementById("text_input");
 
   var years = [1,2,3,4,5,6,7,8,9,10]
 
-  /*old*/
-  var old_in_budget_agriculture = null;
-  var old_in_budget_non_agriculture = null;
-
   var old_chart_options = null;
 
   var slider1 = document.getElementById("slider1");
-//  var output1 = document.getElementById("demo_1");
+
   var slider2 = document.getElementById("slider2");
-//  var output2 = document.getElementById("demo_2");
 
   var slider3 = document.getElementById("slider3");
-//  var output3 = document.getElementById("demo_3");
+
   var slider4 = document.getElementById("slider4");
-//  var output4 = document.getElementById("demo_4");
+
   var slider5 = document.getElementById("slider5");
-//  var output5 = document.getElementById("demo_5");
+
   var slider6 = document.getElementById("slider6");
-//  var output6 = document.getElementById("demo_6");
+
 
   var hiddenElem = document.getElementById("hidden");
 
-//  output1.innerHTML = slider1.value; // Display the default slider value
-//  output2.innerHTML = slider2.value;
-//  output3.innerHTML = slider3.value;
-//  output4.innerHTML = slider4.value;
-//  output5.innerHTML = slider5.value;
-//  output6.innerHTML = slider6.value;
+
 
   // Update the current slider value (each time you drag the slider handle)
   $('#slider1').on("slidechange", function(event, ui) {
@@ -734,47 +476,9 @@ var currentinput = document.getElementById("text_input");
       updateChartWithValues();
   });
 
-//$("#myRange1").slider();
-//  var slider_1 = new Slider("#myRange1");
-  $("#myRange1").on("slide", function(slideEvt) {
-     window.alert("sliding");
-	   $("#demo_1").text(slideEvt.value);
-  });
-
-  /*old*/
-
-  var currentPage = 1;
-  var pageNumbers = [];
+//  var currentPage = 1;
+//  var pageNumbers = [];
   var chartType = "pie";
-
-  /*old*/
-  $('#showModal').on("click", function(event) {
-      $('.modal').modal('show');
-      modalIsShowing = true;
-    $('.page-item').each(function(event) {
-      var itemId = $(this).attr('id');
-      if (itemId == '1') {
-        $('#' + itemId + '.page-item').addClass('active');
-        $("div[id='" + itemId + "']").show();
-      } else {
-        $('#' + itemId + '.page-item').removeClass('active');
-        $("div[id='" + itemId + "']").hide();
-      }
-      pageNumbers.push(itemId);
-    });
-  });
-
-  $('.page-item').on("click", function(event) {
-     var previousPage = currentPage;
-     var elementToHide = $("div[id='" + previousPage + "']");
-     currentPage = $(this).attr('id');
-     var elementToShow = $("div[id='" + currentPage + "']")
-     $('#' + previousPage + '.page-item').removeClass('active');
-     $('#' + currentPage + '.page-item').addClass('active');
-     elementToHide.hide();
-     elementToShow.show();
-  });
-  /*old*/
 
   var series = [
     <% @graph.series.each { |serie| %>
@@ -913,15 +617,6 @@ var p_b = -15;
 
 var yearStart = 2009;
 var yearEnd = 2021;
-
-/*
-var years = (function() {
-  var years_array = [];
-  while(yearStart < yearEnd + 1) {
-    years_array.push(yearStart++);
-  }
-  return years_array;
-})(); */
 
 function output_effective_budget() {
   var firstSum = p_mu1 * Math.pow(in_budget_agriculture, -p_rho);
@@ -1187,84 +882,9 @@ window.updateChartWithValues = function() {
 
 updateChart(series);
 
-/*
-  var chart = $('#container1').highcharts({
-     chart: {
-      // renderTo: "pie_chart"
-       type: "<%= @graph.type %>"
-       },
-       title: { text: "<%= @graph.title %>" },
-       xAxis: { type: "<%= @graph.x_opts[:type] %>"},
-       yAxis: {
-       title: { text: "<%= @graph.y_opts[:title] %>" }
-    },
-    series: [
-      <%# @graph.series.each { |serie| %>
-        {
-        name: '<%#= serie[:name] %>',
-        data: graphData
-        //data: '<%#= raw dataValue %>'
-        }
-    <%#  } %>
-        ]
-      }); */
-
-      $('#confirm').on("click", function(event) {
-        var id = $(this).attr('id');
-        if (pageNumbers.length > 0) {
-
-          var intValueOfPage = parseInt(currentPage);
-          if (intValueOfPage > 0 && intValueOfPage == pageNumbers.length) {
-            //exit, save, change graph
-            var agro = document.getElementById('myRange1').value;
-              window.alert("agro found: " + agro);
-            if (parseInt(agro)) {
-          //    window.alert("agro was set: " + agro);
-              agro = parseInt(agro);
-            } else {
-              window.alert("agro was set to 0" );
-              agro = 0;
-            }
-
-            var non = document.getElementById('myRange2').value;
-            window.alert("non found: " + non);
-            if (parseInt(non)) {
-        //      window.alert("agro was set: " + non);
-              non = parseInt(non);
-            } else {
-              window.alert("agro was set to 0" );
-              non = 0;
-            }
-
-        //    window.alert("before update agro: " + agro + "; non: " + non);
-            in_budget_agriculture = agro;
-            in_budget_non_agriculture = non;
-            updateChartWithValues(in_budget_agriculture, in_budget_non_agriculture);
-
-            $('.modal.in').modal('toggle');
-            currentPage = 1;
-            pageNumbers = [];
-          } else if (intValueOfPage > 0 && intValueOfPage < pageNumbers.length) {
-            var previousPage = currentPage;
-            var elementToHide = $("div[id='" + previousPage + "']");
-            currentPage = (intValueOfPage + 1).toString();
-            var elementToShow = $("div[id='" + currentPage + "']");
-            $('#' + previousPage + '.page-item').removeClass('active');
-            $('#' + currentPage + '.page-item').addClass('active');
-            elementToHide.hide();
-            elementToShow.show();
-          }
-        }
-      });
-   });
+});
 
  </script>
- <!-- <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script> -->
-       <!-- Bootstrap Js CDN -->
-  <!--     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  -->
-       <!-- Custom Scroller Js CDN -->
-<!--       <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>  -->
-
 
   </body>
 </html>
