@@ -24,9 +24,10 @@
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
   display: flex;
-  margin-right: 0px;
-//  flex-direction: column;
-//  justify-content: center;
+//  margin-right: 0px;
+
+  flex-direction: column;
+  justify-content: center;
 }
 
 #container1 {
@@ -49,9 +50,9 @@
   border-color: black;
   position: relative;
 
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: auto;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
 }
 
 /*
@@ -117,7 +118,7 @@
 .wrapper > nav {
   order: 1;
   min-width: 25%;
-  //max-width: 25%;
+  max-width: 25%;
 }
 
 .wrapper > #contentinner {

@@ -17,4 +17,3 @@
 //= require chartkick
 //= require highcharts
 //= require_tree .
-//= require jquery-ui-slider-pips
