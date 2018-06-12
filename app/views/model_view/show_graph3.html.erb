@@ -38,6 +38,7 @@
   </style>
 </head>
   <body id="body">
+    <%= javascript_include_tag 'model_functions/testmodel.js' %>
     <div class="wrapper" id="wrapper">
       <div style="display:none"  id="hiddenright">
         <i id="hiddenright" class="fa fa-arrow-right" style="font-size:25px;" role="button">
@@ -264,7 +265,6 @@ var lhr = document.getElementById("hr");
 var wrapperwidth = document.getElementById("body").getBoundingClientRect().width;
 //window.alert("wrapper width: " + wrapperwidth.toString());
 
-
 var currentinput = document.getElementById("text_input");
   $('#button_plus').on("click", function(event) {
   //  currentinput.readonly = false;
@@ -324,13 +324,13 @@ var currentinput = document.getElementById("text_input");
   var tabChosen = 1;
 
   /* range: [0.05, 0.4]*/
-  var investment_share = 0.25;
+//  var investment_share = 0.25;
   /* range: [0.05, 0.8]*/
-  var agrar_share = 0.33;
+  /*var agrar_share = 0.33;
   var relative_nr = 2;
   var relative_fm = 3;
   var relative_ma = 6;
-  var relative_hr = 1;
+  var relative_hr = 1; */
 
   var old_investment_share = null;
   var old_agrar_share = null;
@@ -344,21 +344,13 @@ var currentinput = document.getElementById("text_input");
   var old_chart_options = null;
 
   var slider1 = document.getElementById("slider1");
-
   var slider2 = document.getElementById("slider2");
-
   var slider3 = document.getElementById("slider3");
-
   var slider4 = document.getElementById("slider4");
-
   var slider5 = document.getElementById("slider5");
-
   var slider6 = document.getElementById("slider6");
 
-
   var hiddenElem = document.getElementById("hidden");
-
-
 
   // Update the current slider value (each time you drag the slider handle)
   $('#slider1').on("slidechange", function(event, ui) {
@@ -608,54 +600,8 @@ $('#z7').click(function () {
     updateChartWithValues();
 });
 
-var p_rho = 0.5;
-var p_mu1 = 0.7;
-var p_mu2 = 0.3;
-var p_emax = 10;
-var p_a = 1;
-var p_b = -15;
-
-var yearStart = 2009;
-var yearEnd = 2021;
-
-function output_effective_budget() {
-  var firstSum = p_mu1 * Math.pow(in_budget_agriculture, -p_rho);
-  var secondSum = p_mu2 * Math.pow(in_budget_non_agriculture,-p_rho);
-  var result = Math.pow((firstSum + secondSum), (-1 / p_rho));
-  return result;
-};
-
-function output_tp() {
-  var firstExp = p_a * output_effective_budget() + p_b;
-  var secondExp = p_a * output_effective_budget() + p_b;
-  return p_emax * (Math.exp(firstExp)) / (1 + Math.exp(secondExp));
-};
-
-function output_goal_achievement_poverty() {
-  var output_array = [];
-  for(i = 0; i < years.length; i++) {
-    var valueToPush = 100 - output_tp() * 0.1 * (years[i] - 1);
-    output_array.push(valueToPush);
-  }
-  return output_array;
-};
-
-function output_goal_achivement_public_goods() {
-//  window.alert("argf: " + in_budget_agriculture + "; nonf: " + in_budget_non_agriculture);
-  var result = 100 - (in_budget_agriculture + in_budget_non_agriculture);
-//  window.alert("result: " + result);
-  return 100 - (in_budget_agriculture + in_budget_non_agriculture);
-};
-
-function output_goal_achivement_public_goods_years() {
-  var output_array = [];
-  for(i = 1; i < years.length; i++) {
-    output_array.push(100 - (in_budget_agriculture + in_budget_non_agriculture) + output_tp() * 0.8 * (years[i] - 1));
-  }
-  return output_array;
-};
-
-function output_wzs() {
+/*
+function output_wzs(investment_share, agrar_share, relative_nr, relative_fm, relative_ma, relative_hr) {
   var output_array = [];
 
   NONAG = investment_share * (1 - agrar_share);
@@ -681,8 +627,8 @@ function output_wzs() {
   output_array.push(wZ7);
 
   return output_array;
-};
-
+};*/
+/*
 function output_z1() {
   var output_array = [];
 
@@ -696,9 +642,9 @@ function output_z1() {
 
   output_array = years.map(function(year) { return 858.6967 * (1 + (year - 1) * wZ1); });
   return output_array;
-};
-
-function output_z2() {
+}; */
+/*
+function output_z2(investment_share, agrar_share, relative_nr, relative_fm, relative_ma, relative_hr) {
   var output_array = [];
 
   NONAG = investment_share * (1 - agrar_share);
@@ -714,7 +660,7 @@ function output_z2() {
   return output_array;
 };
 
-function output_z3() {
+function output_z3(investment_share, agrar_share, relative_nr, relative_fm, relative_ma, relative_hr) {
   var output_array = [];
 
   NONAG = investment_share * (1 - agrar_share);
@@ -730,7 +676,7 @@ function output_z3() {
   return output_array;
 };
 
-function output_z4() {
+function output_z4(investment_share, agrar_share, relative_nr, relative_fm, relative_ma, relative_hr) {
   var output_array = [];
 
   NONAG = investment_share * (1 - agrar_share);
@@ -746,7 +692,7 @@ function output_z4() {
   return output_array;
 };
 
-function output_z5() {
+function output_z5(investment_share, agrar_share, relative_nr, relative_fm, relative_ma, relative_hr) {
   var output_array = [];
 
   NONAG = investment_share * (1 - agrar_share);
@@ -762,7 +708,7 @@ function output_z5() {
   return output_array;
 };
 
-function output_z6() {
+function output_z6(investment_share, agrar_share, relative_nr, relative_fm, relative_ma, relative_hr) {
   var output_array = [];
 
   NONAG = investment_share * (1 - agrar_share);
@@ -778,7 +724,7 @@ function output_z6() {
   return output_array;
 };
 
-function output_z7() {
+function output_z7(investment_share, agrar_share, relative_nr, relative_fm, relative_ma, relative_hr) {
   var output_array = [];
 
   NONAG = investment_share * (1 - agrar_share);
@@ -792,7 +738,7 @@ function output_z7() {
   output_array = years.map(function(year) { return 99.96191 * (1 + (year - 1) * wZ7); });
 
   return output_array;
-};
+}; */
 
 window.updateChartWithValues = function() {
     switch(tabsChosen) {
@@ -807,6 +753,7 @@ window.updateChartWithValues = function() {
       break;
     case 2:
       var seriesData = output_z1();
+
   //    window.alert("series data2: " + seriesData);
       chartOptions.series = [{
           name: "Z1",

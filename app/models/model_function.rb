@@ -1,0 +1,2 @@
+class ModelFunction < ApplicationRecord
+end

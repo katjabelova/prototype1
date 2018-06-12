@@ -1,0 +1,2 @@
+class ModelOutputSet < ApplicationRecord
+end

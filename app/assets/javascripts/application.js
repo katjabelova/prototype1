@@ -16,4 +16,4 @@
 //= require turbolinks
 //= require chartkick
 //= require highcharts
-//= require_tree .
+//= require_tree ./model_functions
