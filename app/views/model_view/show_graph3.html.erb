@@ -51,7 +51,15 @@
 
            <h3>Settings</h3>
        </div>
-    <ul style="list-style-type:none">
+       <ul style="list-style-type:none">
+         <% @dbelems.settings_widgets.each do |settings_widgets| %>
+         <li title="<%= settings_widgets['name'].to_s %>"><%= settings_widgets['name'].to_s %>
+           <div id="<%= settings_widgets['order_number'].to_s %>" class="slider">
+           </div>
+         </li>
+        <% end %>
+       </ul>
+  <!--  <ul style="list-style-type:none">
          <li id="invest" title="title info1"> Invest
            <div id="slider1" class="slider">
            </div>
@@ -76,7 +84,7 @@
        <div id="slider6" class="slider">
        </div>
        </li>
-     </ul>
+     </ul> -->
        <div class="input-group">
          <input id="text_input" type="text" class="form-control" aria-label="Text input with dropdown button" readonly value="1">
          <div class="input-group-append">
@@ -94,15 +102,17 @@
 
 <!-- Trigger the modal with a button -->
       <button type="button" class="btn btn-info btn-lg" id="showModal" style="display:none">Settings</button>
-
-      <button id="wzs" type="button" class="autocompare">WZS</button>
-      <button id="z1" class="autocompare">Z1</button>
+      <% @dbelems.output_values.each do |output| %>
+      <% puts "tilte: " +  output['title'].to_s %>
+      <button id="<%= output['order_number'].to_s %>" type="button" class="autocompare_"><%= output['title'].to_s %></button>
+  <!--    <button id="z1" class="autocompare">Z1</button>
       <button id="z2" class="autocompare">Z2</button>
       <button id="z3" class="autocompare">Z3</button>
       <button id="z4" class="autocompare">Z4</button>
       <button id="z5" class="autocompare">Z5</button>
       <button id="z6" class="autocompare">Z6</button>
-      <button id="z7" class="autocompare">Z7</button>
+      <button id="z7" class="autocompare">Z7</button> -->
+      <% end  %>
 
 <div class="wrapperinner">
     <div id="container1" remote="true" style=" height: 400px; margin: 0 auto"></div>
@@ -126,6 +136,32 @@ $(function() {
 $(document).tooltip();
 
 $(document).on('ready', function() {
+  //var dbelems = #{raw @dbelems.settings_widgets.ensure_array};
+
+//  window.alert("dbelems: " + dbelems.toString());
+    $("li").each(function (index) {
+    //  window.alert("index: " + dbelems[index]);
+      $('.slider').slider({
+            min: 0,
+            max: 5,
+            step: 1,
+            values: [2]
+          })
+          .slider("pips", {
+                first: "label",
+                last: "label",
+                rest: "label",
+                step: 1,
+                labels: false,
+                prefix: "",
+                suffix: ""
+            })
+            .slider("float");
+    });
+  });
+
+
+     /*
   $('#slider1').slider({
     min: 0.05,
     max: 0.4,
@@ -232,7 +268,7 @@ $('#slider6').slider({
 
   })
   .slider("float");
-});
+});  */
 
 $('#left').on("click", function(event) {
   window.alert("left clicked");
@@ -254,13 +290,13 @@ $('#hiddenleft').on("click", function(event) {
   $('#hiddenleft').hide();
   $('#containerinner2').show();
 });
-
+/*
 var linvest = document.getElementById("invest");
 var lagrar = document.getElementById("agrar");
 var lnr = document.getElementById("nr");
 var lfm = document.getElementById("fm");
 var lma = document.getElementById("ma");
-var lhr = document.getElementById("hr");
+var lhr = document.getElementById("hr"); */
 
 var wrapperwidth = document.getElementById("body").getBoundingClientRect().width;
 //window.alert("wrapper width: " + wrapperwidth.toString());
@@ -342,14 +378,14 @@ var currentinput = document.getElementById("text_input");
   var years = [1,2,3,4,5,6,7,8,9,10]
 
   var old_chart_options = null;
-
+/*
   var slider1 = document.getElementById("slider1");
   var slider2 = document.getElementById("slider2");
   var slider3 = document.getElementById("slider3");
   var slider4 = document.getElementById("slider4");
   var slider5 = document.getElementById("slider5");
   var slider6 = document.getElementById("slider6");
-
+*/
   var hiddenElem = document.getElementById("hidden");
 
   // Update the current slider value (each time you drag the slider handle)
@@ -470,37 +506,51 @@ var currentinput = document.getElementById("text_input");
 
 //  var currentPage = 1;
 //  var pageNumbers = [];
-  var chartType = "pie";
+  var chartType = "line";
 
   var series = [
-    <% @graph.series.each { |serie| %>
       {
-      name: '<%= serie[:name] %>',
-      data: <%= raw @graph.series[0][:data_array] %>
-      //data: '<%#= raw dataValue %>'
+      name: '',
+      data: []
       }
-  <%  } %>
-  ];
+];
 
   var chartOptions = {
-    chart: { // renderTo: "pie_chart"
-    type: "<%= @graph.type %>" },
-    title: { text: "<%= @graph.title %>" },
-    xAxis: { type: "<%= @graph.x_opts[:type] %>", categories: "<%= @graph.x_opts[:categories] %>" },
-    yAxis: { title: { text: "<%= @graph.y_opts[:title] %>" } }
+    chart: { type: "" },
+    title: { text: "" },
+    xAxis: { type: "", categories: [] },
+    yAxis: { title: { text: "" } }
  };
 
  window.updateChart = function(series) {
   <% puts "update function called" %>
-  tabsChosen = 1;
-  chartType = "line";
-  var title = "wzs";
+  <% puts "res: " + @dbelems.output_values[0][:order_number].to_s %>
+  tabsChosen = parseInt('<%=  @dbelems.output_values[0]['order_number'].to_s %>') + 1;
+  chartType = "<%= @dbelems.output_values[0]['chart_type'].to_s %>";
+  var title = "<%= @dbelems.output_values[0]['title'].to_s %>";
   chartOptions.chart.type = chartType;
   chartOptions.title = title;
-  chartOptions.xAxis.categories = years;
+  chartOptions.xAxis.categories = <%= raw @dbelems.output_values[0]['xcategories'] %>;
   updateChartWithValues();
 };
 
+$('.autocompare_').click(function (event) {
+//  window.alert("autocompare_");
+    var dbelems = '<%= raw @dbelems.output_values %>';
+  //  window.alert("dbelems: " + dbelems.toString());
+    old_chart_options = null;
+    idChosen = parseInt(event.target.id);
+    tabsChosen = parseInt(event.target.id) + 1;
+    window.alert("charts: " + dbelems[idChosen]);
+    chartType = dbelems[idChosen]['chart_type'];
+    var title = dbelems[idChosen]['title'];
+    chartOptions.chart.type = chartType;
+    chartOptions.title = title;
+    window.alert("categories: " + dbelems[idChosen]['xcategories'].toString());
+    chartOptions.xAxis.categories = dbelems[idChosen]['xcategories'];
+    updateChartWithValues();
+});
+/*
 $('#wzs').click(function () {
     old_chart_options = null;
     tabsChosen = 1;
@@ -599,7 +649,7 @@ $('#z7').click(function () {
     chartOptions.xAxis.categories = years;
     updateChartWithValues();
 });
-
+*/
 /*
 function output_wzs(investment_share, agrar_share, relative_nr, relative_fm, relative_ma, relative_hr) {
   var output_array = [];

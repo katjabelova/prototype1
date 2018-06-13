@@ -271,6 +271,7 @@ class ModelViewController < ApplicationController
   end
 
   def show_graph3
+    @dbelems = QueryModelFromDatabase.new(1)
     @graph = GraphHelper.new("pie", "Testtitle", "Testsubtitle", "pie", false, {
       title: "x-Axis",
       categories: "",
