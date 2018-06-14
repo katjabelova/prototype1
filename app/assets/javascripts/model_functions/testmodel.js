@@ -8,6 +8,31 @@ var relative_ma = 6;
 var relative_hr = 1;
 var years = [1,2,3,4,5,6,7,8,9,10];
 
+function setParameter(paramName, paramValue) {
+  switch(paramName) {
+    case 'investment_share':
+      investment_share = paramValue;
+      break;
+    case 'agrar_share':
+      agrar_share = paramValue;
+      break;
+    case 'relative_nr':
+      relative_nr = paramValue;
+      break;
+    case 'relative_fm':
+      relative_fm = paramValue;
+      break;
+    case 'relative_ma':
+      relative_ma = paramValue;
+      break;
+    case 'relative_hr':
+      relative_hr = paramValue;
+      break;
+    default:
+      window.alert('Unknown parameter!');
+  };
+};
+
 function output_wzs() {
   var output_array = [];
 

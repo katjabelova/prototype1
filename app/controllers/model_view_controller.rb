@@ -272,6 +272,17 @@ class ModelViewController < ApplicationController
 
   def show_graph3
     @dbelems = QueryModelFromDatabase.new(1)
+
+    @array1 = []
+    @array2 = []
+    @array3 = []
+    @array4 = []
+
+    @array1 = @dbelems.function_names
+    @array2 = @dbelems.params_with_default_values
+    @array3 = @dbelems.output_values
+    @array4 = @dbelems.settings_widgets
+
     @graph = GraphHelper.new("pie", "Testtitle", "Testsubtitle", "pie", false, {
       title: "x-Axis",
       categories: "",

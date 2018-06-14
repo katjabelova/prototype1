@@ -1,6 +1,11 @@
 class QueryModelFromDatabase
 attr_accessor :function_names, :params_with_default_values, :output_values, :settings_widgets
 
+@function_names = []
+@params_with_default_values = []
+@output_values = []
+@settings_widgets = []
+
   def initialize(model_id)
     @settings_widgets = []
     ModelHasSetting.where(models_id: model_id).find_each do |model_has_settings_widget|

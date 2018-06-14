@@ -48,43 +48,16 @@
           <i id="left" class="fa fa-arrow-left" style="font-size:25px;" role="button"></i>
        <!-- Sidebar Header -->
        <div class="sidebar-header" align="center">
-
            <h3>Settings</h3>
        </div>
        <ul style="list-style-type:none">
          <% @dbelems.settings_widgets.each do |settings_widgets| %>
-         <li title="<%= settings_widgets['name'].to_s %>"><%= settings_widgets['name'].to_s %>
-           <div id="<%= settings_widgets['order_number'].to_s %>" class="slider">
+         <li id="<%= settings_widgets['order_number'].to_s %>" title="<%= settings_widgets['name'].to_s %>" class="lis"><%= settings_widgets['name'].to_s %>
+           <div id="<%= settings_widgets['name'].to_s %>" class="slider" data="<%= settings_widgets['order_number'].to_s %>">
            </div>
          </li>
         <% end %>
        </ul>
-  <!--  <ul style="list-style-type:none">
-         <li id="invest" title="title info1"> Invest
-           <div id="slider1" class="slider">
-           </div>
-        </li>
-     <li id="agrar" title="title info2">Agrar
-       <div id="slider2" class="slider">
-       </div>
-      </li>
-       <li id="nr" title="title info3">NR
-       <div id="slider3" class="slider">
-       </div>
-       </li>
-       <li id="fm" title="title info4">FM
-       <div id="slider4" class="slider">
-       </div>
-       </li>
-       <li id="ma" title="title info5">MA
-       <div id="slider5" class="slider">
-       </div>
-       </li>
-       <li id="hr" title="title info6">HR
-       <div id="slider6" class="slider">
-       </div>
-       </li>
-     </ul> -->
        <div class="input-group">
          <input id="text_input" type="text" class="form-control" aria-label="Text input with dropdown button" readonly value="1">
          <div class="input-group-append">
@@ -100,18 +73,10 @@
       <script src="http://code.highcharts.com/highcharts.js"></script>
       <script src="http://code.highcharts.com/modules/exporting.js"></script>
 
-<!-- Trigger the modal with a button -->
       <button type="button" class="btn btn-info btn-lg" id="showModal" style="display:none">Settings</button>
       <% @dbelems.output_values.each do |output| %>
       <% puts "tilte: " +  output['title'].to_s %>
       <button id="<%= output['order_number'].to_s %>" type="button" class="autocompare_"><%= output['title'].to_s %></button>
-  <!--    <button id="z1" class="autocompare">Z1</button>
-      <button id="z2" class="autocompare">Z2</button>
-      <button id="z3" class="autocompare">Z3</button>
-      <button id="z4" class="autocompare">Z4</button>
-      <button id="z5" class="autocompare">Z5</button>
-      <button id="z6" class="autocompare">Z6</button>
-      <button id="z7" class="autocompare">Z7</button> -->
       <% end  %>
 
 <div class="wrapperinner">
@@ -136,22 +101,21 @@ $(function() {
 $(document).tooltip();
 
 $(document).on('ready', function() {
-  //var dbelems = #{raw @dbelems.settings_widgets.ensure_array};
+  var dbelems = <%= raw @dbelems.settings_widgets.to_json %>;
+    $(".lis").each(function (index, value) {
+      var sliderId  = 'slider' + (index + 1).toString();
 
-//  window.alert("dbelems: " + dbelems.toString());
-    $("li").each(function (index) {
-    //  window.alert("index: " + dbelems[index]);
-      $('.slider').slider({
-            min: 0,
-            max: 5,
-            step: 1,
-            values: [2]
+      $('#'+ sliderId).slider({
+            min: parseFloat(dbelems[index]['min']),
+            max: parseFloat(dbelems[index]['max']),
+            step: parseFloat(dbelems[index]['step']),
+            values: [parseFloat(dbelems[index]['default_value'])]
           })
           .slider("pips", {
                 first: "label",
                 last: "label",
                 rest: "label",
-                step: 1,
+                step: parseFloat(dbelems[index]['inner_step']),
                 labels: false,
                 prefix: "",
                 suffix: ""
@@ -159,116 +123,6 @@ $(document).on('ready', function() {
             .slider("float");
     });
   });
-
-
-     /*
-  $('#slider1').slider({
-    min: 0.05,
-    max: 0.4,
-    step: 0.01,
-    values: [0.25]
-  })
-  .slider("pips", {
-        first: "label",
-        last: "label",
-        rest: "label",
-        step: 20,
-        labels: false,
-        prefix: "",
-        suffix: ""
-
-    })
-    .slider("float");
-
-$('#slider2').slider({
-  min: 0.05,
-  max: 0.8,
-  step: 0.01,
-  values: [0.33]
-})
-.slider("pips", {
-      first: "label",
-      last: "label",
-      rest: "label",
-      step: 50,
-      labels: false,
-      prefix: "",
-      suffix: ""
-
-  })
-  .slider("float");
-
-$('#slider3').slider({
-  min: 0,
-  max: 10,
-  step: 1,
-  values: [2]
-})
-.slider("pips", {
-      first: "label",
-      last: "label",
-      rest: "label",
-      step: 10,
-      labels: false,
-      prefix: "",
-      suffix: ""
-
-  })
-  .slider("float");
-
-$('#slider4').slider({
-  min: 0,
-  max: 10,
-  step: 1,
-  values: [3]
-})
-.slider("pips", {
-      first: "label",
-      last: "label",
-      rest: "label",
-      step: 10,
-      labels: false,
-      prefix: "",
-      suffix: ""
-  })
-  .slider("float");
-
-$('#slider5').slider({
-  min: 0,
-  max: 10,
-  step: 1,
-  values: [6]
-})
-.slider("pips", {
-      first: "label",
-      last: "label",
-      rest: "label",
-      step: 10,
-      labels: false,
-      prefix: "",
-      suffix: ""
-
-  })
-  .slider("float");
-
-$('#slider6').slider({
-  min: 0,
-  max: 10,
-  step: 1,
-  values: [1]
-})
-.slider("pips", {
-      first: "label",
-      last: "label",
-      rest: "label",
-      step: 10,
-      labels: false,
-      prefix: "",
-      suffix: ""
-
-  })
-  .slider("float");
-});  */
 
 $('#left').on("click", function(event) {
   window.alert("left clicked");
@@ -290,35 +144,25 @@ $('#hiddenleft').on("click", function(event) {
   $('#hiddenleft').hide();
   $('#containerinner2').show();
 });
-/*
-var linvest = document.getElementById("invest");
-var lagrar = document.getElementById("agrar");
-var lnr = document.getElementById("nr");
-var lfm = document.getElementById("fm");
-var lma = document.getElementById("ma");
-var lhr = document.getElementById("hr"); */
 
 var wrapperwidth = document.getElementById("body").getBoundingClientRect().width;
-//window.alert("wrapper width: " + wrapperwidth.toString());
 
 var currentinput = document.getElementById("text_input");
   $('#button_plus').on("click", function(event) {
-  //  currentinput.readonly = false;
+
       var inputtest = parseFloat(currentinput.value);
       if(inputtest != 10) {
         inputtest = inputtest + 1;
         currentinput.value = inputtest;
         old_relative_hr = relative_hr;
-      //  output6.innerHTML = this.value;
+
         relative_hr = inputtest;
         chartOptions.title = "previous values: ";
         hiddenElem.value = chartOptions;
         old_chart_options = {
 
           colors: ['#A8A8A8'],
-          chart: { // renderTo: "pie_chart"
-
-          type: chartOptions.chart.type },
+          chart: { type: chartOptions.chart.type },
           title: { text: chartOptions.title },
           xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories},
           yAxis: { title: { text:  chartOptions.yAxis.title.text } },
@@ -343,9 +187,7 @@ var currentinput = document.getElementById("text_input");
         old_chart_options = {
 
           colors: ['#A8A8A8'],
-          chart: { // renderTo: "pie_chart"
-
-          type: chartOptions.chart.type },
+          chart: { type: chartOptions.chart.type },
           title: { text: chartOptions.title },
           xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories},
           yAxis: { title: { text:  chartOptions.yAxis.title.text } },
@@ -353,167 +195,36 @@ var currentinput = document.getElementById("text_input");
        };
         updateChartWithValues();
       };
-
   });
-
 
   var tabChosen = 1;
-
-  /* range: [0.05, 0.4]*/
-//  var investment_share = 0.25;
-  /* range: [0.05, 0.8]*/
-  /*var agrar_share = 0.33;
-  var relative_nr = 2;
-  var relative_fm = 3;
-  var relative_ma = 6;
-  var relative_hr = 1; */
-
-  var old_investment_share = null;
-  var old_agrar_share = null;
-  var old_relative_nr = null;
-  var old_relative_fm = null;
-  var old_relative_ma = null;
-  var old_relative_hr = null;
-
-  var years = [1,2,3,4,5,6,7,8,9,10]
-
   var old_chart_options = null;
-/*
-  var slider1 = document.getElementById("slider1");
-  var slider2 = document.getElementById("slider2");
-  var slider3 = document.getElementById("slider3");
-  var slider4 = document.getElementById("slider4");
-  var slider5 = document.getElementById("slider5");
-  var slider6 = document.getElementById("slider6");
-*/
   var hiddenElem = document.getElementById("hidden");
 
-  // Update the current slider value (each time you drag the slider handle)
-  $('#slider1').on("slidechange", function(event, ui) {
-    //  window.alert("slider1: " + parseFloat(ui.value));
-      old_investment_share = investment_share;
-    //  output1.innerHTML = parseFloat(ui.value);
-      investment_share = parseFloat(ui.value);
-      chartOptions.title = "previous input values: ";
-      hiddenElem.value = chartOptions;
-      old_chart_options = {
-        colors: ['#A8A8A8'],
-        chart: { // renderTo: "pie_chart"
-        type: chartOptions.chart.type },
-        title: { text: chartOptions.title },
-        xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories},
-        yAxis: { title: { text:  chartOptions.yAxis.title.text } },
-        series: chartOptions.series
-     };
-      updateChartWithValues();
-  });
+  $('.slider').on("slidechange", function(event, ui) {
+        var dbelems = <%= raw @dbelems.params_with_default_values.to_json %>;
+        var index = parseInt($(this).attr('data'));
+        window.alert("param name: " + dbelems[index]['param_name'].toString());
+        setParameter(dbelems[index]['param_name'], parseFloat(ui.value));
+        chartOptions.title = "previous input values: ";
+        hiddenElem.value = chartOptions;
+        old_chart_options = {
+          colors: ['#A8A8A8'],
+          chart: { type: chartOptions.chart.type },
+          title: { text: chartOptions.title },
+          xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories},
+          yAxis: { title: { text: chartOptions.yAxis.title.text } },
+          series: chartOptions.series
+       };
+        updateChartWithValues();
+    });
 
-  $('#slider2').on("slidechange", function(event, ui) {
-      old_agrar_share = agrar_share;
-    //  output2.innerHTML = this.value;
-      agrar_share = parseFloat(ui.value);
-      chartOptions.title = "previous values: ";
-      hiddenElem.value = chartOptions;
-      old_chart_options = {
-
-        colors: ['#A8A8A8'],
-        chart: { // renderTo: "pie_chart"
-        type: chartOptions.chart.type },
-        title: { text: chartOptions.title },
-        xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories},
-        yAxis: { title: { text:  chartOptions.yAxis.title.text } },
-        series: chartOptions.series
-     };
-      updateChartWithValues();
-  });
-
-  $('#slider3').on("slidechange", function(event, ui) {
-      old_relative_nr = relative_nr;
-    //  output3.innerHTML = this.value;
-      relative_nr =  parseFloat(ui.value);
-      chartOptions.title = "previous input values: ";
-      hiddenElem.value = chartOptions;
-      old_chart_options = {
-
-        colors: ['#A8A8A8'],
-        chart: { // renderTo: "pie_chart"
-        type: chartOptions.chart.type },
-        title: { text: chartOptions.title },
-        xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories},
-        yAxis: { title: { text:  chartOptions.yAxis.title.text } },
-        series: chartOptions.series
-     };
-      updateChartWithValues();
-  });
-
-  $('#slider4').on("slidechange", function(event, ui) {
-      old_relative_fm = relative_fm;
-    //  output4.innerHTML = this.value;
-      relative_fm = parseFloat(ui.value);
-      chartOptions.title = "previous values: ";
-      hiddenElem.value = chartOptions;
-      old_chart_options = {
-
-        colors: ['#A8A8A8'],
-        chart: { // renderTo: "pie_chart"
-        type: chartOptions.chart.type },
-        title: { text: chartOptions.title },
-        xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories},
-        yAxis: { title: { text:  chartOptions.yAxis.title.text } },
-        series: chartOptions.series
-     };
-      updateChartWithValues();
-  });
-
-  $('#slider5').on("slidechange", function(event, ui) {
-      old_relative_ma = relative_ma;
-    //  output5.innerHTML = this.value;
-      relative_ma = parseFloat(ui.value);
-      chartOptions.title = "previous input values: ";
-      hiddenElem.value = chartOptions;
-      old_chart_options = {
-
-        colors: ['#A8A8A8'],
-        chart: { // renderTo: "pie_chart"
-        type: chartOptions.chart.type },
-        title: { text: chartOptions.title },
-        xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories},
-        yAxis: { title: { text:  chartOptions.yAxis.title.text } },
-        series: chartOptions.series
-     };
-      updateChartWithValues();
-  });
-
-  $('#slider6').on("slidechange", function(event, ui) {
-      old_relative_hr = relative_hr;
-    //  output6.innerHTML = this.value;
-      relative_hr = parseFloat(ui.value);
-      chartOptions.title = "previous values: ";
-      hiddenElem.value = chartOptions;
-      old_chart_options = {
-
-        colors: ['#A8A8A8'],
-        chart: { // renderTo: "pie_chart"
-
-        type: chartOptions.chart.type },
-        title: { text: chartOptions.title },
-        xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories},
-        yAxis: { title: { text:  chartOptions.yAxis.title.text } },
-        series: chartOptions.series
-     };
-      updateChartWithValues();
-  });
-
-//  var currentPage = 1;
-//  var pageNumbers = [];
   var chartType = "line";
 
-  var series = [
-      {
+  var series = [{
       name: '',
       data: []
-      }
-];
+  }];
 
   var chartOptions = {
     chart: { type: "" },
@@ -535,268 +246,44 @@ var currentinput = document.getElementById("text_input");
 };
 
 $('.autocompare_').click(function (event) {
-//  window.alert("autocompare_");
-    var dbelems = '<%= raw @dbelems.output_values %>';
-  //  window.alert("dbelems: " + dbelems.toString());
+    var dbelems = <%= raw @dbelems.output_values.to_json %>;
+
     old_chart_options = null;
     idChosen = parseInt(event.target.id);
     tabsChosen = parseInt(event.target.id) + 1;
-    window.alert("charts: " + dbelems[idChosen]);
     chartType = dbelems[idChosen]['chart_type'];
+
     var title = dbelems[idChosen]['title'];
     chartOptions.chart.type = chartType;
     chartOptions.title = title;
-    window.alert("categories: " + dbelems[idChosen]['xcategories'].toString());
     chartOptions.xAxis.categories = dbelems[idChosen]['xcategories'];
     updateChartWithValues();
 });
-/*
-$('#wzs').click(function () {
-    old_chart_options = null;
-    tabsChosen = 1;
-    chartType = "line";
-    var title = "WZS";
-    chartOptions.chart.type = chartType;
-    chartOptions.title = title;
-    chartOptions.xAxis.categories = years;
-    updateChartWithValues();
-});
-
-$('#z1').click(function () {
-   old_chart_options = null;
-    tabsChosen = 2;
-    chartType = "line";
-    var title = "z1";
-    chartOptions.chart.type = chartType;
-    chartOptions.title = title;
-    chartOptions.xAxis.categories = years;
-    updateChartWithValues();
-});
-
-$('#z2').click(function () {
-   old_chart_options = null;
-
-    tabsChosen = 3;
-    chartType = "line";
-    var title = "z2";
-    chartOptions.chart.type = chartType;
-    chartOptions.title = title;
-    chartOptions.xAxis.categories = years;
-    updateChartWithValues();
-});
-
-$('#z3').click(function () {
-   old_chart_options = null;
-
-    tabsChosen = 4;
-    chartType = "line";
-    var title = "z3";
-    var yTitle = "years";
-    chartOptions.chart.type = chartType;
-    chartOptions.title = title;
-    chartOptions.xAxis.categories = years;
-    updateChartWithValues();
-});
-
-$('#z4').click(function () {
-   old_chart_options = null;
-
-    tabsChosen = 5;
-    chartType = "line";
-    var title = "z4";
-    var yTitle = "years";
-    chartOptions.chart.type = chartType;
-    chartOptions.title = title;
-    chartOptions.xAxis.categories = years;
-    updateChartWithValues();
-});
-
-$('#z5').click(function () {
-   old_chart_options = null;
-
-    tabsChosen = 6;
-    chartType = "line";
-    var title = "z5";
-    var yTitle = "years";
-    chartOptions.chart.type = chartType;
-    chartOptions.title = title;
-    chartOptions.xAxis.categories = years;
-    updateChartWithValues();
-});
-
-$('#z6').click(function () {
-   old_chart_options = null;
-
-    tabsChosen = 7;
-    chartType = "line";
-    var title = "z6";
-    var yTitle = "years";
-    chartOptions.chart.type = chartType;
-    chartOptions.title = title;
-    chartOptions.xAxis.categories = years;
-    updateChartWithValues();
-});
-
-$('#z7').click(function () {
-    old_chart_options = null;
-
-    tabsChosen = 8;
-    chartType = "line";
-    var title = "z7";
-    var yTitle = "years";
-    chartOptions.chart.type = chartType;
-    chartOptions.title = title;
-    chartOptions.xAxis.categories = years;
-    updateChartWithValues();
-});
-*/
-/*
-function output_wzs(investment_share, agrar_share, relative_nr, relative_fm, relative_ma, relative_hr) {
-  var output_array = [];
-
-  NONAG = investment_share * (1 - agrar_share);
-  NR = investment_share * agrar_share * relative_nr / (relative_nr + relative_fm + relative_ma + relative_hr);
-  FM = investment_share * agrar_share * relative_fm / (relative_nr + relative_fm + relative_ma + relative_hr);
-  MA = investment_share * agrar_share * relative_ma / (relative_nr + relative_fm + relative_ma + relative_hr);
-  HR = investment_share * agrar_share * relative_hr / (relative_nr + relative_fm + relative_ma + relative_hr);
-
-  wZ1 = 0.03815609 + 0.009317891 * NR + -0.09422917 * NR * NR + 0.01042949 * FM + -0.1066363 * FM * FM + 0.04761692 * MA + -0.2115398 * MA * MA + 0.008736629 * HR + -0.08689586 * HR * HR + 0.2355192 * NONAG + -0.3277703 * NONAG * NONAG;
-  wZ2 = 0.002992926 + 0.01636231 * NR + -0.06932432 * NR * NR + 0.03757891 * FM + -0.1557839 * FM * FM + 0.02726628 * MA + -0.1040575 * MA * MA + 0.02314826 * HR + -0.09319288 * HR * HR + 0.05986973 * NONAG + -0.07809279 * NONAG * NONAG;
-  wZ3 = 0.08384501 + -0.7482027 * NR + -0.4816802 * NR * NR + -0.573682 * FM + -1.117864 * FM * FM + -0.6393244 * MA + -0.8277594 * MA * MA + -0.6944213 * HR + -0.6600634 * HR * HR + -0.3013967 * NONAG + -0.7381306 * NONAG * NONAG;
-  wZ4 = 0.05460506 + 0.1725816 * NR + -0.7801275 * NR * NR + 0.300523 * FM + -1.274792 * FM * FM + 0.1717909 * MA + -0.7029481 * MA * MA + 0.1937015 * HR + -0.8254542 * HR * HR + 0.1793275 * NONAG + -0.2468094 * NONAG * NONAG;
-  wZ5 = 0.03781077 + 0.04533998 * NR + -0.2022937 * NR * NR + 0.1167748 * FM + -0.4649394 * FM * FM + 0.09289019 * MA + -0.3516543 * MA * MA + 0.0672851 * HR + -0.2737941 * HR * HR + 0.2295746 * NONAG + -0.2929575 * NONAG * NONAG;
-  wZ6 = 0.0434538 + 0.01437698 * NR + -0.07777468 * NR * NR + 0.03920955 * FM + -0.1656638 * FM * FM + 0.04896659 * MA + -0.2155554 * MA * MA + 0.02191561 * HR + -0.1060559 * HR * HR + 0.1342406 * NONAG + 0.07673141 * NONAG * NONAG;
-  wZ7 = -0.000006415758 + 0.000001345764 * NR + 0.000006775817 * NR * NR + -0.000003279563 * FM + 0.00001479488 * FM * FM + -0.000008525427 * MA + 0.00004173186 * MA * MA + 0.000002755462 * HR + 0.000004497611 * HR * HR + -0.00005203285 * NONAG + 0.00006610333 * NONAG * NONAG;
-
-  output_array.push(wZ1);
-  output_array.push(wZ2);
-  output_array.push(wZ3);
-  output_array.push(wZ4);
-  output_array.push(wZ5);
-  output_array.push(wZ6);
-  output_array.push(wZ7);
-
-  return output_array;
-};*/
-/*
-function output_z1() {
-  var output_array = [];
-
-  NONAG = investment_share * (1 - agrar_share);
-  NR = investment_share * agrar_share * relative_nr / (relative_nr + relative_fm + relative_ma + relative_hr);
-  FM = investment_share * agrar_share * relative_fm / (relative_nr + relative_fm + relative_ma + relative_hr);
-  MA = investment_share * agrar_share * relative_ma / (relative_nr + relative_fm + relative_ma + relative_hr);
-  HR = investment_share * agrar_share * relative_hr / (relative_nr + relative_fm + relative_ma + relative_hr);
-
-  wZ1 = 0.03815609 + 0.009317891 * NR + -0.09422917 * NR * NR + 0.01042949 * FM + -0.1066363 * FM * FM + 0.04761692 * MA + -0.2115398 * MA * MA + 0.008736629 * HR + -0.08689586 * HR * HR + 0.2355192 * NONAG + -0.3277703 * NONAG * NONAG;
-
-  output_array = years.map(function(year) { return 858.6967 * (1 + (year - 1) * wZ1); });
-  return output_array;
-}; */
-/*
-function output_z2(investment_share, agrar_share, relative_nr, relative_fm, relative_ma, relative_hr) {
-  var output_array = [];
-
-  NONAG = investment_share * (1 - agrar_share);
-  NR = investment_share * agrar_share * relative_nr / (relative_nr + relative_fm + relative_ma + relative_hr);
-  FM = investment_share * agrar_share * relative_fm / (relative_nr + relative_fm + relative_ma + relative_hr);
-  MA = investment_share * agrar_share * relative_ma / (relative_nr + relative_fm + relative_ma + relative_hr);
-  HR = investment_share * agrar_share * relative_hr / (relative_nr + relative_fm + relative_ma + relative_hr);
-
-  wZ2 = 0.002992926 + 0.01636231 * NR + -0.06932432 * NR * NR + 0.03757891 * FM + -0.1557839 * FM * FM + 0.02726628 * MA + -0.1040575 * MA * MA + 0.02314826 * HR + -0.09319288 * HR * HR + 0.05986973 * NONAG + -0.07809279 * NONAG * NONAG;
-
-  output_array = years.map(function(year) {return (100 - ( 85.46574 * (1 + (year - 1) * wZ2))) * 3; });
-
-  return output_array;
-};
-
-function output_z3(investment_share, agrar_share, relative_nr, relative_fm, relative_ma, relative_hr) {
-  var output_array = [];
-
-  NONAG = investment_share * (1 - agrar_share);
-  NR = investment_share * agrar_share * relative_nr / (relative_nr + relative_fm + relative_ma + relative_hr);
-  FM = investment_share * agrar_share * relative_fm / (relative_nr + relative_fm + relative_ma + relative_hr);
-  MA = investment_share * agrar_share * relative_ma / (relative_nr + relative_fm + relative_ma + relative_hr);
-  HR = investment_share * agrar_share * relative_hr / (relative_nr + relative_fm + relative_ma + relative_hr);
-
-  wZ3 = 0.08384501 + -0.7482027 * NR + -0.4816802 * NR * NR + -0.573682 * FM + -1.117864 * FM * FM + -0.6393244 * MA + -0.8277594 * MA * MA + -0.6944213 * HR + -0.6600634 * HR * HR + -0.3013967 * NONAG + -0.7381306 * NONAG * NONAG;
-
-  output_array = years.map(function(year) { return 379.7354 * (1 + (year - 1) * wZ3); });
-
-  return output_array;
-};
-
-function output_z4(investment_share, agrar_share, relative_nr, relative_fm, relative_ma, relative_hr) {
-  var output_array = [];
-
-  NONAG = investment_share * (1 - agrar_share);
-  NR = investment_share * agrar_share * relative_nr / (relative_nr + relative_fm + relative_ma + relative_hr);
-  FM = investment_share * agrar_share * relative_fm / (relative_nr + relative_fm + relative_ma + relative_hr);
-  MA = investment_share * agrar_share * relative_ma / (relative_nr + relative_fm + relative_ma + relative_hr);
-  HR = investment_share * agrar_share * relative_hr / (relative_nr + relative_fm + relative_ma + relative_hr);
-
-  wZ4 = 0.05460506 + 0.1725816 * NR + -0.7801275 * NR * NR + 0.300523 * FM + -1.274792 * FM * FM + 0.1717909 * MA + -0.7029481 * MA * MA + 0.1937015 * HR + -0.8254542 * HR * HR + 0.1793275 * NONAG + -0.2468094 * NONAG * NONAG;
-
-  output_array = years.map(function(year) { return 121.74 * (1 + (year - 1) * wZ4); });
-
-  return output_array;
-};
-
-function output_z5(investment_share, agrar_share, relative_nr, relative_fm, relative_ma, relative_hr) {
-  var output_array = [];
-
-  NONAG = investment_share * (1 - agrar_share);
-  NR = investment_share * agrar_share * relative_nr / (relative_nr + relative_fm + relative_ma + relative_hr);
-  FM = investment_share * agrar_share * relative_fm / (relative_nr + relative_fm + relative_ma + relative_hr);
-  MA = investment_share * agrar_share * relative_ma / (relative_nr + relative_fm + relative_ma + relative_hr);
-  HR = investment_share * agrar_share * relative_hr / (relative_nr + relative_fm + relative_ma + relative_hr);
-
-  wZ5 = 0.03781077 + 0.04533998 * NR + -0.2022937 * NR * NR + 0.1167748 * FM + -0.4649394 * FM * FM + 0.09289019 * MA + -0.3516543 * MA * MA + 0.0672851 * HR + -0.2737941 * HR * HR + 0.2295746 * NONAG + -0.2929575 * NONAG * NONAG;
-
-  output_array = years.map(function(year) { return 3625.429 * (1 + (year - 1) * wZ5); });
-
-  return output_array;
-};
-
-function output_z6(investment_share, agrar_share, relative_nr, relative_fm, relative_ma, relative_hr) {
-  var output_array = [];
-
-  NONAG = investment_share * (1 - agrar_share);
-  NR = investment_share * agrar_share * relative_nr / (relative_nr + relative_fm + relative_ma + relative_hr);
-  FM = investment_share * agrar_share * relative_fm / (relative_nr + relative_fm + relative_ma + relative_hr);
-  MA = investment_share * agrar_share * relative_ma / (relative_nr + relative_fm + relative_ma + relative_hr);
-  HR = investment_share * agrar_share * relative_hr / (relative_nr + relative_fm + relative_ma + relative_hr);
-
-  wZ6 = 0.0434538 + 0.01437698 * NR + -0.07777468 * NR * NR + 0.03920955 * FM + -0.1656638 * FM * FM + 0.04896659 * MA + -0.2155554 * MA * MA + 0.02191561 * HR + -0.1060559 * HR * HR + 0.1342406 * NONAG + 0.07673141 * NONAG * NONAG;
-
-  output_array = years.map(function(year) { return 1405.489 * (1 + (year - 1) * wZ6); });
-
-  return output_array;
-};
-
-function output_z7(investment_share, agrar_share, relative_nr, relative_fm, relative_ma, relative_hr) {
-  var output_array = [];
-
-  NONAG = investment_share * (1 - agrar_share);
-  NR = investment_share * agrar_share * relative_nr / (relative_nr + relative_fm + relative_ma + relative_hr);
-  FM = investment_share * agrar_share * relative_fm / (relative_nr + relative_fm + relative_ma + relative_hr);
-  MA = investment_share * agrar_share * relative_ma / (relative_nr + relative_fm + relative_ma + relative_hr);
-  HR = investment_share * agrar_share * relative_hr / (relative_nr + relative_fm + relative_ma + relative_hr);
-
-  wZ7 = -0.000006415758 + 0.000001345764 * NR + 0.000006775817 * NR * NR + -0.000003279563 * FM + 0.00001479488 * FM * FM + -0.000008525427 * MA + 0.00004173186 * MA * MA + 0.000002755462 * HR + 0.000004497611 * HR * HR + -0.00005203285 * NONAG + 0.00006610333 * NONAG * NONAG;
-
-  output_array = years.map(function(year) { return 99.96191 * (1 + (year - 1) * wZ7); });
-
-  return output_array;
-}; */
 
 window.updateChartWithValues = function() {
+    var dbelems = <%= raw @dbelems.output_values.to_json %>;
+    var dbfunctions = <%= raw @dbelems.function_names.to_json %>;
+    var index = tabsChosen - 1;
+    var functionName = dbfunctions[index];
+    var functionName1 = window[functionName];
+
+    //var executeFunc = window[functionName]();
+    window.alert("func to exec: " + functionName.toString());
+  //  var toExec = new Function(functionName);
+    var seriesData = "";
+  //  window.alert("series data1: " + seriesData);
+    chartOptions.series = [{
+        name: dbelems[index]['title'],
+        data: seriesData
+    }
+  ];
+    /*
     switch(tabsChosen) {
     case 1:
       var seriesData = output_wzs();
     //  window.alert("series data1: " + seriesData);
       chartOptions.series = [{
-          name: "WZS",
+          name: dbelems[index]['title'],
           data: seriesData
       }
     ];
@@ -806,7 +293,7 @@ window.updateChartWithValues = function() {
 
   //    window.alert("series data2: " + seriesData);
       chartOptions.series = [{
-          name: "Z1",
+          name: dbelems[index]['title'],
           data: seriesData
         }];
           break;
@@ -815,7 +302,7 @@ window.updateChartWithValues = function() {
       var seriesData = output_z2();
   //    window.alert("series data3: " + seriesData);
       chartOptions.series = [{
-          name: "Z2",
+          name: dbelems[index]['title'],
           data: seriesData
       }];
         break;
@@ -823,7 +310,7 @@ window.updateChartWithValues = function() {
       var seriesData = output_z3();
   //    window.alert("series data4: " + seriesData);
       chartOptions.series = [{
-          name: "Z3",
+          name: dbelems[index]['title'],
           data: seriesData
       }];
         break;
@@ -831,7 +318,7 @@ window.updateChartWithValues = function() {
       var seriesData = output_z4();
   //    window.alert("series data5: " + seriesData);
       chartOptions.series = [{
-          name: "Z4",
+          name: dbelems[index]['title'],
           data: seriesData
       }];
         break;
@@ -839,7 +326,7 @@ window.updateChartWithValues = function() {
       var seriesData = output_z5();
       //    window.alert("series data5: " + seriesData);
       chartOptions.series = [{
-          name: "Z5",
+          name: dbelems[index]['title'],
           data: seriesData
       }];
     break;
@@ -847,7 +334,7 @@ window.updateChartWithValues = function() {
       var seriesData = output_z6();
       //    window.alert("series data5: " + seriesData);
       chartOptions.series = [{
-            name: "Z6",
+            name: dbelems[index]['title'],
             data: seriesData
       }];
       break;
@@ -855,13 +342,15 @@ window.updateChartWithValues = function() {
       var seriesData = output_z7();
       //    window.alert("series data5: " + seriesData);
       chartOptions.series = [{
-            name: "Z7",
+            name: dbelems[index]['title'],
             data: seriesData
       }];
       break;
     default:
       <% puts "in case default" %>
-  }
+
+
+  } */
 
     Highcharts.chart('container1', chartOptions);
     var elementToHide = document.getElementById("container2");
@@ -881,7 +370,6 @@ updateChart(series);
 
 });
 
- </script>
-
+    </script>
   </body>
 </html>
