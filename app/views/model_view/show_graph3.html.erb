@@ -12,7 +12,7 @@
 
   <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
   <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
-<!-- plus a jQuery UI theme, here I use "flick" -->
+
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/flick/jquery-ui.css">
 
   <script scr="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.css"></script>
@@ -38,7 +38,8 @@
   </style>
 </head>
   <body id="body">
-    <%= javascript_include_tag 'model_functions/testmodel.js' %>
+    <% path = @dbelems.function_names[0]['path'] == nil ? 'model_functions/textmodel.js' : @dbelems.function_names[0]['path'].to_s %>
+    <%= javascript_include_tag path %>
     <div class="wrapper" id="wrapper">
       <div style="display:none"  id="hiddenright">
         <i id="hiddenright" class="fa fa-arrow-right" style="font-size:25px;" role="button">
@@ -46,25 +47,18 @@
       </div>
       <nav id="sidebar">
           <i id="left" class="fa fa-arrow-left" style="font-size:25px;" role="button"></i>
-       <!-- Sidebar Header -->
        <div class="sidebar-header" align="center">
            <h3>Settings</h3>
        </div>
        <ul style="list-style-type:none">
          <% @dbelems.settings_widgets.each do |settings_widgets| %>
+         <% @sliderId = 'slider' + settings_widgets['order_number'].to_s %>
          <li id="<%= settings_widgets['order_number'].to_s %>" title="<%= settings_widgets['name'].to_s %>" class="lis"><%= settings_widgets['name'].to_s %>
-           <div id="<%= settings_widgets['name'].to_s %>" class="slider" data="<%= settings_widgets['order_number'].to_s %>">
+           <div id="<%= @sliderId %>" class="slider" data="<%= settings_widgets['order_number'].to_s %>">
            </div>
          </li>
         <% end %>
        </ul>
-       <div class="input-group">
-         <input id="text_input" type="text" class="form-control" aria-label="Text input with dropdown button" readonly value="1">
-         <div class="input-group-append">
-           <button id="button_plus" type="button" class="btn btn-primary">+</button>
-           <button id="button_minus" type="button" class="btn btn-primary">-</button>
-         </div>
-       </div>
 
        <p id="hidden" style="display:none;"></p>
    </nav>
@@ -94,16 +88,32 @@
 </div>
 </div>
 <script>
-var tabsChosen = 1;
+var tabsChosen = 0;
 
 $(function() {
+  var wrapperwidth = document.getElementById("body").getBoundingClientRect().width;
 
-$(document).tooltip();
+  var old_chart_options = null;
+  var hiddenElem = document.getElementById("hidden");
+  var chartType = "line";
+
+  var series = [{
+      name: '',
+      data: []
+  }];
+
+  var chartOptions = {
+    chart: { type: "" },
+    title: { text: "" },
+    xAxis: { type: "", categories: [] },
+    yAxis: { title: { text: "" } }
+ };
+//$(document).tooltip();
 
 $(document).on('ready', function() {
   var dbelems = <%= raw @dbelems.settings_widgets.to_json %>;
     $(".lis").each(function (index, value) {
-      var sliderId  = 'slider' + (index + 1).toString();
+      var sliderId  = 'slider' + index.toString();
 
       $('#'+ sliderId).slider({
             min: parseFloat(dbelems[index]['min']),
@@ -124,88 +134,26 @@ $(document).on('ready', function() {
     });
   });
 
-$('#left').on("click", function(event) {
-  window.alert("left clicked");
-  $('#sidebar').hide();
-  $('#hiddenright').show();
-});
+ $('.autocompare_').click(function (event) {
+     var dbelems = <%= raw @dbelems.output_values.to_json %>;
 
-$('#right').on("click", function(event) {
-  $('#containerinner2').hide();
-  $('#hiddenleft').show();
-});
+     old_chart_options = null;
+     idChosen = parseInt(event.target.id);
+     tabsChosen = parseInt(event.target.id);
+     chartType = dbelems[idChosen]['chart_type'];
 
-$('#hiddenright').on("click", function(event) {
-  $('#hiddenright').hide();
-  $('#sidebar').show();
-});
-
-$('#hiddenleft').on("click", function(event) {
-  $('#hiddenleft').hide();
-  $('#containerinner2').show();
-});
-
-var wrapperwidth = document.getElementById("body").getBoundingClientRect().width;
-
-var currentinput = document.getElementById("text_input");
-  $('#button_plus').on("click", function(event) {
-
-      var inputtest = parseFloat(currentinput.value);
-      if(inputtest != 10) {
-        inputtest = inputtest + 1;
-        currentinput.value = inputtest;
-        old_relative_hr = relative_hr;
-
-        relative_hr = inputtest;
-        chartOptions.title = "previous values: ";
-        hiddenElem.value = chartOptions;
-        old_chart_options = {
-
-          colors: ['#A8A8A8'],
-          chart: { type: chartOptions.chart.type },
-          title: { text: chartOptions.title },
-          xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories},
-          yAxis: { title: { text:  chartOptions.yAxis.title.text } },
-          series: chartOptions.series
-       };
-        updateChartWithValues();
-      };
-
-  });
-
-  $('#button_minus').on("click", function(event) {
-
-      var inputtest = parseFloat(currentinput.value);
-      if(inputtest != 0) {
-        inputtest = inputtest - 1;
-        currentinput.value = inputtest;
-        old_relative_hr = relative_hr;
-
-        relative_hr = inputtest;
-        chartOptions.title = "previous values: ";
-        hiddenElem.value = chartOptions;
-        old_chart_options = {
-
-          colors: ['#A8A8A8'],
-          chart: { type: chartOptions.chart.type },
-          title: { text: chartOptions.title },
-          xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories},
-          yAxis: { title: { text:  chartOptions.yAxis.title.text } },
-          series: chartOptions.series
-       };
-        updateChartWithValues();
-      };
-  });
-
-  var tabChosen = 1;
-  var old_chart_options = null;
-  var hiddenElem = document.getElementById("hidden");
+     var title = dbelems[idChosen]['title'];
+     chartOptions.chart.type = chartType;
+     chartOptions.title = title;
+     chartOptions.xAxis.categories = dbelems[idChosen]['xcategories'];
+     updateChartWithValues();
+ });
 
   $('.slider').on("slidechange", function(event, ui) {
         var dbelems = <%= raw @dbelems.params_with_default_values.to_json %>;
         var index = parseInt($(this).attr('data'));
-        window.alert("param name: " + dbelems[index]['param_name'].toString());
-        setParameter(dbelems[index]['param_name'], parseFloat(ui.value));
+
+        window[dbelems[index]['param_name']] = parseFloat(ui.value);
         chartOptions.title = "previous input values: ";
         hiddenElem.value = chartOptions;
         old_chart_options = {
@@ -217,26 +165,12 @@ var currentinput = document.getElementById("text_input");
           series: chartOptions.series
        };
         updateChartWithValues();
-    });
-
-  var chartType = "line";
-
-  var series = [{
-      name: '',
-      data: []
-  }];
-
-  var chartOptions = {
-    chart: { type: "" },
-    title: { text: "" },
-    xAxis: { type: "", categories: [] },
-    yAxis: { title: { text: "" } }
- };
+  });
 
  window.updateChart = function(series) {
   <% puts "update function called" %>
   <% puts "res: " + @dbelems.output_values[0][:order_number].to_s %>
-  tabsChosen = parseInt('<%=  @dbelems.output_values[0]['order_number'].to_s %>') + 1;
+  tabsChosen = parseInt('<%=  @dbelems.output_values[0]['order_number'].to_s %>');
   chartType = "<%= @dbelems.output_values[0]['chart_type'].to_s %>";
   var title = "<%= @dbelems.output_values[0]['title'].to_s %>";
   chartOptions.chart.type = chartType;
@@ -245,112 +179,19 @@ var currentinput = document.getElementById("text_input");
   updateChartWithValues();
 };
 
-$('.autocompare_').click(function (event) {
-    var dbelems = <%= raw @dbelems.output_values.to_json %>;
-
-    old_chart_options = null;
-    idChosen = parseInt(event.target.id);
-    tabsChosen = parseInt(event.target.id) + 1;
-    chartType = dbelems[idChosen]['chart_type'];
-
-    var title = dbelems[idChosen]['title'];
-    chartOptions.chart.type = chartType;
-    chartOptions.title = title;
-    chartOptions.xAxis.categories = dbelems[idChosen]['xcategories'];
-    updateChartWithValues();
-});
-
 window.updateChartWithValues = function() {
     var dbelems = <%= raw @dbelems.output_values.to_json %>;
     var dbfunctions = <%= raw @dbelems.function_names.to_json %>;
-    var index = tabsChosen - 1;
-    var functionName = dbfunctions[index];
+    var index = tabsChosen;
+    var functionName = dbfunctions[index]['name'];
     var functionName1 = window[functionName];
+    var seriesData = functionName1();
 
-    //var executeFunc = window[functionName]();
-    window.alert("func to exec: " + functionName.toString());
-  //  var toExec = new Function(functionName);
-    var seriesData = "";
-  //  window.alert("series data1: " + seriesData);
     chartOptions.series = [{
         name: dbelems[index]['title'],
         data: seriesData
-    }
-  ];
-    /*
-    switch(tabsChosen) {
-    case 1:
-      var seriesData = output_wzs();
-    //  window.alert("series data1: " + seriesData);
-      chartOptions.series = [{
-          name: dbelems[index]['title'],
-          data: seriesData
       }
     ];
-      break;
-    case 2:
-      var seriesData = output_z1();
-
-  //    window.alert("series data2: " + seriesData);
-      chartOptions.series = [{
-          name: dbelems[index]['title'],
-          data: seriesData
-        }];
-          break;
-    case 3:
-  //    window.alert("agri: "+ in_budget_agriculture +"; non: " + in_budget_non_agriculture);
-      var seriesData = output_z2();
-  //    window.alert("series data3: " + seriesData);
-      chartOptions.series = [{
-          name: dbelems[index]['title'],
-          data: seriesData
-      }];
-        break;
-    case 4:
-      var seriesData = output_z3();
-  //    window.alert("series data4: " + seriesData);
-      chartOptions.series = [{
-          name: dbelems[index]['title'],
-          data: seriesData
-      }];
-        break;
-    case 5:
-      var seriesData = output_z4();
-  //    window.alert("series data5: " + seriesData);
-      chartOptions.series = [{
-          name: dbelems[index]['title'],
-          data: seriesData
-      }];
-        break;
-    case 6:
-      var seriesData = output_z5();
-      //    window.alert("series data5: " + seriesData);
-      chartOptions.series = [{
-          name: dbelems[index]['title'],
-          data: seriesData
-      }];
-    break;
-    case 7:
-      var seriesData = output_z6();
-      //    window.alert("series data5: " + seriesData);
-      chartOptions.series = [{
-            name: dbelems[index]['title'],
-            data: seriesData
-      }];
-      break;
-    case 8:
-      var seriesData = output_z7();
-      //    window.alert("series data5: " + seriesData);
-      chartOptions.series = [{
-            name: dbelems[index]['title'],
-            data: seriesData
-      }];
-      break;
-    default:
-      <% puts "in case default" %>
-
-
-  } */
 
     Highcharts.chart('container1', chartOptions);
     var elementToHide = document.getElementById("container2");
@@ -366,8 +207,7 @@ window.updateChartWithValues = function() {
     };
 };
 
-updateChart(series);
-
+  updateChart(series);
 });
 
     </script>

@@ -34,7 +34,6 @@ attr_accessor :function_names, :params_with_default_values, :output_values, :set
         default_param_element['param_name'] = default_param.param_name
         default_param_element['default_value'] = default_param.default_value
 
-
         @params_with_default_values.push(default_param_element)
       end
     end
@@ -44,8 +43,12 @@ attr_accessor :function_names, :params_with_default_values, :output_values, :set
     @function_names = []
     ModelHasFunction.where(models_id: model_id).find_each do |model_has_function|
       ModelFunction.where(id: model_has_function.model_functions_id).find_each do |model_function|
+        function_name_element = Hash.new
+        function_name_element['name'] = model_function.name
+        function_name_element['path'] = model_function.path
+        function_name_element['order_number'] = model_function.order_number
 
-        @function_names.push(model_function.name)
+        @function_names.push(function_name_element)
       end
         puts "functions-element: " + @function_names.to_s
     end
