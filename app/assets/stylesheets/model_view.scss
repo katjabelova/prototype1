@@ -4,19 +4,26 @@
 
 #contentinner {
   background: #f9f9f9;
-//  min-width: 40%;
+//  min-height: 100vh;
 //  min-width: 800px;
   border-style: solid;
   border-color: #5bc0de;
   border-radius: 15px;
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
-  margin-left: 0px;
+//  display: flex;
+//  flex-direction: column;
+//  justify-content: center;
+}
+
+.mainContent {
+  margin-top: 31.5%;
+  transform: translateY(-50%);
 }
 
 #containerinner2 {
   background: #f9f9f9;
-// min-width: 30%;
+//  min-height: 100vh;
 // min-width: 500px;
   border-style: solid;
   border-color: #5bc0de;
@@ -38,8 +45,8 @@
 
   margin-left: 0px;
   margin-right: 0px;
-  margin-top: 0px;
-  margin-bottom: 0px;
+  margin-top: 1px;
+  margin-bottom: 1px;
 }
 
 #container2 {
@@ -51,7 +58,7 @@
   position: relative;
 
   margin-left: 0px;
-  margin-right: 0px;
+  margin-right: 1px;
   margin-bottom: 0px;
 }
 
@@ -99,36 +106,43 @@
 #hiddenleft {
   position: relative;
   float: right;
-  margin-right: 5px;
+  //margin-right: 0px;
   color: #5bc0de;
 }
 
 #hiddenright {
   position: relative;
   float: left;
-  margin-left: 5px;
+//  margin-left: 0px;
   color: #5bc0de;
 }
 
 .wrapper {
   display: flex;
-  justify-content: center;
+//  justify-content: center;
+  justify-content: space-evenly;
+}
+
+.wrapper > #hiddenright {
+  order: 0;
 }
 
 .wrapper > nav {
   order: 1;
-  min-width: 25%;
-  max-width: 25%;
+  min-width: 18vw;
+//  max-width: 25%;
 }
 
 .wrapper > #contentinner {
    order: 2;
-   min-width: 70%;
+   min-width: 50vw;
+   min-height: 100vh;
 }
 
 .wrapper > #containerinner2 {
   order: 3;
-   min-width: 35%;
+  min-width: 25vw;
+  min-height: 100vh;
 }
 
 .wrapper > #hiddenleft {
@@ -139,8 +153,8 @@
         background: #f9f9f9;
       //  min-width: 18%;
       //  max-width: 18%;
-        height: 100vh;
-        left: 0px;
+        min-height: 100vh;
+      //  left: 0px;
         border-style: solid;
         border-color: #5bc0de;
         border-radius: 15px;
@@ -169,7 +183,7 @@
     .ui-slider-pip-selected-nth { color: red;  }
 
 .slidecontainer {
-  width: 98%; /* Width of the outside container */
+//  width: 98%;
 }
 
 #text_input:-moz-read-only {
@@ -177,7 +191,7 @@
 }
 
 #text_input:read-only {
-    background-color:white;
+    background-color: white;
 }
 
 .input-group {
@@ -234,7 +248,7 @@
 }
 
 label {
-    display: inline-block;
+  display: inline-block;
 }
 
 

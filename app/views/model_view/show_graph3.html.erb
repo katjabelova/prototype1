@@ -28,6 +28,7 @@
   }
 
   body {
+    width: 100vw;
     background-color: rgba(255,228,196, 0.3);
   }
 
@@ -67,24 +68,26 @@
       <script src="http://code.highcharts.com/highcharts.js"></script>
       <script src="http://code.highcharts.com/modules/exporting.js"></script>
 
-      <button type="button" class="btn btn-info btn-lg" id="showModal" style="display:none">Settings</button>
-      <% @dbelems.output_values.each do |output| %>
-      <% puts "tilte: " +  output['title'].to_s %>
-      <button id="<%= output['order_number'].to_s %>" type="button" class="autocompare_"><%= output['title'].to_s %></button>
-      <% end  %>
+      <div class="mainContent">
+        <div>
+          <% @dbelems.output_values.each do |output| %>
+          <% puts "tilte: " +  output['title'].to_s %>
+          <button id="<%= output['order_number'].to_s %>" type="button" class="autocompare_"><%= output['title'].to_s %></button>
+          <% end  %>
+        </div>
+        <div class="wrapperinner">
+          <div id="container1" remote="true" style=" min-height: 400px;"></div>
+        </div>
+      </div>
 
-<div class="wrapperinner">
-    <div id="container1" remote="true" style=" height: 400px; margin: 0 auto"></div>
-</div>
-
-</div>
-<div style="display:none" id="hiddenleft">
-  <i id="left" class="fa fa-arrow-left" style="font-size:25px;" role="button">
-  </i>
-</div>
+      </div>
+      <div style="display:none" id="hiddenleft">
+        <i id="left" class="fa fa-arrow-left" style="font-size:25px;" role="button">
+        </i>
+      </div>
 <div id="containerinner2">
   <i id="right" class="fa fa-arrow-right" style="font-size:25px;" role="button"></i>
-  <div id="container2" remote="true" style="display:none;  height: 300px"></div>
+  <div id="container2" remote="true" style="display:none;  min-height: 300px"></div>
 </div>
 </div>
 <script>
@@ -156,6 +159,7 @@ $(document).on('ready', function() {
   });
 
  $('.autocompare_').click(function (event) {
+      $('#hiddenleft').hide();
      var dbelems = <%= raw @dbelems.output_values.to_json %>;
 
      old_chart_options = null;
