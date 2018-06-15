@@ -91,6 +91,7 @@
 var tabsChosen = 0;
 
 $(function() {
+
   var wrapperwidth = document.getElementById("body").getBoundingClientRect().width;
 
   var old_chart_options = null;
@@ -109,6 +110,26 @@ $(function() {
     yAxis: { title: { text: "" } }
  };
 //$(document).tooltip();
+
+$('#left').on("click", function(event) {
+  $('#sidebar').hide();
+  $('#hiddenright').show();
+});
+
+$('#right').on("click", function(event) {
+  $('#containerinner2').hide();
+  $('#hiddenleft').show();
+});
+
+$('#hiddenright').on("click", function(event) {
+  $('#hiddenright').hide();
+  $('#sidebar').show();
+});
+
+$('#hiddenleft').on("click", function(event) {
+  $('#hiddenleft').hide();
+  $('#containerinner2').show();
+});
 
 $(document).on('ready', function() {
   var dbelems = <%= raw @dbelems.settings_widgets.to_json %>;
@@ -152,7 +173,6 @@ $(document).on('ready', function() {
   $('.slider').on("slidechange", function(event, ui) {
         var dbelems = <%= raw @dbelems.params_with_default_values.to_json %>;
         var index = parseInt($(this).attr('data'));
-
         window[dbelems[index]['param_name']] = parseFloat(ui.value);
         chartOptions.title = "previous input values: ";
         hiddenElem.value = chartOptions;
@@ -207,7 +227,7 @@ window.updateChartWithValues = function() {
     };
 };
 
-  updateChart(series);
+updateChart(series);
 });
 
     </script>
