@@ -37,9 +37,15 @@
           <p class="card-text"> This is the second model</p>
           <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
-              <a href="<%= view_path %>">
-                <button type="button" href="<%= view_path %>" class="btn btn-sm btn-outline-secondary">Simulate</button>
-              </a>
+              <% @model = Model.find(1) %>
+              <div style="float:left; background-color: #f9f9f9">
+                <a href="<%= graph3_path(@model) %>" style="text-decoration: none; color: #000000;">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Simulate</button>
+                </a>
+              </div>
+                <div style="float:left; background-color: #5bc0de;">
+                  <%= button_to "Info", {:controller => 'model_view', :action => 'model_info', :id => @model.id }, {:class => "btn btn-sm btn-outline-secondary"} %>
+                </div>
             </div>
           </div>
         </div>

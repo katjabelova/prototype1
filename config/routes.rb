@@ -23,8 +23,9 @@ Rails.application.routes.draw do
 
   get '/graph', to: 'model_view#show_graph'
   get '/graph2', to: 'model_view#show_graph2'
-  get '/graph3', to: 'model_view#show_graph3'
-
+  get '/model_view/:id', to: 'model_view#show_graph3', as: 'graph3'
+  post '/modelinfo', to: 'model_view#model_info', as: 'modelinfo'
+#  get '/graph3', to: 'model_view#show_graph3'
   post '/subchoice', to: 'model_view#subchoice', as: 'subchoice'
 
   get '/admin_path', to: 'admin#admin_view'

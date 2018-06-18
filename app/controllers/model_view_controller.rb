@@ -271,7 +271,11 @@ class ModelViewController < ApplicationController
   end
 
   def show_graph3
-    @dbelems = QueryModelFromDatabase.new(1)
+    @dbelems = QueryModelFromDatabase.new(params[:id])
+  end
+
+  def model_info
+    @id = params[:id]
   end
 =begin
    def post_request
