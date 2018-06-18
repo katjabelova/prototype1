@@ -222,6 +222,7 @@ window.updateChartWithValues = function() {
     var containerToHide = document.getElementById("containerinner2");
 
     if (old_chart_options != null) {
+      $('#hiddenleft').hide();
       containerToHide.style.display = "block";
       elementToHide.style.display = "block";
       Highcharts.chart('container2', old_chart_options);
