@@ -112,7 +112,7 @@ $(function() {
     chart: { type: "" },
     title: { text: "" },
     plotOptions: { column: {
-    //  minPointLength: 3,
+      minPointLength: 3,
       pointRange: 2,
       pointPadding: 0.2,
       borderWidth: 0,
@@ -191,7 +191,11 @@ $(document).on('ready', function() {
         window[dbelems[index]['param_name']] = parseFloat(ui.value);
         chartOptions.title = "previous values";
         hiddenElem.value = chartOptions;
+
         old_chart_series = chartOptions.series;
+        var seriesElement = (chartOptions.series.length == 1) ? 0 : 1;
+
+      //  window.alert("length of series: " + JSON.stringify(old_chart_series));
         old_chart_options = {
           colors: ['#A8A8A8'],
           chart: { type: chartOptions.chart.type },
@@ -206,7 +210,7 @@ $(document).on('ready', function() {
           },
           xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories},
           yAxis: { title: { text: chartOptions.yAxis.title.text } },
-          series: [chartOptions.series[0]]
+          series: [old_chart_series[seriesElement]]
        };
         updateChartWithValues();
   });
@@ -232,47 +236,46 @@ window.updateChartWithValues = function() {
     var functionName1 = window[functionName];
     var seriesData = functionName1();
 
-/*
+    //////////
     var seriesData1 = [];
     var old_chart_options1 = [];
 
-    window.alert(" categories: " + parseInt(chartOptions.xAxis.categories[0].toString()));
-    window.alert(" series data: " + seriesData[0].toString());
-
     for(var i = 0; i < seriesData.length; i++ ) {
-      var serie1 = {"x": i, "y": seriesData[i]};
+      var serie1 = {"x": i, "y": parseFloat(seriesData[i])};
       seriesData1.push(serie1);
     };
 
-    if(old_chart_series != null) {
-      window.alert("old series: " + old_chart_series.length.toString());
-      for(var i = 0; i < old_chart_series.length; i++ ) {
-        var oldserie1 = {"x": parseFloat(i + 0.2), "y": old_chart_series[i]};
-        window.alert("serie i: " + oldserie1['x'].toString());
+    if(old_chart_options != null) {
+      for(var i = 0; i < old_chart_options.series[0]['data'].length; i++ ) {
+        var oldserie1 = {"x": parseFloat(i + 0.1), "y": parseFloat(old_chart_options.series[0]['data'][i]['y'])};
         old_chart_options1.push(oldserie1);
       };
     };
 
-    window.alert("series data 1: " + seriesData1.toString());
-    window.alert("chart options 1: " + old_chart_options1.toString());
-*/
+  //  window.alert("series data length: " + JSON.stringify(seriesData1));
+  //  window.alert("chart options length: " + JSON.stringify(old_chart_options1));
+    ////////////
+
     if (old_chart_series != null) {
-    chartOptions.colors = ['#428bca','#A8A8A8'];
+    //  window.alert("chart options != null");
+    chartOptions.colors = ['#A8A8A8', '#428bca'];
     chartOptions.series = [{
-        name: dbelems[index]['title'],
-        data: seriesData,
-        stack: 'new',
-      }, {
         name: 'old ' + dbelems[index]['title'].toString(),
-        data: JSON.parse("[" + old_chart_series[0]['data'] + "]"),
-        stack: 'old',
+        data: old_chart_options1,
+      //  data: JSON.parse("[" + old_chart_series1[0]['data'] + "]"),
+      //  stack: 'old',
+    }, {
+        name: dbelems[index]['title'],
+        data: seriesData1,
+      //  data: seriesData,
+      //  stack: 'new',
       }
     ];
   } else {
     chartOptions.colors = ['#428bca'];
     chartOptions.series = [{
         name: dbelems[index]['title'],
-        data: seriesData
+        data: seriesData1
       }
     ];
   }
@@ -282,13 +285,19 @@ window.updateChartWithValues = function() {
     var containerToHide = document.getElementById("containerinner2");
 
     if (old_chart_options != null) {
+    //  window.alert("json stringify: " + JSON.stringify(old_chart_options));
       $('#hiddenleft').hide();
-      containerToHide.style.display = "block";
-      elementToHide.style.display = "block";
-      Highcharts.chart('container2', old_chart_options);
+      if(true) {
+        containerToHide.style.display = "block";
+        elementToHide.style.display = "block";
+
+        old_chart_options['series'][0]['_colorIndex'] = 0;
+    //    window.alert("json stringify2: " + JSON.stringify(old_chart_options));
+        Highcharts.chart('container2', old_chart_options);
+      }
     } else {
-      elementToHide.style.display = "none";
-      containerToHide.style.display = "none";
+        elementToHide.style.display = "none";
+        containerToHide.style.display = "none";
     };
 };
 

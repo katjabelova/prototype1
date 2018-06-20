@@ -17,6 +17,7 @@
 }
 
 .mainContent {
+//  margin-top: 25.5%;
   margin-top: 31.5%;
   transform: translateY(-50%);
 }
@@ -139,6 +140,7 @@
 .wrapper > #contentinner {
    order: 2;
    min-width: 50vw;
+  // min-width: 70vw;
    min-height: 100vh;
 }
 
