@@ -54,7 +54,7 @@
        <ul style="list-style-type:none">
          <% @dbelems.settings_widgets.each do |settings_widgets| %>
          <% @sliderId = 'slider' + settings_widgets['order_number'].to_s %>
-         <li id="<%= settings_widgets['order_number'].to_s %>" title="<%= settings_widgets['name'].to_s %>" class="lis"><%= settings_widgets['name'].to_s %>
+         <li id="<%= settings_widgets['order_number'].to_s %>" title="<%= settings_widgets['title'].to_s %>" class="lis"><%= settings_widgets['value'].to_s %>
            <div id="<%= @sliderId %>" class="slider" data="<%= settings_widgets['order_number'].to_s %>">
            </div>
          </li>

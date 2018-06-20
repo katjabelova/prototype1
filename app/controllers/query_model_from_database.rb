@@ -20,6 +20,8 @@ attr_accessor :function_names, :params_with_default_values, :output_values, :set
         settings_widget_element['inner_step'] = settings_widget.inner_step
         settings_widget_element['default_value'] = settings_widget.default_value
         settings_widget_element['order_number'] = settings_widget.order_number
+        settings_widget_element['value'] = settings_widget.value
+        settings_widget_element['title'] = settings_widget.title
 
         @settings_widgets.push(settings_widget_element)
       end
