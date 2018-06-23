@@ -88,7 +88,7 @@
 <div id="containerinner2">
   <i id="right" class="fa fa-arrow-right" style="font-size:25px;" role="button"></i>
   <div id="container2" remote="true" style="display:none;  min-height: 300px"></div>
-  <div class="inputsList">
+<!--  <div class="inputsList">
       <ul class="outputName" style="list-style-type:none">Name of inputs:
         <% @dbelems.settings_widgets.each_with_index do |setting, index| %>
         <li>
@@ -99,7 +99,7 @@
         </li>
         <% end %>
       </ul>
-  </div>
+  </div> -->
 </div>
 </div>
 <script>
@@ -130,8 +130,9 @@ $(function() {
       borderWidth: 0,
       stacking: "normal",
 
-    } },
-    xAxis: { type: "", categories: [] },
+    }
+  },
+    xAxis: { type: "", categories: [], tickInterval: 1 },
     yAxis: { title: { text: "" } }
  };
 $(document).tooltip();
@@ -228,6 +229,7 @@ $(document).on('ready', function() {
   });
 
  window.updateChart = function(series) {
+//   window.alert("in update chart");
   <% puts "update function called" %>
   <% puts "res: " + @dbelems.output_values[0][:order_number].to_s %>
   tabsChosen = parseInt('<%=  @dbelems.output_values[0]['order_number'].to_s %>');
@@ -241,12 +243,52 @@ $(document).on('ready', function() {
 };
 
 window.updateChartWithValues = function() {
+   //window.alert("in update chart with values");
     var dbelems = <%= raw @dbelems.output_values.to_json %>;
     var dbfunctions = <%= raw @dbelems.function_names.to_json %>;
     var index = tabsChosen;
     var functionName = dbfunctions[index]['name'];
-    var functionName1 = window[functionName];
-    var seriesData = functionName1();
+  //  window.alert("series data: " + functionName.toString());
+  //  var seriesData = result.output.gamma_;
+    var seriesData1 = result.output.policy_;
+    var seriesData2 = result.output.pillar_budget_;
+    var seriesData3 = result.output.effective_budget_;
+    var seriesData4 = result.output.tp_;
+    var seriesData5 = result.output.wz_;
+    var seriesData6 = result.output.z1_;
+    var seriesData7 = result.output.z2_;
+    var seriesData8 = result.output.z3_;
+    var seriesData9 = result.output.z4_;
+    var seriesData10 = result.output.z5_;
+    var seriesData11 = result.output.z6_;
+    var seriesData12 = result.output.z7_;
+
+    var res = functionName.split();
+    window.alert("function name: " + functionName.toString());
+
+    var seriesData = window['gamma_'];
+  //  var functionName1 = window[functionName];
+  //  var seriesData = functionName1();
+  // var seriesData = functionName1;
+
+  /* window.alert("series data: " + JSON.stringify(seriesData));
+   window.alert("series data: " + JSON.stringify(seriesData1));
+   window.alert("series data: " + JSON.stringify(seriesData2));
+
+   window.alert("series data: " + JSON.stringify(seriesData3));
+   window.alert("series data: " + JSON.stringify(seriesData4));
+   window.alert("series data: " + JSON.stringify(seriesData5));
+   window.alert("series data: " + JSON.stringify(seriesData6));
+
+   window.alert("series data: " + JSON.stringify(seriesData7));
+   window.alert("series data: " + JSON.stringify(seriesData8));
+   window.alert("series data: " + JSON.stringify(seriesData9));
+   window.alert("series data: " + JSON.stringify(seriesData10));
+   window.alert("series data: " + JSON.stringify(seriesData11));
+   window.alert("series data: " + JSON.stringify(seriesData12)); */
+
+
+
 
     //////////
     var seriesData1 = [];

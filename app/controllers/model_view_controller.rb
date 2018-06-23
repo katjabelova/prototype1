@@ -275,6 +275,11 @@ class ModelViewController < ApplicationController
     @dbelems = QueryModelFromDatabase.new(params[:id])
   end
 
+  def show_graph4
+    @id = params[:id]
+    @dbelems = QueryModelFromDatabase.new(params[:id])
+  end
+
   def model_info
     @id = params[:id]
   end

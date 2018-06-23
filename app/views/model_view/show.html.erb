@@ -66,6 +66,12 @@
     <%= link_to 'Graph view 3', graph3_path(@model) %>
   </div>
 
+  <div class="form-group">
+    <%#= link_to 'Graph view 3', graph3_path %>
+    <% @model = Model.find(2) %>
+    <%= link_to 'Graph view 4', graph4_path(@model) %>
+  </div>
+
 <script>
    $(function() {
     // window.alert("javascript found");
