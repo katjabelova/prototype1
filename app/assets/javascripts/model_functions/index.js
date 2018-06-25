@@ -212,16 +212,91 @@ var pif_parameters = {
     z0: toObject1D(data.parameters.tool_z0, "hZ", data.sets.HZ)
 };
 var fullPif = new FullPif(pif_parameters, new MapPePillarsPolInst(data.sets.MAP_PE_PILLARS_POL_INST));
+
+var share_investment = 0.15;
+var share_agrar = 0.66;
+
+var share_pi_nr = 5;
+var share_pi_fm = 2;
+var share_pi_ma = 6;
+var share_pi_hr = 1;
+
 var input = {
-    share_investment: 0.15,
-    share_agrar: 0.66,
+    share_investment: share_investment,
+    share_agrar: share_agrar,
     share_pi: {
-        NR: 5,
-        FM: 2,
-        MA: 6,
-        HR: 1
+        NR: share_pi_nr,
+        FM: share_pi_fm,
+        MA: share_pi_ma,
+        HR: share_pi_hr
     }
 };
 
 var result = fullPif.calculate(input);
-var gamma_ = result.output.gamma_;
+
+function updateValues() {
+  input = {
+      share_investment: share_investment,
+      share_agrar: share_agrar,
+      share_pi: {
+          NR: share_pi_nr,
+          FM: share_pi_fm,
+          MA: share_pi_ma,
+          HR: share_pi_hr
+      }
+  };
+  return result = fullPif.calculate(input);
+};
+
+function gamma_() {
+  var updatedResult = updateValues();
+  return updatedResult.output.gamma_;
+};
+function policy_ () {
+   var updatedResult = updateValues();
+   return updatedResult.output.policy_;
+};
+function pillar_budget_() {
+  var updatedResult = updateValues();
+  return updatedResult.output.pillar_budget_;
+};
+function effective_budget_() {
+  var updatedResult = updateValues();
+  return updatedResult.output.effective_budget_;
+};
+function tp_ () {
+   var updatedResult = updateValues();
+   return updatedResult.output.tp_;
+};
+function wz_() {
+  var updatedResult = updateValues();
+  return updatedResult.output.wz_;
+};
+function z1_ () {
+  var updatedResult = updateValues();
+  return updatedResult.output.z1_;
+};
+function z2_ () {
+  var updatedResult = updateValues();
+  return updatedResult.output.z2_;
+};
+function z3_ () {
+  var updatedResult = updateValues();
+  return updatedResult.output.z3_;
+};
+function z4_ () {
+  var updatedResult = updateValues();
+  return updatedResult.output.z4_;
+};
+function z5_ () {
+  var updatedResult = updateValues();
+  return updatedResult.output.z5_;
+};
+function z6_ () {
+  var updatedResult = updateValues();
+  return updatedResult.output.z6_;
+};
+function z7_ () {
+  var updatedResult = updateValues();
+  return updatedResult.output.z7_;
+};
