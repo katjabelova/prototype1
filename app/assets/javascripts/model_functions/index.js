@@ -54,6 +54,7 @@ var FullPif = /** @class */ (function () {
         var tool_gamma_ = [];
 
         tool_gamma["non-agr"] = input.share_investment * (1 - input.share_agrar);
+        tool_gamma_.push(tool_gamma["non-agr"]);
         for (var _i = 0, _a = data.sets.CAADP; _i < _a.length; _i++) {
             var pi = _a[_i];
             var share = 0;
