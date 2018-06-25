@@ -89,13 +89,11 @@
   <i id="right" class="fa fa-arrow-right" style="font-size:25px;" role="button"></i>
   <div id="container2" remote="true" style="display:none;  min-height: 300px"></div>
   <div class="inputsList">
-      <ul class="outputName" style="list-style-type:none">Name of inputs:
+      <ul class="outputName" style="list-style-type:none">Old values of inputs:
         <% @dbelems.settings_widgets.each_with_index do |setting, index| %>
-        <li>
-          <div>
-          <div class="inputName"><%= setting['value'] %></div>
-          <div class="inputValue">1</div>
-          <div>
+        <li class="elem">
+          <div class="inputName"><%= setting['value'] %>  :     </div>
+          <div class="inputValue" id="inputValue">-1</div>
         </li>
         <% end %>
       </ul>
@@ -156,6 +154,8 @@ $('#hiddenleft').on("click", function(event) {
   $('#containerinner2').show();
 });
 
+var old_dbelems = <%= raw @dbelems.params_with_default_values.to_json %>;;
+
 $(document).on('ready', function() {
   var dbelems = <%= raw @dbelems.settings_widgets.to_json %>;
     $(".lis").each(function (index, value) {
@@ -178,6 +178,15 @@ $(document).on('ready', function() {
             })
             .slider("float");
     });
+
+  //  $('.elem').each(function(index, value) {
+ //  $('#elem').bind("beforeShow", function(event, ui) {
+  /*    window.alert(" bound ");
+      var element = $(this).find('#inputValue');
+      window.alert("element: " + element.html());
+      element.html(old_dbelems[index]['default_value']); */
+    //  $(this).text() = old_dbelems[index]['param_name'];
+  //  });
   });
 
  $('.autocompare_').click(function (event) {
@@ -197,15 +206,44 @@ $(document).on('ready', function() {
      updateChartWithValues();
  });
 
+ /*$('#elem').show(1000, function() {
+      alert('in show callback');
+    }); */
+
+
+  // $('.slider').on("slidestop", function(event, ui) {
+//  containerinner2
+//  $('#containerinner2').show(1000, function() {
+  //   $('#elem').each(function(index, value) {
+  //  $('#elem').bind("beforeShow", function(event, ui) {
+  /*     window.alert(" bound ");
+       var element = $(this).find('#inputValue');
+       window.alert("element: " + element.html());
+       element.html(old_dbelems[index]['default_value']);
+     //  $(this).text() = old_dbelems[index]['param_name']; */
+  //   });
+  // });
+
   $('.slider').on("slidechange", function(event, ui) {
         var dbelems = <%= raw @dbelems.params_with_default_values.to_json %>;
         var index = parseInt($(this).attr('data'));
+
         window[dbelems[index]['param_name']] = parseFloat(ui.value);
+
         chartOptions.title = "previous values";
         hiddenElem.value = chartOptions;
 
         old_chart_series = chartOptions.series;
         var seriesElement = (chartOptions.series.length == 1) ? 0 : 1;
+
+        $('.elem').each(function(index, value) {
+     //  $('#elem').bind("beforeShow", function(event, ui) {
+      //    window.alert(" bound ");
+          var element = $(this).find('#inputValue');
+      //    window.alert("element: " + element.html());
+          element.html(old_dbelems[index]['default_value']);
+        //  $(this).text() = old_dbelems[index]['param_name'];
+        });
 
       //  window.alert("length of series: " + JSON.stringify(old_chart_series));
         old_chart_options = {
@@ -225,6 +263,8 @@ $(document).on('ready', function() {
           series: [old_chart_series[seriesElement]]
        };
         updateChartWithValues();
+
+        old_dbelems[index]['default_value'] = parseFloat(ui.value);
   });
 
  window.updateChart = function(series) {

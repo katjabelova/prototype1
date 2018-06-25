@@ -2,6 +2,30 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.outputName {
+  font-style: italic;
+  
+  width: 20em;
+}
+
+.elem {
+  margin-top: 1em;
+}
+
+.inputName {
+  display: inline-block;
+  font-weight: bold;
+}
+
+.inputValue {
+  display: inline-block;
+  font-style: italic;
+}
+
+.inputsList {
+  margin-top: -9em;
+}
+
 #contentinner {
   background: #f9f9f9;
 //  min-height: 100vh;
@@ -140,7 +164,7 @@
 .wrapper > #contentinner {
    order: 2;
    min-width: 50vw;
-  // min-width: 70vw;
+//   min-width: 70vw;
    min-height: 100vh;
 }
 
