@@ -14,6 +14,8 @@
   <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/flick/jquery-ui.css">
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
   <script scr="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.css"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.js"></script>
@@ -89,7 +91,15 @@
   <i id="right" class="fa fa-arrow-right" style="font-size:25px;" role="button"></i>
   <div id="container2" remote="true" style="display:none;  min-height: 300px"></div>
   <div class="inputsList">
-      <ul class="outputName" style="list-style-type:none">Old values of inputs:
+
+    <div class="checkbox">
+        <label>
+          Fix output for input values
+        </label>
+        <input data-toggle="toggle" type="checkbox" class="fixOutput"></input>
+    </div>
+
+      <ul class="outputName" style="list-style-type:none">Values for inputs:
         <% @dbelems.settings_widgets.each_with_index do |setting, index| %>
         <li class="elem">
           <div class="inputName"><%= setting['value'] %>  :     </div>
@@ -104,11 +114,13 @@
 var tabsChosen = 0;
 
 $(function() {
+  var outputFixed = false;
 
   var wrapperwidth = document.getElementById("body").getBoundingClientRect().width;
 
   var old_chart_options = null;
   var old_chart_series = null;
+  var fixed_chart_options = null;
 
   var hiddenElem = document.getElementById("hidden");
   var chartType = "line";
@@ -189,12 +201,23 @@ $(document).on('ready', function() {
   //  });
   });
 
- $('.autocompare_').click(function (event) {
-     $('#hiddenleft').hide();
-     var dbelems = <%= raw @dbelems.output_values.to_json %>;
+  $('.fixOutput').change(function() {
+        outputFixed = !outputFixed;
+        fixed_chart_options = old_chart_options;
+  });
 
+/*  $('.fixOutput').bootstrapToggle({
+     window.alert("toggle found");
+  }); */
+
+ $('.autocompare_').click(function (event) {
+   //if(!outputFixed) {
+     $('#hiddenleft').hide();
+   //};
      old_chart_options = null;
      old_chart_series = null;
+
+     var dbelems = <%= raw @dbelems.output_values.to_json %>;
      idChosen = parseInt(event.target.id);
      tabsChosen = parseInt(event.target.id);
      chartType = dbelems[idChosen]['chart_type'];
@@ -233,9 +256,7 @@ $(document).on('ready', function() {
         chartOptions.title = "previous values";
         hiddenElem.value = chartOptions;
 
-        old_chart_series = chartOptions.series;
-        var seriesElement = (chartOptions.series.length == 1) ? 0 : 1;
-
+       if(!outputFixed) {
         $('.elem').each(function(index, value) {
      //  $('#elem').bind("beforeShow", function(event, ui) {
       //    window.alert(" bound ");
@@ -244,6 +265,11 @@ $(document).on('ready', function() {
           element.html(old_dbelems[index]['default_value']);
         //  $(this).text() = old_dbelems[index]['param_name'];
         });
+      };
+
+        var seriesElement = (chartOptions.series.length == 1) ? 0 : 1;
+
+        old_chart_series = chartOptions.series;
 
       //  window.alert("length of series: " + JSON.stringify(old_chart_series));
         old_chart_options = {
@@ -261,10 +287,12 @@ $(document).on('ready', function() {
           xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories},
           yAxis: { title: { text: chartOptions.yAxis.title.text } },
           series: [old_chart_series[seriesElement]]
-       };
+        };
+
         updateChartWithValues();
 
         old_dbelems[index]['default_value'] = parseFloat(ui.value);
+
   });
 
  window.updateChart = function(series) {
@@ -338,18 +366,27 @@ window.updateChartWithValues = function() {
 
     if (old_chart_options != null) {
     //  window.alert("json stringify: " + JSON.stringify(old_chart_options));
-      $('#hiddenleft').hide();
+
+    //  if(!outputFixed) {
+        $('#hiddenleft').hide();
+    //  }
       if(true) {
         containerToHide.style.display = "block";
         elementToHide.style.display = "block";
 
-        old_chart_options['series'][0]['_colorIndex'] = 0;
+        if(!outputFixed) {
+          old_chart_options['series'][0]['_colorIndex'] = 0;
     //    window.alert("json stringify2: " + JSON.stringify(old_chart_options));
-        Highcharts.chart('container2', old_chart_options);
+          Highcharts.chart('container2', old_chart_options);
+        } else {
+        //  Highcharts.chart('container2', fixed_chart_options);
+        };
       }
     } else {
-        elementToHide.style.display = "none";
-        containerToHide.style.display = "none";
+        if(!outputFixed) {
+          elementToHide.style.display = "none";
+          containerToHide.style.display = "none";
+      }
     };
 };
 

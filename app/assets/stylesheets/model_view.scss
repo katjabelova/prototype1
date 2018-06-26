@@ -3,8 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .outputName {
-  font-style: italic;
-  
+  font-weight: bold;
   width: 20em;
 }
 
@@ -24,6 +23,11 @@
 
 .inputsList {
   margin-top: -9em;
+}
+
+.checkbox {
+  margin-left: 5em;
+  width: 30em;
 }
 
 #contentinner {
