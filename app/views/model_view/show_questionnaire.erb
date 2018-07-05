@@ -2,6 +2,8 @@
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet">
 <style>
 * {
   box-sizing: border-box;
@@ -16,8 +18,7 @@ body {
   margin: 100px auto;
   font-family: Raleway;
   padding: 40px;
-  width: 70%;
-  min-width: 300px;
+  width: 70vw;
 }
 
 h1 {
@@ -40,7 +41,7 @@ input.invalid {
   display: none;
 }
 
-button {
+.btn {
   background-color: #92a8d1;
   color: #ffffff;
   border: none;
@@ -50,8 +51,17 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.btn:hover {
   opacity: 0.8;
+}
+
+#textPart {
+  display: inline-block;
+  width: 20%;
+}
+
+#okButton {
+  float: right;
 }
 
 #prevBtn {
@@ -78,11 +88,66 @@ button:hover {
 }
 </style>
 <body>
+  <!-- Klasse, um Questionnaire-Data zu parsen und @stepCount zu setzen -->
 <% @stepCount = 2; %>
 <form id="regForm" action="/finish_questionnaire">
   <h1 id="questionnaire_name">Questionnaire</h1>
+<!-- Einzelne Sets nach @stepCount -->
+<div class="tab">
+  <table class="table table-striped table-bordered">
+  <caption>List of users</caption>
+  <col width="5">
+  <col width="130">
+  <col width="130">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Question</th>
+      <th scope="col">Answer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Elemente einer Set -->
+    <tr>
+      <th scope="row">1</th>
+      <td>This is the first question:</td>
+      <td>
+        <form>
+          <input type="text" name="username" id="textPart">
+          number from ... to ...
+          <button id="okButton">OK</button>
+        </form>
+    </td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>This is the second question:</td>
+      <td>
+        <select>
+          <option value="volvo">Volvo</option>
+          <option value="saab">Saab</option>
+          <option value="vw">VW</option>
+          <option value="audi" selected>Audi</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>This is the third question:</td>
+      <td>
+        <select>
+          <option value="volvo">Volvo</option>
+          <option value="saab">Saab</option>
+          <option value="vw">VW</option>
+          <option value="audi" selected>Audi</option>
+        </select>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
   <!-- One "tab" for each step in the form: -->
-  <div class="tab"><strong>Enter first values:</strong>
+<!--  <div class="tab"><strong>Enter first values:</strong>
   <br>
   <br>
     <div>Value first
@@ -91,8 +156,8 @@ button:hover {
     <div>Value second
     <p><input placeholder="value2" oninput="this.className = ''" name="value2"></p>
     </div>
-  </div>
-  <div class="tab"><strong>Choices</strong>
+  </div> -->
+<!--  <div class="tab"><strong>Choices</strong>
   <br>
   <br>
     <div class="dropdown">
@@ -107,11 +172,11 @@ button:hover {
     </div>
   </div>
   <div class="last_tab" style="display: none"><strong>Last</strong>
-  </div>
+  </div> -->
   <div style="overflow:auto;">
     <div style="float:right;">
-      <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-      <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+      <button type="button" id="prevBtn" onclick="nextPrev(-1)" class="btn">Previous</button>
+      <button type="button" id="nextBtn" onclick="nextPrev(1)" class="btn">Next</button>
     </div>
   </div>
   <!-- Circles which indicates the steps of the form: -->
