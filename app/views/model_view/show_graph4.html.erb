@@ -296,18 +296,23 @@ window.updateChartWithValues = function() {
     ////////////
 
     if (old_chart_series != null) {
-    //  window.alert("chart options != null");
+
+    /*  chart.addSeries({
+        name: 'new',
+        data: seriesData
+      }); */
+  /*    chart.addSeries({
+        name: 'old',
+        data: old_chart_options.series[0]['data']
+      }); */
     chartOptions.colors = ['#A8A8A8', '#428bca'];
     chartOptions.series = [{
         name: 'old ' + dbelems[index]['title'].toString(),
         data: old_chart_options1,
-      //  data: JSON.parse("[" + old_chart_series1[0]['data'] + "]"),
-      //  stack: 'old',
+
     }, {
         name: dbelems[index]['title'],
         data: seriesData1,
-      //  data: seriesData,
-      //  stack: 'new',
       }
     ];
   } else {
