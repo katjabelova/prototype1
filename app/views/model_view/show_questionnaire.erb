@@ -89,13 +89,20 @@ input.invalid {
 </style>
 <body>
   <!-- Klasse, um Questionnaire-Data zu parsen und @stepCount zu setzen -->
-<% @stepCount = 2; %>
+<% if @question.length % 5 == 0
+    @stepCount = @question.length / 5
+   else
+    @stepCount = (@question.length / 5).round + 1
+   end
+   puts "setCount: " + @stepCount.to_s
+ %>
 <form id="regForm" action="/finish_questionnaire">
   <h1 id="questionnaire_name">Questionnaire</h1>
 <!-- Einzelne Sets nach @stepCount -->
+
+<% for i in 0..@stepCount - 1 do %>
 <div class="tab">
   <table class="table table-striped table-bordered">
-  <caption>List of users</caption>
   <col width="5">
   <col width="130">
   <col width="130">
@@ -108,78 +115,46 @@ input.invalid {
   </thead>
   <tbody>
     <!-- Elemente einer Set -->
+
+    <% @bound = i == 0 ? 0 : i*4 + 1 %>
+    <% puts "bound value: " + @bound.to_s %>
+    <% for j in @bound..@bound + 4 do %>
+    <% @element_question = @question[j] %>
+    <% if @element_question != nil %>
+    <% puts "elem-question: " + @element_question.to_s %>
     <tr>
-      <th scope="row">1</th>
-      <td>This is the first question:</td>
+      <th scope="row"><%= @element_question['order_number'] + 1 %></th>
+      <td><%= @element_question['question'] %></td>
       <td>
-        <form>
-          <input type="text" name="username" id="textPart">
-          number from ... to ...
-          <button id="okButton">OK</button>
-        </form>
+        <% if @element_question['answer_type'] == 'input' %>
+          <form>
+            <input type="text" name="username" id="textPart" min="<%= @element_question['lower_bound'].to_f %>" max="<%= @element_question['upper_bound'].to_f %>" step="1.0">
+              <%= @element_question['answer_comment'] %>
+            <button id="okButton">OK</button>
+          </form>
+      <% else %>
+        <select>
+          <% @element_question['answer_possibilities'].each do |answer| %>
+          <option value="<%= answer %>"><%= answer %></option>
+          <% end %>
+        </select>
+      <% end %>
     </td>
     </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>This is the second question:</td>
-      <td>
-        <select>
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="vw">VW</option>
-          <option value="audi" selected>Audi</option>
-        </select>
-      </td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>This is the third question:</td>
-      <td>
-        <select>
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="vw">VW</option>
-          <option value="audi" selected>Audi</option>
-        </select>
-      </td>
-    </tr>
+    <% end %>
+    <% end %>
   </tbody>
 </table>
 </div>
-  <!-- One "tab" for each step in the form: -->
-<!--  <div class="tab"><strong>Enter first values:</strong>
-  <br>
-  <br>
-    <div>Value first
-    <p><input placeholder="value1" oninput="this.className = ''" name="value1"></p>
-    </div>
-    <div>Value second
-    <p><input placeholder="value2" oninput="this.className = ''" name="value2"></p>
-    </div>
-  </div> -->
-<!--  <div class="tab"><strong>Choices</strong>
-  <br>
-  <br>
-    <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Choose value
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Value1</a>
-    <a class="dropdown-item" href="#">Value2</a>
-    <a class="dropdown-item" href="#">Value3</a>
-    </div>
-    </div>
-  </div>
-  <div class="last_tab" style="display: none"><strong>Last</strong>
-  </div> -->
+<% end %>
+
   <div style="overflow:auto;">
     <div style="float:right;">
       <button type="button" id="prevBtn" onclick="nextPrev(-1)" class="btn">Previous</button>
       <button type="button" id="nextBtn" onclick="nextPrev(1)" class="btn">Next</button>
     </div>
   </div>
-  <!-- Circles which indicates the steps of the form: -->
+
   <div style="text-align:center;margin-top:40px;" id="indicators">
     <% for i in 0..@stepCount - 1 %>
       <span class="step"></span>

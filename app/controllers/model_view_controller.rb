@@ -23,6 +23,10 @@ class ModelViewController < ApplicationController
     head :no_content
   end
 
+  def show_questionnaire
+    @question = ParseQuestionnaire.new(3).questions_array
+  end
+
   def finish_questionnaire
     puts "params: " + params.to_s
   end

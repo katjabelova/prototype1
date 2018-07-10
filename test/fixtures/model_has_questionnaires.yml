@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  models: one
+  questionnaires: one
+
+two:
+  models: two
+  questionnaires: two
