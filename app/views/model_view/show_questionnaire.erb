@@ -130,7 +130,7 @@ input.invalid {
           <form>
             <input type="text" name="username" id="textPart" min="<%= @element_question['lower_bound'].to_f %>" max="<%= @element_question['upper_bound'].to_f %>" step="1.0">
               <%= @element_question['answer_comment'] %>
-            <button id="okButton">OK</button>
+
           </form>
       <% else %>
         <select>
@@ -205,9 +205,12 @@ function validate() {
   y = x[currentTab].getElementsByTagName("input");
 
   for (i = 0; i < y.length; i++) {
-    if (y[i].value == "") {
+
+    if (y[i].value == "" || parseFloat(y[i].value) < parseFloat(y[i].min) || parseFloat(y[i].value) > parseFloat(y[i].max)) {
       y[i].className += " invalid";
       valid = false;
+    } else {
+      y[i].className += "valid";
     }
   }
 
