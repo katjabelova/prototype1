@@ -133,14 +133,22 @@ $(function() {
   var chartOptions = {
     chart: { type: "" },
     title: { text: "" },
+    tooltip: {
+                shared: true
+            },
     plotOptions: { column: {
       minPointLength: 3,
       pointRange: 2,
       pointPadding: 0.2,
       borderWidth: 0,
-      stacking: "normal",
+      crop: false,
+      overflow: 'none',
+      	shadow: false,
+    //  stacking: "normal",
+      grouping: false
 
-    } },
+    }
+    },
     xAxis: { type: "", categories: [] },
     yAxis: { title: { text: "" } }
  };
@@ -233,7 +241,6 @@ $(document).on('ready', function() {
       alert('in show callback');
     }); */
 
-
   // $('.slider').on("slidestop", function(event, ui) {
 //  containerinner2
 //  $('#containerinner2').show(1000, function() {
@@ -273,7 +280,8 @@ $(document).on('ready', function() {
 
       //  window.alert("length of series: " + JSON.stringify(old_chart_series));
         old_chart_options = {
-          colors: ['#A8A8A8'],
+        //  colors: ['#A8A8A8'],
+          colors: ['rgba(168, 168, 168, 0.5)'],
           chart: { type: chartOptions.chart.type },
           title: { text: chartOptions.title },
           plotOptions: {
@@ -317,6 +325,12 @@ window.updateChartWithValues = function() {
     var seriesData = functionName1();
 
     //////////
+    var displaycement = 0.0;
+
+    if (chartOptions.chart.type == 'line') {
+      displaycement = 0.1;
+    }
+
     var seriesData1 = [];
     var old_chart_options1 = [];
 
@@ -327,7 +341,7 @@ window.updateChartWithValues = function() {
 
     if(old_chart_options != null) {
       for(var i = 0; i < old_chart_options.series[0]['data'].length; i++ ) {
-        var oldserie1 = {"x": parseFloat(i + 0.1), "y": parseFloat(old_chart_options.series[0]['data'][i]['y'])};
+        var oldserie1 = {"x": parseFloat(i + displaycement), "y": parseFloat(old_chart_options.series[0]['data'][i]['y'])};
         old_chart_options1.push(oldserie1);
       };
     };
@@ -338,21 +352,25 @@ window.updateChartWithValues = function() {
 
     if (old_chart_series != null) {
     //  window.alert("chart options != null");
-    chartOptions.colors = ['#A8A8A8', '#428bca'];
-    chartOptions.series = [{
+    //2d color: '#428bca'
+    chartOptions.colors = ['rgba(66, 139, 202, 1.0)', 'rgba(168, 168, 168, 0.5)'];
+    chartOptions.series = [
+      {
+          name: dbelems[index]['title'],
+          data: seriesData1,
+        //  data: seriesData,
+        //  stack: 'new',
+      },
+      {
         name: 'old ' + dbelems[index]['title'].toString(),
         data: old_chart_options1,
       //  data: JSON.parse("[" + old_chart_series1[0]['data'] + "]"),
       //  stack: 'old',
-    }, {
-        name: dbelems[index]['title'],
-        data: seriesData1,
-      //  data: seriesData,
-      //  stack: 'new',
-      }
+    }
     ];
   } else {
-    chartOptions.colors = ['#428bca'];
+  //  chartOptions.colors = ['#428bca'];
+    chartOptions.colors = ['rgba(66, 139, 202, 1.0)'];
     chartOptions.series = [{
         name: dbelems[index]['title'],
         data: seriesData1
@@ -361,6 +379,7 @@ window.updateChartWithValues = function() {
   }
 
     Highcharts.chart('container1', chartOptions);
+
     var elementToHide = document.getElementById("container2");
     var containerToHide = document.getElementById("containerinner2");
 
@@ -375,6 +394,7 @@ window.updateChartWithValues = function() {
         elementToHide.style.display = "block";
 
         if(!outputFixed) {
+          old_chart_options.colors = ['rgba(168, 168, 168, 1.0)'];
           old_chart_options['series'][0]['_colorIndex'] = 0;
     //    window.alert("json stringify2: " + JSON.stringify(old_chart_options));
           Highcharts.chart('container2', old_chart_options);
