@@ -143,7 +143,7 @@ $(function() {
       borderWidth: 0,
       crop: false,
       overflow: 'none',
-      	shadow: false,
+      shadow: false,
     //  stacking: "normal",
       grouping: false
 
@@ -274,7 +274,8 @@ $(document).on('ready', function() {
         });
       };
 
-        var seriesElement = (chartOptions.series.length == 1) ? 0 : 1;
+        // : 1 if old --- new in series, : 0 if new --- old in series
+        var seriesElement = (chartOptions.series.length == 1) ? 0 : 0;
 
         old_chart_series = chartOptions.series;
 
@@ -296,6 +297,8 @@ $(document).on('ready', function() {
           yAxis: { title: { text: chartOptions.yAxis.title.text } },
           series: [old_chart_series[seriesElement]]
         };
+
+    //    window.alert("series: " + JSON.stringify(old_chart_series));
 
         updateChartWithValues();
 
@@ -350,7 +353,7 @@ window.updateChartWithValues = function() {
   //  window.alert("chart options length: " + JSON.stringify(old_chart_options1));
     ////////////
 
-    if (old_chart_series != null) {
+    if (old_chart_options != null) {
     //  window.alert("chart options != null");
     //2d color: '#428bca'
     chartOptions.colors = ['rgba(66, 139, 202, 1.0)', 'rgba(168, 168, 168, 0.5)'];
@@ -358,12 +361,16 @@ window.updateChartWithValues = function() {
       {
           name: dbelems[index]['title'],
           data: seriesData1,
+          pointPadding: 0.2,
+
         //  data: seriesData,
         //  stack: 'new',
       },
       {
         name: 'old ' + dbelems[index]['title'].toString(),
         data: old_chart_options1,
+        pointPadding: 0.3,
+
       //  data: JSON.parse("[" + old_chart_series1[0]['data'] + "]"),
       //  stack: 'old',
     }
