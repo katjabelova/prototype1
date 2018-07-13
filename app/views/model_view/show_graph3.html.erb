@@ -74,7 +74,7 @@
         <div>
           <% @dbelems.output_values.each do |output| %>
           <% puts "tilte: " +  output['title'].to_s %>
-          <button id="<%= output['order_number'].to_s %>" type="button" class="autocompare_"><%= output['title'].to_s %></button>
+          <button id="<%= output['order_number'].to_s %>" type="button" style="background-color: #f9f9f9" class="autocompare_"><%= output['title'].to_s %></button>
           <% end  %>
         </div>
         <div class="wrapperinner">
@@ -178,6 +178,7 @@ var old_dbelems = <%= raw @dbelems.params_with_default_values.to_json %>;;
 
 $(document).on('ready', function() {
   var dbelems = <%= raw @dbelems.settings_widgets.to_json %>;
+
     $(".lis").each(function (index, value) {
       var sliderId  = 'slider' + index.toString();
 
@@ -219,6 +220,11 @@ $(document).on('ready', function() {
   }); */
 
  $('.autocompare_').click(function (event) {
+    $(".autocompare_").removeClass("active");
+    $(".autocompare_").css('background-color', '#f9f9f9');
+    $(this).addClass("active");
+    $(this).css('background-color', '#5bc0de');
+
    //if(!outputFixed) {
      $('#hiddenleft').hide();
    //};
