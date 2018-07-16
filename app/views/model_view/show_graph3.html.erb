@@ -125,6 +125,10 @@ $(function() {
   var hiddenElem = document.getElementById("hidden");
   var chartType = "line";
 
+  var firstTabChosen = document.getElementsByClassName("autocompare_")[tabsChosen];
+  window.alert("tab chosen: " + firstTabChosen.toString());
+  firstTabChosen.style.backgroundColor = '#5bc0de';
+
   var series = [{
       name: '',
       data: []
@@ -208,6 +212,7 @@ $(document).on('ready', function() {
       element.html(old_dbelems[index]['default_value']); */
     //  $(this).text() = old_dbelems[index]['param_name'];
   //  });
+
   });
 
   $('.fixOutput').change(function() {
