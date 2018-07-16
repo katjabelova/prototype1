@@ -288,7 +288,7 @@ $(document).on('ready', function() {
       //  window.alert("length of series: " + JSON.stringify(old_chart_series));
         old_chart_options = {
         //  colors: ['#A8A8A8'],
-          colors: ['rgba(168, 168, 168, 0.5)'],
+          colors: ['rgba(168, 168, 168, 0.6)'],
           chart: { type: chartOptions.chart.type },
           title: { text: chartOptions.title },
           plotOptions: {
@@ -362,7 +362,7 @@ window.updateChartWithValues = function() {
     if (old_chart_options != null) {
     //  window.alert("chart options != null");
     //2d color: '#428bca'
-    chartOptions.colors = ['rgba(66, 139, 202, 1.0)', 'rgba(168, 168, 168, 0.5)'];
+    chartOptions.colors = ['rgba(66, 139, 202, 1.0)', 'rgba(168, 168, 168, 0.6)'];
     chartOptions.series = [
       {
           name: dbelems[index]['title'],
