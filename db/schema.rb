@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180710093616) do
+ActiveRecord::Schema.define(version: 20180717121605) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,6 +143,8 @@ ActiveRecord::Schema.define(version: 20180710093616) do
     t.float "upper_bound"
     t.float "lower_bound"
     t.integer "order_number"
+    t.bigint "questionnaires_id"
+    t.index ["questionnaires_id"], name: "index_questionnaires_on_questionnaires_id"
   end
 
   create_table "role_has_widgets", force: :cascade do |t|
@@ -220,6 +222,7 @@ ActiveRecord::Schema.define(version: 20180710093616) do
   add_foreign_key "models_visibles", "roles"
   add_foreign_key "params_in_functions", "model_default_params", column: "model_default_params_id"
   add_foreign_key "params_in_functions", "model_functions", column: "model_functions_id"
+  add_foreign_key "questionnaires", "questionnaires", column: "questionnaires_id"
   add_foreign_key "role_has_widgets", "roles"
   add_foreign_key "role_has_widgets", "widgets"
   add_foreign_key "settings_widgets", "model_default_params", column: "model_default_params_id"

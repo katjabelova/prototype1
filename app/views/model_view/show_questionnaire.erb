@@ -9,16 +9,21 @@
   box-sizing: border-box;
 }
 
+main {
+  background-color: rgba(255,228,196, 0.0);
+}
+
 body {
-  background-color: #f1f1f1;
+  background-color: rgba(255,228,196, 0.3);
 }
 
 #regForm {
   background-color: #ffffff;
-  margin: 100px auto;
+  margin: 50px auto;
   font-family: Raleway;
   padding: 40px;
   width: 70vw;
+  border: 2px solid #aaaaaa;
 }
 
 h1 {
@@ -96,7 +101,7 @@ input.invalid {
    end
    puts "setCount: " + @stepCount.to_s
  %>
-<form id="regForm" action="/finish_questionnaire">
+<form id="regForm" action="/finish_questionnaire" style="border-radius: 25px;">
   <h1 id="questionnaire_name">Questionnaire</h1>
 <!-- Einzelne Sets nach @stepCount -->
 
@@ -135,6 +140,32 @@ input.invalid {
       <% else %>
         <select>
           <% @element_question['answer_possibilities'].each do |answer| %>
+          <option value="<%= answer %>"><%= answer %></option>
+          <% end %>
+        </select>
+      <% end %>
+    </td>
+    </tr>
+    <% end %>
+    <% @subquestions_array = @tempQuestion.define_subquestions(@element_question['id']) %>
+    <% @subquestions_array.each do |subquestion| %>
+    <tr>
+      <td>
+        <i class="fa fa-angle-double-right" style="font-size:20px"></i>
+        <%= @element_question['id'].to_s + '_' + (subquestion['order_number'] + 1).to_s %>
+      </td>
+    <!--    <button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td> -->
+    <!--  <th scope="row"><%#= '->   ' + @element_question['id'].to_s + '_' + (subquestion['order_number'] + 1).to_s %></th> -->
+      <td><%= subquestion['question'].to_s %></td>
+      <td>
+        <% if subquestion['answer_type'] == 'input' %>
+          <form>
+            <input type="text" name="username" id="textPart" min="<%= subquestion['lower_bound'].to_f %>" max="<%= subquestion['upper_bound'].to_f %>" step="1.0">
+              <%= subquestion['answer_comment'] %>
+          </form>
+      <% else %>
+        <select>
+          <% subquestion['answer_possibilities'].each do |answer| %>
           <option value="<%= answer %>"><%= answer %></option>
           <% end %>
         </select>

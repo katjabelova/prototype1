@@ -24,7 +24,9 @@ class ModelViewController < ApplicationController
   end
 
   def show_questionnaire
-    @question = ParseQuestionnaire.new(3).questions_array
+    @tempQuestion = ParseQuestionnaire.new(3)
+    @question = @tempQuestion.questions_array
+    @subquestion = ParseQuestionnaire.new(3).subquestions_array
   end
 
   def finish_questionnaire
