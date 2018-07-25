@@ -46,6 +46,16 @@ input.invalid {
   display: none;
 }
 
+#questionTitle {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#questionSubTitle {
+
+  margin-bottom: 10px;
+}
+
 .btn {
   background-color: #92a8d1;
   color: #ffffff;
@@ -91,6 +101,11 @@ input.invalid {
 .step.finish {
   background-color: #92a8d1;
 }
+
+#opens {
+    background-color: LightGray;
+    margin-top: 10px;
+}
 </style>
 <body>
   <!-- Klasse, um Questionnaire-Data zu parsen und @stepCount zu setzen -->
@@ -108,6 +123,52 @@ input.invalid {
 
 <% for i in 0..@stepCount - 1 do %>
 <div class="tab">
+  <div class="form-group" >
+<!--  <div class="form-group"> -->
+<% @bound = i == 0 ? 0 : i*4 + 1 %>
+<% puts "bound value: " + @bound.to_s %>
+<% for j in @bound..@bound + 4 do %>
+<% @element_question = @question[j] %>
+<% if @element_question != nil %>
+<% puts "elem-question: " + @element_question.to_s %>
+<!--    <button type="button" class="btn btn-primary btn-block" id='opens'>Question <%= @element_question['order_number'] + 1 %></button> -->
+    <label id="questionTitle"> <%= (@element_question['order_number'] + 1).to_s + ' ' + @element_question['question'] %> </label>
+<!--    <div class="col-sm-10"> -->
+    <div>
+      <% if @element_question['answer_type'] == 'input' %>
+      <input class="form-control" type="text" name="username" id="textPart" min="<%= @element_question['lower_bound'].to_f %>" max="<%= @element_question['upper_bound'].to_f %>" step="1.0">
+      <% else %>
+      <select>
+        <% @element_question['answer_possibilities'].each do |answer| %>
+        <option value="<%= answer %>"><%= answer %></option>
+        <% end %>
+      </select>
+      <% end %>
+
+    <% @subquestions_array = @tempQuestion.define_subquestions(@element_question['id']) %>
+    <% @subquestions_array.each do |subquestion| %>
+    </br>
+    <label id="questionSubTitle"><%= (subquestion['order_number'] + 1).to_s + ' ' + subquestion['question'].to_s %></label>
+    <div>
+    <% if subquestion['answer_type'] == 'input' %>
+        <input class="form-control" type="text" name="username" id="textPart" min="<%= subquestion['lower_bound'].to_f %>" max="<%= subquestion['upper_bound'].to_f %>" step="1.0">
+          <%= subquestion['answer_comment'] %>
+    <% else %>
+      <select>
+        <% subquestion['answer_possibilities'].each do |answer| %>
+        <option value="<%= answer %>"><%= answer %></option>
+    <% end %>
+      </select>
+    <% end %>
+  </div>
+  <% end %>
+  </div>
+<!--  </div> -->
+<% end %>
+<% end %>
+</div>
+</div>
+<!-- <div class="tab">
   <table class="table table-striped table-bordered">
   <col width="5">
   <col width="130">
@@ -120,7 +181,7 @@ input.invalid {
     </tr>
   </thead>
   <tbody>
-    <!-- Elemente einer Set -->
+
 
     <% @bound = i == 0 ? 0 : i*4 + 1 %>
     <% puts "bound value: " + @bound.to_s %>
@@ -154,8 +215,7 @@ input.invalid {
         <i class="fa fa-angle-double-right" style="font-size:20px"></i>
         <%= @element_question['id'].to_s + '_' + (subquestion['order_number'] + 1).to_s %>
       </td>
-    <!--    <button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td> -->
-    <!--  <th scope="row"><%#= '->   ' + @element_question['id'].to_s + '_' + (subquestion['order_number'] + 1).to_s %></th> -->
+
       <td><%= subquestion['question'].to_s %></td>
       <td>
         <% if subquestion['answer_type'] == 'input' %>
@@ -176,7 +236,7 @@ input.invalid {
     <% end %>
   </tbody>
 </table>
-</div>
+</div> -->
 <% end %>
 
   <div style="overflow:auto;">

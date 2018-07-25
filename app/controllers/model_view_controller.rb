@@ -29,6 +29,12 @@ class ModelViewController < ApplicationController
     @subquestion = ParseQuestionnaire.new(3).subquestions_array
   end
 
+  def show_questionnaire2
+    @tempQuestion = ParseQuestionnaire.new(3)
+    @question = @tempQuestion.questions_array
+    @subquestion = ParseQuestionnaire.new(3).subquestions_array
+  end
+
   def finish_questionnaire
     puts "params: " + params.to_s
   end
