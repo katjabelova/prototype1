@@ -52,8 +52,7 @@ input.invalid {
 }
 
 #questionSubTitle {
-
-  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .btn {
@@ -134,7 +133,7 @@ input.invalid {
 <!--    <button type="button" class="btn btn-primary btn-block" id='opens'>Question <%= @element_question['order_number'] + 1 %></button> -->
     <label id="questionTitle"> <%= (@element_question['order_number'] + 1).to_s + ' ' + @element_question['question'] %> </label>
 <!--    <div class="col-sm-10"> -->
-    <div>
+    <div id="question">
       <% if @element_question['answer_type'] == 'input' %>
         <input class="form-control" type="text" name="ans<%= @element_question['id'] %>" id="textPart" min="<%= @element_question['lower_bound'].to_f %>" max="<%= @element_question['upper_bound'].to_f %>" step="1.0">
 
@@ -153,7 +152,7 @@ input.invalid {
     <% @subquestions_array.each do |subquestion| %>
     </br>
     <label id="questionSubTitle"><%= (subquestion['order_number'] + 1).to_s + ' ' + subquestion['question'].to_s %></label>
-    <div>
+    <div id="questionSub">
     <% if subquestion['answer_type'] == 'input' %>
   <!--  <%#= simple_form_for @answer do |f| %>
       <%#=  f.input :username, input_html: { min: "<%= subquestion['lower_bound'].to_f %>", max: "<%= subquestion['upper_bound'].to_f %>", step: '1.0' } %>

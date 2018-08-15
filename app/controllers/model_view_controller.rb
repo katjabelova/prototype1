@@ -12,6 +12,8 @@ class ModelViewController < ApplicationController
   @output = nil
   @outputArray = nil
   @ready = false
+  @user_id = 0
+  @model_id = 0
 
   def new
   end
@@ -32,13 +34,15 @@ class ModelViewController < ApplicationController
     @tempQuestion = ParseQuestionnaire.new(3)
     @question = @tempQuestion.questions_array
     @subquestion = ParseQuestionnaire.new(3).subquestions_array
-    @user = current_user
-    @user_id = @user != nil ? @user.id : 0
-    puts 'current user: ' + @user_id.to_s
   end
 
   def finish_questionnaire
+    @user = current_user
+    @user_id = @user != nil ? @user.id : 0
+    @model_id = 3
+
     puts "params: " + params.to_s
+    puts "model_id: " + @model_id.to_s + ", user_id: " + @user_id.to_s
   end
 
   def parse_json
