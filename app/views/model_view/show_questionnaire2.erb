@@ -136,11 +136,13 @@ input.invalid {
 <!--    <div class="col-sm-10"> -->
     <div>
       <% if @element_question['answer_type'] == 'input' %>
-      <input class="form-control" type="text" name="username" id="textPart" min="<%= @element_question['lower_bound'].to_f %>" max="<%= @element_question['upper_bound'].to_f %>" step="1.0">
+    <!--  <input class="form-control" type="text" name="username" id="textPart" min="<%= @element_question['lower_bound'].to_f %>" max="<%= @element_question['upper_bound'].to_f %>" step="1.0">
+    -->
+    <input class="form-control" type="text" name="username" id="textPart" step="1.0">
       <% else %>
       <select>
         <% @element_question['answer_possibilities'].each do |answer| %>
-        <option value="<%= answer %>"><%= answer %></option>
+        <option class="form-control" type="text" value="<%= answer %>"><%= answer %></option>
         <% end %>
       </select>
       <% end %>
@@ -156,7 +158,7 @@ input.invalid {
     <% else %>
       <select>
         <% subquestion['answer_possibilities'].each do |answer| %>
-        <option value="<%= answer %>"><%= answer %></option>
+        <option  name="username1" value="<%= answer %>"><%= answer %></option>
     <% end %>
       </select>
     <% end %>
