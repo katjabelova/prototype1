@@ -14,7 +14,6 @@ class ModelViewController < ApplicationController
   @ready = false
 
   def new
-
   end
 
   def subchoice
@@ -33,6 +32,9 @@ class ModelViewController < ApplicationController
     @tempQuestion = ParseQuestionnaire.new(3)
     @question = @tempQuestion.questions_array
     @subquestion = ParseQuestionnaire.new(3).subquestions_array
+    @user = current_user
+    @user_id = @user != nil ? @user.id : 0
+    puts 'current user: ' + @user_id.to_s
   end
 
   def finish_questionnaire

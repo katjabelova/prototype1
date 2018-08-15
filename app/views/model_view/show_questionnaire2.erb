@@ -136,11 +136,13 @@ input.invalid {
 <!--    <div class="col-sm-10"> -->
     <div>
       <% if @element_question['answer_type'] == 'input' %>
-    <!--  <input class="form-control" type="text" name="username" id="textPart" min="<%= @element_question['lower_bound'].to_f %>" max="<%= @element_question['upper_bound'].to_f %>" step="1.0">
-    -->
-    <input class="form-control" type="text" name="username" id="textPart" step="1.0">
+        <input class="form-control" type="text" name="ans<%= @element_question['id'] %>" id="textPart" min="<%= @element_question['lower_bound'].to_f %>" max="<%= @element_question['upper_bound'].to_f %>" step="1.0">
+
+  <!--   <input class="form-control" type="text" name="username" id="textPart" step="1.0"> -->
       <% else %>
-      <select>
+      <select class="form_input" id="unique_id" name="ans<%= @element_question['id'] %>">
+      <!--  <%#= select_tag "reports_name", options_for_select('<%= raw  @element_question['answer_possibilities'] %>') %> -->
+
         <% @element_question['answer_possibilities'].each do |answer| %>
         <option class="form-control" type="text" value="<%= answer %>"><%= answer %></option>
         <% end %>
@@ -153,12 +155,17 @@ input.invalid {
     <label id="questionSubTitle"><%= (subquestion['order_number'] + 1).to_s + ' ' + subquestion['question'].to_s %></label>
     <div>
     <% if subquestion['answer_type'] == 'input' %>
-        <input class="form-control" type="text" name="username" id="textPart" min="<%= subquestion['lower_bound'].to_f %>" max="<%= subquestion['upper_bound'].to_f %>" step="1.0">
+  <!--  <%#= simple_form_for @answer do |f| %>
+      <%#=  f.input :username, input_html: { min: "<%= subquestion['lower_bound'].to_f %>", max: "<%= subquestion['upper_bound'].to_f %>", step: '1.0' } %>
+-->
+         <input class="form-control" type="text" name="sub<%= @element_question['id']%>_<%= subquestion['id'] %>" id="textPart"
+         min="<%= subquestion['lower_bound'].to_f %>" max="<%= subquestion['upper_bound'].to_f %>" step="1.0">
           <%= subquestion['answer_comment'] %>
+    <%# end %>
     <% else %>
-      <select>
+      <select class="form_input" id="unique_id" name="sub<%= @element_question['id']%>_<%= subquestion['id'] %>">
         <% subquestion['answer_possibilities'].each do |answer| %>
-        <option  name="username1" value="<%= answer %>"><%= answer %></option>
+        <option class="form-control" type="text" value="<%= answer %>"><%= answer %></option>
     <% end %>
       </select>
     <% end %>
