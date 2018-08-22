@@ -31,18 +31,120 @@ class ModelViewController < ApplicationController
   end
 
   def show_questionnaire2
+    logger.debug "HERE IS DEBUG"
+
+    @user = current_user
+    @user_id = @user != nil ? @user.id : 0
+    @model_id = 3
+
+    protocolLogger = LoggingProtocolHelper.new(self.class.name, __method__, '', @model_id, @user_id)
+
     @tempQuestion = ParseQuestionnaire.new(3)
     @question = @tempQuestion.questions_array
     @subquestion = ParseQuestionnaire.new(3).subquestions_array
   end
 
   def finish_questionnaire
-    @user = current_user
-    @user_id = @user != nil ? @user.id : 0
-    @model_id = 3
+    if request.post?
+      puts "computed output: " + params[:output].to_s
 
-    puts "params: " + params.to_s
-    puts "model_id: " + @model_id.to_s + ", user_id: " + @user_id.to_s
+  #    @output = params[:output]
+  #    $output  = @output
+
+      puts "end of post request"
+
+    else if request.get?
+      @user = current_user
+      @user_id = @user != nil ? @user.id : 0
+      @model_id = 3
+
+      puts "params: " + params.to_s
+      puts "model_id: " + @model_id.to_s + ", user_id: " + @user_id.to_s
+
+      @inputToSend = {}
+      @inputToSend['user_id'] = @user_id
+      @inputToSend['model_id'] = @model_id
+      @inputToSend['params'] = params.to_json
+
+      puts "params to send: " + @inputToSend.to_s
+
+      @content = { agro_split: {
+                 model_name: 'first',
+                 input1: @inputToSend } }
+
+      connection = Faraday.new
+      result = connection.post do |req|
+        req.url 'http://localhost:3001/input'
+        req.headers['Content-Type'] = 'application/json'
+        req.body = @content.to_json
+      end
+
+      if result.success?
+
+        puts "SUCCESS"
+        puts "ooooouuuuuttttt: " + @output.to_s
+
+        if !$output.nil? && !$output.blank?
+
+         puts "content value is set to: " + $output.to_s
+
+         parse_json
+         @name = "Sent"
+
+        else
+          flash.now[:danger] = 'Model\'s parameter could not be parsed'
+        end
+      else
+        flash.now[:danger] = 'Model computation is not available'
+      end
+
+      end
+    end
+
+=begin
+      ready = false
+
+        @input1 = params[:show][:title1]
+        @input2 = params[:show][:title2]
+
+        puts "1: " + @input1.to_s + "; 2: " + @input2.to_s
+
+          if @input1.to_s != "" && @input2.to_s != ""
+           puts "post request to be sent"
+           @content = { agro_split: {
+                      model_name: 'first',
+                      input1: @input1,
+                      input2: @input2  } }
+
+           data = @content
+
+           connection = Faraday.new
+           result = connection.post do |req|
+             req.url 'http://localhost:3001/input'
+             req.headers['Content-Type'] = 'application/json'
+             req.body = @content.to_json
+           end
+
+           if result.success?
+
+             puts "SUCCESS"
+             puts "ooooouuuuuttttt: " + @output.to_s
+
+             if !$output.nil? && !$output.blank?
+
+              puts "content value is set to: " + $output.to_s
+
+              parse_json
+              @name = "Sent"
+
+             else
+               flash.now[:danger] = 'Model\'s parameter could not be parsed'
+             end
+           else
+             flash.now[:danger] = 'Model computation is not available'
+           end
+=end
+
   end
 
   def parse_json
@@ -145,75 +247,6 @@ class ModelViewController < ApplicationController
                       "model_name" : "first",
                       "input1" : 25,
                       "input2" : 15 } }'
-=begin
-          @defaultOutput = {
-                output: {
-                model1: {
-                  model_name: 'model_default',
-                  type: 'column',
-                  title: 'default output',
-                  subtitle: '',
-                  chart: 'column',
-                  credits: '',
-                  xAxis: {
-                    title: 'x-output',
-                    type: '',
-                    min: '',
-                    max: '',
-                    categories: {
-                      '1': 'a',
-                      '2': 'b',
-                      '3': 'c',
-                      '4': 'd'
-                    },
-                    labels: {
-                      '1': 'label'
-                    }
-                  },
-                  yAxis: {
-                    title: 'y-output',
-                    type: '',
-                    min: '',
-                    max: '',
-                    categories: '',
-                    labels: ''
-                  },
-                  legend: '',
-                  series: {
-                    '1': {
-                      name: 'default split',
-                      data: {
-                        '1': '1',
-                        '2': '4',
-                        '3': '9',
-                        '4': '16'
-                      }
-                    }
-                  }
-                }
-              }
-            }
-
-          jsonGraph = @defaultOutput[:output].to_json
-        #  puts "json graph: " + jsonGraph.to_s
-
-        #  graph = ParseJson.new(@defaultOutput[:output].to_json)
-        #  puts "test parsing: " + graph.to_s
-
-          @outputArray = []
-
-        #  outputToJSON = @output.to_json
-        #  puts "before prse: " + outputToJSON
-          @output = JSON.parse(jsonGraph)
-
-          @output.each_with_index { |value, index|
-            puts "print print: " + value[1].to_s
-            hash = value[1]
-          #  @parsedChart = ParseJson.new(hash)
-          #  @outputArray[index] = @parsedChart
-            @outputArray[index] = ParseJson.new(hash)
-          }
-=end
          end
       end
     end

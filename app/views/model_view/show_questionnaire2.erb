@@ -26,7 +26,7 @@ body {
   border: 2px solid #aaaaaa;
 }
 
-h1 {
+h1, h2 {
   text-align: center;
 }
 
@@ -118,6 +118,7 @@ input.invalid {
 <!-- action="/finish_questionnaire"   -->
 <form id="regForm" action="/finish_questionnaire" style="border-radius: 25px;">
   <h1 id="questionnaire_name">Questionnaire</h1>
+  <h2 id="questionnaire_title">Title</h2>
 <!-- Einzelne Sets nach @stepCount -->
 
 <% for i in 0..@stepCount - 1 do %>
@@ -136,7 +137,7 @@ input.invalid {
     <div id="question">
       <% if @element_question['answer_type'] == 'input' %>
         <input class="form-control" type="text" name="ans<%= @element_question['id'] %>" id="textPart" min="<%= @element_question['lower_bound'].to_f %>" max="<%= @element_question['upper_bound'].to_f %>" step="1.0">
-
+          <%= @element_question['answer_comment'] %>
   <!--   <input class="form-control" type="text" name="username" id="textPart" step="1.0"> -->
       <% else %>
       <select class="form_input" id="unique_id" name="ans<%= @element_question['id'] %>">
