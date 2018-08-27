@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+  <link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'>
+  <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
+
+  <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/flick/jquery-ui.css">
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+  <script scr="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.css"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.min.css"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.min.js"></script>
+  <style>
+
+  main {
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+
+  body {
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+
+  #container {
+    align-content: center;
+    width: 110vw;
+    height: 100vh;
+  }
+
+  #test1 {
+    position: absolute;
+    left: 17vw;
+    top: 10vh;
+  }
+
+  #test2 {
+    position: absolute;
+    bottom: 5vh;
+
+    right: 17vw;
+  }
+
+  #test3 {
+    position: absolute;
+    top: 10vh;
+    right: 17vw;
+  }
+
+  #test4 {
+    position: absolute;
+    bottom: 5vh;
+
+    left: 17vw;
+  }
+
+  #test5 {
+    position: absolute;
+    top: 30vh;
+    left: 37vw;
+  }
+
+  .wrapper {
+    left: 0px;
+    right: 0px;
+
+  }
+
+  .wrapper > nav {
+    order: 0;
+    min-width: 15vw;
+    margin-top: -7vh;
+    margin-left: -20vw;
+  }
+
+
+/*
+ #container {
+   display: table;
+   margin-left: auto;
+   margin-right: auto;
+ }
+
+ #row1, #row2, #row3 {
+   display: table-row;
+ }
+
+ #elem1_1, #elem1_2,  #elem1_3,  #elem2_1,  #elem2_2,  #elem2_3, #elem3_1,  #elem3_2,  #elem3_3 {
+    display: table-cell;
+    width: 250px;
+ }
+
+ #elem1_1 {
+   -ms-transform: rotate(-10deg);
+   -webkit-transform: rotate(-10deg);
+   transform: rotate(-10deg)
+ }
+
+ #elem1_3 {
+   -ms-transform: rotate(10deg);
+   -webkit-transform: rotate(10deg);
+   transform: rotate(10deg)
+ }
+
+ #elem3_1 {
+   -ms-transform: rotate(20deg);
+   -webkit-transform: rotate(20deg);
+   transform: rotate(20deg)
+ }
+
+ #elem3_3 {
+   -ms-transform: rotate(-20deg);
+   -webkit-transform: rotate(-20deg);
+   transform: rotate(-20deg)
+ } */
+
+</style>
+</head>
+<body id="body">
+<h1 id='glider'>Glider</h1>
+<div class="wrapper" id="wrapper">
+<!-- <nav id="sidebar">
+    <i id="left" class="fa fa-arrow-left" style="font-size:25px;" role="button"></i>
+ <div class="sidebar-header" align="center">
+     <h3>Settings</h3>
+ </div>
+ <ul style="list-style-type:none">
+
+   <li id="1q" title="qwer" class="lis">--
+     <div id="" class="slider"></div>
+   </li>
+
+ </ul>
+
+ <p id="hidden" style="display:none;"></p>
+</nav> -->
+<div id='container' >
+  <script src="http://code.highcharts.com/highcharts.js"></script>
+  <script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+  <div id='test1' style='width: 300px; height: 300px'></div>
+  <div id='test2' style='width: 300px; height: 300px'></div>
+  <div id='test3' style='width: 300px; height: 300px'></div>
+  <div id='test4' style='width: 300px; height: 300px'></div>
+  <div id='test5' style='width: 380px; height: 380px'></div>
+<!--
+  <div id='row1'>
+    <div id='elem1_1_s' style='display:none;'>
+    </div>
+    <div id='elem1_1'>
+    </div>
+    <div id='elem1_2_s'>
+    </div>
+    <div id='elem1_2' style='display:none;'>
+    </div>
+    <div id='elem1_3_s' style='display:none;'>
+    </div>
+    <div id='elem1_3'>
+    </div>
+  </div>
+  <div id='row2'>
+    <div id='elem2_1_s' style='display:none;'>
+    </div>
+    <div id='elem2_1'>
+    </div>
+    <div id='elem2_2_s' style='display:none;'>
+    </div>
+    <div id='elem2_2'>
+    </div>
+    <div id='elem2_3_s'>
+    </div>
+    <div id='elem2_3' style='display:none;'>
+    </div>
+  </div>
+  <div id='row3'>
+    <div id='elem2_1_s' style='display:none;'>
+    </div>
+    <div id='elem3_1'>
+    </div>
+    <div id='elem3_2_s' style='display:none;'>
+    </div>
+    <div id='elem3_2'>
+    </div>
+    <div id='elem3_3_s' style='display:none;'>
+    </div>
+    <div id='elem3_3'>
+    </div>
+  </div>
+-->
+ </div>
+</div>
+<script>
+
+var series = [{
+    name: 'gliderrr',
+    data: [1,2,3,-4]
+}];
+
+var chartOptions = {
+  chart: { type: "" },
+  title: { text: "" },
+  tooltip: { shared: true },
+  plotOptions: {
+    events: {
+      dblclick: function () {
+          reloadFlash();
+          $('#glider').html('dbclick on xAxis label');
+      },
+      click: function () {
+          $('#glider').html('click on xAxis label');
+      },
+      contextmenu: function () {
+          $('#glider').html('context menu on xAxis label');
+      }
+   },
+    column: {
+    minPointLength: 3,
+    pointRange: 2,
+    pointPadding: 0.2,
+    borderWidth: 0,
+    crop: false,
+    overflow: 'none',
+    shadow: false,
+    grouping: false
+  } },
+  xAxis: { type: "", categories: [] },
+  yAxis: {
+    title: { text: "" },
+ },
+ series: series
+};
+
+/*
+Highcharts.chart('elem1_1', chartOptions);
+Highcharts.chart('elem1_2', chartOptions);
+Highcharts.chart('elem1_3', chartOptions);
+
+Highcharts.chart('elem2_1', chartOptions);
+Highcharts.chart('elem2_2', chartOptions);
+Highcharts.chart('elem2_3', chartOptions);
+
+Highcharts.chart('elem3_1', chartOptions);
+Highcharts.chart('elem3_2', chartOptions);
+Highcharts.chart('elem3_3', chartOptions);
+*/
+
+Highcharts.chart('test1', chartOptions);
+Highcharts.chart('test2', chartOptions);
+Highcharts.chart('test3', chartOptions);
+Highcharts.chart('test4', chartOptions);
+Highcharts.chart('test5', chartOptions);
+
+  //  updateChart(series);
+</script>
+</body>
+</html>
