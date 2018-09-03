@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   post '/view', to: 'model_view#show'
   put '/view', to: 'model_view#show'
 
+
  # post '/post_request', to: 'model_view#post_request'
   get '/button', to: 'model_view#post_request', as: 'button'
   get '/button1', to: 'model_view#prepost_request', as: 'button1'
@@ -32,4 +33,7 @@ Rails.application.routes.draw do
   get '/vitamins', to: 'model_view#vitamins'
 
   resources :users
+  mount Questionnaires::Engine => "/questionnaires_engine"
+
+
 end

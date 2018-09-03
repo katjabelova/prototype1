@@ -1,0 +1,143 @@
+---
+- rank: 1
+  hidden: false
+  title_de: "E Individuelle Charakteristika"
+  title: "E Individuelle Charakteristika"
+  group_parts:
+    - rank: 1
+      part_type: TextPart
+      part:
+        body: "## E Individuelle Charakteristika\n\nFast geschafft! Zum Schluss benötigen wir noch ein paar Angaben zu Ihrer Person, die uns bei der Auswertung der Ergebnisse helfen."
+    - rank: 2
+      part_type: TextPart
+      part:
+        body: "#### E1 Bitte geben Sie Ihr __biologisches__ Geschlecht an"
+    - rank: 3
+      part_type: SelectQuestion
+      part:
+        display_mode: "checkbox"
+        label: e1
+        choices:
+          - männlich
+          - weiblich
+    - rank: 4
+      part_type: TextPart
+      part:
+        body: "#### E2 Wie alt sind Sie?\n\nBitte tragen Sie Ihr Alter in Jahren ein. "
+    - rank: 5
+      part_type: NumberQuestion
+      part:
+        min: 0
+        max: 199
+        step: 1
+        suffix: Alter
+        label: e2
+    - rank: 6
+      part_type: TextPart
+      part:
+        body: "#### E3.1 Bitte geben Sie die Postleitzahl Ihres Wohnortes an."
+    - rank: 7
+      part_type: TextQuestion
+      part:
+        label: e3_1
+        suffix: Postleitzahl
+        short: true
+    - rank: 8
+      part_type: TextPart
+      part:
+        body: "#### E3.2 Wohnen Sie eher im städtischen Raum (z.B. Kiel, Lübeck oder Flensburg) oder in einer ländlichen Gegend?"
+    - rank: 9
+      part_type: SelectQuestion
+      part:
+        display_mode: "checkbox"
+        label: e3_2
+        choices:
+          - Stadt
+          - Land
+    - rank: 10
+      part_type: TextPart
+      part:
+        body: "#### Wie viele Personen leben insgesamt in Ihrem Haushalt? (Zählen Sie sich bitte mit.)\n\nBitte tragen Sie die Anzahl der Personen ein. "
+    - rank: 11
+      part_type: NumberQuestion
+      part:
+        min: 1
+        step: 1
+        max: 9999
+        suffix: Personen
+        label: e4
+    - rank: 12
+      part_type: TextPart
+      part:
+        body: "#### E5 Bitte geben Sie die Berufsgruppe an, in der Sie derzeit tätig sind."
+    - rank: 13
+      part_type: SelectQuestion
+      part:
+        display_mode: "select"
+        label: e5
+        choices:
+          - Schüler/in
+          - Student/in
+          - Angestellte/r
+          - Arbeiter/in
+          - Beamte/r
+          - Arbeitssuchende/r
+          - Selbständig/e Berufslose/r
+          - Selbständig/e Gewerbetreibende/r
+          - Freiberufler/in
+          - Landwirt/in
+          - Rentner/in
+          - Hausfrau/-mann
+        other: Andere
+    - rank: 14
+      part_type: TextPart
+      part:
+        body: "#### E6 Wie hoch ist ungefähr Ihr monatliches __Nettoeinkommen__? Das ist das Einkommen, das pro Monat nach Abzug der Steuern und zuzüglich Zahlungen wie Kindergeld etc. zur Verfügung steht."
+    - rank: 15
+      part_type: SelectQuestion
+      part:
+        display_mode: "select"
+        label: e6
+        choices:
+          - Unter 1000 Euro
+          - 1000 Euro - 2500 Euro
+          - 2500 Euro - 5000 Euro
+          - 5000 Euro und mehr
+    - rank: 16
+      part_type: TextPart
+      part:
+        body: "#### E7 Was ist der __höchste__ Bildungsabschluss, den Sie erreicht haben? "
+    - rank: 17
+      part_type: SelectQuestion
+      part:
+        display_mode: "select"
+        label: e7
+        choices:
+          - Kein Bildungsabschluss
+          - Hauptschulabschluss
+          - Realschulabschluss
+          - Abgeschlossene Ausbildung
+          - Meisterprüfung
+          - Fachhochschulreife
+          - Abitur
+          - Bachelor
+          - Master/Magister/Diplom/Staatsexamen
+          - Promotion
+    - rank: 18
+      part_type: TextPart
+      part:
+        body: "#### Haben Sie noch Anmerkungen, Kommentare oder Ergänzungen zu diesem Fragebogen?"
+    - rank: 19
+      part_type: TextQuestion
+      part:
+        label: feedback
+        short: false
+    - rank: 20
+      part_type: TextPart
+      part:
+        body: |
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+              <span>Glückwunsch! Sie haben den gesamten Fragebogen ausgefüllt!</span>
+            </div>
+          </div>

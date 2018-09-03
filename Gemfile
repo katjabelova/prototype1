@@ -46,6 +46,13 @@ gem 'highcharts-rails'
 
 gem 'groupdate'
 
+gem 'questionnaires', git: "git@code.hedtri.ch:agrarpolitik/questionnaires-engine.git"
+gem 'simple_admin_management', git: "git@code.hedtri.ch:open-source/simple-admin-management.git"
+
+source "https://rails-assets.org" do
+  gem 'rails-assets-StickyTableHeaders' #, '~> 5.0.2'
+end
+
 group :test do
   gem 'shoulda'
   gem 'faker'
