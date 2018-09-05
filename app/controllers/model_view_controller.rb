@@ -273,6 +273,8 @@ class ModelViewController < ApplicationController
   def show_graph3
     @id = params[:id]
     @dbelems = QueryModelFromDatabase.new(params[:id])
+    #subslidersettings = @dbelems.subslidersettings
+    #puts "slider settings in controller: " + subslidersettings.to_s
   end
 
   def show_graph4

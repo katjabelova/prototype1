@@ -60,6 +60,21 @@
            <div id="<%= @sliderId %>" class="slider" data="<%= settings_widgets['order_number'].to_s %>">
            </div>
          </li>
+
+         <% @setSliderId = settings_widgets['id'].to_s %>
+         <% puts ' :setting2_2: ' + @dbelems.sub_slider_settings.to_s %>
+         <% if @dbelems.sub_slider_settings.key?(@setSliderId) %>
+         <button type="close" class="btn btn-info" data="<%= @setSliderId %>">+</button>
+         <% puts "slider settings__: " + @dbelems.sub_slider_settings[@setSliderId].to_s %>
+         <% @dbelems.sub_slider_settings[@setSliderId].each_with_index do |setting_, index_| %>
+         <% @subSliderId = @setSliderId + '_' + 'subslider' + setting_['order_number'].to_s %>
+         <li id="<%= setting_['order_number'].to_s %>" title="<%= setting_['title'].to_s %>" class="slis" data="<%= @setSliderId %>" style="display:none"><%= setting_['value'].to_s %>
+           <div id="<%= @subSliderId %>" class="subslider" data="<%= setting_['order_number'].to_s %>">
+           </div>
+         </li>
+
+         <% end %>
+         <% end %>
          <% end %>
        </ul>
 
@@ -105,6 +120,21 @@
           <div class="inputName"><%= setting['value'] %>  :     </div>
           <div class="inputValue" id="inputValue">-1</div>
         </li>
+
+          <% @setId = setting['id'].to_s %>
+          <% puts ' :setting1: ' + @setId %>
+
+          <% puts ' :setting2: ' + @dbelems.sub_slider_settings.to_s %>
+          <% if @dbelems.sub_slider_settings.key?(@setId) %>
+          <% puts "slider settings: " + @dbelems.sub_slider_settings[@setId].to_s %>
+          <% @dbelems.sub_slider_settings[@setId].each_with_index do |setting_, index_| %>
+          <% puts "setting_:: " + setting_.to_s %>
+            <li class="elem">
+              <div class="inputName"> - <%= setting_['value'] %>  :     </div>
+              <div class="inputValue" id="inputValue">-1</div>
+            </li>
+          <% end %>
+          <% end %>
         <% end %>
       </ul>
   </div>
@@ -184,9 +214,12 @@ var old_dbelems = <%= raw @dbelems.params_with_default_values.to_json %>;;
 
 $(document).on('ready', function() {
   var dbelems = <%= raw @dbelems.settings_widgets.to_json %>;
+  var subdbelems = <%= raw @dbelems.sub_slider_settings.to_json %>;
 
     $(".lis").each(function (index, value) {
       var sliderId  = 'slider' + index.toString();
+      var sliderIndex = dbelems[index]['id'];
+      var subsettings = subdbelems[sliderIndex];
 
       $('#'+ sliderId).slider({
             min: parseFloat(dbelems[index]['min']),
@@ -204,6 +237,77 @@ $(document).on('ready', function() {
                 suffix: ""
             })
             .slider("float");
+
+            if(subsettings == null) {
+          //    window.alert("no subsettings");
+            } else {
+          //    window.alert("subsettings found");
+
+              for(var i = 0; i < subsettings.length; i++) {
+                var setting = subsettings[i];
+                var subSliderId  = sliderIndex + '_' + 'subslider' + i.toString();
+
+                $('#'+ subSliderId).slider({
+                      min: parseFloat(setting['min']),
+                      max: parseFloat(setting['max']),
+                      step: parseFloat(setting['step']),
+                      values: [parseFloat(setting['default_value'])]
+                    })
+                    .slider("pips", {
+                          first: "label",
+                          last: "label",
+                          rest: "label",
+                          step: parseFloat(setting['inner_step']),
+                          labels: false,
+                          prefix: "",
+                          suffix: ""
+                      })
+                      .slider("float");
+              }
+              /*
+              subsettings.each(setting, function(index, item) {
+                    var subSliderId  = 'subslider' + index.toString();
+                    $('#'+ subSliderId).slider({
+                          min: parseFloat(setting['min']),
+                          max: parseFloat(setting['max']),
+                          step: parseFloat(setting['step']),
+                          values: [parseFloat(setting['default_value'])]
+                        })
+                        .slider("pips", {
+                              first: "label",
+                              last: "label",
+                              rest: "label",
+                              step: parseFloat(setting['inner_step']),
+                              labels: false,
+                              prefix: "",
+                              suffix: ""
+                          })
+                          .slider("float");
+              }); */
+
+        /*      $(".slis").each(function (index1, value1) {
+                //  var sliderId  = 'subslider'
+                  //index.toString();
+                  var setting = subsettings[index1];
+                  var subSliderId  = 'subslider' + index1.toString();
+                  $('#'+ subSliderId).slider({
+                        min: parseFloat(setting['min']),
+                        max: parseFloat(setting['max']),
+                        step: parseFloat(setting['step']),
+                        values: [parseFloat(setting['default_value'])]
+                      })
+                      .slider("pips", {
+                            first: "label",
+                            last: "label",
+                            rest: "label",
+                            step: parseFloat(setting['inner_step']),
+                            labels: false,
+                            prefix: "",
+                            suffix: ""
+                        })
+                        .slider("float");
+              }); */
+            };
     });
 
   //  $('.elem').each(function(index, value) {
@@ -220,6 +324,44 @@ $(document).on('ready', function() {
   $('.fixOutput').change(function() {
         outputFixed = !outputFixed;
         fixed_chart_options = old_chart_options;
+  });
+
+  $('.btn').click(function (event) {
+      var state = $(this).attr('type') == 'close' ? true : false;
+
+    //  if(state) {
+        var correspondingId = $(this).attr('data');
+        if(state) {
+            $(this).attr('type', 'show');
+        $( ".slider" ).slider( "option", "disabled", true );
+        $('.slis').each(function(i) {
+          var slisId = $(this).attr('data');
+        //  window.alert('slis data: ' + slisId.toString());
+          if($(this).attr('data') != correspondingId) {
+            $(this).hide();
+          } else {
+            $(this).show();
+          }
+        });
+      } else {
+          $(this).attr('type', 'close');
+          $( ".slider" ).slider( "option", "disabled", false );
+          $('.slis').each(function(i) {
+            var slisId = $(this).attr('data');
+          //  window.alert('slis data: ' + slisId.toString());
+            if($(this).attr('data') == correspondingId) {
+              $(this).hide();
+            }
+          });
+      }
+        var correspondingId = $(this).attr('data');
+        var subdbelems = <%= raw @dbelems.sub_slider_settings.to_json %>;
+
+        var pifsettings = subdbelems[correspondingId];
+        for(var i = 0; i < pifsettings.length; i++) {
+          var orderNumber = pifsettings[i]['order_number'];
+        }
+    //  }
   });
 
 /*  $('.fixOutput').bootstrapToggle({
@@ -268,8 +410,12 @@ $(document).on('ready', function() {
   // });
 
   $('.slider').on("slidechange", function(event, ui) {
+        if($(this).attr('id').match('(.)*subslider(.*)')) {
+          return;
+        }
         var dbelems = <%= raw @dbelems.params_with_default_values.to_json %>;
         var index = parseInt($(this).attr('data'));
+        window.alert("element set: " + dbelems[index]['param_name']);
 
         window[dbelems[index]['param_name']] = parseFloat(ui.value);
 

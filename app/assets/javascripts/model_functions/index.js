@@ -60,6 +60,11 @@ var FullPif = /** @class */ (function () {
             var share = 0;
             for (var _b = 0, _c = data.sets.TOOL_PILLARS; _b < _c.length; _b++) {
                 var pillar = _c[_b];
+
+            //    window.alert('pi: ' + pi.toString());
+            //    window.alert('pillar: ' + pillar.toString());
+            //    window.alert('fix_distribution: ' + this.pif_parameters.fix_distribution[pillar][pi].toString());
+
                 share += this.pif_parameters.fix_distribution[pillar][pi] * input_pi[pillar];
             }
             tool_gamma[pi] = input.share_investment * input.share_agrar * share;

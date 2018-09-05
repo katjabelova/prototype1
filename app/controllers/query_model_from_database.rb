@@ -1,32 +1,53 @@
 class QueryModelFromDatabase
-attr_accessor :function_names, :params_with_default_values, :output_values, :settings_widgets
+attr_accessor :function_names, :params_with_default_values, :output_values, :settings_widgets, :sub_slider_settings
 
 @function_names = []
 @params_with_default_values = []
 @output_values = []
 @settings_widgets = []
+@sub_slider_settings = Hash.new
 
   def initialize(model_id)
     @settings_widgets = []
+    @sub_slider_settings = Hash.new
+
     ModelHasSetting.where(models_id: model_id).find_each do |model_has_settings_widget|
       puts "settings_id: " + model_has_settings_widget.settings_widgets_id.to_s
       SettingsWidget.where(id: model_has_settings_widget.settings_widgets_id).find_each do |settings_widget|
-        puts "in settings"
-        settings_widget_element = Hash.new
-        settings_widget_element['name'] = settings_widget.name
-        settings_widget_element['min'] = settings_widget.min
-        settings_widget_element['max'] = settings_widget.max
-        settings_widget_element['step'] = settings_widget.step
-        settings_widget_element['inner_step'] = settings_widget.inner_step
-        settings_widget_element['default_value'] = settings_widget.default_value
-        settings_widget_element['order_number'] = settings_widget.order_number
-        settings_widget_element['value'] = settings_widget.value
-        settings_widget_element['title'] = settings_widget.title
+          puts "in settings"
+          puts "settings_widget: " + settings_widget.id.to_s
+          settings_widget_element = Hash.new
+          settings_widget_element['id'] = settings_widget.id
+          settings_widget_element['name'] = settings_widget.name
+          settings_widget_element['min'] = settings_widget.min
+          settings_widget_element['max'] = settings_widget.max
+          settings_widget_element['step'] = settings_widget.step
+          settings_widget_element['inner_step'] = settings_widget.inner_step
+          settings_widget_element['default_value'] = settings_widget.default_value
+          settings_widget_element['order_number'] = settings_widget.order_number
+          settings_widget_element['value'] = settings_widget.value
+          settings_widget_element['title'] = settings_widget.title
 
-        @settings_widgets.push(settings_widget_element)
+       if settings_widget.parent.nil?
+         puts "parent nil"
+          @settings_widgets.push(settings_widget_element)
+       else
+          puts "parent not nil"
+          parentId = settings_widget.parent.to_s
+          puts "parent_id: " + parentId
+
+          if @sub_slider_settings[parentId] == nil
+              @sub_slider_settings[parentId] = []
+          end
+        #  @sub_slider_settings[parentId] = @sub_slider_settings[parentId] == nil ? [] : @sub_slider_settings[parentId]
+
+          @sub_slider_settings[parentId].push(settings_widget_element)
+          puts "sub_slider in query model: " + @sub_slider_settings.to_s
+       end
+
       end
-
     end
+
       puts "settings-element: " + @settings_widgets.to_s
 
     @params_with_default_values = []
