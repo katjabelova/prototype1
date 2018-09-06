@@ -64,7 +64,7 @@
          <% @setSliderId = settings_widgets['id'].to_s %>
          <% puts ' :setting2_2: ' + @dbelems.sub_slider_settings.to_s %>
          <% if @dbelems.sub_slider_settings.key?(@setSliderId) %>
-         <button type="close" class="btn btn-info" data="<%= @setSliderId %>">+</button>
+         <button type="close" class="btn btn-info" data="<%= @setSliderId %>">set <%= settings_widgets['value'] %>: </button>
          <% puts "slider settings__: " + @dbelems.sub_slider_settings[@setSliderId].to_s %>
          <% @dbelems.sub_slider_settings[@setSliderId].each_with_index do |setting_, index_| %>
          <% @subSliderId = @setSliderId + '_' + 'subslider' + setting_['order_number'].to_s %>
@@ -332,9 +332,13 @@ $(document).on('ready', function() {
     //  if(state) {
         var correspondingId = $(this).attr('data');
         if(state) {
-            $(this).attr('type', 'show');
-        $( ".slider" ).slider( "option", "disabled", true );
-        $('.slis').each(function(i) {
+          var textArray = $(this).text().split(" ");
+          textArray[0] = 'close';
+          $(this).text(textArray[0] + " " + textArray[1] + " " + textArray[2]);
+
+          $(this).attr('type', 'show');
+          $( ".slider" ).slider( "option", "disabled", true );
+          $('.slis').each(function(i) {
           var slisId = $(this).attr('data');
         //  window.alert('slis data: ' + slisId.toString());
           if($(this).attr('data') != correspondingId) {
@@ -342,9 +346,21 @@ $(document).on('ready', function() {
           } else {
             $(this).show();
           }
+
+          $(".btn").each(function(i) {
+            if($(this).attr('data') != correspondingId) {
+              $(this).prop("disabled", true);
+            }
+          });
+
         });
       } else {
           $(this).attr('type', 'close');
+
+          var textArray = $(this).text().split(" ");
+          textArray[0] = 'set';
+          $(this).text(textArray[0] + " " + textArray[1] + " " + textArray[2]);
+
           $( ".slider" ).slider( "option", "disabled", false );
           $('.slis').each(function(i) {
             var slisId = $(this).attr('data');
@@ -353,14 +369,18 @@ $(document).on('ready', function() {
               $(this).hide();
             }
           });
+
+          $(".btn").each(function(i) {
+            $(this).prop("disabled", false);
+          });
       }
-        var correspondingId = $(this).attr('data');
+    /*    var correspondingId = $(this).attr('data');
         var subdbelems = <%= raw @dbelems.sub_slider_settings.to_json %>;
 
         var pifsettings = subdbelems[correspondingId];
         for(var i = 0; i < pifsettings.length; i++) {
           var orderNumber = pifsettings[i]['order_number'];
-        }
+        } */
     //  }
   });
 
