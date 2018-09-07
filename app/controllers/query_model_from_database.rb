@@ -1,15 +1,19 @@
 class QueryModelFromDatabase
-attr_accessor :function_names, :params_with_default_values, :output_values, :settings_widgets, :sub_slider_settings
+attr_accessor :function_names, :params_with_default_values, :output_values, :settings_widgets, :sub_slider_settings, :nested_slider_settings,
+:subpifsCount
 
 @function_names = []
 @params_with_default_values = []
 @output_values = []
 @settings_widgets = []
 @sub_slider_settings = Hash.new
+@nested_slider_settings = []
+@subpifsCount = 0
 
   def initialize(model_id)
     @settings_widgets = []
     @sub_slider_settings = Hash.new
+    @subpifsCount = 0
 
     ModelHasSetting.where(models_id: model_id).find_each do |model_has_settings_widget|
       puts "settings_id: " + model_has_settings_widget.settings_widgets_id.to_s
@@ -23,10 +27,14 @@ attr_accessor :function_names, :params_with_default_values, :output_values, :set
           settings_widget_element['max'] = settings_widget.max
           settings_widget_element['step'] = settings_widget.step
           settings_widget_element['inner_step'] = settings_widget.inner_step
-          settings_widget_element['default_value'] = settings_widget.default_value
+          #settings_widget_element['default_value'] = settings_widget.default_value
           settings_widget_element['order_number'] = settings_widget.order_number
           settings_widget_element['value'] = settings_widget.value
           settings_widget_element['title'] = settings_widget.title
+
+          default_param = ModelDefaultParam.find(settings_widget.model_default_params_id)
+          settings_widget_element['default_value'] = default_param.default_value
+          settings_widget_element['param_name'] = default_param.param_name
 
        if settings_widget.parent.nil?
          puts "parent nil"
@@ -41,13 +49,46 @@ attr_accessor :function_names, :params_with_default_values, :output_values, :set
           end
         #  @sub_slider_settings[parentId] = @sub_slider_settings[parentId] == nil ? [] : @sub_slider_settings[parentId]
 
+          @subpifsCount = @subpifsCount + 1
           @sub_slider_settings[parentId].push(settings_widget_element)
+
           puts "sub_slider in query model: " + @sub_slider_settings.to_s
        end
 
       end
     end
 
+      @nested_slider_settings = @settings_widgets
+
+      puts "before " + @sub_slider_settings.to_s
+
+      index = 0
+      while index < (@settings_widgets.length + subpifsCount - 1)
+  #    for index in 0..@nested_slider_settings.length do
+  #    @nested_slider_settings.each_with_index do |setting, index|
+        puts "index: " + index.to_s
+        setting = @nested_slider_settings[index]
+        puts "setting id: " + setting['id'].to_s
+        if @sub_slider_settings.key?(setting['id'].to_s)
+          puts "setting id: " + setting['id'].to_s
+          first_part_array = @nested_slider_settings[0..index]
+          puts "first part array: " + first_part_array.to_s
+          second_part_array = @nested_slider_settings[index + 1..@nested_slider_settings.length - 1]
+          puts "second part array: " + second_part_array.to_s
+          count = 0
+          @sub_slider_settings[setting['id'].to_s].each_with_index do |subslider, index|
+            first_part_array.push(subslider)
+            count += 1
+          end
+          @nested_slider_settings = first_part_array + second_part_array
+          puts "nested slider step: " + @nested_slider_settings.to_s
+          index = index + count + 1
+        else
+          index += 1
+        end
+      end
+
+      puts "nested settings: " + @nested_slider_settings.to_s
       puts "settings-element: " + @settings_widgets.to_s
 
     @params_with_default_values = []

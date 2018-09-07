@@ -67,7 +67,7 @@
          <button type="close" class="btn btn-info" data="<%= @setSliderId %>">set <%= settings_widgets['value'] %>: </button>
          <% puts "slider settings__: " + @dbelems.sub_slider_settings[@setSliderId].to_s %>
          <% @dbelems.sub_slider_settings[@setSliderId].each_with_index do |setting_, index_| %>
-         <% @subSliderId = @setSliderId + '_' + 'subslider' + setting_['order_number'].to_s %>
+         <% @subSliderId = @setSliderId + '_' + 'subslider'+ '_' + setting_['order_number'].to_s %>
          <li id="<%= setting_['order_number'].to_s %>" title="<%= setting_['title'].to_s %>" class="slis" data="<%= @setSliderId %>" style="display:none"><%= setting_['value'].to_s %>
            <div id="<%= @subSliderId %>" class="subslider" data="<%= setting_['order_number'].to_s %>">
            </div>
@@ -129,7 +129,7 @@
           <% puts "slider settings: " + @dbelems.sub_slider_settings[@setId].to_s %>
           <% @dbelems.sub_slider_settings[@setId].each_with_index do |setting_, index_| %>
           <% puts "setting_:: " + setting_.to_s %>
-            <li class="elem">
+            <li class="elem" id="<%= @setId %>" data="<%= setting_['order_number'] %>">
               <div class="inputName"> - <%= setting_['value'] %>  :     </div>
               <div class="inputValue" id="inputValue">-1</div>
             </li>
@@ -210,7 +210,8 @@ $('#hiddenleft').on("click", function(event) {
   $('#containerinner2').show();
 });
 
-var old_dbelems = <%= raw @dbelems.params_with_default_values.to_json %>;;
+var old_dbelems = <%= raw @dbelems.params_with_default_values.to_json %>;
+var old_nested_dbelems = <%= raw @dbelems.nested_slider_settings.to_json %>;
 
 $(document).on('ready', function() {
   var dbelems = <%= raw @dbelems.settings_widgets.to_json %>;
@@ -245,7 +246,7 @@ $(document).on('ready', function() {
 
               for(var i = 0; i < subsettings.length; i++) {
                 var setting = subsettings[i];
-                var subSliderId  = sliderIndex + '_' + 'subslider' + i.toString();
+                var subSliderId  = sliderIndex + '_' + 'subslider'+ '_' + i.toString();
 
                 $('#'+ subSliderId).slider({
                       min: parseFloat(setting['min']),
@@ -429,10 +430,64 @@ $(document).on('ready', function() {
   //   });
   // });
 
+  $('.subslider').on("slidechange", function(event, ui) {
+    var dbelems = <%= raw @dbelems.sub_slider_settings.to_json %>;
+    var subSliderIdArray = $(this).attr('id').split('_');
+    var slider = dbelems[subSliderIdArray[0]][subSliderIdArray[2]];
+    var index = subSliderIdArray[0] + subSliderIdArray[2]
+  //  window.alert("subslider set: " + slider['param_name'].toString());
+    window[slider['param_name']](parseFloat(ui.value));
+
+    chartOptions.title = "previous values";
+    hiddenElem.value = chartOptions;
+
+    if(!outputFixed) {
+     $('.elem').each(function(index, value) {
+  //  $('#elem').bind("beforeShow", function(event, ui) {
+   //    window.alert(" bound ");
+       var element = $(this).find('#inputValue');
+   //    window.alert("element: " + element.html());
+       element.html(old_nested_dbelems[index]['default_value']);
+     //  $(this).text() = old_dbelems[index]['param_name'];
+     });
+   };
+
+    // : 1 if old --- new in series, : 0 if new --- old in series
+    var seriesElement = (chartOptions.series.length == 1) ? 0 : 0;
+
+    old_chart_series = chartOptions.series;
+
+  //  window.alert("length of series: " + JSON.stringify(old_chart_series));
+    old_chart_options = {
+    //  colors: ['#A8A8A8'],
+      colors: ['rgba(168, 168, 168, 0.6)'],
+      chart: { type: chartOptions.chart.type },
+      title: { text: chartOptions.title },
+      plotOptions: {
+        column: {
+          minPointLength: 2,
+          pointRange: 2,
+          pointPadding: 0.2,
+          borderWidth: 0,
+        }
+      },
+      xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories},
+      yAxis: { title: { text: chartOptions.yAxis.title.text } },
+      series: [old_chart_series[seriesElement]]
+    };
+
+    updateChartWithValues();
+
+    old_nested_dbelems[index]['default_value'] = parseFloat(ui.value);
+  });
+
   $('.slider').on("slidechange", function(event, ui) {
+        //delete
         if($(this).attr('id').match('(.)*subslider(.*)')) {
           return;
         }
+        //delete
+
         var dbelems = <%= raw @dbelems.params_with_default_values.to_json %>;
         var index = parseInt($(this).attr('data'));
         window.alert("element set: " + dbelems[index]['param_name']);
@@ -482,7 +537,6 @@ $(document).on('ready', function() {
         updateChartWithValues();
 
         old_dbelems[index]['default_value'] = parseFloat(ui.value);
-
   });
 
  window.updateChart = function(series) {
