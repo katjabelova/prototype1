@@ -434,7 +434,14 @@ $(document).on('ready', function() {
     var dbelems = <%= raw @dbelems.sub_slider_settings.to_json %>;
     var subSliderIdArray = $(this).attr('id').split('_');
     var slider = dbelems[subSliderIdArray[0]][subSliderIdArray[2]];
-    var index = subSliderIdArray[0] + subSliderIdArray[2]
+    var index_ = 0;
+
+    for (var i = 0; i < old_nested_dbelems.length; i++) {
+        if(old_nested_dbelems[i]['id'] == slider['id']) {
+          index_ = i;
+        }
+    }
+
   //  window.alert("subslider set: " + slider['param_name'].toString());
     window[slider['param_name']](parseFloat(ui.value));
 
@@ -446,7 +453,9 @@ $(document).on('ready', function() {
   //  $('#elem').bind("beforeShow", function(event, ui) {
    //    window.alert(" bound ");
        var element = $(this).find('#inputValue');
-   //    window.alert("element: " + element.html());
+      // window.alert("element: " + element.html());
+      // window.alert("element index: " + index.toString());
+      // window.alert("elem html: " + old_nested_dbelems[index]['default_value']);
        element.html(old_nested_dbelems[index]['default_value']);
      //  $(this).text() = old_dbelems[index]['param_name'];
      });
@@ -478,7 +487,8 @@ $(document).on('ready', function() {
 
     updateChartWithValues();
 
-    old_nested_dbelems[index]['default_value'] = parseFloat(ui.value);
+    old_nested_dbelems[index_]['default_value'] = parseFloat(ui.value);
+  //  window.alert("nested elems: " + JSON.stringify(old_nested_dbelems));
   });
 
   $('.slider').on("slidechange", function(event, ui) {
