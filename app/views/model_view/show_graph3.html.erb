@@ -323,11 +323,12 @@ $(document).on('ready', function() {
   });
 
   $('.fixOutput').change(function() {
+        window.alert("fix changed");
         outputFixed = !outputFixed;
         fixed_chart_options = old_chart_options;
   });
 
-  $('.btn').click(function (event) {
+  $('button').click(function (event) {
       var state = $(this).attr('type') == 'close' ? true : false;
 
     //  if(state) {
@@ -348,7 +349,7 @@ $(document).on('ready', function() {
             $(this).show();
           }
 
-          $(".btn").each(function(i) {
+          $("button").each(function(i) {
             if($(this).attr('data') != correspondingId) {
               $(this).prop("disabled", true);
             }
@@ -371,7 +372,7 @@ $(document).on('ready', function() {
             }
           });
 
-          $(".btn").each(function(i) {
+          $("button").each(function(i) {
             $(this).prop("disabled", false);
           });
       }
