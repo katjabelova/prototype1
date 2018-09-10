@@ -493,14 +493,14 @@ $(document).on('ready', function() {
 
   $('.slider').on("slidechange", function(event, ui) {
         //delete
-        if($(this).attr('id').match('(.)*subslider(.*)')) {
+      /*  if($(this).attr('id').match('(.)*subslider(.*)')) {
           return;
-        }
+        } */
         //delete
 
         var dbelems = <%= raw @dbelems.params_with_default_values.to_json %>;
         var index = parseInt($(this).attr('data'));
-        window.alert("element set: " + dbelems[index]['param_name']);
+      //  window.alert("element set: " + dbelems[index]['param_name']);
 
         window[dbelems[index]['param_name']] = parseFloat(ui.value);
 
@@ -513,7 +513,8 @@ $(document).on('ready', function() {
       //    window.alert(" bound ");
           var element = $(this).find('#inputValue');
       //    window.alert("element: " + element.html());
-          element.html(old_dbelems[index]['default_value']);
+      //    element.html(old_dbelems[index]['default_value']);
+          element.html(old_nested_dbelems[index]['default_value']);
         //  $(this).text() = old_dbelems[index]['param_name'];
         });
       };
@@ -547,6 +548,13 @@ $(document).on('ready', function() {
         updateChartWithValues();
 
         old_dbelems[index]['default_value'] = parseFloat(ui.value);
+
+        for( var i = 0; i < old_nested_dbelems.length; i++) {
+          if(old_nested_dbelems[i]['id'] == dbelems[index]['settings_id']) {
+            old_nested_dbelems[i]['default_value'] = parseFloat(ui.value);
+          }
+        }
+
   });
 
  window.updateChart = function(series) {

@@ -97,6 +97,10 @@ attr_accessor :function_names, :params_with_default_values, :output_values, :set
         default_param_element = Hash.new
         default_param_element['param_name'] = default_param.param_name
         default_param_element['default_value'] = default_param.default_value
+        default_param_element['id'] = default_param.id
+
+        settings_id = SettingsWidget.where(model_default_params_id: default_param['id'])[0].id;
+        default_param_element['settings_id'] = settings_id;
 
         @params_with_default_values.push(default_param_element)
       end

@@ -320,13 +320,13 @@ function nr_land(value) {
   pif_parameters.fix_distribution['NR']['land'] = value;
 };
 function fm_animal(value) {
-  pif_parameters.fix_distribution['FM']['fm-crop'] = value;
-};
-function fm_export(value) {
   pif_parameters.fix_distribution['FM']['fm-animal'] = value;
 };
-function fm_crop(value) {
+function fm_export(value) {
   pif_parameters.fix_distribution['FM']['fm-export'] = value;
+};
+function fm_crop(value) {
+  pif_parameters.fix_distribution['FM']['fm-crop'] = value;
 };
 function ma_road(value) {
   pif_parameters.fix_distribution['MA']['ma-road'] = value;
