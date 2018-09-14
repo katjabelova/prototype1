@@ -64,7 +64,7 @@
          <% @setSliderId = settings_widgets['id'].to_s %>
          <% puts ' :setting2_2: ' + @dbelems.sub_slider_settings.to_s %>
          <% if @dbelems.sub_slider_settings.key?(@setSliderId) %>
-         <button type="close" class="btn btn-info" data="<%= @setSliderId %>">set <%= settings_widgets['value'] %>: </button>
+         <button type="close" class="button_close" data="<%= @setSliderId %>">set <%= settings_widgets['value'] %>: </button>
          <% puts "slider settings__: " + @dbelems.sub_slider_settings[@setSliderId].to_s %>
          <% @dbelems.sub_slider_settings[@setSliderId].each_with_index do |setting_, index_| %>
          <% @subSliderId = @setSliderId + '_' + 'subslider'+ '_' + setting_['order_number'].to_s %>
@@ -89,7 +89,7 @@
         <div>
           <% @dbelems.output_values.each do |output| %>
           <% puts "tilte: " +  output['title'].to_s %>
-          <button id="<%= output['order_number'].to_s %>" type="button" style="background-color: #f9f9f9" class="autocompare_"><%= output['title'].to_s %></button>
+          <button id="<%= output['order_number'].to_s %>" data="button" type="button" style="background-color: #f9f9f9" class="autocompare_"><%= output['title'].to_s %></button>
           <% end  %>
         </div>
         <div class="wrapperinner">
@@ -328,7 +328,7 @@ $(document).on('ready', function() {
         fixed_chart_options = old_chart_options;
   });
 
-  $('button').click(function (event) {
+  $('.button_close').click(function (event) {
       var state = $(this).attr('type') == 'close' ? true : false;
 
     //  if(state) {

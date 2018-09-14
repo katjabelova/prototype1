@@ -315,9 +315,15 @@ function z7_ () {
 
 function nr_water(value) {
   pif_parameters.fix_distribution['NR']['water'] = value;
+/*var sum1 = pif_parameters.fix_distribution['NR']['water'] + pif_parameters.fix_distribution['NR']['land'];
+  pif_parameters.fix_distribution['NR']['water'] = pif_parameters.fix_distribution['NR']['water'] / sum1;
+  pif_parameters.fix_distribution['NR']['land'] = pif_parameters.fix_distribution['NR']['land'] / sum1; */
 };
 function nr_land(value) {
   pif_parameters.fix_distribution['NR']['land'] = value;
+/*var sum2 = pif_parameters.fix_distribution['NR']['water'] + pif_parameters.fix_distribution['NR']['land'];
+  pif_parameters.fix_distribution['NR']['water'] = pif_parameters.fix_distribution['NR']['water'] / sum2;
+  pif_parameters.fix_distribution['NR']['land'] = pif_parameters.fix_distribution['NR']['land'] / sum2;*/
 };
 function fm_animal(value) {
   pif_parameters.fix_distribution['FM']['fm-animal'] = value;
