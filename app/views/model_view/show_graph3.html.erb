@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -64,7 +63,7 @@
          <% @setSliderId = settings_widgets['id'].to_s %>
          <% puts ' :setting2_2: ' + @dbelems.sub_slider_settings.to_s %>
          <% if @dbelems.sub_slider_settings.key?(@setSliderId) %>
-         <button type="close" class="button_close" data="<%= @setSliderId %>">set <%= settings_widgets['value'] %>: </button>
+         <button type="close" class="button_close" data="<%= @setSliderId %>" style="background-color:#f9f9f9;">set <%= settings_widgets['value'] %>: </button>
          <% puts "slider settings__: " + @dbelems.sub_slider_settings[@setSliderId].to_s %>
          <% @dbelems.sub_slider_settings[@setSliderId].each_with_index do |setting_, index_| %>
          <% @subSliderId = @setSliderId + '_' + 'subslider'+ '_' + setting_['order_number'].to_s %>
@@ -334,6 +333,7 @@ $(document).on('ready', function() {
     //  if(state) {
         var correspondingId = $(this).attr('data');
         if(state) {
+          $(this).css('background-color', '#5bc0de');
           var textArray = $(this).text().split(" ");
           textArray[0] = 'close';
           $(this).text(textArray[0] + " " + textArray[1] + " " + textArray[2]);
@@ -358,7 +358,7 @@ $(document).on('ready', function() {
         });
       } else {
           $(this).attr('type', 'close');
-
+          $(this).css('background-color', '#f9f9f9');
           var textArray = $(this).text().split(" ");
           textArray[0] = 'set';
           $(this).text(textArray[0] + " " + textArray[1] + " " + textArray[2]);
@@ -385,10 +385,6 @@ $(document).on('ready', function() {
         } */
     //  }
   });
-
-/*  $('.fixOutput').bootstrapToggle({
-     window.alert("toggle found");
-  }); */
 
  $('.autocompare_').click(function (event) {
     $(".autocompare_").removeClass("active");
@@ -443,7 +439,6 @@ $(document).on('ready', function() {
         }
     }
 
-  //  window.alert("subslider set: " + slider['param_name'].toString());
     window[slider['param_name']](parseFloat(ui.value));
 
     chartOptions.title = "previous values";
@@ -452,11 +447,9 @@ $(document).on('ready', function() {
     if(!outputFixed) {
      $('.elem').each(function(index, value) {
   //  $('#elem').bind("beforeShow", function(event, ui) {
-   //    window.alert(" bound ");
+
        var element = $(this).find('#inputValue');
-      // window.alert("element: " + element.html());
-      // window.alert("element index: " + index.toString());
-      // window.alert("elem html: " + old_nested_dbelems[index]['default_value']);
+
        element.html(old_nested_dbelems[index]['default_value']);
      //  $(this).text() = old_dbelems[index]['param_name'];
      });
@@ -467,9 +460,7 @@ $(document).on('ready', function() {
 
     old_chart_series = chartOptions.series;
 
-  //  window.alert("length of series: " + JSON.stringify(old_chart_series));
     old_chart_options = {
-    //  colors: ['#A8A8A8'],
       colors: ['rgba(168, 168, 168, 0.6)'],
       chart: { type: chartOptions.chart.type },
       title: { text: chartOptions.title },
@@ -489,19 +480,11 @@ $(document).on('ready', function() {
     updateChartWithValues();
 
     old_nested_dbelems[index_]['default_value'] = parseFloat(ui.value);
-  //  window.alert("nested elems: " + JSON.stringify(old_nested_dbelems));
   });
 
   $('.slider').on("slidechange", function(event, ui) {
-        //delete
-      /*  if($(this).attr('id').match('(.)*subslider(.*)')) {
-          return;
-        } */
-        //delete
-
         var dbelems = <%= raw @dbelems.params_with_default_values.to_json %>;
         var index = parseInt($(this).attr('data'));
-      //  window.alert("element set: " + dbelems[index]['param_name']);
 
         window[dbelems[index]['param_name']] = parseFloat(ui.value);
 
@@ -511,9 +494,9 @@ $(document).on('ready', function() {
        if(!outputFixed) {
         $('.elem').each(function(index, value) {
      //  $('#elem').bind("beforeShow", function(event, ui) {
-      //    window.alert(" bound ");
+
           var element = $(this).find('#inputValue');
-      //    window.alert("element: " + element.html());
+
       //    element.html(old_dbelems[index]['default_value']);
           element.html(old_nested_dbelems[index]['default_value']);
         //  $(this).text() = old_dbelems[index]['param_name'];
@@ -525,9 +508,7 @@ $(document).on('ready', function() {
 
         old_chart_series = chartOptions.series;
 
-      //  window.alert("length of series: " + JSON.stringify(old_chart_series));
         old_chart_options = {
-        //  colors: ['#A8A8A8'],
           colors: ['rgba(168, 168, 168, 0.6)'],
           chart: { type: chartOptions.chart.type },
           title: { text: chartOptions.title },
@@ -543,8 +524,6 @@ $(document).on('ready', function() {
           yAxis: { title: { text: chartOptions.yAxis.title.text } },
           series: [old_chart_series[seriesElement]]
         };
-
-    //    window.alert("series: " + JSON.stringify(old_chart_series));
 
         updateChartWithValues();
 
@@ -579,7 +558,6 @@ window.updateChartWithValues = function() {
     var functionName1 = window[functionName];
     var seriesData = functionName1();
 
-    //////////
     var displaycement = 0.0;
 
     if (chartOptions.chart.type == 'line') {
@@ -601,34 +579,23 @@ window.updateChartWithValues = function() {
       };
     };
 
-  //  window.alert("series data length: " + JSON.stringify(seriesData1));
-  //  window.alert("chart options length: " + JSON.stringify(old_chart_options1));
-    ////////////
-
     if (old_chart_options != null) {
-    //  window.alert("chart options != null");
-    //2d color: '#428bca'
+
     chartOptions.colors = ['rgba(66, 139, 202, 1.0)', 'rgba(168, 168, 168, 0.6)'];
     chartOptions.series = [
       {
           name: dbelems[index]['title'],
           data: seriesData1,
           pointPadding: 0.2,
-
-        //  data: seriesData,
-        //  stack: 'new',
       },
       {
         name: 'old ' + dbelems[index]['title'].toString(),
         data: old_chart_options1,
         pointPadding: 0.3,
-
-      //  data: JSON.parse("[" + old_chart_series1[0]['data'] + "]"),
-      //  stack: 'old',
     }
     ];
   } else {
-  //  chartOptions.colors = ['#428bca'];
+
     chartOptions.colors = ['rgba(66, 139, 202, 1.0)'];
     chartOptions.series = [{
         name: dbelems[index]['title'],
@@ -643,11 +610,8 @@ window.updateChartWithValues = function() {
     var containerToHide = document.getElementById("containerinner2");
 
     if (old_chart_options != null) {
-    //  window.alert("json stringify: " + JSON.stringify(old_chart_options));
+      $('#hiddenleft').hide();
 
-    //  if(!outputFixed) {
-        $('#hiddenleft').hide();
-    //  }
       if(true) {
         containerToHide.style.display = "block";
         elementToHide.style.display = "block";
@@ -655,10 +619,9 @@ window.updateChartWithValues = function() {
         if(!outputFixed) {
           old_chart_options.colors = ['rgba(168, 168, 168, 1.0)'];
           old_chart_options['series'][0]['_colorIndex'] = 0;
-    //    window.alert("json stringify2: " + JSON.stringify(old_chart_options));
+
           Highcharts.chart('container2', old_chart_options);
         } else {
-        //  Highcharts.chart('container2', fixed_chart_options);
         };
       }
     } else {
