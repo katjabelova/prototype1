@@ -3,25 +3,27 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
   <link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'>
   <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
-
-  <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
-  <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
-
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/flick/jquery-ui.css">
   <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
   <script scr="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.css"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.min.css"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.min.js"></script>
-  <style>
 
+  <script src="http://code.highcharts.com/highcharts.js"></script>
+  <script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+<style>
   main {
     margin-right: 0px;
     margin-left: 0px;
@@ -36,12 +38,13 @@
   .wrapper {
     background-color: transparent;
   }
-
-  </style>
+</style>
 </head>
   <body id="body">
+
     <% path = @dbelems.function_names[0]['path'] == nil ? 'model_functions/textmodel.js' : @dbelems.function_names[0]['path'].to_s %>
     <%= javascript_include_tag path %>
+
     <div class="wrapper" id="wrapper">
       <div style="display:none"  id="hiddenright">
         <i id="hiddenright" class="fa fa-arrow-right" style="font-size:25px;" role="button">
@@ -53,8 +56,10 @@
            <h3>Settings</h3>
        </div>
        <ul style="list-style-type:none">
+
          <% @dbelems.settings_widgets.each do |settings_widgets| %>
          <% @sliderId = 'slider' + settings_widgets['order_number'].to_s %>
+
          <li id="<%= settings_widgets['order_number'].to_s %>" title="<%= settings_widgets['title'].to_s %>" class="lis"><%= settings_widgets['value'].to_s %>
            <div id="<%= @sliderId %>" class="slider" data="<%= settings_widgets['order_number'].to_s %>">
            </div>
@@ -63,10 +68,13 @@
          <% @setSliderId = settings_widgets['id'].to_s %>
          <% puts ' :setting2_2: ' + @dbelems.sub_slider_settings.to_s %>
          <% if @dbelems.sub_slider_settings.key?(@setSliderId) %>
+
          <button type="close" class="button_close" data="<%= @setSliderId %>" style="background-color:#f9f9f9;">set <%= settings_widgets['value'] %>: </button>
+
          <% puts "slider settings__: " + @dbelems.sub_slider_settings[@setSliderId].to_s %>
          <% @dbelems.sub_slider_settings[@setSliderId].each_with_index do |setting_, index_| %>
          <% @subSliderId = @setSliderId + '_' + 'subslider'+ '_' + setting_['order_number'].to_s %>
+
          <li id="<%= setting_['order_number'].to_s %>" title="<%= setting_['title'].to_s %>" class="slis" data="<%= @setSliderId %>" style="display:none"><%= setting_['value'].to_s %>
            <div id="<%= @subSliderId %>" class="subslider" data="<%= setting_['order_number'].to_s %>">
            </div>
@@ -75,21 +83,25 @@
          <% end %>
          <% end %>
          <% end %>
+
        </ul>
 
        <p id="hidden" style="display:none;"></p>
    </nav>
+
    <div id="contentinner">
       <h1>Model <%= @id.to_s %></h1>
-      <script src="http://code.highcharts.com/highcharts.js"></script>
-      <script src="http://code.highcharts.com/modules/exporting.js"></script>
 
       <div class="mainContent">
-        <div>
+        <div id="tabs">
+
           <% @dbelems.output_values.each do |output| %>
           <% puts "tilte: " +  output['title'].to_s %>
+
           <button id="<%= output['order_number'].to_s %>" data="button" type="button" style="background-color: #f9f9f9" class="autocompare_"><%= output['title'].to_s %></button>
+
           <% end  %>
+
         </div>
         <div class="wrapperinner">
           <div id="container1" remote="true" style=" min-height: 400px;"></div>
@@ -105,16 +117,16 @@
   <i id="right" class="fa fa-arrow-right" style="font-size:25px;" role="button"></i>
   <div id="container2" remote="true" style="display:none;  min-height: 300px"></div>
   <div class="inputsList">
-
     <div class="checkbox">
         <label>
           Fix output for input values
         </label>
         <input data-toggle="toggle" type="checkbox" class="fixOutput"></input>
     </div>
-
       <ul class="outputName" style="list-style-type:none">Values for inputs:
+
         <% @dbelems.settings_widgets.each_with_index do |setting, index| %>
+
         <li class="elem">
           <div class="inputName"><%= setting['value'] %>  :     </div>
           <div class="inputValue" id="inputValue">-1</div>
@@ -128,13 +140,16 @@
           <% puts "slider settings: " + @dbelems.sub_slider_settings[@setId].to_s %>
           <% @dbelems.sub_slider_settings[@setId].each_with_index do |setting_, index_| %>
           <% puts "setting_:: " + setting_.to_s %>
+
             <li class="elem" id="<%= @setId %>" data="<%= setting_['order_number'] %>">
               <div class="inputName"> - <%= setting_['value'] %>  :     </div>
               <div class="inputValue" id="inputValue">-1</div>
             </li>
+
           <% end %>
           <% end %>
         <% end %>
+
       </ul>
   </div>
 </div>
@@ -165,9 +180,7 @@ $(function() {
   var chartOptions = {
     chart: { type: "" },
     title: { text: "" },
-    tooltip: {
-                shared: true
-            },
+    tooltip: { shared: true },
     plotOptions: { column: {
       minPointLength: 3,
       pointRange: 2,
@@ -178,8 +191,7 @@ $(function() {
       shadow: false,
     //  stacking: "normal",
       grouping: false
-
-    }
+      }
     },
     xAxis: { type: "", categories: [] },
     yAxis: {
@@ -238,11 +250,7 @@ $(document).on('ready', function() {
             })
             .slider("float");
 
-            if(subsettings == null) {
-          //    window.alert("no subsettings");
-            } else {
-          //    window.alert("subsettings found");
-
+            if(subsettings != null) {
               for(var i = 0; i < subsettings.length; i++) {
                 var setting = subsettings[i];
                 var subSliderId  = sliderIndex + '_' + 'subslider'+ '_' + i.toString();
@@ -322,7 +330,6 @@ $(document).on('ready', function() {
   });
 
   $('.fixOutput').change(function() {
-        window.alert("fix changed");
         outputFixed = !outputFixed;
         fixed_chart_options = old_chart_options;
   });
