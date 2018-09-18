@@ -260,6 +260,52 @@ function updateValues() {
   return result = fullPif.calculate(input);
 };
 
+function v_gamma_() {
+   return result.output.gamma_;
+};
+function v_policy_() {
+   return result.output.policy_;
+};
+
+function v_pillar_budget_() {
+   return result.output.pillar_budget_;
+};
+
+function v_effective_budget_() {
+   return result.output.effective_budget_;
+};
+
+function v_tp_() {
+   return result.output.tp_;
+};
+
+function v_z1_() {
+   return result.output.z1_;
+};
+
+function v_z2_() {
+   return result.output.z2_;
+};
+
+function v_z3_() {
+   return result.output.z3_;
+};
+function v_z4_() {
+   return result.output.z4_;
+};
+function v_z5_() {
+   return result.output.z5_;
+};
+function v_z6_() {
+   return result.output.z6_;
+};
+function v_z7_() {
+   return result.output.z7_;
+};
+function v_wz_() {
+   return result.output.wz_;
+};
+
 function gamma_() {
   var updatedResult = updateValues();
   return updatedResult.output.gamma_;

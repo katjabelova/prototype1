@@ -96,8 +96,6 @@
         <div id="tabs">
 
           <% @dbelems.output_values.each do |output| %>
-          <% puts "tilte: " +  output['title'].to_s %>
-
           <button id="<%= output['order_number'].to_s %>" data="button" type="button" style="background-color: #f9f9f9" class="autocompare_"><%= output['title'].to_s %></button>
 
           <% end  %>
@@ -171,6 +169,7 @@ $(function() {
 
   var firstTabChosen = document.getElementsByClassName("autocompare_")[tabsChosen];
   firstTabChosen.style.backgroundColor = '#5bc0de';
+//  document.getElementsByClassName("autocompare_")[tabsChosen].addClass("active");
 
   var series = [{
       name: '',
@@ -223,6 +222,8 @@ $('#hiddenleft').on("click", function(event) {
 
 var old_dbelems = <%= raw @dbelems.params_with_default_values.to_json %>;
 var old_nested_dbelems = <%= raw @dbelems.nested_slider_settings.to_json %>;
+
+var autocompare = false;
 
 $(document).on('ready', function() {
   var dbelems = <%= raw @dbelems.settings_widgets.to_json %>;
@@ -394,6 +395,10 @@ $(document).on('ready', function() {
   });
 
  $('.autocompare_').click(function (event) {
+    autocompare = true;
+    if ($(this).hasClass('active')) {
+      return;
+    }
     $(".autocompare_").removeClass("active");
     $(".autocompare_").css('background-color', '#f9f9f9');
     $(this).addClass("active");
@@ -435,6 +440,7 @@ $(document).on('ready', function() {
   // });
 
   $('.subslider').on("slidechange", function(event, ui) {
+    autocompare = false;
     var dbelems = <%= raw @dbelems.sub_slider_settings.to_json %>;
     var subSliderIdArray = $(this).attr('id').split('_');
     var slider = dbelems[subSliderIdArray[0]][subSliderIdArray[2]];
@@ -490,6 +496,7 @@ $(document).on('ready', function() {
   });
 
   $('.slider').on("slidechange", function(event, ui) {
+        autocompare = false;
         var dbelems = <%= raw @dbelems.params_with_default_values.to_json %>;
         var index = parseInt($(this).attr('data'));
 
@@ -562,8 +569,17 @@ window.updateChartWithValues = function() {
     var dbfunctions = <%= raw @dbelems.function_names.to_json %>;
     var index = tabsChosen;
     var functionName = dbfunctions[index]['name'];
-    var functionName1 = window[functionName];
-    var seriesData = functionName1();
+
+    var seriesData = "";
+
+    if(autocompare == false) {
+      var functionName1 = window[functionName];
+      seriesData = functionName1();
+    } else {
+      functionName = 'v_' + functionName.toString();
+      var functionName1 = window[functionName];
+      seriesData = functionName1();
+    }
 
     var displaycement = 0.0;
 
