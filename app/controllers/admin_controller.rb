@@ -5,10 +5,16 @@ class AdminController < ApplicationController
   end
 
   def index
+  #  @current_user = 
     @admins = Users.paginate(:page => params[:page], :per_page => 5)
   end
 
+  def delete
+    puts "deleting 2"
+  end
+
   def destroy
+    puts "deleting"
     UserRole.where(user_id: params[:id]).destroy_all
     User.find(params[:id]).destroy
     flash[:success] = "User deleted"
