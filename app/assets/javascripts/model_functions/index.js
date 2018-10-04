@@ -59,6 +59,7 @@ var FullPif = /** @class */ (function () {
 
         for (var _i = 0, _a = data.sets.CAADP; _i < _a.length; _i++) {
             var pi = _a[_i];
+          //  window.alert('pi: ' + pi.toString());
             var share = 0;
             var fix = this.pif_parameters.fix_distribution;
           //  window.alert("fix_distribution: " + JSON.stringify(fix));
@@ -78,11 +79,18 @@ var FullPif = /** @class */ (function () {
         }
         var tool_policy = {};
         var tool_policy_ = [];
+        tool_policy_.push(0);
+
         for (var _d = 0, _e = data.sets.POL_INST; _d < _e.length; _d++) {
             var pi = _e[_d];
+          //  window.alert('pi: ' + pi.toString());
+          //  window.alert('gamma: ' + tool_gamma[pi].toString());
             tool_policy[pi] = tool_gamma[pi] * this.pif_parameters.yg0;
             tool_policy_.push(Number(tool_gamma[pi] * this.pif_parameters.yg0).toFixed(2));
         }
+
+        tool_policy_[0] = tool_policy_[tool_policy_.length - 1];
+        tool_policy_.splice(-1,1);
 
         var tool_pillar_budget = {};
         var tool_pillar_budget_ = [];
@@ -97,6 +105,7 @@ var FullPif = /** @class */ (function () {
             tool_pillar_budget[pillar] = sum;
             tool_pillar_budget_.push(Number(sum).toFixed(2));
         }
+
         var tool_budget = {};
         var tool_effective_budget_ = [];
 
@@ -260,6 +269,21 @@ function updateValues() {
   return result = fullPif.calculate(input);
 };
 
+var score_value = 1;
+
+function score() {
+  var sum = 0.0;
+  for(var i = 0; i < result.output.wz_.length; i++) {
+    if(result.output.wz_[i] <= 0.00) {
+      sum += 0.00;
+    } else {
+      sum += Math.log(result.output.wz_[i])*1/7;
+    }
+  }
+  score_value = sum;
+  return score_value;
+};
+
 function v_gamma_() {
    return result.output.gamma_;
 };
@@ -359,36 +383,47 @@ function z7_ () {
   return updatedResult.output.z7_;
 };
 
-function nr_water(value) {
+var nr_water = pif_parameters.fix_distribution['NR']['water'];
+var nr_land = pif_parameters.fix_distribution['NR']['land'];
+var fm_animal = pif_parameters.fix_distribution['FM']['animal'];
+var fm_export = pif_parameters.fix_distribution['FM']['export'];
+var fm_crop = pif_parameters.fix_distribution['FM']['crop'];
+var ma_road = pif_parameters.fix_distribution['MA']['road'];
+var ma_storage = pif_parameters.fix_distribution['MA']['storage'];
+var hr_research = pif_parameters.fix_distribution['HR']['research'];
+var hr_extension = pif_parameters.fix_distribution['HR']['extension'];
+
+function v_nr_water(value) {
+//  window.alert('fix_distr: ' + JSON.stringify(pif_parameters.fix_distribution));
   pif_parameters.fix_distribution['NR']['water'] = value;
 /*var sum1 = pif_parameters.fix_distribution['NR']['water'] + pif_parameters.fix_distribution['NR']['land'];
   pif_parameters.fix_distribution['NR']['water'] = pif_parameters.fix_distribution['NR']['water'] / sum1;
   pif_parameters.fix_distribution['NR']['land'] = pif_parameters.fix_distribution['NR']['land'] / sum1; */
 };
-function nr_land(value) {
+function v_nr_land(value) {
   pif_parameters.fix_distribution['NR']['land'] = value;
 /*var sum2 = pif_parameters.fix_distribution['NR']['water'] + pif_parameters.fix_distribution['NR']['land'];
   pif_parameters.fix_distribution['NR']['water'] = pif_parameters.fix_distribution['NR']['water'] / sum2;
   pif_parameters.fix_distribution['NR']['land'] = pif_parameters.fix_distribution['NR']['land'] / sum2;*/
 };
-function fm_animal(value) {
+function v_fm_animal(value) {
   pif_parameters.fix_distribution['FM']['fm-animal'] = value;
 };
-function fm_export(value) {
+function v_fm_export(value) {
   pif_parameters.fix_distribution['FM']['fm-export'] = value;
 };
-function fm_crop(value) {
+function v_fm_crop(value) {
   pif_parameters.fix_distribution['FM']['fm-crop'] = value;
 };
-function ma_road(value) {
+function v_ma_road(value) {
   pif_parameters.fix_distribution['MA']['ma-road'] = value;
 };
-function ma_storage(value) {
+function v_ma_storage(value) {
   pif_parameters.fix_distribution['MA']['ma-storage'] = value;
 };
-function hr_research(value) {
+function v_hr_research(value) {
   pif_parameters.fix_distribution['HR']['research'] = value;
 };
-function hr_extension(value) {
+function v_hr_extension(value) {
   pif_parameters.fix_distribution['HR']['extension'] = value;
 };

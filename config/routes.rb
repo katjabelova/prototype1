@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root 'models_visible#index', as: 'home'
+  #root 'models_visible#index', as: 'home'
+  root 'first_screens#firstScreen', as: 'home'
 
   get 'sessions/new'
   get 'users/new'

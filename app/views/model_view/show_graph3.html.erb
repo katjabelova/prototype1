@@ -24,7 +24,7 @@
   <script src="http://code.highcharts.com/modules/exporting.js"></script>
 </head> -->
 
-  <body id="body">
+<!--  <body id="body"> -->
 
     <% path = @dbelems.function_names[0]['path'] == nil ? 'model_functions/textmodel.js' : @dbelems.function_names[0]['path'].to_s %>
     <%= javascript_include_tag path %>
@@ -87,6 +87,10 @@
         </div>
         <div class="wrapperinner">
           <div id="container1" remote="true" style=" min-height: 400px;"></div>
+          <div id="score" style="font-size: 150%; margin-top: 10px; margin-bottom: 10px;" align="center">Score: </div>
+          <div align="center">
+            <button id="savebutton" style="font-size: 125%; background-color: #5bc0de;">Speichern</button>
+          </div>
         </div>
       </div>
 
@@ -96,7 +100,7 @@
         </i>
       </div>
 <div id="containerinner2">
-  <i id="right" class="fa fa-arrow-right" style="font-size:25px;" role="button"></i>
+  <i id="right" class="fa fa-arrow-right" style="font-size:25px; display: none" role="button"></i>
   <div id="container2" remote="true" style="display:none;  min-height: 300px"></div>
   <div class="inputsList">
     <div class="checkbox">
@@ -142,7 +146,7 @@ var tabsChosen = 0;
 $(function() {
   var outputFixed = false;
 
-  var wrapperwidth = document.getElementById("body").getBoundingClientRect().width;
+//  var wrapperwidth = document.getElementById("body").getBoundingClientRect().width;
 
   var old_chart_options = null;
   var old_chart_series = null;
@@ -185,10 +189,14 @@ $(function() {
 $(document).tooltip();
 
 $('#left').on("click", function(event) {
-  $('#sidebar').hide();
-  $('#hiddenright').show();
+   var home_path = '<%= home_path %>';
+   document.location.href = home_path;
+
+//  $('#sidebar').hide();
+//  $('#hiddenright').show();
 });
 
+/*
 $('#right').on("click", function(event) {
   $('#containerinner2').hide();
   $('#hiddenleft').show();
@@ -202,16 +210,29 @@ $('#hiddenright').on("click", function(event) {
 $('#hiddenleft').on("click", function(event) {
   $('#hiddenleft').hide();
   $('#containerinner2').show();
-});
+}); */
 
 var old_dbelems = <%= raw @dbelems.params_with_default_values.to_json %>;
 var old_nested_dbelems = <%= raw @dbelems.nested_slider_settings.to_json %>;
 
+var scorediv = document.getElementById('score');
+
 var autocompare = false;
 
+//var protocolFile = new File('<%= @filename %>');
+
 $(document).on('ready', function() {
+
+/*  protocolFile.open('w');
+  protocolFile.write('<%= @protocol_input %>');
+  protocolFile.close(); */
+
   var dbelems = <%= raw @dbelems.settings_widgets.to_json %>;
   var subdbelems = <%= raw @dbelems.sub_slider_settings.to_json %>;
+
+  var score = window['score']();
+
+  $('#score').text('Score: ' + score.toString());
 
     $(".lis").each(function (index, value) {
       var sliderId  = 'slider' + index.toString();
@@ -312,6 +333,12 @@ $(document).on('ready', function() {
     //  $(this).text() = old_dbelems[index]['param_name'];
   //  });
 
+  });
+
+  $('#savebutton').click(function (event) {
+    //save score for a user
+    var home_path = '<%= home_path %>';
+    document.location.href = home_path;
   });
 
   $('.fixOutput').change(function() {
@@ -436,7 +463,7 @@ $(document).on('ready', function() {
         }
     }
 
-    window[slider['param_name']](parseFloat(ui.value));
+    window['v_' + slider['param_name']](parseFloat(ui.value));
 
     chartOptions.title = "previous values";
     hiddenElem.value = chartOptions;
@@ -477,6 +504,9 @@ $(document).on('ready', function() {
     updateChartWithValues();
 
     old_nested_dbelems[index_]['default_value'] = parseFloat(ui.value);
+
+    var score = window['score']();
+    $('#score').text('Score: ' + score.toString());
   });
 
   $('.slider').on("slidechange", function(event, ui) {
@@ -533,6 +563,8 @@ $(document).on('ready', function() {
           }
         }
 
+        var score = window['score']();
+        $('#score').text('Score: ' + score.toString());
   });
 
  window.updateChart = function(series) {
@@ -677,5 +709,5 @@ updateChart(series);
 
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script src="http://code.highcharts.com/modules/exporting.js"></script>
-  </body>
+<!--  </body> -->
 <!-- </html> -->

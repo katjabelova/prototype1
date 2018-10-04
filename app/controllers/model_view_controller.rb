@@ -6,6 +6,7 @@ require 'json'
 
 class ModelViewController < ApplicationController
   protect_from_forgery with: :null_session
+  include SessionsHelper
 #  after_action :parse_json
 
   @title = "Post requested"
@@ -271,6 +272,23 @@ class ModelViewController < ApplicationController
   end
 
   def show_graph3
+    @timeset = DateTime.now
+
+    if logged_in?
+      @user_id = @current_user.id
+    else
+      @user_id = @timeset.to_s.crypt('default')
+    end
+
+    puts "time: " + @timeset.to_s
+    puts "user: " + @user_id.to_s
+
+    @protocol_input = ""
+    @protocol_input += 'start\n'
+    @protocol_input += "time: " + @timeset.to_s + " ;  " + "user: " + @user_id.to_s + '\n'
+
+    @filename = Rails.root + "log/protocols/" + @timeset.to_s + "_" + @user_id.to_s
+
     @id = params[:id]
     @dbelems = QueryModelFromDatabase.new(params[:id])
     #subslidersettings = @dbelems.subslidersettings
