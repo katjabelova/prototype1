@@ -287,7 +287,9 @@ class ModelViewController < ApplicationController
     @protocol_input += 'start\n'
     @protocol_input += "time: " + @timeset.to_s + " ;  " + "user: " + @user_id.to_s + '\n'
 
-    @filename = Rails.root + "log/protocols/" + @timeset.to_s + "_" + @user_id.to_s
+    combinedTimeUser = @timeset.to_s + '_' + @user_id.to_s
+
+    @filename = Rails.root + "log/protocols/" + combinedTimeUser
 
     @id = params[:id]
     @dbelems = QueryModelFromDatabase.new(params[:id])

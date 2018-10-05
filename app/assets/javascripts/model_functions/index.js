@@ -385,11 +385,11 @@ function z7_ () {
 
 var nr_water = pif_parameters.fix_distribution['NR']['water'];
 var nr_land = pif_parameters.fix_distribution['NR']['land'];
-var fm_animal = pif_parameters.fix_distribution['FM']['animal'];
-var fm_export = pif_parameters.fix_distribution['FM']['export'];
-var fm_crop = pif_parameters.fix_distribution['FM']['crop'];
-var ma_road = pif_parameters.fix_distribution['MA']['road'];
-var ma_storage = pif_parameters.fix_distribution['MA']['storage'];
+var fm_animal = pif_parameters.fix_distribution['FM']['fm-animal'];
+var fm_export = pif_parameters.fix_distribution['FM']['fm-export'];
+var fm_crop = pif_parameters.fix_distribution['FM']['fm-crop'];
+var ma_road = pif_parameters.fix_distribution['MA']['ma-road'];
+var ma_storage = pif_parameters.fix_distribution['MA']['ma-storage'];
 var hr_research = pif_parameters.fix_distribution['HR']['research'];
 var hr_extension = pif_parameters.fix_distribution['HR']['extension'];
 

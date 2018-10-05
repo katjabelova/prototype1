@@ -219,13 +219,35 @@ var scorediv = document.getElementById('score');
 
 var autocompare = false;
 
-//var protocolFile = new File('<%= @filename %>');
+var nested_settings = <%= raw @dbelems.nested_slider_settings.to_json %>;
+var function_names = <%= raw @dbelems.function_names.to_json %>;
+
+var protocolFile = new File([''], '<%= @filename %>');
+var protocolContent = '<%= @protocol_input %>';
+protocolContent += 'tab: ' + firstTabChosen.textContent + '\n';
+
+for(var ns = 0; ns < nested_settings.length; ns++ ) {
+  var setting = nested_settings[ns];
+  protocolContent += setting['param_name'] + ': ' + window[setting['param_name']] + '\n';
+}
+
+for(var fn = 0; fn < function_names.length; fn++ ) {
+  var fct_name = function_names[fn];
+  protocolContent += fct_name['name'] + ': ' + window[fct_name['name']]() + '\n';
+}
+
+protocolContent += 'score: ' + window['score_value'] + '\n';
+
+window.alert('content: ' + protocolContent);
+// protocolFile.open('w');
+//  protocolFile.write('<%= @protocol_input %>');
+//  protocolFile.close();
 
 $(document).on('ready', function() {
 
-/*  protocolFile.open('w');
-  protocolFile.write('<%= @protocol_input %>');
-  protocolFile.close(); */
+//  protocolFile.open('w');
+//  protocolFile.write('<%= @protocol_input %>');
+//  protocolFile.close();
 
   var dbelems = <%= raw @dbelems.settings_widgets.to_json %>;
   var subdbelems = <%= raw @dbelems.sub_slider_settings.to_json %>;
@@ -431,6 +453,21 @@ $(document).on('ready', function() {
      chartOptions.title = title;
      chartOptions.xAxis.categories = dbelems[idChosen]['xcategories'];
      updateChartWithValues();
+
+     var tab = document.getElementsByClassName("autocompare_")[tabsChosen];
+     protocolContent += 'tab: ' + tab.textContent + '\n';
+
+     for(var ns = 0; ns < nested_settings.length; ns++ ) {
+       var setting = nested_settings[ns];
+       protocolContent += setting['param_name'] + ': ' + window[setting['param_name']] + '\n';
+     }
+
+     protocolContent += 'tab changed ' + '\n';
+     protocolContent += tab.textContent + ': ' + window[tab.textContent + '_']() + '\n';
+
+     protocolContent += 'score: ' + window['score_value'] + '\n';
+
+     window.alert('content: ' + protocolContent);
  });
 
  /*$('#elem').show(1000, function() {
@@ -507,6 +544,18 @@ $(document).on('ready', function() {
 
     var score = window['score']();
     $('#score').text('Score: ' + score.toString());
+
+    var tab = document.getElementsByClassName("autocompare_")[tabsChosen];
+    protocolContent += 'tab: ' + tab.textContent + '\n';
+
+    protocolContent += 'slider changed: ' + '\n';
+    protocolContent += slider['param_name'] + ': ' + window[slider['param_name']] + '\n';
+
+    protocolContent += tab.textContent + ': ' + window[tab.textContent + '_']() + '\n';
+
+    protocolContent += 'score: ' + window['score_value'] + '\n';
+
+    window.alert('content: ' + protocolContent);
   });
 
   $('.slider').on("slidechange", function(event, ui) {
@@ -565,6 +614,32 @@ $(document).on('ready', function() {
 
         var score = window['score']();
         $('#score').text('Score: ' + score.toString());
+
+        var tab = document.getElementsByClassName("autocompare_")[tabsChosen];
+        protocolContent += 'tab: ' + tab.textContent + '\n';
+
+        protocolContent += 'slider changed: ' + '\n';
+        protocolContent += dbelems[index]['param_name'] + ': ' + window[dbelems[index]['param_name']] + '\n';
+
+        protocolContent += tab.textContent + ': ' + window[tab.textContent + '_']() + '\n';
+      /*  for(var fn = 0; fn < function_names.length; fn++ ) {
+          var fct_name = function_names[fn];
+          protocolContent += fct_name['name'] + ': ' + window[fct_name['name']]() + '\n';
+        } */
+
+        protocolContent += 'score: ' + window['score_value'] + '\n';
+
+        window.alert('content: ' + protocolContent);
+  });
+
+  $('#savebutton').on('click', function() {
+      protocolContent += 'final score: ' + window['score_value'] + '\n';
+      window.alert('content: ' + protocolContent);
+  });
+
+  $('#left').on('click', function() {
+      protocolContent += 'final score: ' + window['score_value'] + '\n';
+      window.alert('content: ' + protocolContent);
   });
 
  window.updateChart = function(series) {
