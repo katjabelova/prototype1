@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   get '/graph', to: 'model_view#show_graph'
   get '/graph2', to: 'model_view#show_graph2'
   get '/model_view/:id', to: 'model_view#show_graph3', as: 'graph3'
+  post '/model_view/:id', to: 'model_view#show_graph3', as: 'graph3_post'
   get '/model_view/:id', to: 'model_view#show_graph4', as: 'graph4'
   post '/modelinfo', to: 'model_view#model_info', as: 'modelinfo'
 #  get '/graph3', to: 'model_view#show_graph3'

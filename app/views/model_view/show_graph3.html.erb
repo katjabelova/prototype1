@@ -26,6 +26,7 @@
 
 <!--  <body id="body"> -->
 
+    <% if @dbelems != nil %>
     <% path = @dbelems.function_names[0]['path'] == nil ? 'model_functions/textmodel.js' : @dbelems.function_names[0]['path'].to_s %>
     <%= javascript_include_tag path %>
 
@@ -140,6 +141,7 @@
   </div>
 </div>
 </div>
+
 <script>
 var tabsChosen = 0;
 
@@ -189,8 +191,18 @@ $(function() {
 $(document).tooltip();
 
 $('#left').on("click", function(event) {
-   var home_path = '<%= home_path %>';
-   document.location.href = home_path;
+  protocolContent += 'final score: ' + window['score_value'] + '\n';
+
+  var request = $.ajax({
+      type: 'POST',
+      url: '<%= graph3_post_path %>',
+      data: {'protocol' : protocolContent, 'filename' : '<%= @filename %>' }
+    });
+
+  request.done(function( msg ) {
+    var home_path = '<%= home_path %>';
+    document.location.href = home_path;
+  });
 
 //  $('#sidebar').hide();
 //  $('#hiddenright').show();
@@ -359,8 +371,20 @@ $(document).on('ready', function() {
 
   $('#savebutton').click(function (event) {
     //save score for a user
+    protocolContent += 'final score: ' + window['score_value'] + '\n';
+    //window.alert('content: ' + protocolContent);
+
+  var request = $.ajax({
+      type: 'POST',
+      url: '<%= graph3_post_path %>',
+      data: {'protocol' : protocolContent, 'filename' : '<%= @filename %>' }
+    });
+
+  request.done(function( msg ) {
     var home_path = '<%= home_path %>';
     document.location.href = home_path;
+  });
+  //  document.location.href = home_path;
   });
 
   $('.fixOutput').change(function() {
@@ -632,15 +656,21 @@ $(document).on('ready', function() {
         window.alert('content: ' + protocolContent);
   });
 
-  $('#savebutton').on('click', function() {
+/*  $('#savebutton').on('click', function() {
       protocolContent += 'final score: ' + window['score_value'] + '\n';
       window.alert('content: ' + protocolContent);
-  });
 
-  $('#left').on('click', function() {
-      protocolContent += 'final score: ' + window['score_value'] + '\n';
-      window.alert('content: ' + protocolContent);
-  });
+      $.ajax({
+        type: 'POST',
+        url: '/model_view_controller/show_graph3',
+        data: {'protocol' : protocolContent },
+        success: function(data){
+          alert('success');
+          //data is whatever you RETURN from your controller.
+          //an array, string, object...something
+        }
+      });
+  }); */
 
  window.updateChart = function(series) {
   <% puts "update function called" %>
@@ -784,5 +814,7 @@ updateChart(series);
 
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+  <% end %>
 <!--  </body> -->
 <!-- </html> -->

@@ -271,13 +271,28 @@ class ModelViewController < ApplicationController
           ])
   end
 
+  def sent_proto
+    puts 'in get'
+    puts 'params: ' + params.to_json
+  end
+
   def show_graph3
-    @timeset = DateTime.now
+    if request.post?
+      puts 'request post'
+      puts 'params: ' + params.to_json
+
+      File.new(params['filename'], 'w+')
+      File.open(params['filename'], 'w+') { |f| f << params['protocol'] }
+    else
+      puts 'request ...'
+      @timeset = DateTime.now.to_s
+      @timeset = @timeset.gsub(':', '-')
 
     if logged_in?
       @user_id = @current_user.id
     else
-      @user_id = @timeset.to_s.crypt('default')
+      file_count = Dir.glob(File.join(Rails.root + "protocol/protocols/", '**', '*')).select { |file| File.file?(file) }.count + 1
+      @user_id = 'default' + file_count.to_s
     end
 
     puts "time: " + @timeset.to_s
@@ -285,16 +300,15 @@ class ModelViewController < ApplicationController
 
     @protocol_input = ""
     @protocol_input += 'start\n'
-    @protocol_input += "time: " + @timeset.to_s + " ;  " + "user: " + @user_id.to_s + '\n'
+    @protocol_input += "time: " + @timeset + " ;  " + "user: " + @user_id.to_s + '\n'
 
     combinedTimeUser = @timeset.to_s + '_' + @user_id.to_s
 
-    @filename = Rails.root + "log/protocols/" + combinedTimeUser
+    @filename = Rails.root + "protocol/protocols/" + combinedTimeUser
 
     @id = params[:id]
     @dbelems = QueryModelFromDatabase.new(params[:id])
-    #subslidersettings = @dbelems.subslidersettings
-    #puts "slider settings in controller: " + subslidersettings.to_s
+    end
   end
 
   def show_graph4
