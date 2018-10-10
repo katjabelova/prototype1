@@ -1,5 +1,5 @@
 start
-time: 2018-10-08T16-35-51+02-00 ;  user: devNa8WgiMFPI
+time: 2018-10-09T17-35-25+02-00 ;  user: default3
 tab: gamma
 share_investment: 0.15
 share_agrar: 0.66
@@ -32,7 +32,7 @@ z7_: 99.96,99.96,99.96,99.96,99.96,99.96,99.96,99.96,99.96,99.95,99.95
 score: 1
 tab: gamma
 slider changed: 
-share_investment: 0.77
-gamma: 0.26,0.07,0.11,0.05,0.02,0.00,0.10,0.12,0.02,0.02
-score: -1.9229882543185524
-final score: -1.9229882543185524
+share_investment: 0.64
+gamma: 0.22,0.06,0.09,0.04,0.02,0.00,0.08,0.10,0.01,0.02
+score: 0.144
+final score: 0.144

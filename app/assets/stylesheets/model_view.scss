@@ -22,12 +22,14 @@
 }
 
 .inputsList {
-  margin-top: -9em;
+//  margin-top: -9em;
 }
 
 .checkbox {
-  margin-left: 5em;
-  width: 30em;
+  //margin-left: 2em;
+
+  text-align: center;
+//  width: 30em;
 }
 
 #contentinner {
@@ -46,8 +48,8 @@
 
 .mainContent {
 //  margin-top: 25.5%;
-  margin-top: 31.5%;
-  transform: translateY(-50%);
+//  margin-top: 31.5%;
+//  transform: translateY(-50%);
 }
 
 #containerinner2 {
@@ -80,8 +82,8 @@
 }
 
 #container2 {
-  margin-top: 82%;
-  transform: translateY(-50%);
+//  margin-top: 82%;
+//  transform: translateY(-50%);
   border-width: thin;
   border-style: solid;
   border-color: black;
@@ -90,7 +92,7 @@
 
   margin-left: 0px;
   margin-right: 0px;
-  margin-bottom: 0px;
+//  margin-bottom: 0px;
 }
 
 /*
@@ -104,7 +106,7 @@
 #left {
   position: relative;
   float: left;
-  margin-right: 5px;
+  margin-left: 10px;
   color: #5bc0de;
 }
 
@@ -161,7 +163,7 @@
 
 .wrapper > nav {
   order: 1;
-  min-width: 18vw;
+  min-width: 30vw;
 //  max-width: 25%;
 }
 
@@ -244,7 +246,7 @@ button {
 }
 
 .slider, .subslider {
-  width: 80%;
+  width: 95%;
 }
 
 /* The slider itself */

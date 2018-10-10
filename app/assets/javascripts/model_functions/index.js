@@ -273,14 +273,20 @@ var score_value = 1;
 
 function score() {
   var sum = 0.0;
-  for(var i = 0; i < result.output.wz_.length; i++) {
-    if(result.output.wz_[i] <= 0.00) {
+  var z_array = [result.output.z1_[10], result.output.z2_[10], result.output.z3_[10], result.output.z4_[10], result.output.z5_[10],
+   result.output.z6_[10], result.output.z7_[10]];
+  // var z_array = [Math.max(...result.output.z1_), Math.max(...result.output.z2_), Math.max(...result.output.z3_), Math.max(...result.output.z4_), Math.max(...result.output.z5_),
+ // Math.max(...result.output.z6_), Math.max(...result.output.z7_)];
+//  window.alert('zs: ' + z_array.toString());
+  var alphas_array = [0.05, 0.33, 0.24, 0.04, 0.1, 0.07, 0.17];
+  for(var i = 0; i < z_array.length; i++) {
+    if(z_array[i] <= 0.00) {
       sum += 0.00;
     } else {
-      sum += Math.log(result.output.wz_[i])*1/7;
+      sum += Math.log(z_array[i])*alphas_array[i];
     }
   }
-  score_value = sum;
+  score_value = Number(Math.exp(sum)).toFixed(3);
   return score_value;
 };
 
