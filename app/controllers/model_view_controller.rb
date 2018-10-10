@@ -2,6 +2,7 @@ require 'rubygems'
 require 'faraday'
 require 'open-uri'
 require 'json'
+require 'resolv'
 
 
 class ModelViewController < ApplicationController
@@ -280,11 +281,17 @@ class ModelViewController < ApplicationController
     if request.post?
       puts 'request post'
       puts 'params: ' + params.to_json
+    #  host_remote = Resolv.getname(request.remote_ip)
+
+  #    puts "remote host": host_remote
 
       File.new(params['filename'], 'w+')
       File.open(params['filename'], 'w+') { |f| f << params['protocol'] }
     else
       puts 'request ...'
+    #  host_remote = Resolv.getname(request.remote_ip)
+
+    #  puts "remote host": host_remote
       @timeset = DateTime.now.to_s
       @timeset = @timeset.gsub(':', '-')
 

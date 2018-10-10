@@ -211,6 +211,25 @@ $('#left').on("click", function(event) {
 //  $('#hiddenright').show();
 });
 
+$(window).on("navigate", function (event, data) {
+  var direction = data.state.direction;
+  if (direction == 'back') {
+    window.alert("back direction");
+    protocolContent += 'final score: ' + window['score_value'] + '\n';
+
+    var request = $.ajax({
+        type: 'POST',
+        url: '<%= graph3_post_path %>',
+        data: {'protocol' : protocolContent, 'filename' : '<%= @filename %>' }
+      });
+
+    request.done(function( msg ) {
+      var home_path = '<%= home_path %>';
+      document.location.href = home_path;
+    });
+  }
+});
+
 /*
 $('#right').on("click", function(event) {
   $('#containerinner2').hide();
@@ -250,8 +269,6 @@ for(var fn = 0; fn < function_names.length; fn++ ) {
   var fct_name = function_names[fn];
   protocolContent += fct_name['name'] + ': ' + window[fct_name['name']]() + '\n';
 }
-
-protocolContent += 'score: ' + window['score_value'] + '\n';
 
 //window.alert('content: ' + protocolContent);
 // protocolFile.open('w');
@@ -582,7 +599,7 @@ $(document).on('ready', function() {
 
     protocolContent += 'score: ' + window['score_value'] + '\n';
 
-    window.alert('content: ' + protocolContent);
+  //  window.alert('content: ' + protocolContent);
   });
 
   $('.slider').on("slidechange", function(event, ui) {
@@ -656,7 +673,7 @@ $(document).on('ready', function() {
 
         protocolContent += 'score: ' + window['score_value'] + '\n';
 
-        window.alert('content: ' + protocolContent);
+    //    window.alert('content: ' + protocolContent);
   });
 
 /*  $('#savebutton').on('click', function() {
@@ -677,14 +694,14 @@ $(document).on('ready', function() {
 
  window.updateChart = function(series) {
   <% puts "update function called" %>
-  <% puts "res: " + @dbelems.output_values[0][:order_number].to_s %>
-  tabsChosen = parseInt('<%=  @dbelems.output_values[0]['order_number'].to_s %>');
-  chartType = "<%= @dbelems.output_values[0]['chart_type'].to_s %>";
-  var title = "<%= @dbelems.output_values[0]['title'].to_s %>";
+  <% puts "res: " + @dbelems.output_values[5][:order_number].to_s %>
+  tabsChosen = parseInt('<%=  @dbelems.output_values[5]['order_number'].to_s %>');
+  chartType = "<%= @dbelems.output_values[5]['chart_type'].to_s %>";
+  var title = "<%= @dbelems.output_values[5]['title'].to_s %>";
   chartOptions.chart.type = chartType;
   chartOptions.title = title;
-  chartOptions.xAxis.categories = <%= raw @dbelems.output_values[0]['xcategories'] %>;
-  chartOptions.yAxis.title.text = '<%= raw @dbelems.output_values[0]['yname'] %>';
+  chartOptions.xAxis.categories = <%= raw @dbelems.output_values[5]['xcategories'] %>;
+  chartOptions.yAxis.title.text = '<%= raw @dbelems.output_values[5]['yname'] %>';
   updateChartWithValues();
 };
 
@@ -692,6 +709,10 @@ window.updateChartWithValues = function() {
     var dbelems = <%= raw @dbelems.output_values.to_json %>;
     var dbfunctions = <%= raw @dbelems.function_names.to_json %>;
     var index = firstStart ? 5 : tabsChosen;
+    if (firstStart) {
+      window['score']();
+      protocolContent += 'score: ' + window['score_value'] + '\n';
+    }
     firstStart = false;
 
     var functionName = dbfunctions[index]['name'];
@@ -816,6 +837,8 @@ updateChart(series);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.min.css"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.min.js"></script>
+
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
 
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script src="http://code.highcharts.com/modules/exporting.js"></script>
