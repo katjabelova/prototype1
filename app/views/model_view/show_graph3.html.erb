@@ -162,6 +162,7 @@ $(function() {
 
   var firstTabChosen = document.getElementsByClassName("autocompare_")[tabsChosen];
   firstTabChosen.style.backgroundColor = '#5bc0de';
+  var textContent = firstTabChosen.textContent;
 //  document.getElementsByClassName("autocompare_")[tabsChosen].addClass("active");
 
   var series = [{
@@ -191,10 +192,10 @@ $(function() {
     //  tickInterval: 0.01
    }
  };
-$(document).tooltip();
+//$(document).tooltip();
 
 $('#left').on("click", function(event) {
-  protocolContent += 'final score: ' + window['score_value'] + '\n';
+  protocolContent += 'end' + '\n';
 
   var request = $.ajax({
       type: 'POST',
@@ -206,15 +207,12 @@ $('#left').on("click", function(event) {
     var home_path = '<%= home_path %>';
     document.location.href = home_path;
   });
-
-//  $('#sidebar').hide();
-//  $('#hiddenright').show();
 });
 
 $(window).on("navigate", function (event, data) {
   var direction = data.state.direction;
   if (direction == 'back') {
-    window.alert("back direction");
+  //  window.alert("back direction");
     protocolContent += 'final score: ' + window['score_value'] + '\n';
 
     var request = $.ajax({
@@ -260,27 +258,19 @@ var protocolFile = new File([''], '<%= @filename %>');
 var protocolContent = '<%= @protocol_input %>';
 protocolContent += 'tab: ' + firstTabChosen.textContent + '\n';
 
+protocolContent += 'slider input: ' + '\n';
 for(var ns = 0; ns < nested_settings.length; ns++ ) {
   var setting = nested_settings[ns];
   protocolContent += setting['param_name'] + ': ' + window[setting['param_name']] + '\n';
 }
 
+protocolContent += 'output: ' + '\n';
 for(var fn = 0; fn < function_names.length; fn++ ) {
   var fct_name = function_names[fn];
   protocolContent += fct_name['name'] + ': ' + window[fct_name['name']]() + '\n';
 }
 
-//window.alert('content: ' + protocolContent);
-// protocolFile.open('w');
-//  protocolFile.write('<%= @protocol_input %>');
-//  protocolFile.close();
-
 $(document).on('ready', function() {
-
-//  protocolFile.open('w');
-//  protocolFile.write('<%= @protocol_input %>');
-//  protocolFile.close();
-
   var dbelems = <%= raw @dbelems.settings_widgets.to_json %>;
   var subdbelems = <%= raw @dbelems.sub_slider_settings.to_json %>;
 
@@ -390,9 +380,8 @@ $(document).on('ready', function() {
   });
 
   $('#savebutton').click(function (event) {
-    //save score for a user
     protocolContent += 'final score: ' + window['score_value'] + '\n';
-    //window.alert('content: ' + protocolContent);
+    protocolContent += 'end' + '\n';
 
   var request = $.ajax({
       type: 'POST',
@@ -404,7 +393,6 @@ $(document).on('ready', function() {
     var home_path = '<%= home_path %>';
     document.location.href = home_path;
   });
-  //  document.location.href = home_path;
   });
 
   $('.fixOutput').change(function() {
@@ -427,7 +415,7 @@ $(document).on('ready', function() {
           $( ".slider" ).slider( "option", "disabled", true );
           $('.slis').each(function(i) {
           var slisId = $(this).attr('data');
-        //  window.alert('slis data: ' + slisId.toString());
+
           if($(this).attr('data') != correspondingId) {
             $(this).hide();
           } else {
@@ -498,16 +486,15 @@ $(document).on('ready', function() {
      chartOptions.xAxis.categories = dbelems[idChosen]['xcategories'];
      updateChartWithValues();
 
-     var tab = document.getElementsByClassName("autocompare_")[tabsChosen];
-     protocolContent += 'tab: ' + tab.textContent + '\n';
-
-     for(var ns = 0; ns < nested_settings.length; ns++ ) {
-       var setting = nested_settings[ns];
-       protocolContent += setting['param_name'] + ': ' + window[setting['param_name']] + '\n';
-     }
+     //var tab = document.getElementsByClassName("autocompare_")[tabsChosen];
+     textContent = $(this).text();
 
      protocolContent += 'tab changed ' + '\n';
-     protocolContent += tab.textContent + ': ' + window[tab.textContent + '_']() + '\n';
+     protocolContent += 'tab: ' + $(this).text() + '\n';
+
+     protocolContent += 'output: ' + '\n';
+
+     protocolContent += $(this).text() + ': ' + window[$(this).text() + '_']() + '\n';
 
      protocolContent += 'score: ' + window['score_value'] + '\n';
 
@@ -589,13 +576,29 @@ $(document).on('ready', function() {
     var score = window['score']();
     $('#score').text('Score: ' + score.toString());
 
-    var tab = document.getElementsByClassName("autocompare_")[tabsChosen];
-    protocolContent += 'tab: ' + tab.textContent + '\n';
+  //  var tab = document.getElementsByClassName("autocompare_")[tabsChosen];
+  //  var tab = $(".autocompare_ , .active ");
+  //  var tab = document.getElementsByClassName("autocompare_").find(".active");
+
+  /*  var tabs = document.getElementsByClassName("autocompare_");
+    var index = 0;
+    for(var i = 0; i < tabs.length; i++) {
+      if(tabs[i].hasClass("active")) {
+        index = i;
+      }
+    }
+    window.alert("index: " + index.toString());
+    var tab = document.getElementsByClassName("autocompare_")[index]; */
+
+  //  var tab = firstTabChosen;
+
+    protocolContent += 'tab: ' + textContent + '\n';
 
     protocolContent += 'slider changed: ' + '\n';
     protocolContent += slider['param_name'] + ': ' + window[slider['param_name']] + '\n';
 
-    protocolContent += tab.textContent + ': ' + window[tab.textContent + '_']() + '\n';
+    protocolContent += 'output: ' + '\n';
+    protocolContent += textContent + ': ' + window[textContent + '_']() + '\n';
 
     protocolContent += 'score: ' + window['score_value'] + '\n';
 
@@ -659,13 +662,32 @@ $(document).on('ready', function() {
         var score = window['score']();
         $('#score').text('Score: ' + score.toString());
 
-        var tab = document.getElementsByClassName("autocompare_")[tabsChosen];
-        protocolContent += 'tab: ' + tab.textContent + '\n';
+      //  var tab = document.getElementsByClassName("autocompare_")[tabsChosen];
+      //  var tab = $(".autocompare_ , .active ");
+      //  var tab = document.getElementsByClassName("autocompare_").find(".active");
+
+    /*    var tabs = document.getElementsByClassName("autocompare_");
+        var index = 0;
+        window.alert("index: " + index.toString());
+        for (var ii = 0; ii < tabs.length; ii++) {
+          window.alert("in for");
+          window.alert(tabs[ii]);
+          if (tabs[ii].hasClass("active")) {
+            window.alert("in if");
+            index = ii;
+          };
+        };
+        window.alert("index: " + index.toString());
+        var tab = document.getElementsByClassName("autocompare_")[index]; */
+    //    var tab = firstTabChosen;
+
+    //    window.alert("tab: " + tab.toString());
+        protocolContent += 'tab: ' + textContent + '\n';
 
         protocolContent += 'slider changed: ' + '\n';
         protocolContent += dbelems[index]['param_name'] + ': ' + window[dbelems[index]['param_name']] + '\n';
-
-        protocolContent += tab.textContent + ': ' + window[tab.textContent + '_']() + '\n';
+        protocolContent += 'output: ' + '\n';
+        protocolContent += textContent + ': ' + window[textContent + '_']() + '\n';
       /*  for(var fn = 0; fn < function_names.length; fn++ ) {
           var fct_name = function_names[fn];
           protocolContent += fct_name['name'] + ': ' + window[fct_name['name']]() + '\n';

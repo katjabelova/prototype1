@@ -1,5 +1,5 @@
 start
-time: 2018-10-10T13-47-21+02-00 ;  user: default7
+time: 2018-10-11T12-55-30+02-00 ;  user: default34
 tab: wz
 share_investment: 0.15
 share_agrar: 0.66
@@ -29,11 +29,73 @@ z4_: 121.74,131.37,141.00,150.63,160.26,169.89,179.52,189.15,198.79,208.42,218.0
 z5_: 3625.43,3823.13,4020.84,4218.54,4416.24,4613.95,4811.65,5009.35,5207.06,5404.76,5602.46
 z6_: 1405.49,1479.60,1553.70,1627.81,1701.92,1776.02,1850.13,1924.24,1998.34,2072.45,2146.56
 z7_: 99.96,99.96,99.96,99.96,99.96,99.96,99.96,99.96,99.96,99.95,99.95
-score: 1
+score: 389.042
 tab: wz
 slider changed: 
-share_investment: 0.49
-wz: 0.07,0.02,-0.23,0.11,0.08,0.08,-0.00
-score: 106.259
-final score: 106.259
-final score: 106.259
+share_investment: 0.2
+wz: 0.05,0.01,-0.04,0.09,0.06,0.06,-0.00
+score: 361.430
+tab: wz
+slider changed: 
+share_agrar: 0.69
+wz: 0.05,0.01,-0.04,0.09,0.06,0.05,-0.00
+score: 357.701
+tab changed 
+tab: z1
+share_investment: 0.2
+share_agrar: 0.69
+share_pi_nr: 5
+nr_water: 0.4
+nr_land: 0.6
+share_pi_fm: 2
+fm_crop: 0.7087
+fm_animal: 0.2756
+fm_export: 0.0157
+share_pi_ma: 6
+ma_road: 0.4444
+ma_storage: 0.5556
+share_pi_hr: 1
+hr_research: 0.4286
+hr_extension: 0.5714
+z1: 858.70,904.27,949.84,995.42,1040.99,1086.56,1132.14,1177.71,1223.28,1268.85,1314.43
+score: 357.701
+tab: z1
+slider changed: 
+share_investment: 0.26
+z1: 858.70,907.56,956.43,1005.29,1054.15,1103.02,1151.88,1200.75,1249.61,1298.47,1347.34
+score: 293.661
+tab: z1
+slider changed: 
+share_agrar: 0.74
+z1: 858.70,905.54,952.39,999.23,1046.08,1092.92,1139.77,1186.61,1233.46,1280.30,1327.15
+score: 276.757
+tab changed 
+tab: z2
+share_investment: 0.26
+share_agrar: 0.74
+share_pi_nr: 5
+nr_water: 0.4
+nr_land: 0.6
+share_pi_fm: 2
+fm_crop: 0.7087
+fm_animal: 0.2756
+fm_export: 0.0157
+share_pi_ma: 6
+ma_road: 0.4444
+ma_storage: 0.5556
+share_pi_hr: 1
+hr_research: 0.4286
+hr_extension: 0.5714
+z2: 169.19,176.97,184.75,192.53,200.31,208.09,215.87,223.65,231.43,239.21,246.98
+score: 276.757
+tab: z2
+slider changed: 
+share_investment: 0.31
+z2: 169.19,177.86,186.52,195.19,203.86,212.52,221.19,229.85,238.52,247.19,255.85
+score: 99.765
+tab: z2
+slider changed: 
+share_agrar: 0.79
+z2: 169.19,177.38,185.57,193.75,201.94,210.13,218.32,226.50,234.69,242.88,251.07
+score: 98.794
+final score: 98.794
