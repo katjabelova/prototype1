@@ -40,19 +40,19 @@ attr_accessor :function_names, :params_with_default_values, :output_values, :set
          puts "parent nil"
           @settings_widgets.push(settings_widget_element)
        else
-          puts "parent not nil"
+=begin    puts "parent not nil"
           parentId = settings_widget.parent.to_s
           puts "parent_id: " + parentId
 
           if @sub_slider_settings[parentId] == nil
               @sub_slider_settings[parentId] = []
           end
-        #  @sub_slider_settings[parentId] = @sub_slider_settings[parentId] == nil ? [] : @sub_slider_settings[parentId]
 
           @subpifsCount = @subpifsCount + 1
           @sub_slider_settings[parentId].push(settings_widget_element)
 
           puts "sub_slider in query model: " + @sub_slider_settings.to_s
+=end        
        end
 
       end

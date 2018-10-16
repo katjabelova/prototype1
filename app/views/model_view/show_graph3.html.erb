@@ -76,7 +76,6 @@
 
    <div id="contentinner">
       <h1>Modell <%= @id.to_s %></h1>
-
       <div class="mainContent">
         <div id="tabs">
 
@@ -104,6 +103,7 @@
 <div id="containerinner2">
   <i id="right" class="fa fa-arrow-right" style="font-size:25px; display: none" role="button"></i>
   <h1>Schritt bevor</h1>
+
   <div class="checkbox">
       <label>
         Output fixieren
@@ -111,6 +111,7 @@
       <input data-toggle="toggle" type="checkbox" class="fixOutput"></input>
   </div>
   <div id="container2" remote="true" style="display:none;  min-height: 300px"></div>
+  <div id="score_id" style="text-align: center; font-weight: bold">Alter Score: </div>
   <div class="inputsList">
       <ul class="outputName" style="list-style-type:none">Input-Werte:
 
@@ -519,6 +520,7 @@ $(document).on('ready', function() {
   // });
 
   $('.subslider').on("slidechange", function(event, ui) {
+    $('#score_id').text('Alter Score: ' + window['score_value'].toString());
     autocompare = false;
     var dbelems = <%= raw @dbelems.sub_slider_settings.to_json %>;
     var subSliderIdArray = $(this).attr('id').split('_');
@@ -606,6 +608,7 @@ $(document).on('ready', function() {
   });
 
   $('.slider').on("slidechange", function(event, ui) {
+        $('#score_id').text('Alter Score: ' + window['score_value'].toString());
         autocompare = false;
         var dbelems = <%= raw @dbelems.params_with_default_values.to_json %>;
         var index = parseInt($(this).attr('data'));
