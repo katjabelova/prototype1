@@ -303,11 +303,14 @@ function score() {
 
 //  var secondPart = Math.pow(pow_2, z3);
 
+  //??
   var secondPart = 0.0;
   for(var jj = 0; jj < result.output.z3_.length; jj++) {
-    secondPart += Math.pow(pow_2, result.output.z3_[jj]);
+    var z3_elem = parseFloat(result.output.z3_[jj]) <= 0 ? 0.0 : parseFloat(result.output.z3_[jj]); //??
+    secondPart += Math.pow(pow_2, z3_elem);
   }
-  secondPart = secondPart.toFixed(3);
+  //secondPart = secondPart.toFixed(3);
+  //??
 
   window.alert('second part: ' + secondPart.toString());
   var tool_score = prod + parseFloat(data.parameters.tool_discount[0]) * secondPart;
