@@ -79,6 +79,10 @@ var FullPif = /** @class */ (function () {
             tool_gamma[pi] = input.share_investment * input.share_agrar * share;
             tool_gamma_.push(Number(input.share_investment * input.share_agrar * share).toFixed(2));
         }
+
+      //  window.alert('tool_gamma 1: ' + JSON.stringify(tool_gamma));
+      //  window.alert('tool_gamma 2: ' + tool_gamma_.toString());
+
         var tool_policy = {};
         var tool_policy_ = [];
         tool_policy_.push(0);
@@ -94,6 +98,9 @@ var FullPif = /** @class */ (function () {
         tool_policy_[0] = tool_policy_[tool_policy_.length - 1];
         tool_policy_.splice(-1,1);
 
+      //  window.alert('tool_policy 1: ' + JSON.stringify(tool_policy));
+      //  window.alert('tool_policy 2: ' + tool_policy_.toString());
+
         var tool_pillar_budget = {};
         var tool_pillar_budget_ = [];
 
@@ -107,6 +114,9 @@ var FullPif = /** @class */ (function () {
             tool_pillar_budget[pillar] = sum;
             tool_pillar_budget_.push(Number(sum).toFixed(2));
         }
+
+      //  window.alert('tool_pillar_b 1: ' + JSON.stringify(tool_pillar_budget));
+      //  window.alert('tool_pillar_b 2: ' + tool_pillar_budget_.toString());
 
         var tool_budget = {};
         var tool_effective_budget_ = [];
@@ -122,6 +132,10 @@ var FullPif = /** @class */ (function () {
             tool_budget[s] = this.pif_parameters.bud_norm[s] * Math.pow(sum, (-1 / this.pif_parameters.rho));
             tool_effective_budget_.push(Number(this.pif_parameters.bud_norm[s] * Math.pow(sum, (-1 / this.pif_parameters.rho))).toFixed(2));
         }
+
+      //  window.alert('tool_eff 1: ' + JSON.stringify(tool_budget));
+      //  window.alert('tool_eff 2: ' + tool_effective_budget_.toString());
+
         var tool_tp = {};
         var tool_tp_ = [];
 
@@ -130,6 +144,10 @@ var FullPif = /** @class */ (function () {
             tool_tp[s] = this.pif_parameters.emax[s] * 1 / (1 + Math.exp(-(tool_budget[s] * this.pif_parameters.a[s] + this.pif_parameters.b[s])));
             tool_tp_.push(Number(tool_tp[s]).toFixed(2));
         }
+
+      //  window.alert('tool_tp 1: ' + JSON.stringify(tool_tp));
+      //  window.alert('tool_tp 2: ' + tool_tp_.toString());
+
         var tool_wz = {};
         var tool_wz_ = [];
 
@@ -170,6 +188,7 @@ var FullPif = /** @class */ (function () {
             var z = _u[_t];
             tool_z[z] = {};
             tool_z[z][data.sets.TOOL_YR1[0]] = this.pif_parameters.z0[z];
+
             for (var i = 0; i < data.sets.TOOL_YR.length; i++) {
                 var y = data.sets.TOOL_YR[i];
                 tool_z[z][y] = this.pif_parameters.z0[z] * (1 + i * tool_wz[z]);
@@ -179,8 +198,9 @@ var FullPif = /** @class */ (function () {
 
         for (var _v = 0, _w = data.sets.TOOL_YR; _v < _w.length; _v++) {
             var y = _w[_v];
-            tool_z["Z2"][y] = (100 - tool_z["Z2"][y]) * 3;
-            tool_z_[1][_v] = Number((100 - tool_z["Z2"][y]) * 3).toFixed(2);
+            var value = (100 - tool_z["Z2"][y]) * 3;
+            tool_z["Z2"][y] = value;
+            tool_z_[1][_v] = Number(value).toFixed(2);
         }
 
         var output = {
@@ -209,12 +229,15 @@ var FullPif = /** @class */ (function () {
     };
     FullPif.prototype.normalizeInputPi = function (input) {
         var sum = 0;
+
         for (var i in input) {
             sum += input[i];
         }
+
         for (var i in input) {
             input[i] = input[i] / sum;
         }
+
         return input;
     };
     return FullPif;
@@ -301,19 +324,18 @@ function score() {
     pow_2 = 0.0;
   }
 
-//  var secondPart = Math.pow(pow_2, z3);
+  var secondPart = Math.pow(pow_2, z3);
 
   //??
-  var secondPart = 0.0;
+/*  var secondPart = 0.0;
   for(var jj = 0; jj < result.output.z3_.length; jj++) {
     var z3_elem = parseFloat(result.output.z3_[jj]) <= 0 ? 0.0 : parseFloat(result.output.z3_[jj]); //??
     secondPart += Math.pow(pow_2, z3_elem);
-  }
+  } */
   //secondPart = secondPart.toFixed(3);
   //??
 
-  window.alert('second part: ' + secondPart.toString());
-  var tool_score = prod + parseFloat(data.parameters.tool_discount[0]) * secondPart;
+  var tool_score = prod + (parseFloat(data.parameters.tool_discount[0]) * secondPart);
 
   tool_score = 10 * (tool_score - parseFloat(data.parameters.tool_optimal_score[0]));
   tool_score = 100 * Math.exp(tool_score);
@@ -334,8 +356,6 @@ function score() {
 
   score_value = tool_score;
   return score_value;
-
-
 };
 
 function v_gamma_() {
