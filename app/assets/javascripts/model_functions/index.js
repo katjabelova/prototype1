@@ -98,8 +98,8 @@ var FullPif = /** @class */ (function () {
         tool_policy_[0] = tool_policy_[tool_policy_.length - 1];
         tool_policy_.splice(-1,1);
 
-      //  window.alert('tool_policy 1: ' + JSON.stringify(tool_policy));
-      //  window.alert('tool_policy 2: ' + tool_policy_.toString());
+    //    window.alert('tool_policy 1: ' + JSON.stringify(tool_policy));
+    //    window.alert('tool_policy 2: ' + tool_policy_.toString());
 
         var tool_pillar_budget = {};
         var tool_pillar_budget_ = [];
@@ -157,7 +157,8 @@ var FullPif = /** @class */ (function () {
             }, 0);
 
             tool_wz[z] = Math.max(-0.95, this_1.pif_parameters.cge_const[z] + sum);
-            tool_wz_.push(Number(Math.max(-0.95, this_1.pif_parameters.cge_const[z] + sum)).toFixed(2));
+            tool_wz[z]  = tool_wz[z] * 6;
+            tool_wz_.push(Number(tool_wz[z]).toFixed(2));
         };
 
         var this_1 = this;
@@ -262,10 +263,10 @@ var fullPif = new FullPif(pif_parameters, new MapPePillarsPolInst(data.sets.MAP_
 var share_investment = 0.15;
 var share_agrar = 0.66;
 
-var share_pi_nr = 2.5;
-var share_pi_fm = 10;
-var share_pi_ma = 2.5;
-var share_pi_hr = 2.5;
+var share_pi_nr = 5;
+var share_pi_fm = 20;
+var share_pi_ma = 5;
+var share_pi_hr = 5;
 
 var input = {
     share_investment: share_investment,
@@ -306,7 +307,6 @@ function score() {
     }
 
     var pow_1 = 1 + parseFloat(result.output.wz_[i]);
-
     if (pow_1 < 0) {
       pow_1 = 0.0;
     }
@@ -326,35 +326,12 @@ function score() {
 
   var secondPart = Math.pow(pow_2, z3);
 
-  //??
-/*  var secondPart = 0.0;
-  for(var jj = 0; jj < result.output.z3_.length; jj++) {
-    var z3_elem = parseFloat(result.output.z3_[jj]) <= 0 ? 0.0 : parseFloat(result.output.z3_[jj]); //??
-    secondPart += Math.pow(pow_2, z3_elem);
-  } */
-  //secondPart = secondPart.toFixed(3);
-  //??
-
   var tool_score = prod + (parseFloat(data.parameters.tool_discount[0]) * secondPart);
 
   tool_score = 10 * (tool_score - parseFloat(data.parameters.tool_optimal_score[0]));
   tool_score = 100 * Math.exp(tool_score);
 
-/*
-  var sum = 0.0;
-  var z_array = [result.output.z1_[10], result.output.z2_[10], result.output.z3_[10], result.output.z4_[10], result.output.z5_[10],
-   result.output.z6_[10], result.output.z7_[10]];
-  var alphas_array = [0.05, 0.33, 0.24, 0.04, 0.1, 0.07, 0.17];
-  for(var i = 0; i < z_array.length; i++) {
-    if(z_array[i] <= 0.00) {
-      sum += 0.00;
-    } else {
-      sum += Math.log(z_array[i])*alphas_array[i];
-    }
-  }
-  score_value = Number(Math.exp(sum)).toFixed(3); */
-
-  score_value = tool_score;
+  score_value = tool_score.toFixed(2);
   return score_value;
 };
 
