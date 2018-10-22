@@ -58,13 +58,14 @@ var FullPif = /** @class */ (function () {
 
         tool_gamma["non-agr"] = input.share_investment * (1 - input.share_agrar);
         tool_gamma_.push(Number(tool_gamma["non-agr"]).toFixed(2));
+      //  tool_gamma_.push(Number(tool_gamma["non-agr"]));
 
         for (var _i = 0, _a = data.sets.CAADP; _i < _a.length; _i++) {
             var pi = _a[_i];
           //  window.alert('pi: ' + pi.toString());
             var share = 0;
             var fix = this.pif_parameters.fix_distribution;
-          //  window.alert("fix_distribution: " + JSON.stringify(fix));
+
             for (var _b = 0, _c = data.sets.TOOL_PILLARS; _b < _c.length; _b++) {
                 var pillar = _c[_b];
 
@@ -76,8 +77,10 @@ var FullPif = /** @class */ (function () {
 
                 share += this.pif_parameters.fix_distribution[pillar][pi] * input_pi[pillar];
             }
+
             tool_gamma[pi] = input.share_investment * input.share_agrar * share;
             tool_gamma_.push(Number(input.share_investment * input.share_agrar * share).toFixed(2));
+          //  tool_gamma_.push(Number(input.share_investment * input.share_agrar * share));
         }
 
       //  window.alert('tool_gamma 1: ' + JSON.stringify(tool_gamma));
@@ -93,6 +96,7 @@ var FullPif = /** @class */ (function () {
           //  window.alert('gamma: ' + tool_gamma[pi].toString());
             tool_policy[pi] = tool_gamma[pi] * this.pif_parameters.yg0;
             tool_policy_.push(Number(tool_gamma[pi] * this.pif_parameters.yg0).toFixed(2));
+          //  tool_policy_.push(Number(tool_gamma[pi] * this.pif_parameters.yg0));
         }
 
         tool_policy_[0] = tool_policy_[tool_policy_.length - 1];
@@ -113,6 +117,7 @@ var FullPif = /** @class */ (function () {
             }
             tool_pillar_budget[pillar] = sum;
             tool_pillar_budget_.push(Number(sum).toFixed(2));
+        //    tool_pillar_budget_.push(Number(sum));
         }
 
       //  window.alert('tool_pillar_b 1: ' + JSON.stringify(tool_pillar_budget));
@@ -131,6 +136,7 @@ var FullPif = /** @class */ (function () {
             }
             tool_budget[s] = this.pif_parameters.bud_norm[s] * Math.pow(sum, (-1 / this.pif_parameters.rho));
             tool_effective_budget_.push(Number(this.pif_parameters.bud_norm[s] * Math.pow(sum, (-1 / this.pif_parameters.rho))).toFixed(2));
+          //  tool_effective_budget_.push(Number(this.pif_parameters.bud_norm[s] * Math.pow(sum, (-1 / this.pif_parameters.rho))));
         }
 
       //  window.alert('tool_eff 1: ' + JSON.stringify(tool_budget));
@@ -143,10 +149,12 @@ var FullPif = /** @class */ (function () {
             var s = _q[_p];
             tool_tp[s] = this.pif_parameters.emax[s] * 1 / (1 + Math.exp(-(tool_budget[s] * this.pif_parameters.a[s] + this.pif_parameters.b[s])));
             tool_tp_.push(Number(tool_tp[s]).toFixed(2));
+        //    tool_tp_.push(Number(tool_tp[s]));
         }
 
-      //  window.alert('tool_tp 1: ' + JSON.stringify(tool_tp));
+      // window.alert('tool_tp 1: ' + JSON.stringify(tool_tp));
       //  window.alert('tool_tp 2: ' + tool_tp_.toString());
+
 
         var tool_wz = {};
         var tool_wz_ = [];
@@ -157,8 +165,11 @@ var FullPif = /** @class */ (function () {
             }, 0);
 
             tool_wz[z] = Math.max(-0.95, this_1.pif_parameters.cge_const[z] + sum);
+
             tool_wz[z]  = tool_wz[z] * 6;
+
             tool_wz_.push(Number(tool_wz[z]).toFixed(2));
+          //  tool_wz_.push(Number(tool_wz[z]));
         };
 
         var this_1 = this;
@@ -171,6 +182,7 @@ var FullPif = /** @class */ (function () {
         }, 0);
 
         tool_wz_[2] = Number(tool_wz["Z3"]).toFixed(2);
+    //    tool_wz_[2] = Number(tool_wz["Z3"]);
 
         var tool_z = {};
 
@@ -194,6 +206,7 @@ var FullPif = /** @class */ (function () {
                 var y = data.sets.TOOL_YR[i];
                 tool_z[z][y] = this.pif_parameters.z0[z] * (1 + i * tool_wz[z]);
                 tool_z_[_t][i] = Number(this.pif_parameters.z0[z] * (1 + i * tool_wz[z])).toFixed(2);
+              //  tool_z_[_t][i] = Number(this.pif_parameters.z0[z] * (1 + i * tool_wz[z]));
             }
         }
 
@@ -202,6 +215,7 @@ var FullPif = /** @class */ (function () {
             var value = (100 - tool_z["Z2"][y]) * 3;
             tool_z["Z2"][y] = value;
             tool_z_[1][_v] = Number(value).toFixed(2);
+        //    tool_z_[1][_v] = Number(value);
         }
 
         var output = {
@@ -236,7 +250,11 @@ var FullPif = /** @class */ (function () {
         }
 
         for (var i in input) {
+          if (sum == 0) {
+            input[i] = 0.0;
+          } else {
             input[i] = input[i] / sum;
+          }
         }
 
         return input;
