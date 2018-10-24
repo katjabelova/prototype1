@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180904110948) do
+ActiveRecord::Schema.define(version: 20181023094016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "interface_settings", force: :cascade do |t|
+    t.string "de_name"
+    t.string "eng_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "model_default_params", force: :cascade do |t|
     t.string "param_name"
@@ -102,6 +109,7 @@ ActiveRecord::Schema.define(version: 20180904110948) do
     t.datetime "updated_at", null: false
     t.string "xname"
     t.string "yname"
+    t.string "eng_value"
   end
 
   create_table "models", force: :cascade do |t|
@@ -573,6 +581,7 @@ ActiveRecord::Schema.define(version: 20180904110948) do
     t.string "value"
     t.string "title"
     t.integer "parent"
+    t.string "eng_value"
     t.index ["model_default_params_id"], name: "index_settings_widgets_on_model_default_params_id"
   end
 

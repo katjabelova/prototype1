@@ -1,6 +1,6 @@
 class QueryModelFromDatabase
 attr_accessor :function_names, :params_with_default_values, :output_values, :settings_widgets, :sub_slider_settings, :nested_slider_settings,
-:subpifsCount
+:subpifsCount, :interface
 
 @function_names = []
 @params_with_default_values = []
@@ -9,11 +9,41 @@ attr_accessor :function_names, :params_with_default_values, :output_values, :set
 @sub_slider_settings = Hash.new
 @nested_slider_settings = []
 @subpifsCount = 0
+@interface = Hash.new
 
-  def initialize(model_id)
+  def initialize(model_id, lang)
     @settings_widgets = []
     @sub_slider_settings = Hash.new
+    @interface = Hash.new
     @subpifsCount = 0
+    puts 'model_id: ' + model_id
+    puts 'language: ' + lang
+
+
+      if lang == 'de'
+        @interface['setting'] = InterfaceSetting.all[0].de_name
+        @interface['old_score'] = InterfaceSetting.all[1].de_name
+        @interface['score'] = InterfaceSetting.all[2].de_name
+
+        @interface['tip'] = InterfaceSetting.all[3].de_name
+        @interface['before_step'] = InterfaceSetting.all[4].de_name
+        @interface['fix'] = InterfaceSetting.all[5].de_name
+        @interface['old_values'] = InterfaceSetting.all[6].de_name
+        @interface['input'] = InterfaceSetting.all[7].de_name
+        @interface['model'] = InterfaceSetting.all[8].de_name
+      else
+        @interface['setting'] = InterfaceSetting.all[0].eng_name
+        @interface['old_score'] = InterfaceSetting.all[1].eng_name
+        @interface['score'] = InterfaceSetting.all[2].eng_name
+
+        @interface['tip'] = InterfaceSetting.all[3].eng_name
+        @interface['before_step'] = InterfaceSetting.all[4].eng_name
+        @interface['fix'] = InterfaceSetting.all[5].eng_name
+        @interface['old_values'] = InterfaceSetting.all[6].eng_name
+        @interface['input'] = InterfaceSetting.all[7].eng_name
+        @interface['model'] = InterfaceSetting.all[8].eng_name
+      end
+
 
     ModelHasSetting.where(models_id: model_id).find_each do |model_has_settings_widget|
       puts "settings_id: " + model_has_settings_widget.settings_widgets_id.to_s
@@ -29,7 +59,7 @@ attr_accessor :function_names, :params_with_default_values, :output_values, :set
           settings_widget_element['inner_step'] = settings_widget.inner_step
           #settings_widget_element['default_value'] = settings_widget.default_value
           settings_widget_element['order_number'] = settings_widget.order_number
-          settings_widget_element['value'] = settings_widget.value
+          settings_widget_element['value'] = (lang == 'de') ? settings_widget.value : settings_widget.eng_value
           settings_widget_element['title'] = settings_widget.title
 
           default_param = ModelDefaultParam.find(settings_widget.model_default_params_id)
@@ -37,7 +67,7 @@ attr_accessor :function_names, :params_with_default_values, :output_values, :set
           settings_widget_element['param_name'] = default_param.param_name
 
        if settings_widget.parent.nil?
-         puts "parent nil"
+          puts "parent nil"
           @settings_widgets.push(settings_widget_element)
        else
 =begin    puts "parent not nil"
@@ -52,7 +82,7 @@ attr_accessor :function_names, :params_with_default_values, :output_values, :set
           @sub_slider_settings[parentId].push(settings_widget_element)
 
           puts "sub_slider in query model: " + @sub_slider_settings.to_s
-=end        
+=end
        end
 
       end
@@ -125,7 +155,7 @@ attr_accessor :function_names, :params_with_default_values, :output_values, :set
     ModelHasOutputSet.where(models_id: model_id).order(:model_output_sets_id).each do |model_has_output_set|
       ModelOutputSet.where(id: model_has_output_set.model_output_sets_id).find_each do |model_output_set|
         model_output_set_element = Hash.new
-        model_output_set_element['title'] = model_output_set.title
+        model_output_set_element['title'] = (lang == 'de') ? model_output_set.title : model_output_set.eng_value
         model_output_set_element['chart_type'] = model_output_set.chart_type
         model_output_set_element['xcategories'] = model_output_set.xcategories
         model_output_set_element['ycategories'] = model_output_set.ycategories

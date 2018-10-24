@@ -278,7 +278,10 @@ class ModelViewController < ApplicationController
   end
 
   def show_graph3
-    if request.post?
+    if request.put?
+    #  redirect_to controller: 'model_view_controller', action: 'show_graph3', id: params[:id], lang_changed: params[:lang_changed]
+  #    redirect_to graph3_path(:id => params[:id], :lang_changed => params[:lang_changed])
+    elsif request.post?
       puts 'request post'
       puts 'params: ' + params.to_json
     #  host_remote = Resolv.getname(request.remote_ip)
@@ -312,9 +315,18 @@ class ModelViewController < ApplicationController
     combinedTimeUser = @timeset.to_s + '_' + @user_id.to_s
 
     @filename = Rails.root + "protocol/protocols/" + combinedTimeUser
-
     @id = params[:id]
-    @dbelems = QueryModelFromDatabase.new(params[:id])
+=begin
+if params[:lang_changed] != lang
+
+    else
+      @dbelems = QueryModelFromDatabase.new(@id, lang)
+    end
+=end
+    puts '1params: ' + params.to_s
+    @lang = (params[:lang_changed] == nil) ? 'de' : params[:lang_changed]
+    puts '1lang: ' + @lang.to_s
+    @dbelems = QueryModelFromDatabase.new(@id, @lang)
     end
   end
 

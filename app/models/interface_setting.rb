@@ -1,0 +1,2 @@
+class InterfaceSetting < ApplicationRecord
+end

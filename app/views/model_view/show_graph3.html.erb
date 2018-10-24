@@ -37,9 +37,10 @@
       </div>
       <nav id="sidebar">
           <i id="left" class="fa fa-arrow-left" style="font-size:35px;" role="button"></i>
-       <div class="sidebar-header" align="center">
-           <h3>Einstellungen</h3>
-       </div>
+           <div class="sidebar-header" align="center">
+              <h3><%= @dbelems.interface['setting'] %></h3>
+           </div>
+
        <ul style="list-style-type:none">
 
          <% @dbelems.settings_widgets.each do |settings_widgets| %>
@@ -70,12 +71,23 @@
          <% end %>
 
        </ul>
+       <div id='tge1' align="center">
+       <% if @lang == 'de'%>
+       <input id="toggle-event" class="tge" type="checkbox" checked data-toggle="toggle" data-size="small" data-onstyle="info" data-offstyle="info"
+           data-on="Deutsch" data-off="English" data-true="de" data-false="en">
+       </input>
+       <% else %>
+       <input id="toggle-event" class="tge" type="checkbox" checked data-toggle="toggle" data-size="small" data-onstyle="info" data-offstyle="info"
+           data-on="English" data-off="Deutsch" data-true="en" data-false="de">
+       </input>
+       <% end %>
+     </div>
 
        <p id="hidden" style="display:none;"></p>
    </nav>
 
    <div id="contentinner">
-      <h1>Modell <%= @id.to_s %></h1>
+      <h1><%= @dbelems.interface['model'] %> <%= @id.to_s %></h1>
       <div class="mainContent">
         <div id="tabs">
 
@@ -89,9 +101,9 @@
         <div class="wrapperinner">
           <div id="container1" remote="true" style=" min-height: 400px;"></div>
           <div id="score_id" style="text-align: center; font-weight: bold"> - </div>
-          <div id="score" style="font-size: 150%; margin-top: 10px; margin-bottom: 10px;" align="center">Score: </div>
+          <div id="score" style="font-size: 150%; margin-top: 10px; margin-bottom: 10px;" align="center"> - </div>
           <div align="center">
-            <button id="savebutton" style="font-size: 125%; background-color: #5bc0de;">Tipp abgeben</button>
+            <button id="savebutton" style="font-size: 125%; background-color: #5bc0de;"><%= @dbelems.interface['tip'] %></button>
           </div>
         </div>
       </div>
@@ -102,19 +114,19 @@
         </i>
       </div>
 <div id="containerinner2">
-  <i id="right" class="fa fa-arrow-right" style="font-size:25px; display: none" role="button"></i>
-  <h1>Schritt bevor</h1>
+<!--  <i id="right" class="fa fa-arrow-right" style="font-size:25px; display: none" role="button"></i> -->
+  <h1><%= @dbelems.interface['before_step'] %></h1>
 
   <div class="checkbox">
       <label>
-        Output fixieren
+        <%= @dbelems.interface['fix'] %>
       </label>
       <input data-toggle="toggle" type="checkbox" class="fixOutput"></input>
   </div>
   <div id="container2" remote="true" style="display:none;  min-height: 300px"></div>
 
   <div class="inputsList">
-      <ul class="outputName" style="list-style-type:none">Input-Werte:
+      <ul class="outputName" style="list-style-type:none"><%= @dbelems.interface['input'] %>
 
         <% @dbelems.settings_widgets.each_with_index do |setting, index| %>
 
@@ -195,6 +207,35 @@ $(function() {
    }
  };
 //$(document).tooltip();
+
+$('#toggle-event').change(function() {
+    var toggled = $(this).data($(this).prop("checked").toString());
+    window.alert('toggled: ' + toggled.toString());
+
+  /*  if (toggled == 'de') {
+      <%#  model_view_controller.edirect_to graph3_path(:id => @id, :lang_changed => 'de') %>
+    } else {
+      <%#  model_view_controller.redirect_to graph3_path(:id => @id, :lang_changed => 'en') %>
+    } */
+
+/*    $.ajax({
+      type: 'PUT',
+      url: '<%= graph3_put_path %>',
+      data: {
+        'lang_changed' : toggled,
+        'model_id' : '<%= @id %>'
+      }
+    });
+
+    request.done(function( msg ) {
+      var g_path = '<%= graph3_path %>';
+      document.location.href = g_path + '?lang_changed=' + toggled;
+    }); */
+
+    var g_path = '<%= graph3_path %>';
+    document.location.href = g_path + '?lang_changed=' + toggled;
+
+ });
 
 $('#left').on("click", function(event) {
   protocolContent += 'end' + '\n';
@@ -521,7 +562,7 @@ $(document).on('ready', function() {
   // });
 
   $('.subslider').on("slidechange", function(event, ui) {
-    $('#score_id').text('Alter Score: ' + window['score_value'].toString());
+    $('#score_id').text('<%= @dbelems.interface['old_score'] %> ' + window['score_value'].toString());
     autocompare = false;
     var dbelems = <%= raw @dbelems.sub_slider_settings.to_json %>;
     var subSliderIdArray = $(this).attr('id').split('_');
@@ -536,7 +577,7 @@ $(document).on('ready', function() {
 
     window['v_' + slider['param_name']](parseFloat(ui.value));
 
-    chartOptions.title = "vorherige Werte";
+    chartOptions.title = '<%= @dbelems.interface['old_values'] %>';
     hiddenElem.value = chartOptions;
 
     if(!outputFixed) {
@@ -577,7 +618,7 @@ $(document).on('ready', function() {
     old_nested_dbelems[index_]['default_value'] = parseFloat(ui.value);
 
     var score = window['score']();
-    $('#score').text('Score: ' + score.toString());
+    $('#score').text('<%= @dbelems.interface['score'] %> ' + score.toString());
 
   //  var tab = document.getElementsByClassName("autocompare_")[tabsChosen];
   //  var tab = $(".autocompare_ , .active ");
@@ -609,14 +650,14 @@ $(document).on('ready', function() {
   });
 
   $('.slider').on("slidechange", function(event, ui) {
-        $('#score_id').text('Alter Score: ' + window['score_value'].toString());
+        $('#score_id').text('<%= @dbelems.interface['old_score'] %> ' + window['score_value'].toString());
         autocompare = false;
         var dbelems = <%= raw @dbelems.params_with_default_values.to_json %>;
         var index = parseInt($(this).attr('data'));
 
         window[dbelems[index]['param_name']] = parseFloat(ui.value);
 
-        chartOptions.title = "vorherige Werte";
+        chartOptions.title = '<%= @dbelems.interface['old_values'] %>';
         hiddenElem.value = chartOptions;
 
        if(!outputFixed) {
@@ -664,7 +705,7 @@ $(document).on('ready', function() {
         }
 
         var score = window['score']();
-        $('#score').text('Score: ' + score.toString());
+        $('#score').text('<%= @dbelems.interface['score'] %> ' + score.toString());
 
       //  var tab = document.getElementsByClassName("autocompare_")[tabsChosen];
       //  var tab = $(".autocompare_ , .active ");
