@@ -73,11 +73,11 @@
        </ul>
        <div id='tge1' align="center">
        <% if @lang == 'de'%>
-       <input id="toggle-event" class="tge" type="checkbox" checked data-toggle="toggle" data-size="small" data-onstyle="info" data-offstyle="info"
+       <input id="toggle-event" type="checkbox" checked data-toggle="toggle" data-size="small" data-onstyle="info" data-offstyle="info"
            data-on="Deutsch" data-off="English" data-true="de" data-false="en">
        </input>
        <% else %>
-       <input id="toggle-event" class="tge" type="checkbox" checked data-toggle="toggle" data-size="small" data-onstyle="info" data-offstyle="info"
+       <input id="toggle-event" type="checkbox" checked data-toggle="toggle" data-size="small" data-onstyle="info" data-offstyle="info"
            data-on="English" data-off="Deutsch" data-true="en" data-false="de">
        </input>
        <% end %>
@@ -87,7 +87,7 @@
    </nav>
 
    <div id="contentinner">
-      <h1><%= @dbelems.interface['model'] %> <%= @id.to_s %></h1>
+      <h1><%= @dbelems.interface['model'] %></h1>
       <div class="mainContent">
         <div id="tabs">
 
@@ -200,9 +200,8 @@ $(function() {
       grouping: false
       }
     },
-    xAxis: { type: "", categories: [] },
-    yAxis: {
-      title: { text: "" },
+    xAxis: { type: "", categories: [], title: { text : "" } },
+    yAxis: { title: { text: "" },
     //  tickInterval: 0.01
    }
  };
@@ -608,7 +607,7 @@ $(document).on('ready', function() {
           borderWidth: 0,
         }
       },
-      xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories},
+      xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories, title: { text: chartOptions.xAxis.title.text } },
       yAxis: { title: { text: chartOptions.yAxis.title.text } },
       series: [old_chart_series[seriesElement]]
     };
@@ -689,7 +688,7 @@ $(document).on('ready', function() {
               borderWidth: 0,
             }
           },
-          xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories},
+          xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories,  title: { text: chartOptions.xAxis.title.text }},
           yAxis: { title: { text: chartOptions.yAxis.title.text } },
           series: [old_chart_series[seriesElement]]
         };
@@ -769,6 +768,9 @@ $(document).on('ready', function() {
   chartOptions.title = title;
   chartOptions.xAxis.categories = <%= raw @dbelems.output_values[5]['xcategories'] %>;
   chartOptions.yAxis.title.text = '<%= raw @dbelems.output_values[5]['yname'] %>';
+  chartOptions.xAxis.title.text = '<%= raw @dbelems.output_values[5]['xname'] %>';
+
+  window.alert('x axis: ' + '<%= raw @dbelems.output_values[5]['xname'] %>');
   updateChartWithValues();
 };
 
@@ -776,6 +778,7 @@ window.updateChartWithValues = function() {
     var dbelems = <%= raw @dbelems.output_values.to_json %>;
     var dbfunctions = <%= raw @dbelems.function_names.to_json %>;
     var index = firstStart ? 5 : tabsChosen;
+    chartOptions.xAxis.title.text = dbelems[index]['xname'];
     if (firstStart) {
       window['score']();
       protocolContent += 'score: ' + window['score_value'] + '\n';

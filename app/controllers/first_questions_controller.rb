@@ -1,0 +1,2 @@
+class FirstQuestionsController < ApplicationController
+end

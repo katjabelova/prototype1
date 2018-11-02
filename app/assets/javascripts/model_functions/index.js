@@ -204,8 +204,8 @@ var FullPif = /** @class */ (function () {
 
             for (var i = 0; i < data.sets.TOOL_YR.length; i++) {
                 var y = data.sets.TOOL_YR[i];
-                tool_z[z][y] = this.pif_parameters.z0[z] * (1 + i * tool_wz[z]);
-                tool_z_[_t][i] = Number(this.pif_parameters.z0[z] * (1 + i * tool_wz[z])).toFixed(2);
+                tool_z[z][y] = this.pif_parameters.z0[z] * (1 + i * tool_wz[z] / 6);
+                tool_z_[_t][i] = Number(this.pif_parameters.z0[z] * (1 + i * tool_wz[z] / 6)).toFixed(2);
               //  tool_z_[_t][i] = Number(this.pif_parameters.z0[z] * (1 + i * tool_wz[z]));
             }
         }

@@ -22,6 +22,9 @@ Rails.application.routes.draw do
   get '/button', to: 'model_view#post_request', as: 'button'
   get '/button1', to: 'model_view#prepost_request', as: 'button1'
 
+
+  get 'first_questions/open', to: 'first_questions#open', as: 'open'
+
   get '/graph', to: 'model_view#show_graph'
   get '/graph2', to: 'model_view#show_graph2'
   get '/model_view/:id', to: 'model_view#show_graph3', as: 'graph3'

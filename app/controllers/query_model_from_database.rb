@@ -21,27 +21,27 @@ attr_accessor :function_names, :params_with_default_values, :output_values, :set
 
 
       if lang == 'de'
-        @interface['setting'] = InterfaceSetting.all[0].de_name
-        @interface['old_score'] = InterfaceSetting.all[1].de_name
-        @interface['score'] = InterfaceSetting.all[2].de_name
+        @interface['setting'] = InterfaceSetting.find(2).de_name
+        @interface['old_score'] = InterfaceSetting.find(3).de_name
+        @interface['score'] = InterfaceSetting.find(4).de_name
 
-        @interface['tip'] = InterfaceSetting.all[3].de_name
-        @interface['before_step'] = InterfaceSetting.all[4].de_name
-        @interface['fix'] = InterfaceSetting.all[5].de_name
-        @interface['old_values'] = InterfaceSetting.all[6].de_name
-        @interface['input'] = InterfaceSetting.all[7].de_name
-        @interface['model'] = InterfaceSetting.all[8].de_name
+        @interface['tip'] = InterfaceSetting.find(5).de_name
+        @interface['before_step'] = InterfaceSetting.find(6).de_name
+        @interface['fix'] = InterfaceSetting.find(7).de_name
+        @interface['old_values'] = InterfaceSetting.find(8).de_name
+        @interface['input'] = InterfaceSetting.find(9).de_name
+        @interface['model'] = InterfaceSetting.find(10).de_name
       else
-        @interface['setting'] = InterfaceSetting.all[0].eng_name
-        @interface['old_score'] = InterfaceSetting.all[1].eng_name
-        @interface['score'] = InterfaceSetting.all[2].eng_name
+        @interface['setting'] = InterfaceSetting.find(2).eng_name
+        @interface['old_score'] = InterfaceSetting.find(3).eng_name
+        @interface['score'] = InterfaceSetting.find(4).eng_name
 
-        @interface['tip'] = InterfaceSetting.all[3].eng_name
-        @interface['before_step'] = InterfaceSetting.all[4].eng_name
-        @interface['fix'] = InterfaceSetting.all[5].eng_name
-        @interface['old_values'] = InterfaceSetting.all[6].eng_name
-        @interface['input'] = InterfaceSetting.all[7].eng_name
-        @interface['model'] = InterfaceSetting.all[8].eng_name
+        @interface['tip'] = InterfaceSetting.find(5).eng_name
+        @interface['before_step'] = InterfaceSetting.find(6).eng_name
+        @interface['fix'] = InterfaceSetting.find(7).eng_name
+        @interface['old_values'] = InterfaceSetting.find(8).eng_name
+        @interface['input'] = InterfaceSetting.find(9).eng_name
+        @interface['model'] = InterfaceSetting.find(10).eng_name
       end
 
 
