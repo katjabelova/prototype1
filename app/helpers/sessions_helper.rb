@@ -26,4 +26,27 @@ module SessionsHelper
     end
   end
 
+  def session_user
+    if logged_in?
+      user_id = @current_user.id
+    else
+      @timeset_millis = Time.now.to_f
+      @default_user = 'default' + @timeset_millis.to_s
+      user_id = @default_user
+    end
+  end
+
+  def session_time
+    @timeset = DateTime.now.to_s
+    @timeset = @timeset.gsub(':', '-')
+  end
+
+  def session_file
+    combinedTimeUser = session_time + '_' + session_user.to_s
+    @filename = Rails.root + "protocol/protocols/" + combinedTimeUser
+  end
+
+  @session_complete = false
+
+
 end

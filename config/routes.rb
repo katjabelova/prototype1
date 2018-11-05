@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
 
   get 'first_questions/open', to: 'first_questions#open', as: 'open'
+  post 'first_questions/open', to: 'first_questions#open', as: 'p_open'
 
   get '/graph', to: 'model_view#show_graph'
   get '/graph2', to: 'model_view#show_graph2'

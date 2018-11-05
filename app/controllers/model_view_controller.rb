@@ -278,6 +278,7 @@ class ModelViewController < ApplicationController
   end
 
   def show_graph3
+    @hashedinput = ""
     if request.put?
     #  redirect_to controller: 'model_view_controller', action: 'show_graph3', id: params[:id], lang_changed: params[:lang_changed]
   #    redirect_to graph3_path(:id => params[:id], :lang_changed => params[:lang_changed])
@@ -287,15 +288,18 @@ class ModelViewController < ApplicationController
     #  host_remote = Resolv.getname(request.remote_ip)
 
   #    puts "remote host": host_remote
-
-      File.new(params['filename'], 'w+')
+  #new
+    $session_complete = true
+    File.open($session_file.to_s, 'a') { |f| f << params['protocol'].to_s }
+=begin      File.new(params['filename'], 'w+')
       File.open(params['filename'], 'w+') { |f| f << params['protocol'] }
+=end
     else
       puts 'request ...'
     #  host_remote = Resolv.getname(request.remote_ip)
 
     #  puts "remote host": host_remote
-      @timeset = DateTime.now.to_s
+=begin      @timeset = DateTime.now.to_s
       @timeset = @timeset.gsub(':', '-')
 
     if logged_in?
@@ -307,8 +311,10 @@ class ModelViewController < ApplicationController
 
     puts "time: " + @timeset.to_s
     puts "user: " + @user_id.to_s
-
     @protocol_input = ""
+=end
+
+=begin
     @protocol_input += 'start\n'
     @protocol_input += "time: " + @timeset + " ;  " + "user: " + @user_id.to_s + '\n'
 
@@ -316,6 +322,7 @@ class ModelViewController < ApplicationController
 
     @filename = Rails.root + "protocol/protocols/" + combinedTimeUser
     @id = params[:id]
+=end
 =begin
 if params[:lang_changed] != lang
 
@@ -323,6 +330,7 @@ if params[:lang_changed] != lang
       @dbelems = QueryModelFromDatabase.new(@id, lang)
     end
 =end
+    @id = params[:id]
     puts '1params: ' + params.to_s
     @lang = (params[:lang_changed] == nil) ? 'de' : params[:lang_changed]
     puts '1lang: ' + @lang.to_s
