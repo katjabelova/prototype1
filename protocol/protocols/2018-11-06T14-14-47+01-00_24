@@ -1,6 +1,7 @@
-start
-time: 2018-11-01T14-57-40+01-00 ;  user: default3
-tab: All Targets
+start 
+time: 2018-11-06T14-14-47+01-00 ;  user: 24 
+question: {"z1_1"=>"1", "z3_1"=>"2", "z6_1"=>"4", "z1_2"=>"4", "z1_4"=>"", "z1_5"=>"", "z1_6"=>"", "z1_7"=>""} 
+tab: Alle Ziele
 slider input: 
 share_investment: 0.15
 share_agrar: 0.66
@@ -23,20 +24,10 @@ z5_: 3625.43,3794.93,3964.43,4133.93,4303.43,4472.93,4642.43,4811.93,4981.44,515
 z6_: 1405.49,1479.98,1554.46,1628.95,1703.43,1777.92,1852.41,1926.89,2001.38,2075.87,2150.35
 z7_: 99.96,99.96,99.96,99.96,99.96,99.96,99.96,99.96,99.96,99.95,99.95
 score: 61.63
-tab: All Targets
+tab: Alle Ziele
 slider changed: 
-share_pi_nr: 3.8
+share_agrar: 0.77
 output: 
-tab: All Targets
-slider changed: 
-share_pi_fm: 8.4
-output: 
-tab changed 
-tab: z1: Rural Land
-output: 
-tab: z1: Rural Land
-slider changed: 
-share_pi_nr: 4.9
-output: 
-final score: 63.72
-end
+final score: 63.27
+question: {"z2_1"=>"1", "z7_1"=>"5", "z1_4"=>"", "z1_5"=>"", "z1_6"=>"", "z1_7"=>""} 
+end 

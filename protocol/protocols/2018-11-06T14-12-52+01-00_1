@@ -1,6 +1,6 @@
 start 
-time: 2018-11-05T16-44-25+01-00 ;  user: default1541432665.457663 
-question: {"z1_1"=>"1", "z2_1"=>"2", "z3_1"=>"3", "z4_1"=>"4", "z5_1"=>"5", "z6_1"=>"4", "z7_1"=>"3", "z1_2"=>"4", "z1_3"=>"3", "z1_4"=>"10", "z1_5"=>"20", "z1_6"=>"30", "z1_7"=>"40"} 
+time: 2018-11-06T14-12-52+01-00 ;  user: 1 
+question: {"z1_1"=>"1", "z3_1"=>"2", "z1_4"=>"", "z1_5"=>"", "z1_6"=>"", "z1_7"=>""} 
 tab: Alle Ziele
 slider input: 
 share_investment: 0.15
@@ -26,23 +26,12 @@ z7_: 99.96,99.96,99.96,99.96,99.96,99.96,99.96,99.96,99.96,99.95,99.95
 score: 61.63
 tab: Alle Ziele
 slider changed: 
-share_investment: 0.39
+share_investment: 0.3
 output: 
 tab: Alle Ziele
 slider changed: 
-share_agrar: 0.91
+share_agrar: 0.84
 output: 
-tab changed 
-tab: z7: Nachhaltigkeit
-output: 
-tab: z7: Nachhaltigkeit
-slider changed: 
-share_pi_nr: 4.1
-output: 
-tab: z7: Nachhaltigkeit
-slider changed: 
-share_pi_fm: 7.4
-output: 
-final score: 60.38
-question: {"z1_1"=>"1", "z2_1"=>"2", "z3_1"=>"3", "z4_1"=>"4", "z5_1"=>"5", "z7_1"=>"3", "z1_2"=>"3", "z1_3"=>"4", "z1_4"=>"30", "z1_5"=>"40", "z1_6"=>"50", "z1_7"=>"60"} 
+final score: 46.94
+question: {"z1_1"=>"1", "z3_1"=>"3", "z7_1"=>"5", "z1_3"=>"5", "z1_4"=>"", "z1_5"=>"", "z1_6"=>"", "z1_7"=>""} 
 end 

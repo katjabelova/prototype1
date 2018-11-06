@@ -15,7 +15,7 @@ class FirstQuestionsController < ApplicationController
         @protocol_input += "time: " + $session_time + " ;  " + "user: " + $session_user + " \n"
         @protocol_input += "question: " + params['hashedinput'].to_s + " \n"
 
-        puts 'file: ' + session_file.to_s
+        puts 'session-user: ' + $session_user.to_s
         puts 'protoxol: ' + @protocol_input
 
         File.open($session_file, 'a') { |f| f << @protocol_input.to_s }

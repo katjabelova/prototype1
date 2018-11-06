@@ -28,6 +28,7 @@ module SessionsHelper
 
   def session_user
     if logged_in?
+      puts "logged in"
       user_id = @current_user.id
     else
       @timeset_millis = Time.now.to_f
