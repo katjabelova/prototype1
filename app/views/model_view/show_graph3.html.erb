@@ -565,7 +565,8 @@ $(document).on('ready', function() {
 
      protocolContent += 'output: ' + '\n';
 
-     protocolContent += $(this).text() + ': ' + window[$(this).text() + '_']() + '\n';
+     var functions = <%= raw @dbelems.function_names.to_json %>;
+     protocolContent += $(this).text() + ': ' + window[functions[idChosen]['name']]() + '\n';
 
      protocolContent += 'score: ' + window['score_value'] + '\n';
 
@@ -760,7 +761,8 @@ $(document).on('ready', function() {
         protocolContent += 'slider changed: ' + '\n';
         protocolContent += dbelems[index]['param_name'] + ': ' + window[dbelems[index]['param_name']] + '\n';
         protocolContent += 'output: ' + '\n';
-        protocolContent += textContent + ': ' + window[textContent + '_']() + '\n';
+        var functions = <%= raw @dbelems.function_names.to_json %>;
+        protocolContent += textContent + ': ' + window[functions[tabsChosen]['name']]() + '\n';
       /*  for(var fn = 0; fn < function_names.length; fn++ ) {
           var fct_name = function_names[fn];
           protocolContent += fct_name['name'] + ': ' + window[fct_name['name']]() + '\n';
