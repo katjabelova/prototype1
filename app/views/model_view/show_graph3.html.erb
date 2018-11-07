@@ -331,7 +331,7 @@ for(var fn = 0; fn < function_names.length; fn++ ) {
 
 $(document).on('ready', function() {
 
-  window.alert('logge in' + '<%= get_protocol_file %>');
+//  window.alert('logge in' + '<%= get_protocol_file %>');
   var dbelems = <%= raw @dbelems.settings_widgets.to_json %>;
   var subdbelems = <%= raw @dbelems.sub_slider_settings.to_json %>;
 
