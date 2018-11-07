@@ -256,12 +256,14 @@ $('#left').on("click", function(event) {
   var request = $.ajax({
       type: 'POST',
       url: '<%= graph3_post_path %>',
-      data: {'protocol' : protocolContent}
+      data: {'protocol' : protocolContent, 'file' : '<%= get_protocol_file %>'}
     });
 
   request.done(function( msg ) {
-    var open_path = '<%= open_path %>';
-    document.location.href = open_path;
+  //  var open_path = '<%= open_path %>';
+  //  document.location.href = open_path;
+    var close_path = '<%= close_path %>';
+    document.location.href = close_path;
   });
 });
 
@@ -328,6 +330,8 @@ for(var fn = 0; fn < function_names.length; fn++ ) {
 }
 
 $(document).on('ready', function() {
+
+  window.alert('logge in' + '<%= get_protocol_file %>');
   var dbelems = <%= raw @dbelems.settings_widgets.to_json %>;
   var subdbelems = <%= raw @dbelems.sub_slider_settings.to_json %>;
 
@@ -457,12 +461,15 @@ $(document).on('ready', function() {
   var request = $.ajax({
       type: 'POST',
       url: '<%= graph3_post_path %>',
-      data: {'protocol' : protocolContent}
+      data: {'protocol' : protocolContent, 'file' : '<%= get_protocol_file %>'}
     });
 
   request.done(function( msg ) {
-    var open_path = '<%= open_path %>';
-    document.location.href = open_path;
+  //  var open_path = '<%= open_path %>';
+  //  document.location.href = open_path;
+    var close_path = '<%= close_path %>';
+    document.location.href = close_path;
+
   });
   });
 

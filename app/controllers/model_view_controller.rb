@@ -7,7 +7,7 @@ require 'resolv'
 
 class ModelViewController < ApplicationController
   protect_from_forgery with: :null_session
-  include SessionsHelper
+#  include SessionsHelper
 #  after_action :parse_json
 
   @title = "Post requested"
@@ -285,12 +285,13 @@ class ModelViewController < ApplicationController
     elsif request.post?
       puts 'request post'
       puts 'params: ' + params.to_json
-    #  host_remote = Resolv.getname(request.remote_ip)
+    #  puts "file " + logged_in?
+          #  host_remote = Resolv.getname(request.remote_ip)
 
   #    puts "remote host": host_remote
   #new
-    $session_complete = true
-    File.open($session_file.to_s, 'a') { |f| f << params['protocol'].to_s }
+  #  $session_complete = true
+    File.open(params['file'], 'a') { |f| f << params['protocol'].to_s }
 =begin      File.new(params['filename'], 'w+')
       File.open(params['filename'], 'w+') { |f| f << params['protocol'] }
 =end
