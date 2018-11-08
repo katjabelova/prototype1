@@ -16,3 +16,4 @@ Rails.application.config.assets.precompile += %w( model_functions/testmodel.js )
 Rails.application.config.assets.precompile += %w(*.js)
 # Rails.application.config.assets.precompile = [ '*.js', '*.css' ]
 Rails.application.config.assets.precompile += %w( model_functions/index.js )
+#Rails.application.config.assets.precompile += %w( web/jquery.min.js )
