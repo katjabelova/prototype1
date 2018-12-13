@@ -1,0 +1,388 @@
+<style>
+h2 {
+  margin-top: 50px;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 80%;
+}
+
+thead {
+  background-color: #2A79BF
+}
+
+tbody {
+  background-color: #8febf0
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+#fourth_question > th, td {
+  text-align: left;
+}
+
+button {
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.table-borderless td,
+.table-borderless th {
+    border: 0;
+}
+
+div {
+  color: black;
+}
+
+h2 {
+  color: black;
+}
+
+</style>
+<!-- <h3 style="font-weight:bold">Fragebogen für die Eurotier zum Policy-Tool:</h3> -->
+<!-- <% if !$session_complete%> -->
+<h1>Bevor es mit dem Policy-Game losgeht geben wir Dir noch einige Hintergrundinformationen, die Dir das Spiel erleichtern.
+  Außerdem interessiert uns Dein Verständnis von Entwicklungspolitik:</h1>
+<!-- <% else %>
+<h1>Bevor Du das Spiel verlässt, möchten wir sehen, ob sich Deine Antworten durch das Spielen des Policy-Tool geändert haben.
+  Bitte fülle den kurzen Fragebogen vom Anfang noch einmal aus.
+  Wichtig ist uns dabei, ob sich Deine Sichtweise zur Bedeutung der einzelnen Ziele sowie der einzelnen Politikprogramme (Pillars)
+  verändert hat. Vielen Dank!</h1>
+<% end %> -->
+<h2 style="font-weight:bold">Entwicklungspolitische Ziele in Entwicklungsländern</h2>
+<div>Nachhaltige Entwicklung vereint soziale, ökologische und wirtschaftliche Ziele miteinander.
+  Ziel einer nationalen Entwicklungspolitik ist dabei die richtige Balance dieser Ziele.
+  Daher möchten wir wissen, wie wichtig Deiner Meinung nach die folgenden Ziele für die Gesellschaft in Entwicklungsländer sind.</div>
+<h2 style="font-weight:bold">1. Wie wichtig sind Deiner Meinung nach die folgenden entwicklungspolitischen Ziele?</h2>
+<table id="first_question" class="table-borderless table-condensed table-hover">
+  <thead>
+    <tr>
+      <th></th>
+      <th>nicht </br> wichtig</th>
+      <th> </th>
+      <th> </th>
+      <th> </th>
+      <th>sehr </br> wichtig</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="trs">
+      <td class="z1_1">Z1 Einkommen der ländlichen Bevölkerung:</td>
+      <td class="rows" id="1"><input type="checkbox"></input></td>
+      <td class="rows" id="2"><input type="checkbox"></input></td>
+      <td class="rows" id="3"><input type="checkbox"></input></td>
+      <td class="rows" id="4"><input type="checkbox"></input></td>
+      <td class="rows" id="5"><input type="checkbox"></input></td>
+    </tr>
+    <tr class="trs">
+    <td class="z2_1">Z2 Armutsreduktion:</td>
+    <td class="rows" id="1"><input type="checkbox"></input></td>
+    <td class="rows" id="2"><input type="checkbox"></input></td>
+    <td class="rows" id="3"><input type="checkbox"></input></td>
+    <td class="rows" id="4"><input type="checkbox"></input></td>
+    <td class="rows" id="5"><input type="checkbox"></input></td>
+    </tr>
+    <tr class="trs">
+    <td class="z3_1">Z3 Soziale Sicherung </br> (Gesundheit, Bildung, Sicherheit):</td>
+    <td class="rows" id="1"><input type="checkbox"></input></td>
+    <td class="rows" id="2"><input type="checkbox"></input></td>
+    <td class="rows" id="3"><input type="checkbox"></input></td>
+    <td class="rows" id="4"><input type="checkbox"></input></td>
+    <td class="rows" id="5"><input type="checkbox"></input></td>
+    </tr>
+    <tr class="trs">
+    <td class="z4_1">Z4 Gewinne im Agribusiness-Sektor:</td>
+    <td class="rows" id="1"><input type="checkbox"></input></td>
+    <td class="rows" id="2"><input type="checkbox"></input></td>
+    <td class="rows" id="3"><input type="checkbox"></input></td>
+    <td class="rows" id="4"><input type="checkbox"></input></td>
+    <td class="rows" id="5"><input type="checkbox"></input></td>
+    </tr>
+    <tr class="trs">
+    <td class="z5_1">Z5 Einkommen der städtische Bevölkerung:</td>
+    <td class="rows" id="1"><input type="checkbox"></input></td>
+    <td class="rows" id="2"><input type="checkbox"></input></td>
+    <td class="rows" id="3"><input type="checkbox"></input></td>
+    <td class="rows" id="4"><input type="checkbox"></input></td>
+    <td class="rows" id="5"><input type="checkbox"></input></td>
+    </tr>
+    <tr class="trs">
+    <td class="z6_1">Z6 Gewinne in der Industrie</td>
+    <td class="rows" id="1"><input type="checkbox"></input></td>
+    <td class="rows" id="2"><input type="checkbox"></input></td>
+    <td class="rows" id="3"><input type="checkbox"></input></td>
+    <td class="rows" id="4"><input type="checkbox"></input></td>
+    <td class="rows" id="5"><input type="checkbox"></input></td>
+    </tr>
+    <tr class="trs">
+    <td class="z7_1">Z7 Ökologie/Umwelt:</td>
+    <td class="rows" id="1"><input type="checkbox"></input></td>
+    <td class="rows" id="2"><input type="checkbox"></input></td>
+    <td class="rows" id="3"><input type="checkbox"></input></td>
+    <td class="rows" id="4"><input type="checkbox"></input></td>
+    <td class="rows" id="5"><input type="checkbox"></input></td>
+    </tr>
+  </tbody>
+</table>
+</br>
+<h2 style="font-weight:bold">Entwicklungspolitik</h2>
+<div>
+  Nun kommen wir zur Umsetzung konkreter Entwicklungsziele durch die Politik.
+  Wie alle politischen Prozesse hängt die Erreichung der Entwicklungsziele von der richtigen Kombination politischer Maßnahmen ab.
+  <br>
+Im Folgenden haben wir die wichtigsten staatlichen Politikdimensionen zusammengestellt.
+Uns interessiert Dein persönlicher Standpunkt dazu, wie stark diese Politikmaßnahmen durch eine Regierung gewichtet werden sollten,
+um eine möglichst positive Entwicklung zu bewirken. Die relative Bedeutung der Maßnahmen wird dabei durch die Verteilung des
+Staatsbudgets auf die einzelnen Maßnahmen ausgedrückt.
+</div>
+<br>
+<h2 style="font-weight:bold; color:#2A79BF">1. Ausgaben für Wirtschaftsförderung</h2>
+<div>
+  Wirtschaftswachstum ist ein zentraler Entwicklungsfaktor.
+  Die Regierung kann wirtschaftliches Wachstum durch die Förderung von technischem Fortschritt vorantreiben und damit für höhere Einkommen
+  und die Reduktion von Armut sorgen. Umgekehrt muss der Staat für die soziale Sicherung sorgen. Das beinhaltet die Bereitstellung von
+  öffentlichen Gütern, insbesondere Gesundheitswesen, Bildung und innere Sicherheit. <u>Ein Staat muss also sein beschränktes Budget auf
+  die soziale Sicherung und die Förderung von Wirtschaftswachstum aufteilen.</u>
+  <br>
+Afrikanische Länder geben zwischen 10 bis 35 Prozent ihres Budgets für die Förderung von Wirtschaftswachstum aus,
+während 90 bzw. 65 Prozent für soziale Sicherung ausgegeben wird.
+</div>
+<h2 style="font-weight:bold;">Wieviel Prozent des Staatsbudgets sollte ein Entwicklungsland Deiner Meinung nach für die Wirtschaftsförderung ausgeben?</h2>
+<table id="second_question" class="table-borderless table-condensed table-hover">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="5" style="background-color: #92e892">% des Staatsbudgets für Wirtschaftsförderung</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>10%</th>
+      <th> </th>
+      <th>35%</th>
+      <th> </th>
+      <th>60%</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="trs">
+      <td class="z1_2">Mein Standpunkt:</td>
+      <td class="rows" id="1"><input type="checkbox"></input></td>
+      <td class="rows" id="2"><input type="checkbox"></input></td>
+      <td class="rows" id="3"><input type="checkbox"></input></td>
+      <td class="rows" id="4"><input type="checkbox"></input></td>
+      <td class="rows" id="5"><input type="checkbox"></input></td>
+    </tr>
+  </tbody>
+</table>
+<h2 style="font-weight:bold; color:#2A79BF">2. Ausgaben für Wirtschaftsförderung in der Landwirtschaft</h2>
+<div>
+  Wirtschaftswachstum ist nicht gleich Wirtschaftswachstum. Zum Beispiel kommt die Förderung der Landwirtschaft überwiegend der ländlichen Bevölkerung zu Gute,
+  während die Förderung der nichtlandwirtschaftlichen Sektoren, d.h. der Industrie und dem Dienstleistungssektor, überwiegend der
+  städtischen Bevölkerung zu Gute kommt. Dabei lebt in afrikanischen Ländern die Mehrheit der Bevölkerung auf dem Land
+  (zwischen 60 und 90 Prozent). Auf dem Lande lebt auch der Großteil der armen Haushalte. Die Frage ist also wieder die
+  Balance zwischen den staatlichen Ausgaben für Wirtschaftsförderung in der Landwirtschaft versus Nichtlandwirtschaft (Industrie).
+Afrikanische Länder geben im Durchschnitt zwischen 60 bis 98 Prozent ihres Budgets für die Förderung von Wirtschaftswachstum in der
+Industrie aus, während nur 30 bzw. sogar nur 2 Prozent für die Förderung der Landwirtschaft ausgegeben werden.
+</div>
+<h2 style="font-weight:bold;">Wieviel Prozent der gesamten Wirtschaftsförderung sollte ein Entwicklungsland Deiner Meinung nach für die Landwirtschaft ausgeben? </h2>
+<table id="third_question" class="table-borderless table-condensed table-hover">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="5" style="background-color: #92e892">% Wirtschaftsförderung in der Landwirtschaft</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>0%</th>
+      <th> </th>
+      <th>30%</th>
+      <th> </th>
+      <th>60%</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="trs">
+      <td class="z1_3">Mein Standpunkt:</td>
+      <td class="rows" id="1"><input type="checkbox"></input></td>
+      <td class="rows" id="2"><input type="checkbox"></input></td>
+      <td class="rows" id="3"><input type="checkbox"></input></td>
+      <td class="rows" id="4"><input type="checkbox"></input></td>
+      <td class="rows" id="5"><input type="checkbox"></input></td>
+    </tr>
+  </tbody>
+</table>
+<h2 style="font-weight:bold; color:#2A79BF">3. Förderprogramme in der Landwirtschaft</h2>
+<div>
+  Es gibt unterschiedliche Ansätze Wirtschaftswachstum in der Landwirtschaft zu fördern. Im zentralen afrikanischen landwirtschaftlichen Entwicklungsplan (CAADP) werden 4 Säulen (Pillars) unterschieden.
+  <br>
+  <b>PILLAR_NR:</b> Verbesserung des <b>Managements der natürlichen Ressourcen</b>, Land und Wasser. Die Erträge in vielen afrikanischen Ländern könnten enorm gesteigert werden durch einen verbesserten Einsatz von Bewässerung sowie adäquater Bodenbearbeitung.
+  <br>
+  <b>PILLAR_FR:</b> Verbesserung des <b>Farm-Managements</b>. Dies umfasst im Wesentlichen Subventionen für die Nutzung von Dünger, Pestiziden und Saatgut. Subventionszahlungen werden sehr kritisch von internationalen Entwicklungsorganisationen diskutiert, da diese hofft falsche Anreize geben und dadurch oft unwirksam oder ineffizient sind.
+  <br>
+  <b>PILLAR_IS:</b> Verbesserung der Vermarktung durch <b>Infrastrukturmaßnahmen</b>. Afrikanische Landwirte haben oft sehr hohe Transaktionskosten, da lukrative Märkte in der Regel weiter weg in den Städten liegen und es keine guten Verkehrsmöglichkeiten gibt. So kommt es, dass viele Landwirte keine produktiven Inputs kaufen können bzw. lukrative Produkte nicht vermarkten können und nur für ihren Eigenbedarf bzw. kleine lokale Märkte mit geringem Umsatz produzieren.
+  <br>
+  <b>PILLAR_HR:</b> Verbesserung des <b>Human Kapitals</b>, d.h. staatliche Investitionen in Forschung und Beratung. Gerade die Züchtung von leistungsfähigen lokalen Sorten bzw. Rassen, die unter den speziellen klimatischen Bedingungen hohe Erträge bringen und eine geringe Anfälligkeit für Krankheiten und Trockenheit aufweisen, ist sehr wichtig. Gleichzeitig ist es eine Tatsache, dass praktische Landwirte in Afrika im Durchschnitt nur 10-20% der Best-Praxis Erträge erwirtschaften, was das enorme Potential der landwirtschaftlichen Beratung unterstreicht.
+</div>
+<h2 style="font-weight:bold">
+  Wieviel Prozent der gesamten landwirtschaftlichen Wirtschaftsförderung sollte deiner Meinung nach auf die jeweiligen Förderprogramme (Pillars) für die Landwirtschaft ausgeben? Zur Orientierung haben wir die aktuellen Ausgabenanteile der jeweiligen Pillars mit aufgeführt.
+</h2>
+<div style="font-weight:bold">Pillar NR: Ausgabenanteil für Managements der natürlichen Ressourcen</div>
+<br>
+<table id="fourth_question" class="table-borderless table-condensed table-hover">
+  <thead>
+    <tr>
+      <th>Aktueller Anteil CAADP:</th>
+      <th>17%</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="trs">
+      <td class="z1_4">Mein Standpunkt (in %):</td>
+      <td class="rows" id="1"><input type="text"></input></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<div style="font-weight:bold">Pillar FR: Ausgabenanteil für Farm-Managements</div>
+<br>
+<table id="fifth_question" class="table-borderless table-condensed table-hover">
+  <thead>
+    <tr>
+      <th>Aktueller Anteil CAADP:</th>
+      <th>60%</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="trs">
+      <td class="z1_5">Mein Standpunkt (in %):</td>
+      <td class="rows" id="1"><input type="text"></input></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<div style="font-weight:bold">Pillar IS: Ausgabenanteil für Infrastruktur</div>
+<br>
+<table id="sixth_question" class="table-borderless table-condensed table-hover">
+  <thead>
+    <tr>
+      <th>Aktueller Anteil CAADP:</th>
+      <th>10%</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="trs">
+      <td class="z1_6">Mein Standpunkt (in %):</td>
+      <td class="rows" id="1"><input type="text"></input></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<div style="font-weight:bold">Pillar HR: Ausgabenanteil für Human Kapital </div>
+<br>
+<table id="seventh_question" class="table-borderless table-condensed table-hover">
+  <thead>
+    <tr>
+      <th>Aktueller Anteil CAADP:</th>
+      <th>13%</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="trs">
+      <td class="z1_7">Mein Standpunkt (in %):</td>
+      <td class="rows" id="1"><input type="text"></input></td>
+    </tr>
+  </tbody>
+</table>
+
+<button id="submit" style="background-color: #5bc0de; font-size: 20px;">SUBMIT</button>
+<script>
+  $(function() {
+    $('input').click(function (event) {
+      var $rows = $(this).parent().siblings('.rows');
+      for(var i = 0; i < $rows.length; i++) {
+        $($rows.get(i)).children().first().prop("checked", false);
+      }
+      $(this).prop("checked", true);
+    });
+
+    $('#submit').click(function(event) {
+      $(this).text('...');
+      $(this).prop('disabled', true);
+      var hashedinput = {};
+      $('.trs').each(function(index) {
+        var name = $($('.trs').get(index)).children().get(0).className;
+        var $children = $($('.trs').get(index)).children();
+        for(var i = 1; i < $children.length; i++) {
+          if($($($children[i]).children().get(0)).attr('type') == "text") {
+            hashedinput[name] = $($($children[i]).children().get(0)).val();
+          } else if($($($children[i]).children().get(0)).is(':checked')) {
+            var $input = $($($(this).children().get(i)).children().get(0)).parent().attr('id');
+            hashedinput[name] = $input;
+          }
+        }
+      });
+
+      //@protocol_input
+      //@filename
+      //hashedinput
+
+//<% if !$session_complete %>
+      var request = $.ajax({
+          type: 'POST',
+          url: '<%= p_open_path %>',
+          data: {'hashedinput' : hashedinput }
+        });
+
+        request.done(function( msg ) {
+          var graph_path = '<%= graph3_path(2) %>';
+          document.location.href = graph_path;
+        });
+/*  <% else %>
+  var request = $.ajax({
+      type: 'POST',
+      url: '<%= p_open_path %>',
+      data: {'hashedinput' : hashedinput }
+    });
+
+    request.done(function( msg ) {
+      var home_path = '<%= home_path %>';
+      document.location.href = home_path;
+    });
+<% end %> */
+  });
+});
+</script>

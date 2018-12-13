@@ -1,32 +1,124 @@
 class QueryModelFromDatabase
-attr_accessor :function_names, :params_with_default_values, :output_values, :settings_widgets
+attr_accessor :function_names, :params_with_default_values, :output_values, :settings_widgets, :sub_slider_settings, :nested_slider_settings,
+:subpifsCount, :interface
 
 @function_names = []
 @params_with_default_values = []
 @output_values = []
 @settings_widgets = []
+@sub_slider_settings = Hash.new
+@nested_slider_settings = []
+@subpifsCount = 0
+@interface = Hash.new
 
-  def initialize(model_id)
+  def initialize(model_id, lang)
     @settings_widgets = []
+    @sub_slider_settings = Hash.new
+    @interface = Hash.new
+    @subpifsCount = 0
+    puts 'model_id: ' + model_id
+    puts 'language: ' + lang
+
+
+      if lang == 'de'
+        @interface['setting'] = InterfaceSetting.find(2).de_name
+        @interface['old_score'] = InterfaceSetting.find(3).de_name
+        @interface['score'] = InterfaceSetting.find(4).de_name
+
+        @interface['tip'] = InterfaceSetting.find(5).de_name
+        @interface['before_step'] = InterfaceSetting.find(6).de_name
+        @interface['fix'] = InterfaceSetting.find(7).de_name
+        @interface['old_values'] = InterfaceSetting.find(8).de_name
+        @interface['input'] = InterfaceSetting.find(9).de_name
+        @interface['model'] = InterfaceSetting.find(10).de_name
+      else
+        @interface['setting'] = InterfaceSetting.find(2).eng_name
+        @interface['old_score'] = InterfaceSetting.find(3).eng_name
+        @interface['score'] = InterfaceSetting.find(4).eng_name
+
+        @interface['tip'] = InterfaceSetting.find(5).eng_name
+        @interface['before_step'] = InterfaceSetting.find(6).eng_name
+        @interface['fix'] = InterfaceSetting.find(7).eng_name
+        @interface['old_values'] = InterfaceSetting.find(8).eng_name
+        @interface['input'] = InterfaceSetting.find(9).eng_name
+        @interface['model'] = InterfaceSetting.find(10).eng_name
+      end
+
+
     ModelHasSetting.where(models_id: model_id).find_each do |model_has_settings_widget|
       puts "settings_id: " + model_has_settings_widget.settings_widgets_id.to_s
       SettingsWidget.where(id: model_has_settings_widget.settings_widgets_id).find_each do |settings_widget|
-        puts "in settings"
-        settings_widget_element = Hash.new
-        settings_widget_element['name'] = settings_widget.name
-        settings_widget_element['min'] = settings_widget.min
-        settings_widget_element['max'] = settings_widget.max
-        settings_widget_element['step'] = settings_widget.step
-        settings_widget_element['inner_step'] = settings_widget.inner_step
-        settings_widget_element['default_value'] = settings_widget.default_value
-        settings_widget_element['order_number'] = settings_widget.order_number
-        settings_widget_element['value'] = settings_widget.value
-        settings_widget_element['title'] = settings_widget.title
+          puts "in settings"
+          puts "settings_widget: " + settings_widget.id.to_s
+          settings_widget_element = Hash.new
+          settings_widget_element['id'] = settings_widget.id
+          settings_widget_element['name'] = settings_widget.name
+          settings_widget_element['min'] = settings_widget.min
+          settings_widget_element['max'] = settings_widget.max
+          settings_widget_element['step'] = settings_widget.step
+          settings_widget_element['inner_step'] = settings_widget.inner_step
+          #settings_widget_element['default_value'] = settings_widget.default_value
+          settings_widget_element['order_number'] = settings_widget.order_number
+          settings_widget_element['value'] = (lang == 'de') ? settings_widget.value : settings_widget.eng_value
+          settings_widget_element['title'] = settings_widget.title
 
-        @settings_widgets.push(settings_widget_element)
+          default_param = ModelDefaultParam.find(settings_widget.model_default_params_id)
+          settings_widget_element['default_value'] = default_param.default_value
+          settings_widget_element['param_name'] = default_param.param_name
+
+       if settings_widget.parent.nil?
+          puts "parent nil"
+          @settings_widgets.push(settings_widget_element)
+       else
+=begin    puts "parent not nil"
+          parentId = settings_widget.parent.to_s
+          puts "parent_id: " + parentId
+
+          if @sub_slider_settings[parentId] == nil
+              @sub_slider_settings[parentId] = []
+          end
+
+          @subpifsCount = @subpifsCount + 1
+          @sub_slider_settings[parentId].push(settings_widget_element)
+
+          puts "sub_slider in query model: " + @sub_slider_settings.to_s
+=end
+       end
+
+      end
+    end
+
+      @nested_slider_settings = @settings_widgets
+
+      puts "before " + @sub_slider_settings.to_s
+
+      index = 0
+      while index < (@settings_widgets.length + subpifsCount - 1)
+  #    for index in 0..@nested_slider_settings.length do
+  #    @nested_slider_settings.each_with_index do |setting, index|
+        puts "index: " + index.to_s
+        setting = @nested_slider_settings[index]
+        puts "setting id: " + setting['id'].to_s
+        if @sub_slider_settings.key?(setting['id'].to_s)
+          puts "setting id: " + setting['id'].to_s
+          first_part_array = @nested_slider_settings[0..index]
+          puts "first part array: " + first_part_array.to_s
+          second_part_array = @nested_slider_settings[index + 1..@nested_slider_settings.length - 1]
+          puts "second part array: " + second_part_array.to_s
+          count = 0
+          @sub_slider_settings[setting['id'].to_s].each_with_index do |subslider, index|
+            first_part_array.push(subslider)
+            count += 1
+          end
+          @nested_slider_settings = first_part_array + second_part_array
+          puts "nested slider step: " + @nested_slider_settings.to_s
+          index = index + count + 1
+        else
+          index += 1
+        end
       end
 
-    end
+      puts "nested settings: " + @nested_slider_settings.to_s
       puts "settings-element: " + @settings_widgets.to_s
 
     @params_with_default_values = []
@@ -35,6 +127,10 @@ attr_accessor :function_names, :params_with_default_values, :output_values, :set
         default_param_element = Hash.new
         default_param_element['param_name'] = default_param.param_name
         default_param_element['default_value'] = default_param.default_value
+        default_param_element['id'] = default_param.id
+
+        settings_id = SettingsWidget.where(model_default_params_id: default_param['id'])[0].id;
+        default_param_element['settings_id'] = settings_id;
 
         @params_with_default_values.push(default_param_element)
       end
@@ -59,7 +155,7 @@ attr_accessor :function_names, :params_with_default_values, :output_values, :set
     ModelHasOutputSet.where(models_id: model_id).order(:model_output_sets_id).each do |model_has_output_set|
       ModelOutputSet.where(id: model_has_output_set.model_output_sets_id).find_each do |model_output_set|
         model_output_set_element = Hash.new
-        model_output_set_element['title'] = model_output_set.title
+        model_output_set_element['title'] = (lang == 'de') ? model_output_set.title : model_output_set.eng_value
         model_output_set_element['chart_type'] = model_output_set.chart_type
         model_output_set_element['xcategories'] = model_output_set.xcategories
         model_output_set_element['ycategories'] = model_output_set.ycategories

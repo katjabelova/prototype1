@@ -26,4 +26,45 @@ module SessionsHelper
     end
   end
 
+  def get_protocol_user
+    @protocol_user ||= session[:protocol_user]
+  end
+
+  def get_protocol_time
+    @protocol_time ||= session[:protocol_time]
+  end
+
+  def get_protocol_file
+    @protocol_file ||= session[:protocol_file]
+  end
+
+  def session_user
+    if logged_in?
+      puts "logged in"
+      session[:protocol_user] = @current_user.id.to_s
+      user_id = @current_user.id
+    else
+      @timeset_millis = Time.now.to_f
+      @default_user = 'default' + @timeset_millis.to_s
+      session[:protocol_user] = @default_user.to_s
+      user_id = @default_user
+    end
+
+  end
+
+  def session_time
+    @timeset = DateTime.now.to_s
+    session[:protocol_time] = @timeset.gsub(':', '-')
+    @timeset = @timeset.gsub(':', '-')
+  end
+
+  def session_file
+    combinedTimeUser = session_time + '_' + session_user.to_s
+    session[:protocol_file] = Rails.root + "protocol/protocols/" + combinedTimeUser
+    @filename = Rails.root + "protocol/protocols/" + combinedTimeUser
+  end
+
+#  @session_complete = false
+
+
 end

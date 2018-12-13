@@ -2,10 +2,12 @@ require 'rubygems'
 require 'faraday'
 require 'open-uri'
 require 'json'
+require 'resolv'
 
 
 class ModelViewController < ApplicationController
   protect_from_forgery with: :null_session
+#  include SessionsHelper
 #  after_action :parse_json
 
   @title = "Post requested"
@@ -270,9 +272,71 @@ class ModelViewController < ApplicationController
           ])
   end
 
+  def sent_proto
+    puts 'in get'
+    puts 'params: ' + params.to_json
+  end
+
   def show_graph3
+    @hashedinput = ""
+    if request.put?
+    #  redirect_to controller: 'model_view_controller', action: 'show_graph3', id: params[:id], lang_changed: params[:lang_changed]
+  #    redirect_to graph3_path(:id => params[:id], :lang_changed => params[:lang_changed])
+    elsif request.post?
+      puts 'request post'
+      puts 'params: ' + params.to_json
+    #  puts "file " + logged_in?
+          #  host_remote = Resolv.getname(request.remote_ip)
+
+  #    puts "remote host": host_remote
+  #new
+  #  $session_complete = true
+    File.open(params['file'], 'a') { |f| f << params['protocol'].to_s }
+=begin      File.new(params['filename'], 'w+')
+      File.open(params['filename'], 'w+') { |f| f << params['protocol'] }
+=end
+    else
+      puts 'request ...'
+    #  host_remote = Resolv.getname(request.remote_ip)
+
+    #  puts "remote host": host_remote
+=begin      @timeset = DateTime.now.to_s
+      @timeset = @timeset.gsub(':', '-')
+
+    if logged_in?
+      @user_id = @current_user.id
+    else
+      file_count = Dir.glob(File.join(Rails.root + "protocol/protocols/", '**', '*')).select { |file| File.file?(file) }.count + 1
+      @user_id = 'default' + file_count.to_s
+    end
+
+    puts "time: " + @timeset.to_s
+    puts "user: " + @user_id.to_s
+    @protocol_input = ""
+=end
+
+=begin
+    @protocol_input += 'start\n'
+    @protocol_input += "time: " + @timeset + " ;  " + "user: " + @user_id.to_s + '\n'
+
+    combinedTimeUser = @timeset.to_s + '_' + @user_id.to_s
+
+    @filename = Rails.root + "protocol/protocols/" + combinedTimeUser
     @id = params[:id]
-    @dbelems = QueryModelFromDatabase.new(params[:id])
+=end
+=begin
+if params[:lang_changed] != lang
+
+    else
+      @dbelems = QueryModelFromDatabase.new(@id, lang)
+    end
+=end
+    @id = params[:id]
+    puts '1params: ' + params.to_s
+    @lang = (params[:lang_changed] == nil) ? 'de' : params[:lang_changed]
+    puts '1lang: ' + @lang.to_s
+    @dbelems = QueryModelFromDatabase.new(@id, @lang)
+    end
   end
 
   def show_graph4

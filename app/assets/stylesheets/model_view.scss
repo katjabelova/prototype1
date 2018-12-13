@@ -22,12 +22,14 @@
 }
 
 .inputsList {
-  margin-top: -9em;
+//  margin-top: -9em;
 }
 
 .checkbox {
-  margin-left: 5em;
-  width: 30em;
+  //margin-left: 2em;
+
+  text-align: center;
+//  width: 30em;
 }
 
 #contentinner {
@@ -46,8 +48,8 @@
 
 .mainContent {
 //  margin-top: 25.5%;
-  margin-top: 31.5%;
-  transform: translateY(-50%);
+//  margin-top: 31.5%;
+//  transform: translateY(-50%);
 }
 
 #containerinner2 {
@@ -80,8 +82,8 @@
 }
 
 #container2 {
-  margin-top: 82%;
-  transform: translateY(-50%);
+//  margin-top: 82%;
+//  transform: translateY(-50%);
   border-width: thin;
   border-style: solid;
   border-color: black;
@@ -90,7 +92,7 @@
 
   margin-left: 0px;
   margin-right: 0px;
-  margin-bottom: 0px;
+//  margin-bottom: 0px;
 }
 
 /*
@@ -103,11 +105,18 @@
 
 #left {
   position: relative;
-  float: right;
-  margin-right: 5px;
+  float: left;
+  margin-left: 10px;
   color: #5bc0de;
 }
 
+/* #tge1 {
+  position: relative;
+  float: left;
+  margin-left: 50px;
+} */
+
+/*
 #right {
   position: relative;
   float: left;
@@ -115,7 +124,6 @@
   color: #5bc0de;
 }
 
-/*
 #right {
     position: relative;
     float: left;
@@ -161,7 +169,7 @@
 
 .wrapper > nav {
   order: 1;
-  min-width: 18vw;
+  min-width: 25vw;
 //  max-width: 25%;
 }
 
@@ -235,12 +243,16 @@
   margin-right: auto;
 }
 
+button {
+  border-radius: 5px;
+}
+
 #sidebar ul li {
   margin: 20px 0 40px 0;
 }
 
-.slider {
-  width: 80%;
+.slider, .subslider {
+  width: 95%;
 }
 
 /* The slider itself */

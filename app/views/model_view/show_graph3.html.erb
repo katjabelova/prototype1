@@ -1,84 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-  <link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'>
-  <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
-
-  <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
-  <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
-
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/flick/jquery-ui.css">
-  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-
-  <script scr="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.css"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.min.css"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.min.js"></script>
-  <style>
-
-  main {
-    margin-right: 0px;
-    margin-left: 0px;
-    background-color: transparent;
-  }
-
-  body {
-    width: 100vw;
-    background-color: rgba(255,228,196, 0.3);
-  }
-
-  .wrapper {
-    background-color: transparent;
-  }
-
-  </style>
-</head>
-  <body id="body">
+    <% if @dbelems != nil %>
     <% path = @dbelems.function_names[0]['path'] == nil ? 'model_functions/textmodel.js' : @dbelems.function_names[0]['path'].to_s %>
     <%= javascript_include_tag path %>
+
     <div class="wrapper" id="wrapper">
       <div style="display:none"  id="hiddenright">
         <i id="hiddenright" class="fa fa-arrow-right" style="font-size:25px;" role="button">
         </i>
       </div>
       <nav id="sidebar">
-          <i id="left" class="fa fa-arrow-left" style="font-size:25px;" role="button"></i>
-       <div class="sidebar-header" align="center">
-           <h3>Settings</h3>
-       </div>
+          <i id="left" class="fa fa-arrow-left" style="font-size:35px;" role="button"></i>
+           <div class="sidebar-header" align="center">
+              <h3><%= @dbelems.interface['setting'] %></h3>
+           </div>
+
        <ul style="list-style-type:none">
+
          <% @dbelems.settings_widgets.each do |settings_widgets| %>
          <% @sliderId = 'slider' + settings_widgets['order_number'].to_s %>
+
          <li id="<%= settings_widgets['order_number'].to_s %>" title="<%= settings_widgets['title'].to_s %>" class="lis"><%= settings_widgets['value'].to_s %>
            <div id="<%= @sliderId %>" class="slider" data="<%= settings_widgets['order_number'].to_s %>">
            </div>
          </li>
+
+         <% @setSliderId = settings_widgets['id'].to_s %>
+         <% puts ' :setting2_2: ' + @dbelems.sub_slider_settings.to_s %>
+         <% if @dbelems.sub_slider_settings.key?(@setSliderId) %>
+
+         <button type="close" class="button_close" data="<%= @setSliderId %>" style="background-color:#f9f9f9;">set <%= settings_widgets['value'] %>: </button>
+
+         <% puts "slider settings__: " + @dbelems.sub_slider_settings[@setSliderId].to_s %>
+         <% @dbelems.sub_slider_settings[@setSliderId].each_with_index do |setting_, index_| %>
+         <% @subSliderId = @setSliderId + '_' + 'subslider'+ '_' + setting_['order_number'].to_s %>
+
+         <li id="<%= setting_['order_number'].to_s %>" title="<%= setting_['title'].to_s %>" class="slis" data="<%= @setSliderId %>" style="display:none"><%= setting_['value'].to_s %>
+           <div id="<%= @subSliderId %>" class="subslider" data="<%= setting_['order_number'].to_s %>">
+           </div>
+         </li>
+
          <% end %>
+         <% end %>
+         <% end %>
+
        </ul>
+       <div id='tge1' align="center">
+       <% if @lang == 'de'%>
+       <input id="toggle-event" type="checkbox" checked data-toggle="toggle" data-size="small" data-onstyle="info" data-offstyle="info"
+           data-on="Deutsch" data-off="English" data-true="de" data-false="en">
+       </input>
+       <% else %>
+       <input id="toggle-event" type="checkbox" checked data-toggle="toggle" data-size="small" data-onstyle="info" data-offstyle="info"
+           data-on="English" data-off="Deutsch" data-true="en" data-false="de">
+       </input>
+       <% end %>
+     </div>
 
        <p id="hidden" style="display:none;"></p>
    </nav>
-   <div id="contentinner">
-      <h1>Model <%= @id.to_s %></h1>
-      <script src="http://code.highcharts.com/highcharts.js"></script>
-      <script src="http://code.highcharts.com/modules/exporting.js"></script>
 
+   <div id="contentinner">
+      <h1><%= @dbelems.interface['model'] %></h1>
       <div class="mainContent">
-        <div>
-          <% @dbelems.output_values.each do |output| %>
-          <% puts "tilte: " +  output['title'].to_s %>
-          <button id="<%= output['order_number'].to_s %>" type="button" style="background-color: #f9f9f9" class="autocompare_"><%= output['title'].to_s %></button>
+        <div id="tabs">
+
+          <% @dbelems.output_values.each_with_index do |output, index| %>
+          <% if index > 4 %>
+            <button id="<%= output['order_number'].to_s %>" data="button" type="button" style="background-color: #f9f9f9" class="autocompare_"><%= output['title'].to_s %></button>
+          <% end %>
           <% end  %>
+
         </div>
         <div class="wrapperinner">
           <div id="container1" remote="true" style=" min-height: 400px;"></div>
+          <div id="score_id" style="text-align: center; font-weight: bold"> - </div>
+          <div id="score" style="font-size: 150%; margin-top: 10px; margin-bottom: 10px;" align="center"> - </div>
+          <div align="center">
+            <button id="savebutton" style="font-size: 125%; background-color: #5bc0de;"><%= @dbelems.interface['tip'] %></button>
+          </div>
         </div>
       </div>
 
@@ -88,35 +86,58 @@
         </i>
       </div>
 <div id="containerinner2">
-  <i id="right" class="fa fa-arrow-right" style="font-size:25px;" role="button"></i>
+<!--  <i id="right" class="fa fa-arrow-right" style="font-size:25px; display: none" role="button"></i> -->
+  <h1><%= @dbelems.interface['before_step'] %></h1>
+
+  <div class="checkbox">
+      <label>
+        <%= @dbelems.interface['fix'] %>
+      </label>
+      <input data-toggle="toggle" type="checkbox" class="fixOutput">
+  </div>
   <div id="container2" remote="true" style="display:none;  min-height: 300px"></div>
+
   <div class="inputsList">
+      <ul class="outputName" style="list-style-type:none"><%= @dbelems.interface['input'] %>
 
-    <div class="checkbox">
-        <label>
-          Fix output for input values
-        </label>
-        <input data-toggle="toggle" type="checkbox" class="fixOutput"></input>
-    </div>
-
-      <ul class="outputName" style="list-style-type:none">Values for inputs:
         <% @dbelems.settings_widgets.each_with_index do |setting, index| %>
+
         <li class="elem">
           <div class="inputName"><%= setting['value'] %>  :     </div>
           <div class="inputValue" id="inputValue">-1</div>
         </li>
+
+          <% @setId = setting['id'].to_s %>
+          <% puts ' :setting1: ' + @setId %>
+
+          <% puts ' :setting2: ' + @dbelems.sub_slider_settings.to_s %>
+          <% if @dbelems.sub_slider_settings.key?(@setId) %>
+          <% puts "slider settings: " + @dbelems.sub_slider_settings[@setId].to_s %>
+          <% @dbelems.sub_slider_settings[@setId].each_with_index do |setting_, index_| %>
+          <% puts "setting_:: " + setting_.to_s %>
+
+            <li class="elem" id="<%= @setId %>" data="<%= setting_['order_number'] %>">
+              <div class="inputName"> - <%= setting_['value'] %>  :     </div>
+              <div class="inputValue" id="inputValue">-1</div>
+            </li>
+
+          <% end %>
+          <% end %>
         <% end %>
+
       </ul>
   </div>
 </div>
 </div>
+
 <script>
 var tabsChosen = 0;
+var firstStart = true;
 
 $(function() {
   var outputFixed = false;
 
-  var wrapperwidth = document.getElementById("body").getBoundingClientRect().width;
+//  var wrapperwidth = document.getElementById("body").getBoundingClientRect().width;
 
   var old_chart_options = null;
   var old_chart_series = null;
@@ -127,6 +148,8 @@ $(function() {
 
   var firstTabChosen = document.getElementsByClassName("autocompare_")[tabsChosen];
   firstTabChosen.style.backgroundColor = '#5bc0de';
+  var textContent = firstTabChosen.textContent;
+//  document.getElementsByClassName("autocompare_")[tabsChosen].addClass("active");
 
   var series = [{
       name: '',
@@ -136,9 +159,7 @@ $(function() {
   var chartOptions = {
     chart: { type: "" },
     title: { text: "" },
-    tooltip: {
-                shared: true
-            },
+    tooltip: { shared: true },
     plotOptions: { column: {
       minPointLength: 3,
       pointRange: 2,
@@ -149,22 +170,95 @@ $(function() {
       shadow: false,
     //  stacking: "normal",
       grouping: false
-
-    }
+      }
     },
-    xAxis: { type: "", categories: [] },
-    yAxis: {
-      title: { text: "" },
+    xAxis: { type: "", categories: [], title: { text : "" } },
+    yAxis: { title: { text: "" },
     //  tickInterval: 0.01
    }
  };
-$(document).tooltip();
+//$(document).tooltip();
+
+$('#toggle-event').change(function() {
+    var toggled = $(this).data($(this).prop("checked").toString());
+  //  window.alert('toggled: ' + toggled.toString());
+
+  /*  if (toggled == 'de') {
+      <%#  model_view_controller.edirect_to graph3_path(:id => @id, :lang_changed => 'de') %>
+    } else {
+      <%#  model_view_controller.redirect_to graph3_path(:id => @id, :lang_changed => 'en') %>
+    } */
+
+/*    $.ajax({
+      type: 'PUT',
+      url: '<%= graph3_put_path %>',
+      data: {
+        'lang_changed' : toggled,
+        'model_id' : '<%= @id %>'
+      }
+    });
+
+    request.done(function( msg ) {
+      var g_path = '<%= graph3_path %>';
+      document.location.href = g_path + '?lang_changed=' + toggled;
+    }); */
+
+    var g_path = '<%= graph3_path %>';
+    document.location.href = g_path + '?lang_changed=' + toggled;
+
+ });
 
 $('#left').on("click", function(event) {
-  $('#sidebar').hide();
-  $('#hiddenright').show();
+//  protocolContent += 'end' + '\n';
+/*
+  var request = $.ajax({
+      type: 'POST',
+      url: '<%= graph3_post_path %>',
+      data: {'protocol' : protocolContent, 'filename' : '<%= @filename %>' }
+    });
+
+  request.done(function( msg ) {
+    var home_path = '<%= home_path %>';
+    document.location.href = home_path;
+  }); */
+
+  $(this).hide();
+  $('#savebutton').prop('disabled', true);
+
+  var request = $.ajax({
+      type: 'POST',
+      url: '<%= graph3_post_path %>',
+      data: {'protocol' : protocolContent, 'file' : '<%= get_protocol_file %>'}
+    });
+
+  request.done(function( msg ) {
+  //  var open_path = '<%= open_path %>';
+  //  document.location.href = open_path;
+    var close_path = '<%= close_path %>';
+    document.location.href = close_path;
+  });
 });
 
+$(window).on("navigate", function (event, data) {
+  var direction = data.state.direction;
+  if (direction == 'back') {
+  //  window.alert("back direction");
+    protocolContent += 'final score: ' + window['score_value'] + '\n';
+
+    var request = $.ajax({
+        type: 'POST',
+        url: '<%= graph3_post_path %>',
+        data: {'protocol' : protocolContent, 'filename' : '<%= @filename %>' }
+      });
+
+    request.done(function( msg ) {
+      var home_path = '<%= home_path %>';
+      document.location.href = home_path;
+    });
+  }
+});
+
+/*
 $('#right').on("click", function(event) {
   $('#containerinner2').hide();
   $('#hiddenleft').show();
@@ -178,15 +272,49 @@ $('#hiddenright').on("click", function(event) {
 $('#hiddenleft').on("click", function(event) {
   $('#hiddenleft').hide();
   $('#containerinner2').show();
-});
+}); */
 
-var old_dbelems = <%= raw @dbelems.params_with_default_values.to_json %>;;
+var old_dbelems = <%= raw @dbelems.params_with_default_values.to_json %>;
+var old_nested_dbelems = <%= raw @dbelems.nested_slider_settings.to_json %>;
+
+var scorediv = document.getElementById('score');
+
+var autocompare = false;
+
+var nested_settings = <%= raw @dbelems.nested_slider_settings.to_json %>;
+var function_names = <%= raw @dbelems.function_names.to_json %>;
+
+var protocolFile = new File([''], '<%= @filename %>');
+//var protocolContent = '<%= @protocol_input %>';
+var protocolContent = "";
+protocolContent += 'tab: ' + firstTabChosen.textContent + '\n';
+
+protocolContent += 'slider input: ' + '\n';
+for(var ns = 0; ns < nested_settings.length; ns++ ) {
+  var setting = nested_settings[ns];
+  protocolContent += setting['param_name'] + ': ' + window[setting['param_name']] + '\n';
+}
+
+protocolContent += 'output: ' + '\n';
+for(var fn = 0; fn < function_names.length; fn++ ) {
+  var fct_name = function_names[fn];
+  protocolContent += fct_name['name'] + ': ' + window[fct_name['name']]() + '\n';
+}
 
 $(document).on('ready', function() {
+
+//  window.alert('logge in' + '<%= get_protocol_file %>');
   var dbelems = <%= raw @dbelems.settings_widgets.to_json %>;
+  var subdbelems = <%= raw @dbelems.sub_slider_settings.to_json %>;
+
+  var score = window['score']();
+
+  $('#score').text('Score: ' + score.toString());
 
     $(".lis").each(function (index, value) {
       var sliderId  = 'slider' + index.toString();
+      var sliderIndex = dbelems[index]['id'];
+      var subsettings = subdbelems[sliderIndex];
 
       $('#'+ sliderId).slider({
             min: parseFloat(dbelems[index]['min']),
@@ -204,6 +332,73 @@ $(document).on('ready', function() {
                 suffix: ""
             })
             .slider("float");
+
+            if(subsettings != null) {
+              for(var i = 0; i < subsettings.length; i++) {
+                var setting = subsettings[i];
+                var subSliderId  = sliderIndex + '_' + 'subslider'+ '_' + i.toString();
+
+                $('#'+ subSliderId).slider({
+                      min: parseFloat(setting['min']),
+                      max: parseFloat(setting['max']),
+                      step: parseFloat(setting['step']),
+                      values: [parseFloat(setting['default_value'])]
+                    })
+                    .slider("pips", {
+                          first: "label",
+                          last: "label",
+                          rest: "label",
+                          step: parseFloat(setting['inner_step']),
+                          labels: false,
+                          prefix: "",
+                          suffix: ""
+                      })
+                      .slider("float");
+              }
+              /*
+              subsettings.each(setting, function(index, item) {
+                    var subSliderId  = 'subslider' + index.toString();
+                    $('#'+ subSliderId).slider({
+                          min: parseFloat(setting['min']),
+                          max: parseFloat(setting['max']),
+                          step: parseFloat(setting['step']),
+                          values: [parseFloat(setting['default_value'])]
+                        })
+                        .slider("pips", {
+                              first: "label",
+                              last: "label",
+                              rest: "label",
+                              step: parseFloat(setting['inner_step']),
+                              labels: false,
+                              prefix: "",
+                              suffix: ""
+                          })
+                          .slider("float");
+              }); */
+
+        /*      $(".slis").each(function (index1, value1) {
+                //  var sliderId  = 'subslider'
+                  //index.toString();
+                  var setting = subsettings[index1];
+                  var subSliderId  = 'subslider' + index1.toString();
+                  $('#'+ subSliderId).slider({
+                        min: parseFloat(setting['min']),
+                        max: parseFloat(setting['max']),
+                        step: parseFloat(setting['step']),
+                        values: [parseFloat(setting['default_value'])]
+                      })
+                      .slider("pips", {
+                            first: "label",
+                            last: "label",
+                            rest: "label",
+                            step: parseFloat(setting['inner_step']),
+                            labels: false,
+                            prefix: "",
+                            suffix: ""
+                        })
+                        .slider("float");
+              }); */
+            };
     });
 
   //  $('.elem').each(function(index, value) {
@@ -217,16 +412,108 @@ $(document).on('ready', function() {
 
   });
 
-  $('.fixOutput').change(function() {
+  $('#savebutton').click(function (event) {
+    $(this).text('...');
+    $(this).prop('disabled', true);
+    $('#left').hide();
+    protocolContent += 'final score: ' + window['score_value'] + '\n';
+//    protocolContent += 'end' + '\n';
+/*
+  var request = $.ajax({
+      type: 'POST',
+      url: '<%= graph3_post_path %>',
+      data: {'protocol' : protocolContent, 'filename' : '<%= @filename %>' }
+    });
+
+  request.done(function( msg ) {
+    var home_path = '<%= home_path %>';
+    document.location.href = home_path;
+  });
+  */
+  var request = $.ajax({
+      type: 'POST',
+      url: '<%= graph3_post_path %>',
+      data: {'protocol' : protocolContent, 'file' : '<%= get_protocol_file %>'}
+    });
+
+  request.done(function( msg ) {
+  //  var open_path = '<%= open_path %>';
+  //  document.location.href = open_path;
+    var close_path = '<%= close_path %>';
+    document.location.href = close_path;
+
+  });
+  });
+
+  $('.fixOutput').change( function() {
         outputFixed = !outputFixed;
         fixed_chart_options = old_chart_options;
   });
 
-/*  $('.fixOutput').bootstrapToggle({
-     window.alert("toggle found");
-  }); */
+  $('.button_close').click(function (event) {
+      var state = $(this).attr('type') == 'close' ? true : false;
+
+    //  if(state) {
+        var correspondingId = $(this).attr('data');
+        if(state) {
+          $(this).css('background-color', '#5bc0de');
+          var textArray = $(this).text().split(" ");
+          textArray[0] = 'close';
+          $(this).text(textArray[0] + " " + textArray[1] + " " + textArray[2]);
+
+          $(this).attr('type', 'show');
+          $( ".slider" ).slider( "option", "disabled", true );
+          $('.slis').each(function(i) {
+          var slisId = $(this).attr('data');
+
+          if($(this).attr('data') != correspondingId) {
+            $(this).hide();
+          } else {
+            $(this).show();
+          }
+
+          $("button").each(function(i) {
+            if($(this).attr('data') != correspondingId) {
+              $(this).prop("disabled", true);
+            }
+          });
+
+        });
+      } else {
+          $(this).attr('type', 'close');
+          $(this).css('background-color', '#f9f9f9');
+          var textArray = $(this).text().split(" ");
+          textArray[0] = 'set';
+          $(this).text(textArray[0] + " " + textArray[1] + " " + textArray[2]);
+
+          $( ".slider" ).slider( "option", "disabled", false );
+          $('.slis').each(function(i) {
+            var slisId = $(this).attr('data');
+          //  window.alert('slis data: ' + slisId.toString());
+            if($(this).attr('data') == correspondingId) {
+              $(this).hide();
+            }
+          });
+
+          $("button").each(function(i) {
+            $(this).prop("disabled", false);
+          });
+      }
+    /*    var correspondingId = $(this).attr('data');
+        var subdbelems = <%= raw @dbelems.sub_slider_settings.to_json %>;
+
+        var pifsettings = subdbelems[correspondingId];
+        for(var i = 0; i < pifsettings.length; i++) {
+          var orderNumber = pifsettings[i]['order_number'];
+        } */
+    //  }
+  });
 
  $('.autocompare_').click(function (event) {
+    autocompare = true;
+    if ($(this).hasClass('active')) {
+      return;
+    }
     $(".autocompare_").removeClass("active");
     $(".autocompare_").css('background-color', '#f9f9f9');
     $(this).addClass("active");
@@ -248,6 +535,21 @@ $(document).on('ready', function() {
      chartOptions.title = title;
      chartOptions.xAxis.categories = dbelems[idChosen]['xcategories'];
      updateChartWithValues();
+
+     //var tab = document.getElementsByClassName("autocompare_")[tabsChosen];
+     textContent = $(this).text();
+
+     protocolContent += 'tab changed ' + '\n';
+     protocolContent += 'tab: ' + $(this).text() + '\n';
+
+     protocolContent += 'output: ' + '\n';
+
+     var functions = <%= raw @dbelems.function_names.to_json %>;
+     protocolContent += $(this).text() + ': ' + window[functions[idChosen]['name']]() + '\n';
+
+     protocolContent += 'score: ' + window['score_value'] + '\n';
+
+  //   window.alert('content: ' + protocolContent);
  });
 
  /*$('#elem').show(1000, function() {
@@ -267,22 +569,113 @@ $(document).on('ready', function() {
   //   });
   // });
 
+  $('.subslider').on("slidechange", function(event, ui) {
+    $('#score_id').text('<%= @dbelems.interface['old_score'] %> ' + window['score_value'].toString());
+    autocompare = false;
+    var dbelems = <%= raw @dbelems.sub_slider_settings.to_json %>;
+    var subSliderIdArray = $(this).attr('id').split('_');
+    var slider = dbelems[subSliderIdArray[0]][subSliderIdArray[2]];
+    var index_ = 0;
+
+    for (var i = 0; i < old_nested_dbelems.length; i++) {
+        if(old_nested_dbelems[i]['id'] == slider['id']) {
+          index_ = i;
+        }
+    }
+
+    window['v_' + slider['param_name']](parseFloat(ui.value));
+
+    chartOptions.title = '<%= @dbelems.interface['old_values'] %>';
+    hiddenElem.value = chartOptions;
+
+    if(!outputFixed) {
+     $('.elem').each(function(index, value) {
+  //  $('#elem').bind("beforeShow", function(event, ui) {
+
+       var element = $(this).find('#inputValue');
+
+       element.html(old_nested_dbelems[index]['default_value']);
+     //  $(this).text() = old_dbelems[index]['param_name'];
+     });
+   };
+
+    // : 1 if old --- new in series, : 0 if new --- old in series
+    var seriesElement = (chartOptions.series.length == 1) ? 0 : 0;
+
+    old_chart_series = chartOptions.series;
+
+    old_chart_options = {
+      colors: ['rgba(168, 168, 168, 0.6)'],
+      chart: { type: chartOptions.chart.type },
+      title: { text: chartOptions.title },
+      plotOptions: {
+        column: {
+          minPointLength: 2,
+          pointRange: 2,
+          pointPadding: 0.2,
+          borderWidth: 0,
+        }
+      },
+      xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories, title: { text: chartOptions.xAxis.title.text } },
+      yAxis: { title: { text: chartOptions.yAxis.title.text } },
+      series: [old_chart_series[seriesElement]]
+    };
+
+    updateChartWithValues();
+
+    old_nested_dbelems[index_]['default_value'] = parseFloat(ui.value);
+
+    var score = window['score']();
+    $('#score').text('<%= @dbelems.interface['score'] %> ' + score.toString());
+
+  //  var tab = document.getElementsByClassName("autocompare_")[tabsChosen];
+  //  var tab = $(".autocompare_ , .active ");
+  //  var tab = document.getElementsByClassName("autocompare_").find(".active");
+
+  /*  var tabs = document.getElementsByClassName("autocompare_");
+    var index = 0;
+    for(var i = 0; i < tabs.length; i++) {
+      if(tabs[i].hasClass("active")) {
+        index = i;
+      }
+    }
+    window.alert("index: " + index.toString());
+    var tab = document.getElementsByClassName("autocompare_")[index]; */
+
+  //  var tab = firstTabChosen;
+
+    protocolContent += 'tab: ' + textContent + '\n';
+
+    protocolContent += 'slider changed: ' + '\n';
+    protocolContent += slider['param_name'] + ': ' + window[slider['param_name']] + '\n';
+
+    protocolContent += 'output: ' + '\n';
+    protocolContent += textContent + ': ' + window[textContent + '_']() + '\n';
+
+    protocolContent += 'score: ' + window['score_value'] + '\n';
+
+  //  window.alert('content: ' + protocolContent);
+  });
+
   $('.slider').on("slidechange", function(event, ui) {
+        $('#score_id').text('<%= @dbelems.interface['old_score'] %> ' + window['score_value'].toString());
+        autocompare = false;
         var dbelems = <%= raw @dbelems.params_with_default_values.to_json %>;
         var index = parseInt($(this).attr('data'));
 
         window[dbelems[index]['param_name']] = parseFloat(ui.value);
 
-        chartOptions.title = "previous values";
+        chartOptions.title = '<%= @dbelems.interface['old_values'] %>';
         hiddenElem.value = chartOptions;
 
        if(!outputFixed) {
         $('.elem').each(function(index, value) {
      //  $('#elem').bind("beforeShow", function(event, ui) {
-      //    window.alert(" bound ");
+
           var element = $(this).find('#inputValue');
-      //    window.alert("element: " + element.html());
-          element.html(old_dbelems[index]['default_value']);
+
+      //    element.html(old_dbelems[index]['default_value']);
+          element.html(old_nested_dbelems[index]['default_value']);
         //  $(this).text() = old_dbelems[index]['param_name'];
         });
       };
@@ -292,9 +685,7 @@ $(document).on('ready', function() {
 
         old_chart_series = chartOptions.series;
 
-      //  window.alert("length of series: " + JSON.stringify(old_chart_series));
         old_chart_options = {
-        //  colors: ['#A8A8A8'],
           colors: ['rgba(168, 168, 168, 0.6)'],
           chart: { type: chartOptions.chart.type },
           title: { text: chartOptions.title },
@@ -306,41 +697,116 @@ $(document).on('ready', function() {
               borderWidth: 0,
             }
           },
-          xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories},
+          xAxis: { type: chartOptions.xAxis.type, categories: chartOptions.xAxis.categories,  title: { text: chartOptions.xAxis.title.text }},
           yAxis: { title: { text: chartOptions.yAxis.title.text } },
           series: [old_chart_series[seriesElement]]
         };
-
-    //    window.alert("series: " + JSON.stringify(old_chart_series));
 
         updateChartWithValues();
 
         old_dbelems[index]['default_value'] = parseFloat(ui.value);
 
+        for( var i = 0; i < old_nested_dbelems.length; i++) {
+          if(old_nested_dbelems[i]['id'] == dbelems[index]['settings_id']) {
+            old_nested_dbelems[i]['default_value'] = parseFloat(ui.value);
+          }
+        }
+
+        var score = window['score']();
+        $('#score').text('<%= @dbelems.interface['score'] %> ' + score.toString());
+
+      //  var tab = document.getElementsByClassName("autocompare_")[tabsChosen];
+      //  var tab = $(".autocompare_ , .active ");
+      //  var tab = document.getElementsByClassName("autocompare_").find(".active");
+
+    /*    var tabs = document.getElementsByClassName("autocompare_");
+        var index = 0;
+        window.alert("index: " + index.toString());
+        for (var ii = 0; ii < tabs.length; ii++) {
+          window.alert("in for");
+          window.alert(tabs[ii]);
+          if (tabs[ii].hasClass("active")) {
+            window.alert("in if");
+            index = ii;
+          };
+        };
+        window.alert("index: " + index.toString());
+        var tab = document.getElementsByClassName("autocompare_")[index]; */
+    //    var tab = firstTabChosen;
+
+    //    window.alert("tab: " + tab.toString());
+        protocolContent += 'tab: ' + textContent + '\n';
+
+        protocolContent += 'slider changed: ' + '\n';
+        protocolContent += dbelems[index]['param_name'] + ': ' + window[dbelems[index]['param_name']] + '\n';
+        protocolContent += 'output: ' + '\n';
+        var functions = <%= raw @dbelems.function_names.to_json %>;
+        protocolContent += textContent + ': ' + window[functions[tabsChosen]['name']]() + '\n';
+      /*  for(var fn = 0; fn < function_names.length; fn++ ) {
+          var fct_name = function_names[fn];
+          protocolContent += fct_name['name'] + ': ' + window[fct_name['name']]() + '\n';
+        } */
+
+        protocolContent += 'score: ' + window['score_value'] + '\n';
+
+    //    window.alert('content: ' + protocolContent);
   });
+
+/*  $('#savebutton').on('click', function() {
+      protocolContent += 'final score: ' + window['score_value'] + '\n';
+      window.alert('content: ' + protocolContent);
+
+      $.ajax({
+        type: 'POST',
+        url: '/model_view_controller/show_graph3',
+        data: {'protocol' : protocolContent },
+        success: function(data){
+          alert('success');
+          //data is whatever you RETURN from your controller.
+          //an array, string, object...something
+        }
+      });
+  }); */
 
  window.updateChart = function(series) {
   <% puts "update function called" %>
-  <% puts "res: " + @dbelems.output_values[0][:order_number].to_s %>
-  tabsChosen = parseInt('<%=  @dbelems.output_values[0]['order_number'].to_s %>');
-  chartType = "<%= @dbelems.output_values[0]['chart_type'].to_s %>";
-  var title = "<%= @dbelems.output_values[0]['title'].to_s %>";
+  <% puts "res: " + @dbelems.output_values[5][:order_number].to_s %>
+  tabsChosen = parseInt('<%=  @dbelems.output_values[5]['order_number'].to_s %>');
+  chartType = "<%= @dbelems.output_values[5]['chart_type'].to_s %>";
+  var title = "<%= @dbelems.output_values[5]['title'].to_s %>";
   chartOptions.chart.type = chartType;
   chartOptions.title = title;
-  chartOptions.xAxis.categories = <%= raw @dbelems.output_values[0]['xcategories'] %>;
-  chartOptions.yAxis.title.text = '<%= raw @dbelems.output_values[0]['yname'] %>';
+  chartOptions.xAxis.categories = <%= raw @dbelems.output_values[5]['xcategories'] %>;
+  chartOptions.yAxis.title.text = '<%= raw @dbelems.output_values[5]['yname'] %>';
+  chartOptions.xAxis.title.text = '<%= raw @dbelems.output_values[5]['xname'] %>';
+
   updateChartWithValues();
 };
 
 window.updateChartWithValues = function() {
     var dbelems = <%= raw @dbelems.output_values.to_json %>;
     var dbfunctions = <%= raw @dbelems.function_names.to_json %>;
-    var index = tabsChosen;
-    var functionName = dbfunctions[index]['name'];
-    var functionName1 = window[functionName];
-    var seriesData = functionName1();
+    var index = firstStart ? 5 : tabsChosen;
+    chartOptions.xAxis.title.text = dbelems[index]['xname'];
+    if (firstStart) {
+      window['score']();
+      protocolContent += 'score: ' + window['score_value'] + '\n';
+    }
+    firstStart = false;
 
-    //////////
+    var functionName = dbfunctions[index]['name'];
+
+    var seriesData = "";
+
+    if(autocompare == false) {
+      var functionName1 = window[functionName];
+      seriesData = functionName1();
+    } else {
+      functionName = 'v_' + functionName.toString();
+      var functionName1 = window[functionName];
+      seriesData = functionName1();
+    }
+
     var displaycement = 0.0;
 
     if (chartOptions.chart.type == 'line') {
@@ -362,34 +828,23 @@ window.updateChartWithValues = function() {
       };
     };
 
-  //  window.alert("series data length: " + JSON.stringify(seriesData1));
-  //  window.alert("chart options length: " + JSON.stringify(old_chart_options1));
-    ////////////
-
     if (old_chart_options != null) {
-    //  window.alert("chart options != null");
-    //2d color: '#428bca'
+
     chartOptions.colors = ['rgba(66, 139, 202, 1.0)', 'rgba(168, 168, 168, 0.6)'];
     chartOptions.series = [
       {
           name: dbelems[index]['title'],
           data: seriesData1,
           pointPadding: 0.2,
-
-        //  data: seriesData,
-        //  stack: 'new',
       },
       {
         name: 'old ' + dbelems[index]['title'].toString(),
         data: old_chart_options1,
         pointPadding: 0.3,
-
-      //  data: JSON.parse("[" + old_chart_series1[0]['data'] + "]"),
-      //  stack: 'old',
     }
     ];
   } else {
-  //  chartOptions.colors = ['#428bca'];
+
     chartOptions.colors = ['rgba(66, 139, 202, 1.0)'];
     chartOptions.series = [{
         name: dbelems[index]['title'],
@@ -404,11 +859,8 @@ window.updateChartWithValues = function() {
     var containerToHide = document.getElementById("containerinner2");
 
     if (old_chart_options != null) {
-    //  window.alert("json stringify: " + JSON.stringify(old_chart_options));
+      $('#hiddenleft').hide();
 
-    //  if(!outputFixed) {
-        $('#hiddenleft').hide();
-    //  }
       if(true) {
         containerToHide.style.display = "block";
         elementToHide.style.display = "block";
@@ -416,10 +868,9 @@ window.updateChartWithValues = function() {
         if(!outputFixed) {
           old_chart_options.colors = ['rgba(168, 168, 168, 1.0)'];
           old_chart_options['series'][0]['_colorIndex'] = 0;
-    //    window.alert("json stringify2: " + JSON.stringify(old_chart_options));
+
           Highcharts.chart('container2', old_chart_options);
         } else {
-        //  Highcharts.chart('container2', fixed_chart_options);
         };
       }
     } else {
@@ -432,7 +883,83 @@ window.updateChartWithValues = function() {
 
 updateChart(series);
 });
+</script>
 
-    </script>
-  </body>
-</html>
+    <style>
+      main {
+        margin-right: 0px;
+        margin-left: 0px;
+        background-color: transparent;
+      }
+
+      body {
+        width: 100vw;
+        background-color: rgba(255,228,196, 0.3);
+      }
+
+      .wrapper {
+        background-color: transparent;
+      }
+    </style>
+
+
+    <!--<script src="/assets/javascripts/web1/jquery.min.js" type="text/javascript"></script> -->
+
+<!--  <link rel="stylesheet" href="/app/assets/stylesheets/web/jquery.mCustomScrollbar.min.css"> -->
+  <!--   <%#= stylesheet_link_tag "/web/jquery.mCustomScrollbar.min.css", media: "all" %> -->
+  <!--  <link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'>
+    <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/flick/jquery-ui.css">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+    <%#= javascript_include_tag "web1/jquery.min.js", "data-turbolinks-track" => true  %>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+    <script scr="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.css"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.min.css"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.min.js"></script>
+
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+-->
+
+<!--
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'>
+    <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/flick/jquery-ui.css">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+    <script scr="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.css"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.min.css"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.min.js"></script>
+
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+-->
+<!--
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.js"></script>
+-->
+<!--
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.min.js"></script>
+-->
+  <% end %>
+
+<!--  </body> -->
+<!-- </html> -->

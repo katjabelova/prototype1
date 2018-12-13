@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root 'models_visible#index', as: 'home'
+  #root 'models_visible#index', as: 'home'
+  root 'first_screens#firstScreen', as: 'home'
 
   get 'sessions/new'
   get 'users/new'
@@ -21,15 +22,20 @@ Rails.application.routes.draw do
   get '/button', to: 'model_view#post_request', as: 'button'
   get '/button1', to: 'model_view#prepost_request', as: 'button1'
 
+  get 'first_questions/open', to: 'first_questions#open', as: 'open'
+  post 'first_questions/open', to: 'first_questions#open', as: 'p_open'
+
+  get 'first_questions/close', to: 'first_questions#close', as: 'close'
+  post 'first_questions/close', to: 'first_questions#close', as: 'p_close'
+
   get '/graph', to: 'model_view#show_graph'
   get '/graph2', to: 'model_view#show_graph2'
-
-  get '/glider', to: 'model_view#glider', as: 'glider'
-
-#  get '/model_view/:id', to: 'model_view#show_graph3', as: 'graph3'
-#  get '/model_view/:id', to: 'model_view#show_graph4', as: 'graph4'
+  get '/model_view/:id', to: 'model_view#show_graph3', as: 'graph3'
+  post '/model_view/:id', to: 'model_view#show_graph3', as: 'graph3_post'
+  put '/model_view/:id', to: 'model_view#show_graph3', as: 'graph3_put'
+  get '/model_view/:id', to: 'model_view#show_graph4', as: 'graph4'
   post '/modelinfo', to: 'model_view#model_info', as: 'modelinfo'
-  get '/graph3', to: 'model_view#show_graph3'
+#  get '/graph3', to: 'model_view#show_graph3'
   post '/subchoice', to: 'model_view#subchoice', as: 'subchoice'
 
   get '/admin_path', to: 'admin#admin_view'

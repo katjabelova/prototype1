@@ -27,7 +27,7 @@ class UsersController < ApplicationController
       idToAdd = UserRole.last.id + 1
       UserRole.create(id: idToAdd, user_id: @user.id, role_id: 2)
 
-      redirect_to home_path
+      redirect_to login_path
     else
       render 'new'
     end

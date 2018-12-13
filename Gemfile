@@ -48,6 +48,7 @@ gem 'faraday', '~> 0.14.0'
 
 gem 'chartkick'
 gem 'highcharts-rails'
+gem "font-awesome-rails"
 
 gem 'groupdate'
 
