@@ -11,12 +11,12 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery-ui/slider
+//= require jquery-ui
 //= require jquery_ujs
 //= require bootstrap
-//= require turbolinks
 //= require chartkick
 //= require highcharts
 //= require_tree ./model_functions
 //= require_tree ./web1
 //= require_tree ./pips
+//= require turbolinks

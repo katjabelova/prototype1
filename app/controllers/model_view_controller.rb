@@ -283,15 +283,15 @@ class ModelViewController < ApplicationController
     #  redirect_to controller: 'model_view_controller', action: 'show_graph3', id: params[:id], lang_changed: params[:lang_changed]
   #    redirect_to graph3_path(:id => params[:id], :lang_changed => params[:lang_changed])
     elsif request.post?
-      puts 'request post'
-      puts 'params: ' + params.to_json
+  #    puts 'request post'
+    #  puts 'params: ' + params.to_json
     #  puts "file " + logged_in?
           #  host_remote = Resolv.getname(request.remote_ip)
 
   #    puts "remote host": host_remote
   #new
   #  $session_complete = true
-    File.open(params['file'], 'a') { |f| f << params['protocol'].to_s }
+  #  File.open(params['file'], 'a') { |f| f << params['protocol'].to_s }
 =begin      File.new(params['filename'], 'w+')
       File.open(params['filename'], 'w+') { |f| f << params['protocol'] }
 =end
