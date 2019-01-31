@@ -23,6 +23,12 @@
            </div>
          </li>
 
+         <% if settings_widgets['order_number'] == 0 %>
+         <div class="sidebar-header" align="center">
+            <h3>Konkrete Ausgabenpositionen:</h3>
+         </div>
+         <% end %>
+
          <% @setSliderId = settings_widgets['id'].to_s %>
          <% puts ' :setting2_2: ' + @dbelems.sub_slider_settings.to_s %>
          <% if @dbelems.sub_slider_settings.key?(@setSliderId) %>
@@ -460,13 +466,10 @@ updateChart(series);
 
     <style>
       main {
-        margin-right: 0px;
-        margin-left: 0px;
         background-color: transparent;
       }
 
       body {
-        width: 100vw;
         background-color: rgba(255,228,196, 0.3);
       }
 
