@@ -70,13 +70,17 @@ Object.keys(input).forEach(function (key) {
 var z5 = (inputArray[0] / 100) * 5500;
 
 //pro Tier
-var z6 = z5 * (inputArray[1] / normalizedInput(inputArray)) / 12;
-var z7 = z5 * (inputArray[2] / normalizedInput(inputArray)) / 12;
-var z8 = z5 * (inputArray[3] / normalizedInput(inputArray)) / 12;
+var z6_1 = z5 * (inputArray[1] / normalizedInput(inputArray)) / 12;
+var z7_1 = z5 * (inputArray[2] / normalizedInput(inputArray)) / 12;
+var z8_1 = z5 * (inputArray[3] / normalizedInput(inputArray)) / 12;
 
-var z2 = alpha_place[0] * Math.pow(z6, alpha_place[1]);
-var z3 = alpha_climate[0] * Math.pow(z7, alpha_climate[1]);
-var z4 = alpha_social[0] * Math.pow(z8, alpha_social[1]);
+var z6 = z5 * (inputArray[1] / normalizedInput(inputArray));
+var z7 = z5 * (inputArray[2] / normalizedInput(inputArray));
+var z8 = z5 * (inputArray[3] / normalizedInput(inputArray));
+
+var z2 = alpha_place[0] * Math.pow(z6_1, alpha_place[1]);
+var z3 = alpha_climate[0] * Math.pow(z7_1, alpha_climate[1]);
+var z4 = alpha_social[0] * Math.pow(z8_1, alpha_social[1]);
 
 var tierwohl_array = [z2, z3, z4];
 var tierwohl_sum = 0;
@@ -87,9 +91,9 @@ for(i = 0; i < tierwohl_array.length; i++) {
 var z1 = eta * Math.pow(tierwohl_sum, (1 / - rho));
 
 var z9 =  z5/z1 * 1/90 / 12;
-var z10 = z6/z2 * 1/90;
-var z11 = z7/z3 * 1/90;
-var z12 = z8/z4 * 1/90;
+var z10 = z6_1/z2 * 1/90;
+var z11 = z7_1/z3 * 1/90;
+var z12 = z8_1/z4 * 1/90;
 
 var budgets_ = [z5, z6, z7, z8];
 var indicators_ = [z1, z2, z3, z4];
