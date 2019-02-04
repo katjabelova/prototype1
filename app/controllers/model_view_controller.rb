@@ -336,6 +336,9 @@ if params[:lang_changed] != lang
     @lang = (params[:lang_changed] == nil) ? 'de' : params[:lang_changed]
     puts '1lang: ' + @lang.to_s
     @dbelems = QueryModelFromDatabase.new(@id, @lang)
+    @choice = (params[:choice] == nil) ? 'exp1': params[:choice]
+    @current_path = graph3_path
+    @input = (params[:input_array] == nil) ? nil : params[:input_array].split(',')
     end
   end
 

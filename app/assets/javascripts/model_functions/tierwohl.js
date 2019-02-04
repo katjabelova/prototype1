@@ -13,10 +13,27 @@ alpha_social[1] = 0.795859672693153;
 
 var rho = -0.333333333333333;
 
+var mu1 = [];
+mu1[0] = 0.247;
+mu1[1] = 0.291;
+mu1[2] = 0.462;
+
+var mu2 = [];
+mu2[0] = 0.247;
+mu2[1] = 0.291;
+mu2[2] = 0.462;
+
+var mu3 = [];
+mu3[0] = 0.247;
+mu3[1] = 0.291;
+mu3[2] = 0.462;
+
+var mu4 = [];
+mu4[0] = 0.247;
+mu4[1] = 0.291;
+mu4[2] = 0.462;
+
 var mu = [];
-mu[0] = 0.247;
-mu[1] = 0.291;
-mu[2] = 0.462;
 
 var eta = 1;
 
@@ -69,7 +86,7 @@ for(i = 0; i < tierwohl_array.length; i++) {
 
 var z1 = eta * Math.pow(tierwohl_sum, (1 / - rho));
 
-var z9 =  z5/z1 * 1/90;
+var z9 =  z5/z1 * 1/90 / 12;
 var z10 = z6/z2 * 1/90;
 var z11 = z7/z3 * 1/90;
 var z12 = z8/z4 * 1/90;

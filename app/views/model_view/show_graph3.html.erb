@@ -25,7 +25,7 @@
 
          <% if settings_widgets['order_number'] == 0 %>
          <div class="sidebar-header" align="center">
-            <h3>Konkrete Ausgabenpositionen:</h3>
+            <h4>Konkrete Ausgabepositionen:</h4>
          </div>
          <% end %>
 
@@ -37,8 +37,124 @@
 
          <% end %>
          <% end %>
+      <!--   <li>
+         <% if @choice == 'exp1' %>
+         <%#= button_to raw('Update1  &#10003'), {:controller => "model_view", :action => "show_graph3", :id => 4}, :method=>:get, :disabled => true %>
+         <% else %>
+         <%#= button_to raw('Update1'), {:controller => "model_view", :action => "show_graph3", :id => 4}, :params => {:choice => 'exp1'}, :method=>:get %>
+         <% end %>
 
+         <% if @choice == 'exp2' %>
+         <%#= button_to raw('Update2  &#10003'), {:controller => "model_view", :action => "show_graph3", :id => 4}, :method=>:get, :disabled => true %>
+         <% else %>
+         <%#= button_to raw('Update2'), {:controller => "model_view", :action => "show_graph3", :id => 4}, :params => {:choice => 'exp2', :arr => 'return showarr();'}, :method=>:get %>
+         <% end %>
+
+         <% if @choice == 'exp3' %>
+         <%#= button_to raw('Update3  &#10003'), {:controller => "model_view", :action => "show_graph3", :id => 4}, :method=>:get, :disabled => true %>
+         <% else %>
+         <%#= button_to raw('Update3'), {:controller => "model_view", :action => "show_graph3", :id => 4}, :params => {:choice => 'exp3'}, :method=>:get %>
+         <% end %>
+
+         <% if @choice == 'exp4' %>
+         <%#= button_to raw('Update4  &#10003'), {:controller => "model_view", :action => "show_graph3", :id => 4}, :method=>:get, :disabled => true %>
+         <% else %>
+         <%#= button_to raw('Update4'), {:controller => "model_view", :action => "show_graph3", :id => 4}, :params => {:choice => 'exp4'}, :method=>:get %>
+         <% end %>
+
+       </li> -->
+
+       <li>
+         <br>
+         <br>
+       <% if @choice == 'exp1' %>
+        <button class="button_choice" data="exp1" style="background-color: yellow;" disabled>Update1  &#10003</button>
+       <% else %>
+        <button class="button_choice" data="exp1">Update1</button>
+       <% end %>
+       <br>
+       <br>
+       <% if @choice == 'exp2' %>
+       <button class="button_choice" data="exp2" style="background-color: yellow;" disabled>Update2  &#10003</button>
+        <% else %>
+        <button class="button_choice" data="exp2">Update2</button>
+       <% end %>
+       <br>
+       <br>
+       <% if @choice == 'exp3' %>
+       <button class="button_choice" data="exp3" style="background-color: yellow;" disabled>Update3  &#10003</button>
+       <% else %>
+       <button class="button_choice" data="exp3">Update3</button>
+       <% end %>
+       <br>
+       <br>
+       <% if @choice == 'exp4' %>
+       <button class="button_choice" data="exp4" style="background-color: yellow;" disabled>Update4  &#10003</button>
+       <% else %>
+       <button class="button_choice" data="exp4">Update4</button>
+       <% end %>
+
+     </li>
+<!--
+         <div id='tge1' align="left">
+
+<input id="toggle-event" type="checkbox" checked data-toggle="toggle" data-size="small" data-onstyle="info" data-offstyle="info"
+    data-on="Exp  " data-off="Exp" data-true="de" data-false="en">
+</input>
+<br>
+<br>
+<input id="toggle-event" type="checkbox" checked data-toggle="toggle" data-size="small" data-onstyle="info" data-offstyle="info"
+    data-on="name2" data-off="name3" data-true="en" data-false="de">
+</input>
+
+</div> -->
+
+        <!-- <li>
+           <%= check_box_tag "Monday", "yes" %>
+           <%= label_tag "Monday" %>
+         </li>
+         <div class="field">
+           <%= form_tag home_path do %>
+           <%= check_box "Monday", "yes" %> Monday
+           <% end %>
+</div> -->
+<!--
+<div class="form-inline">
+    <%#= f.check_box :subscribed, class: 'form-control' %>
+    <%#= f.label :subscribed, "Subscribe" %>
+  </div>
+  <div class="field">
+    <%= check_box_tag "Monday", "yes" %>
+    <%= 'label' %><br>
+  </div>
+<%= form_tag home_path, :method => :get do %>
+  <li>
+    <%= check_box_tag "1", 1 %>
+    <%= 'name1' %>
+  </li>
+  <li>
+    <%= check_box_tag "1", 1 %>
+    <%= 'name2' %>
+  </li>
+  <li>
+    <%= check_box_tag "1", 1 %>
+    <%= 'name3' %>
+  </li>
+  <li>
+    <%= check_box_tag "1", 1 %>
+    <%= 'name4' %>
+  </li>
+  <%= submit_tag "sub" %>
+<% end %> -->
        </ul>
+<!-- <% form_tag home_path do %>
+<ul>
+  <li>
+    <%= check_box_tag "1", 1 %>
+    <%= 'name' %>
+  </li>
+</ul>
+<% end %> -->
 
        <p id="hidden" style="display:none;"></p>
    </nav>
@@ -111,6 +227,7 @@
 
 <script>
 var tabsChosen = 0;
+var inputToSave = [];
 //var firstStart = true;
 $(function () {
 
@@ -178,7 +295,19 @@ var autocompare = false;
 var nested_settings = <%= raw @dbelems.nested_slider_settings.to_json %>;
 var function_names = <%= raw @dbelems.function_names.to_json %>;
 
+//set mu's
+<% if @choice == 'exp2' %>
+  window['mu'] = window['mu2'];
+<% elsif @choice == 'exp3' %>
+  window['mu'] = window['mu3'];
+<% elsif @choice == 'exp4' %>
+  window['mu'] = window['mu4'];
+<% else %>
+  window['mu'] = window['mu1'];
+<% end %>
+
  $(document).on('ready', function() {
+
   var dbelems = <%= raw @dbelems.settings_widgets.to_json %>;
   var subdbelems = <%= raw @dbelems.sub_slider_settings.to_json %>;
 
@@ -187,11 +316,19 @@ var function_names = <%= raw @dbelems.function_names.to_json %>;
       var sliderIndex = dbelems[index]['id'];
       var subsettings = subdbelems[sliderIndex];
 
+      <% if @input == nil %>
+        var valueShown = parseFloat(dbelems[index]['default_value']);
+        inputToSave.push(valueShown);
+      <% else %>
+        inputToSave = <%= raw @input %>;
+        var valueShown = inputToSave[index];
+      <% end %>
+
       $('#'+ sliderId).slider({
             min: parseFloat(dbelems[index]['min']),
             max: parseFloat(dbelems[index]['max']),
             step: parseFloat(dbelems[index]['step']),
-            values: [parseFloat(dbelems[index]['default_value'])]
+            values: [valueShown]
           })
           .slider("pips", {
                 first: "label",
@@ -215,8 +352,15 @@ var function_names = <%= raw @dbelems.function_names.to_json %>;
   });
 
   $('.fixOutput').change( function() {
-        outputFixed = !outputFixed;
-        fixed_chart_options = old_chart_options;
+    outputFixed = !outputFixed;
+    fixed_chart_options = old_chart_options;
+  });
+
+  $('.button_choice').on("click", function(event) {
+    var chosenInterface = $(this).attr('data').toString();
+    var g_path = '<%= @current_path %>';
+
+    document.location.href = g_path + '?choice=' + chosenInterface + '&input_array=' + inputToSave;
   });
 
   $('.button_close').click(function (event) {
@@ -305,7 +449,8 @@ var function_names = <%= raw @dbelems.function_names.to_json %>;
         var dbelems = <%= raw @dbelems.params_with_default_values.to_json %>;
         var index = parseInt($(this).attr('data'));
 
-       window[dbelems[index]['param_name']] = parseFloat(ui.value);
+        window[dbelems[index]['param_name']] = parseFloat(ui.value);
+        inputToSave[index] = parseFloat(ui.value);
 
         chartOptions.title = '<%= @dbelems.interface['old_values'] %>';
         hiddenElem.value = chartOptions;
@@ -354,6 +499,19 @@ var function_names = <%= raw @dbelems.function_names.to_json %>;
  window.updateChart = function(series) {
   <% puts "update function called" %>
   <% puts "res: " + @dbelems.output_values[0][:order_number].to_s %>
+
+  <% if @input != nil %>
+    inputToSave = <%= raw @input %>;
+    window.alert("def values 1 ");
+    var defaultvalues = <%= raw @dbelems.params_with_default_values.to_json %>;
+      for(i = 0; i < inputToSave.length; i++) {
+        window.alert("def values: " + inputToSave[i]);
+        window[defaultvalues[i]['param_name']] = parseFloat(inputToSave[i]);
+        old_dbelems[i]['default_value'] = parseFloat(inputToSave[i]);
+        old_nested_dbelems[i]['default_value'] = parseFloat(inputToSave[i]);
+      }
+  <% end %>
+
   tabsChosen = parseInt('<%=  @dbelems.output_values[0]['order_number'].to_s %>');
   chartType = "<%= @dbelems.output_values[0]['chart_type'].to_s %>";
   var title = "<%= @dbelems.output_values[0]['title'].to_s %>";
@@ -475,6 +633,16 @@ updateChart(series);
 
       .wrapper {
         background-color: transparent;
+      }
+
+      li > form > input{
+        background: #5bc0de;
+        width: 10vw;
+      }
+
+      .button_choice {
+        background: #5bc0de;
+        width: 10vw;
       }
     </style>
   <% end %>
