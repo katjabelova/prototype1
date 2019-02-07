@@ -281,6 +281,7 @@ var defaultChartColor = 'rgba(66, 139, 202, 1.0)';
 
   $('.button_choice').on("click", function(event) {
     var chosenInterface = $(this).attr('data').toString();
+    $('.button_choice').prop('disabled', true);
     var g_path = '<%= @current_path %>';
 
     document.location.href = g_path + '?choice=' + chosenInterface + '&input_array=' + inputToSave;
